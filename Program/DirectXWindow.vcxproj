@@ -10,6 +10,58 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Application\Test\Test.cpp" />
+    <ClCompile Include="src\Framework\DebugProc\DebugProc.cpp" />
+    <ClCompile Include="src\Framework\GameManager\GameManager.cpp" />
+    <ClCompile Include="src\Framework\GameWindow\GameDirectX.cpp" />
+    <ClCompile Include="src\Framework\GameWindow\GameWindow.cpp" />
+    <ClCompile Include="src\Framework\Input\Input.cpp" />
+    <ClCompile Include="src\Framework\Input\InputDirect.cpp" />
+    <ClCompile Include="src\Framework\Input\InputKeyboard.cpp" />
+    <ClCompile Include="src\Framework\Input\InputManager.cpp" />
+    <ClCompile Include="src\Framework\Input\InputMouse.cpp" />
+    <ClCompile Include="src\Framework\Input\InputXInput.cpp" />
+    <ClCompile Include="src\Framework\Object\object.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Application\Test\Test.h" />
+    <ClInclude Include="src\common.h" />
+    <ClInclude Include="src\Framework\DebugProc\DebugProc.h" />
+    <ClInclude Include="src\Framework\GameManager\GameManager.h" />
+    <ClInclude Include="src\Framework\GameWindow\GameBase.h" />
+    <ClInclude Include="src\Framework\GameWindow\GameDirectX.h" />
+    <ClInclude Include="src\Framework\GameWindow\GameWindow.h" />
+    <ClInclude Include="src\Framework\Input\Input.h" />
+    <ClInclude Include="src\Framework\Input\InputDevice.h" />
+    <ClInclude Include="src\Framework\Input\InputDirect.h" />
+    <ClInclude Include="src\Framework\Input\InputKeyboard.h" />
+    <ClInclude Include="src\Framework\Input\InputManager.h" />
+    <ClInclude Include="src\Framework\Input\InputMouse.h" />
+    <ClInclude Include="src\Framework\Input\InputXInput.h" />
+    <ClInclude Include="src\Framework\Object\debug_object.h" />
+    <ClInclude Include="src\Framework\Object\object.h" />
+    <ClInclude Include="src\Framework\Object\root.h" />
+    <ClInclude Include="src\liza\math\MathConst.h" />
+    <ClInclude Include="src\liza\math\MathUtility.hpp" />
+    <ClInclude Include="src\liza\math\Vector.hpp" />
+    <ClInclude Include="src\liza\SafeDelete.h" />
+    <ClInclude Include="src\liza\SafeRelease.h" />
+    <ClInclude Include="src\liza\utility\HandyLeakCheck.h" />
+    <ClInclude Include="src\stdafx.h" />
+    <ClInclude Include="src\window_config.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\liza\math\MathUtility.inl" />
+    <None Include="src\liza\math\Vector2.inl" />
+    <None Include="src\liza\math\Vector3.inl" />
+    <None Include="src\liza\math\Vector4.inl" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{BC7944F2-012B-4586-A4EF-9EAAA2F90922}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -48,12 +100,12 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <ForcedIncludeFiles>stdafx.h;common.h</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -63,13 +115,13 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <ForcedIncludeFiles>stdafx.h;common.h</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -78,35 +130,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="DebugProc\DebugProc.cpp" />
-    <ClCompile Include="GameManager\GameManager.cpp" />
-    <ClCompile Include="GameWindow\GameDirectX.cpp" />
-    <ClCompile Include="GameWindow\GameWindow.cpp" />
-    <ClCompile Include="Input\Input.cpp" />
-    <ClCompile Include="Input\InputDirect.cpp" />
-    <ClCompile Include="Input\InputKeyboard.cpp" />
-    <ClCompile Include="Input\InputManager.cpp" />
-    <ClCompile Include="Input\InputMouse.cpp" />
-    <ClCompile Include="Input\InputXInput.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Test\Test.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="DebugProc\DebugProc.h" />
-    <ClInclude Include="GameManager\GameManager.h" />
-    <ClInclude Include="GameWindow\GameBase.h" />
-    <ClInclude Include="GameWindow\GameDirectX.h" />
-    <ClInclude Include="GameWindow\GameWindow.h" />
-    <ClInclude Include="Input\Input.h" />
-    <ClInclude Include="Input\InputDevice.h" />
-    <ClInclude Include="Input\InputDirect.h" />
-    <ClInclude Include="Input\InputKeyboard.h" />
-    <ClInclude Include="Input\InputManager.h" />
-    <ClInclude Include="Input\InputMouse.h" />
-    <ClInclude Include="Input\InputXInput.h" />
-    <ClInclude Include="Test\Test.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -1,0 +1,57 @@
+//==============================================================================
+//
+// Test‰ïê [Test.cpp]
+// Created : Shimizu Shoji
+//
+//==============================================================================
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// include
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#include "Test.h"
+#include "Framework/Object/root.h"
+#include "Framework/Object/debug_object.h"
+
+Root* g_p_root = nullptr;
+
+//==============================================================================
+// class implementation
+//==============================================================================
+//------------------------------------------------
+// ctor
+//------------------------------------------------
+Test::Test() {
+  g_p_root = new Root();
+  g_p_root->AttachChild(new DebugObject("ID-1"));
+  g_p_root->AttachChild(new DebugObject("ID-3"));
+  g_p_root->AttachChild(new DebugObject("ID-5"));
+
+  DebugObject* p_debug_2 = new DebugObject("ID-2");
+  g_p_root->AttachChild(p_debug_2);
+  p_debug_2->AttachChild(new Root());
+  p_debug_2->AttachChild(new DebugObject("ID-4"));
+  Root* p_root2 = new Root();
+  p_debug_2->AttachChild(p_root2);
+}
+
+
+//------------------------------------------------
+// dtor
+//------------------------------------------------
+Test::~Test() {
+  delete g_p_root;
+}
+
+
+//------------------------------------------------
+// Update
+//------------------------------------------------
+void Test::Update( void ) {
+  g_p_root->UpdateAll(0.016f);
+}
+
+
+//------------------------------------------------
+// Draw
+//------------------------------------------------
+void Test::Draw( void ) {
+}

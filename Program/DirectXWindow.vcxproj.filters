@@ -1,97 +1,163 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="GameWindow\GameWindow.cpp">
-      <Filter>GameWindow</Filter>
-    </ClCompile>
-    <ClCompile Include="GameWindow\GameDirectX.cpp">
-      <Filter>GameWindow</Filter>
-    </ClCompile>
-    <ClCompile Include="GameManager\GameManager.cpp">
-      <Filter>GameManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Input\Input.cpp">
-      <Filter>Input</Filter>
-    </ClCompile>
-    <ClCompile Include="Input\InputDirect.cpp">
-      <Filter>Input</Filter>
-    </ClCompile>
-    <ClCompile Include="Input\InputKeyboard.cpp">
-      <Filter>Input</Filter>
-    </ClCompile>
-    <ClCompile Include="Input\InputManager.cpp">
-      <Filter>Input</Filter>
-    </ClCompile>
-    <ClCompile Include="Input\InputMouse.cpp">
-      <Filter>Input</Filter>
-    </ClCompile>
-    <ClCompile Include="Input\InputXInput.cpp">
-      <Filter>Input</Filter>
-    </ClCompile>
-    <ClCompile Include="DebugProc\DebugProc.cpp">
-      <Filter>DebugProc</Filter>
-    </ClCompile>
-    <ClCompile Include="Test\Test.cpp">
-      <Filter>Test</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="GameWindow">
-      <UniqueIdentifier>{fdfd2896-e7f7-4340-8549-218b8275bbef}</UniqueIdentifier>
+    <Filter Include="Framework">
+      <UniqueIdentifier>{3e6158d2-b4ab-4e36-a827-3c605dd3e0d6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameManager">
-      <UniqueIdentifier>{df88ed65-7098-49d8-9746-316e05fca85f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DebugProc">
-      <UniqueIdentifier>{cd42ee78-c98b-4a27-95a7-93e6a4cbb366}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Test">
-      <UniqueIdentifier>{b20714ee-e576-440b-a124-65a1d1c61b00}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Input">
+    <Filter Include="Framework\Input">
       <UniqueIdentifier>{11f03253-3a5d-41f6-b87e-b79c234267e8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\GameWindow">
+      <UniqueIdentifier>{fdfd2896-e7f7-4340-8549-218b8275bbef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\DebugProc">
+      <UniqueIdentifier>{cd42ee78-c98b-4a27-95a7-93e6a4cbb366}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\GameManager">
+      <UniqueIdentifier>{df88ed65-7098-49d8-9746-316e05fca85f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application">
+      <UniqueIdentifier>{d5528e54-1c3b-48bc-8ad6-1f1bb7f0ba7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Test">
+      <UniqueIdentifier>{b20714ee-e576-440b-a124-65a1d1c61b00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="liza">
+      <UniqueIdentifier>{f093c771-d130-40c5-a750-115a7db3e0c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="liza\utility">
+      <UniqueIdentifier>{fcf5cb48-6b16-4960-b709-a7e0e08e8fe6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="liza\math">
+      <UniqueIdentifier>{026fc886-1555-48c5-81f2-905eda712016}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Object">
+      <UniqueIdentifier>{b40b2c65-4c62-4852-a917-1fd5db73835f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameWindow\GameWindow.h">
-      <Filter>GameWindow</Filter>
+    <ClCompile Include="src\Framework\DebugProc\DebugProc.cpp">
+      <Filter>Framework\DebugProc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\GameManager\GameManager.cpp">
+      <Filter>Framework\GameManager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\GameWindow\GameDirectX.cpp">
+      <Filter>Framework\GameWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\GameWindow\GameWindow.cpp">
+      <Filter>Framework\GameWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\Input\Input.cpp">
+      <Filter>Framework\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\Input\InputDirect.cpp">
+      <Filter>Framework\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\Input\InputKeyboard.cpp">
+      <Filter>Framework\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\Input\InputManager.cpp">
+      <Filter>Framework\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\Input\InputMouse.cpp">
+      <Filter>Framework\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\Input\InputXInput.cpp">
+      <Filter>Framework\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Application\Test\Test.cpp">
+      <Filter>Application\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\stdafx.cpp" />
+    <ClCompile Include="src\Framework\Object\object.cpp">
+      <Filter>Framework\Object</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Framework\DebugProc\DebugProc.h">
+      <Filter>Framework\DebugProc</Filter>
     </ClInclude>
-    <ClInclude Include="GameWindow\GameBase.h">
-      <Filter>GameWindow</Filter>
+    <ClInclude Include="src\Framework\GameManager\GameManager.h">
+      <Filter>Framework\GameManager</Filter>
     </ClInclude>
-    <ClInclude Include="GameWindow\GameDirectX.h">
-      <Filter>GameWindow</Filter>
+    <ClInclude Include="src\Framework\GameWindow\GameBase.h">
+      <Filter>Framework\GameWindow</Filter>
     </ClInclude>
-    <ClInclude Include="GameManager\GameManager.h">
-      <Filter>GameManager</Filter>
+    <ClInclude Include="src\Framework\GameWindow\GameDirectX.h">
+      <Filter>Framework\GameWindow</Filter>
     </ClInclude>
-    <ClInclude Include="Input\Input.h">
-      <Filter>Input</Filter>
+    <ClInclude Include="src\Framework\GameWindow\GameWindow.h">
+      <Filter>Framework\GameWindow</Filter>
     </ClInclude>
-    <ClInclude Include="Input\InputDevice.h">
-      <Filter>Input</Filter>
+    <ClInclude Include="src\Framework\Input\Input.h">
+      <Filter>Framework\Input</Filter>
     </ClInclude>
-    <ClInclude Include="Input\InputDirect.h">
-      <Filter>Input</Filter>
+    <ClInclude Include="src\Framework\Input\InputDevice.h">
+      <Filter>Framework\Input</Filter>
     </ClInclude>
-    <ClInclude Include="Input\InputKeyboard.h">
-      <Filter>Input</Filter>
+    <ClInclude Include="src\Framework\Input\InputDirect.h">
+      <Filter>Framework\Input</Filter>
     </ClInclude>
-    <ClInclude Include="Input\InputManager.h">
-      <Filter>Input</Filter>
+    <ClInclude Include="src\Framework\Input\InputKeyboard.h">
+      <Filter>Framework\Input</Filter>
     </ClInclude>
-    <ClInclude Include="Input\InputMouse.h">
-      <Filter>Input</Filter>
+    <ClInclude Include="src\Framework\Input\InputManager.h">
+      <Filter>Framework\Input</Filter>
     </ClInclude>
-    <ClInclude Include="Input\InputXInput.h">
-      <Filter>Input</Filter>
+    <ClInclude Include="src\Framework\Input\InputMouse.h">
+      <Filter>Framework\Input</Filter>
     </ClInclude>
-    <ClInclude Include="DebugProc\DebugProc.h">
-      <Filter>DebugProc</Filter>
+    <ClInclude Include="src\Framework\Input\InputXInput.h">
+      <Filter>Framework\Input</Filter>
     </ClInclude>
-    <ClInclude Include="Test\Test.h">
-      <Filter>Test</Filter>
+    <ClInclude Include="src\Application\Test\Test.h">
+      <Filter>Application\Test</Filter>
     </ClInclude>
+    <ClInclude Include="src\liza\SafeDelete.h">
+      <Filter>liza</Filter>
+    </ClInclude>
+    <ClInclude Include="src\liza\SafeRelease.h">
+      <Filter>liza</Filter>
+    </ClInclude>
+    <ClInclude Include="src\liza\utility\HandyLeakCheck.h">
+      <Filter>liza\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\liza\math\MathUtility.hpp">
+      <Filter>liza\math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\liza\math\Vector.hpp">
+      <Filter>liza\math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\liza\math\MathConst.h">
+      <Filter>liza\math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\window_config.h" />
+    <ClInclude Include="src\common.h" />
+    <ClInclude Include="src\stdafx.h" />
+    <ClInclude Include="src\Framework\Object\object.h">
+      <Filter>Framework\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Object\root.h">
+      <Filter>Framework\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Object\debug_object.h">
+      <Filter>Framework\Object</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\liza\math\Vector2.inl">
+      <Filter>liza\math</Filter>
+    </None>
+    <None Include="src\liza\math\Vector3.inl">
+      <Filter>liza\math</Filter>
+    </None>
+    <None Include="src\liza\math\Vector4.inl">
+      <Filter>liza\math</Filter>
+    </None>
+    <None Include="src\liza\math\MathUtility.inl">
+      <Filter>liza\math</Filter>
+    </None>
   </ItemGroup>
 </Project>
