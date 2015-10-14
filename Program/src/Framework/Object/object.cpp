@@ -28,7 +28,7 @@ Object::Object()
 //------------------------------------------------
 Object::~Object() {
   for (auto p_child: list_) {
-    delete p_child;
+    Destroy(p_child);
   }
 }
 
@@ -59,6 +59,23 @@ void Object::DetachChild(Object* const p_child) {
 }
 
 //------------------------------------------------
+// Uninitalize-All
+//------------------------------------------------
+bool Object::UninitializeAll(void) {
+  if (!_Uninitialize()) {
+    return false;
+  }
+
+  for (auto p_child : list_) {
+    if (!p_child->UninitializeAll()) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+//------------------------------------------------
 // Update-All
 //------------------------------------------------
 void Object::UpdateAll(const float elapsed_time) {
@@ -71,8 +88,8 @@ void Object::UpdateAll(const float elapsed_time) {
   if (!is_child_updated_) {
     return;
   }
-  for (auto p_chlid : list_) {
-    p_chlid->UpdateAll(elapsed_time);
+  for (auto p_child : list_) {
+    p_child->UpdateAll(elapsed_time);
   }
 }
 
@@ -89,7 +106,7 @@ void Object::DrawAll(void) {
   if (!is_child_drawed_) {
     return;
   }
-  for (auto p_chlid : list_) {
-    p_chlid->DrawAll();
+  for (auto p_child : list_) {
+    p_child->DrawAll();
   }
 }

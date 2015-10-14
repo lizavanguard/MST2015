@@ -48,11 +48,15 @@ public:
   // Required: bool Uninitialize(void);
   template<typename T>
   static bool Destroy(T* p) {
-    if (!p->Uninitialize()) {
+    if (!p->_Uninitialize()) {
       MY_BREAK_ASSERTMSG(false, "èIóπèàóùé∏îsÇæÇÊ");
       return false;
     }
-    SafeDelete(p);
+
+    if (p) {
+      delete p;
+      p = nullptr;
+    }
     return true;
   }
 
@@ -62,6 +66,12 @@ public:
   // Detach child on list
   void DetachChild(Object* p_child);
 
+  // Initialize-All in list
+  //void InitializeAll(void);
+
+  // Uninitialize-All in list
+  bool UninitializeAll(void);
+
   // Update-All in list
   void UpdateAll(float elapsed_time);
 
@@ -69,6 +79,9 @@ public:
   void DrawAll(void);
 
 private:
+  // Uninitialize
+  virtual bool _Uninitialize(void) = 0;
+
   // Update
   virtual void _Update(float elapsed_time) = 0;
 

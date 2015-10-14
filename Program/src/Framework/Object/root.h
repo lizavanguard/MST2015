@@ -27,7 +27,7 @@ public:
   }
 
   // Uninitialize
-  bool Uninitialize(void) {
+  virtual bool _Uninitialize(void) final {
     return true;
   }
 
