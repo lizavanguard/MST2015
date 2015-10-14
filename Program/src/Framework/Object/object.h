@@ -15,21 +15,52 @@ private:
   typedef ContainerType::iterator Iterator;
   typedef ContainerType::const_iterator ConstIterator;
 
-public:
+protected:
   // ctor
   Object();
 
   // dtor
   virtual ~Object();
 
-  // attach child on list
+public:
+
+  // Create Object
+  // Required: bool Initialize(anything);
+  template<typename T, typename ...Args>
+  static T* Create(Args... args) {
+    // TODO: Type Check
+
+    T* p = new T();
+    MY_BREAK_NULL_ASSERT(p);
+    if (!p) {
+      return nullptr;
+    }
+
+    if (!p->Initialize(args...)) {
+      MY_BREAK_ASSERTMSG(false, "‰Šú‰»¸”s‚¾‚æ");
+      return nullptr;
+    }
+
+    return p;
+  }
+
+  // Destroy
+  // Required: bool Uninitialize(void);
+  template<typename T>
+  static bool Destroy(T* p) {
+    if (!p->Uninitialize()) {
+      MY_BREAK_ASSERTMSG(false, "I—¹ˆ—¸”s‚¾‚æ");
+      return false;
+    }
+    SafeDelete(p);
+    return true;
+  }
+
+  // Attach child on list
   void AttachChild(Object* p_child);
 
-  // detach child on list
+  // Detach child on list
   void DetachChild(Object* p_child);
-
-  // Create
-  //void Create(
 
   // Update-All in list
   void UpdateAll(float elapsed_time);

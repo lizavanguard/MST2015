@@ -16,15 +16,27 @@
 class DebugObject : public Object {
 public:
   // ctor
-  DebugObject(const std::string& message)
+  DebugObject()
 #ifdef _DEBUG
-    : message_(message)
+    : message_("")
 #endif
   {
   }
 
   // dtor
   virtual ~DebugObject() {}
+
+  // Initialize
+  bool Initialize(const std::string& message) {
+    message_ = message;
+    return true;
+  }
+
+  // Uninitialize
+  bool Uninitialize(void) {
+    return true;
+  }
+
 
 private:
   // Update

@@ -21,6 +21,16 @@ public:
   // dtor
   virtual ~Root() {}
 
+  // Initialize
+  bool Initialize(void) {
+    return true;
+  }
+
+  // Uninitialize
+  bool Uninitialize(void) {
+    return true;
+  }
+
 private:
   // Update
   virtual void _Update(float) final {

@@ -20,16 +20,16 @@ Root* g_p_root = nullptr;
 // ctor
 //------------------------------------------------
 Test::Test() {
-  g_p_root = new Root();
-  g_p_root->AttachChild(new DebugObject("ID-1"));
-  g_p_root->AttachChild(new DebugObject("ID-3"));
-  g_p_root->AttachChild(new DebugObject("ID-5"));
+  g_p_root = Root::Create<Root>();
+  g_p_root->AttachChild(DebugObject::Create<DebugObject>("ID-1"));
+  g_p_root->AttachChild(DebugObject::Create<DebugObject>("ID-3"));
+  g_p_root->AttachChild(DebugObject::Create<DebugObject>("ID-5"));
 
-  DebugObject* p_debug_2 = new DebugObject("ID-2");
+  DebugObject* p_debug_2 = DebugObject::Create<DebugObject>("ID-2");
   g_p_root->AttachChild(p_debug_2);
-  p_debug_2->AttachChild(new Root());
-  p_debug_2->AttachChild(new DebugObject("ID-4"));
-  Root* p_root2 = new Root();
+  p_debug_2->AttachChild(Root::Create<Root>());
+  p_debug_2->AttachChild(DebugObject::Create<DebugObject>("ID-4"));
+  Root* p_root2 = Root::Create<Root>();
   p_debug_2->AttachChild(p_root2);
 }
 
@@ -38,7 +38,7 @@ Test::Test() {
 // dtor
 //------------------------------------------------
 Test::~Test() {
-  delete g_p_root;
+  Root::Destroy(g_p_root);
 }
 
 
