@@ -31,7 +31,6 @@ Test::Test() {
   p_debug_2->AttachChild(DebugObject::Create("ID-4"));
   Root* p_root2 = Root::Create();
   p_debug_2->AttachChild(p_root2);
-
 }
 
 

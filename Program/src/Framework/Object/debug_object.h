@@ -8,12 +8,12 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-#include "object_base.h"
+#include "object.h"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-class DebugObject : public ObjectBase<DebugObject> {
+class DebugObject : public Object<DebugObject> {
 public:
   // ctor
   DebugObject(const char* message)
