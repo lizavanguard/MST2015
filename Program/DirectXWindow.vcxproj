@@ -23,6 +23,7 @@
     <ClCompile Include="src\Framework\Input\InputMouse.cpp" />
     <ClCompile Include="src\Framework\Input\InputXInput.cpp" />
     <ClCompile Include="src\Framework\Object\object.cpp" />
+    <ClCompile Include="src\Framework\Object\object_base.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -46,12 +47,15 @@
     <ClInclude Include="src\Framework\Input\InputXInput.h" />
     <ClInclude Include="src\Framework\Object\debug_object.h" />
     <ClInclude Include="src\Framework\Object\object.h" />
+    <ClInclude Include="src\Framework\Object\object_base.h" />
     <ClInclude Include="src\Framework\Object\root.h" />
+    <ClInclude Include="src\liza\generic\noncopyable.h" />
     <ClInclude Include="src\liza\math\MathConst.h" />
     <ClInclude Include="src\liza\math\MathUtility.hpp" />
     <ClInclude Include="src\liza\math\Vector.hpp" />
     <ClInclude Include="src\liza\SafeDelete.h" />
     <ClInclude Include="src\liza\SafeRelease.h" />
+    <ClInclude Include="src\liza\utility\Assert.h" />
     <ClInclude Include="src\liza\utility\HandyLeakCheck.h" />
     <ClInclude Include="src\stdafx.h" />
     <ClInclude Include="src\window_config.h" />
@@ -61,6 +65,7 @@
     <None Include="src\liza\math\Vector2.inl" />
     <None Include="src\liza\math\Vector3.inl" />
     <None Include="src\liza\math\Vector4.inl" />
+    <None Include="src\liza\utility\Assert.inl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{BC7944F2-012B-4586-A4EF-9EAAA2F90922}</ProjectGuid>

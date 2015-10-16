@@ -11,6 +11,7 @@
 //------------------------------------------------
 // liza
 //------------------------------------------------
+#include "liza/generic/noncopyable.h"
 #include "liza/math/MathConst.h"
 #include "liza/math/MathUtility.hpp"
 #include "liza/SafeDelete.h"

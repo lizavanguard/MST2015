@@ -7,8 +7,7 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-#include "Object.h"
-#include <assert.h>
+#include "object.h"
 
 //==============================================================================
 // class implementation
@@ -56,23 +55,6 @@ void Object::DetachChild(Object* const p_child) {
       return;
     }
   }
-}
-
-//------------------------------------------------
-// Uninitalize-All
-//------------------------------------------------
-bool Object::UninitializeAll(void) {
-  if (!_Uninitialize()) {
-    return false;
-  }
-
-  for (auto p_child : list_) {
-    if (!p_child->UninitializeAll()) {
-      return false;
-    }
-  }
-
-  return true;
 }
 
 //------------------------------------------------

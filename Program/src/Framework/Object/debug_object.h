@@ -8,35 +8,23 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-#include "object.h"
+#include "object_base.h"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-class DebugObject : public Object {
+class DebugObject : public ObjectBase<DebugObject> {
 public:
   // ctor
-  DebugObject()
+  DebugObject(const char* message)
 #ifdef _DEBUG
-    : message_("")
+    : message_(message)
 #endif
   {
   }
 
   // dtor
   virtual ~DebugObject() {}
-
-  // Initialize
-  bool Initialize(const std::string& message) {
-    message_ = message;
-    return true;
-  }
-
-  // Uninitialize
-  virtual bool _Uninitialize(void) final {
-    return true;
-  }
-
 
 private:
   // Update

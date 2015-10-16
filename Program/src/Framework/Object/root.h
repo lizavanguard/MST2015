@@ -8,28 +8,18 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-#include "object.h"
+#include "object_base.h"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-class Root : public Object {
+class Root : public ObjectBase<Root> {
 public:
   // ctor
   Root() {}
 
   // dtor
   virtual ~Root() {}
-
-  // Initialize
-  bool Initialize(void) {
-    return true;
-  }
-
-  // Uninitialize
-  virtual bool _Uninitialize(void) final {
-    return true;
-  }
 
 private:
   // Update

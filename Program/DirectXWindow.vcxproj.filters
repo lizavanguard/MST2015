@@ -34,6 +34,9 @@
     <Filter Include="Framework\Object">
       <UniqueIdentifier>{b40b2c65-4c62-4852-a917-1fd5db73835f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="liza\generic">
+      <UniqueIdentifier>{4d497bf8-e597-4729-bdcf-7c85bb54a9fc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Framework\DebugProc\DebugProc.cpp">
@@ -72,6 +75,9 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\stdafx.cpp" />
     <ClCompile Include="src\Framework\Object\object.cpp">
+      <Filter>Framework\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\Object\object_base.cpp">
       <Filter>Framework\Object</Filter>
     </ClCompile>
   </ItemGroup>
@@ -145,6 +151,15 @@
     <ClInclude Include="src\Framework\Object\debug_object.h">
       <Filter>Framework\Object</Filter>
     </ClInclude>
+    <ClInclude Include="src\Framework\Object\object_base.h">
+      <Filter>Framework\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="src\liza\generic\noncopyable.h">
+      <Filter>liza\generic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\liza\utility\Assert.h">
+      <Filter>liza\utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\liza\math\Vector2.inl">
@@ -158,6 +173,9 @@
     </None>
     <None Include="src\liza\math\MathUtility.inl">
       <Filter>liza\math</Filter>
+    </None>
+    <None Include="src\liza\utility\Assert.inl">
+      <Filter>liza\utility</Filter>
     </None>
   </ItemGroup>
 </Project>
