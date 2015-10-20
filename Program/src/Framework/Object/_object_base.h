@@ -43,6 +43,13 @@ public:
   // Draw All in list
   void DrawAll(void);
 
+protected:
+  // property
+  bool is_all_updated_;
+  bool is_all_drawed_;
+  bool is_child_updated_;
+  bool is_child_drawed_;
+
 private:
   // Update
   virtual void _Update(float elapsed_time) = 0;
@@ -52,8 +59,4 @@ private:
 
   // property
   ContainerType list_;
-  bool is_all_updated_;
-  bool is_all_drawed_;
-  bool is_child_updated_;
-  bool is_child_drawed_;
 };

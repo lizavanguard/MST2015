@@ -46,6 +46,7 @@
     <ClInclude Include="src\Framework\Input\InputXInput.h" />
     <ClInclude Include="src\Framework\Object\debug_object.h" />
     <ClInclude Include="src\Framework\Object\object.h" />
+    <ClInclude Include="src\Framework\Object\object3_base.h" />
     <ClInclude Include="src\Framework\Object\root.h" />
     <ClInclude Include="src\Framework\Object\_object_base.h" />
     <ClInclude Include="src\liza\generic\noncopyable.h" />

@@ -3,6 +3,10 @@
 // Object
 // Author: Shimizu Shoji
 //
+// private: virtual void _Update(float elapsed_time);
+//          virtual void _Draw(void);
+// をオーバーライドしてください
+//
 //==============================================================================
 #pragma once
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
@@ -29,5 +33,4 @@ public:
 
     return p;
   }
-
 };

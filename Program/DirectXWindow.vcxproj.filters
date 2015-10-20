@@ -157,6 +157,9 @@
     <ClInclude Include="src\Framework\Object\_object_base.h">
       <Filter>Framework\Object</Filter>
     </ClInclude>
+    <ClInclude Include="src\Framework\Object\object3_base.h">
+      <Filter>Framework\Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\liza\math\Vector2.inl">
