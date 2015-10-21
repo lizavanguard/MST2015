@@ -1,23 +1,43 @@
 //==============================================================================
 //
-// _ShaderManager
+// ObjectFinder
 // Author: Shimizu Shoji
 //
 //==============================================================================
+#pragma once
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-#include "shader_manager.h"
+#include <map>
 
-#include "Framework/Utility/DeviceHolder.h"
+//--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
+// class definition
+//--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
+template<typename T>
+class ObjectFinder {
+private:
+  using KeyType = std::string;
+  using DataType = T;
+  using ContainerType = std::map<KeyType, DataType>;
+  using LoadFunctionType = void (*)(T* p_data);
 
-//==============================================================================
-// class implementation
-//==============================================================================
-//------------------------------------------------
-// ctor
-//------------------------------------------------
-_ShaderManager::_ShaderManager() {
+public:
+  // ctor
+  ObjectFinder(const char* p_start_directory_path, LoadFunctionType function);
+
+  // dtor
+  ~ObjectFinder();
+
+  // find data
+  T Find(const KeyType& key);
+
+private
+  // property
+  ContainerType container_;
+};
+
+template<typename T>
+ObjectFinder<T>::ObjectFinder(const char* p_start_directory_path, LoadFunctionType function) {
   std::string sFilePass = "./hlsl/";
   sFilePass += "/*.*";
 
@@ -71,31 +91,4 @@ _ShaderManager::_ShaderManager() {
 
   // 検索終了
   FindClose(hFind);
-}
-
-//------------------------------------------------
-// dtor
-//------------------------------------------------
-_ShaderManager::~_ShaderManager() {
-  //ループでリスト全て回る
-  for (auto it = container_.begin(); it != container_.end();)
-  {
-    //以下はタグに該当するテクスチャのみを処理している
-    //ロード中テクスチャ情報のみを解放する
-    SafeRelease(it->second);
-    it = container_.erase(it);
-  }
-}
-
-//------------------------------------------------
-// get
-//------------------------------------------------
-LPD3DXEFFECT _ShaderManager::FindShader(const KeyType& shader_name) {
-  auto it = container_.find(shader_name);
-  MY_BREAK_ASSERTMSG(it != container_.end(), "シェーダがありませんでした");
-  if (it == container_.end())
-    return nullptr;
-
-  //テクスチャを返却 NULLの場合そのまま返却
-  return it->second;
 }

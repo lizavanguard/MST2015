@@ -245,6 +245,9 @@
     <ClInclude Include="src\Framework\Shader\shader_manager.h">
       <Filter>src\Framework\Shader</Filter>
     </ClInclude>
+    <ClInclude Include="src\Framework\Utility\ObjectFinder.hpp">
+      <Filter>src\Framework\Utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\liza\math\Vector2.inl">
