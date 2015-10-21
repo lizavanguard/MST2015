@@ -245,7 +245,7 @@
     <ClInclude Include="src\Framework\Shader\shader_manager.h">
       <Filter>src\Framework\Shader</Filter>
     </ClInclude>
-    <ClInclude Include="src\Framework\Utility\ObjectFinder.hpp">
+    <ClInclude Include="src\Framework\Utility\DataFinder.hpp">
       <Filter>src\Framework\Utility</Filter>
     </ClInclude>
   </ItemGroup>
@@ -270,6 +270,9 @@
     </None>
     <None Include="src\liza\game\directx\utility.inl">
       <Filter>src\liza\game</Filter>
+    </None>
+    <None Include="src\Framework\Utility\DataFinder.inl">
+      <Filter>src\Framework\Utility</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

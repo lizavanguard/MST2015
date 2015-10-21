@@ -17,85 +17,22 @@
 //------------------------------------------------
 // ctor
 //------------------------------------------------
-_ShaderManager::_ShaderManager() {
-  std::string sFilePass = "./hlsl/";
-  sFilePass += "/*.*";
-
-  HANDLE hFind;
-  WIN32_FIND_DATA fd;
-
-  MY_BREAK_ASSERTMSG(INVALID_HANDLE_VALUE != (hFind = FindFirstFile(sFilePass.c_str(), &fd)), "ディレクトリが開きませんでした");
-  if (INVALID_HANDLE_VALUE == hFind) {
-    return;
-  }
-
-  // 変なファイル削除用
-  FindNextFile(hFind, &fd);
-
-  // ディレクトリを全て回す
-  while (FindNextFile(hFind, &fd)) {
-    LPD3DXEFFECT p_shader = nullptr;
-    sFilePass = "./hlsl/";
-    sFilePass += '/';
-    sFilePass += fd.cFileName;
-    // Thumbs.dbを飛ばす
-    if (std::string(fd.cFileName) == "Thumbs.db") {
-      continue;
-    }
-
-    liza::game::directx::LoadShader(DeviceHolder::Instance().GetDevice(), sFilePass.c_str(), &p_shader);
-
-    //アサートチェック
-    MY_BREAK_NULL_ASSERT(p_shader);
-
-    //リリース時はなかった時点で失敗を返す
-    if (!p_shader) {
-      return;
-    }
-
-    // 拡張子を消す
-    std::string texname = fd.cFileName;
-    for (int i = texname.size(); i>0; --i)
-    {
-      if (texname[i - 1] == '.')
-      {
-        texname.pop_back();
-        break;
-      }
-      texname.pop_back();
-    }
-
-    // 登録
-    container_.insert(std::make_pair(texname, p_shader));
-  }
-
-  // 検索終了
-  FindClose(hFind);
+_ShaderManager::_ShaderManager() : p_finder_(nullptr) {
+  static const char* kStartPath = "./hlsl/";
+  p_finder_ = new DataFinderType(kStartPath, [](const char* p_filename, LPD3DXEFFECT* pp_effect) {
+    liza::game::directx::LoadShader(DeviceHolder::Instance().GetDevice(), p_filename, pp_effect); });
 }
 
 //------------------------------------------------
 // dtor
 //------------------------------------------------
 _ShaderManager::~_ShaderManager() {
-  //ループでリスト全て回る
-  for (auto it = container_.begin(); it != container_.end();)
-  {
-    //以下はタグに該当するテクスチャのみを処理している
-    //ロード中テクスチャ情報のみを解放する
-    SafeRelease(it->second);
-    it = container_.erase(it);
-  }
+  SafeDelete(p_finder_);
 }
 
 //------------------------------------------------
 // get
 //------------------------------------------------
-LPD3DXEFFECT _ShaderManager::FindShader(const KeyType& shader_name) {
-  auto it = container_.find(shader_name);
-  MY_BREAK_ASSERTMSG(it != container_.end(), "シェーダがありませんでした");
-  if (it == container_.end())
-    return nullptr;
-
-  //テクスチャを返却 NULLの場合そのまま返却
-  return it->second;
+LPD3DXEFFECT _ShaderManager::FindShader(const DataFinderType::KeyType& shader_name) {
+  return p_finder_->Find(shader_name);
 }

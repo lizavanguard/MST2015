@@ -28,11 +28,12 @@
 *.app
 
 # Solution
-Debug/
-Release/
-ipch/
 *.suo
 *.sdf
 *.opensdf
 *.pdb
 *.user
+
+Debug/
+Release/
+ipch/

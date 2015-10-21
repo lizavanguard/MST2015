@@ -60,8 +60,8 @@
     <ClInclude Include="src\Framework\Object\object_model.h" />
     <ClInclude Include="src\Framework\Object\root.h" />
     <ClInclude Include="src\Framework\Shader\shader_manager.h" />
+    <ClInclude Include="src\Framework\Utility\DataFinder.hpp" />
     <ClInclude Include="src\Framework\Utility\DeviceHolder.h" />
-    <ClInclude Include="src\Framework\Utility\ObjectFinder.hpp" />
     <ClInclude Include="src\liza\game\directx\render_target_holder.h" />
     <ClInclude Include="src\liza\game\directx\utility.h" />
     <ClInclude Include="src\liza\generic\Creation.hpp" />
@@ -80,6 +80,7 @@
     <ClInclude Include="src\window_config.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="src\Framework\Utility\DataFinder.inl" />
     <None Include="src\liza\game\directx\render_target_holder.inl" />
     <None Include="src\liza\game\directx\utility.inl" />
     <None Include="src\liza\math\MathUtility.inl" />

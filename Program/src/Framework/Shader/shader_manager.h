@@ -10,14 +10,14 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 #include "liza/generic/SingletonHolder.hpp"
 
+#include "Framework/Utility/DataFinder.hpp"
+
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 class _ShaderManager {
 private:
-  using KeyType = std::string;
-  using DataType = LPD3DXEFFECT;
-  using ContainerType = std::map <KeyType, DataType>;
+  using DataFinderType = DataFinder<LPD3DXEFFECT>;
 
 public:
   // ctor
@@ -27,10 +27,10 @@ public:
   ~_ShaderManager();
 
   // get
-  LPD3DXEFFECT FindShader(const KeyType& shader_name);
+  LPD3DXEFFECT FindShader(const DataFinderType::KeyType& shader_name);
 
 private:
-  ContainerType container_;
+  DataFinderType* p_finder_;
 };
 
 using ShaderManager = liza::generic::SingletonHolder<_ShaderManager>;
