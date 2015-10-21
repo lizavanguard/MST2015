@@ -29,6 +29,7 @@
     <ClCompile Include="src\Framework\Object\object_base.cpp" />
     <ClCompile Include="src\Framework\Object\object_model.cpp" />
     <ClCompile Include="src\Framework\Shader\shader_manager.cpp" />
+    <ClCompile Include="src\Framework\Texture\texture_manager.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -60,6 +61,7 @@
     <ClInclude Include="src\Framework\Object\object_model.h" />
     <ClInclude Include="src\Framework\Object\root.h" />
     <ClInclude Include="src\Framework\Shader\shader_manager.h" />
+    <ClInclude Include="src\Framework\Texture\texture_manager.h" />
     <ClInclude Include="src\Framework\Utility\DataFinder.hpp" />
     <ClInclude Include="src\Framework\Utility\DeviceHolder.h" />
     <ClInclude Include="src\liza\game\directx\render_target_holder.h" />

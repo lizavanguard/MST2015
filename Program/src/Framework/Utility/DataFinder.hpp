@@ -29,7 +29,7 @@ public:
   ~DataFinder();
 
   // find data
-  T Find(const KeyType& key);
+  T Find(const KeyType& key) const;
 
 private:
   // property

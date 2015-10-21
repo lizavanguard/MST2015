@@ -35,10 +35,11 @@ Test::Test() {
   Root* p_root2 = Root::Create();
   p_debug_2->AttachChild(p_root2);
 
-  Object3D* p_test = Object3D::Create("data/Texture/texture001.jpg");
+  Object3D* p_test = Object3D::Create("General/texture001");
   ObjectModel* p_model = ObjectModel::Create("data/Model/car000.x");
   g_p_root->AttachChild(p_test);
   p_test->AttachChild(p_model);
+  p_test->AttachChild(Object3D::Create("Game/texture002"));
 }
 
 

@@ -58,6 +58,9 @@
     <Filter Include="src\Framework\Shader">
       <UniqueIdentifier>{5c0b81b3-028d-4f43-82d4-fcc0fd3c75ea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Framework\Texture">
+      <UniqueIdentifier>{887dac29-56b4-4ea3-baab-81728951f1af}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Framework\DebugProc\DebugProc.cpp">
@@ -119,6 +122,9 @@
     </ClCompile>
     <ClCompile Include="src\Framework\Shader\shader_manager.cpp">
       <Filter>src\Framework\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\Texture\texture_manager.cpp">
+      <Filter>src\Framework\Texture</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -247,6 +253,9 @@
     </ClInclude>
     <ClInclude Include="src\Framework\Utility\DataFinder.hpp">
       <Filter>src\Framework\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Texture\texture_manager.h">
+      <Filter>src\Framework\Texture</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

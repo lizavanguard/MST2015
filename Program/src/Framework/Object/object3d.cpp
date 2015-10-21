@@ -12,6 +12,7 @@
 #include "Framework/Utility/DeviceHolder.h"
 #include "Framework/Camera/camera_manager.h"
 #include "Framework/Shader/shader_manager.h"
+#include "Framework/Texture/texture_manager.h"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // const
@@ -44,15 +45,14 @@ Object3D::Object3D(const char* p_filename)
   auto p_device = DeviceHolder::Instance().GetDevice();
   p_device->CreateVertexDeclaration(elements, &p_declaration_);
 
-  D3DXCreateTextureFromFile(p_device, p_filename, &p_texture_);
-  MY_BREAK_NULL_ASSERT(p_texture_);
+  p_texture_ = TextureManager::Instance().Find(p_filename);
 }
 
 //------------------------------------------------
 // dtor
 //------------------------------------------------
 Object3D::~Object3D() {
-  SafeRelease(p_texture_);
+  //SafeRelease(p_texture_);
   SafeRelease(p_declaration_);
   //SafeRelease(p_shader_);
 }

@@ -82,7 +82,7 @@ DataFinder<T>::~DataFinder() {
 // find data
 //------------------------------------------------
 template<typename T>
-T DataFinder<T>::Find(const KeyType& key) {
+T DataFinder<T>::Find(const KeyType& key) const {
   auto it = container_.find(key);
   MY_BREAK_ASSERTMSG(it != container_.end(), "ƒf[ƒ^‚ª‚ ‚è‚Ü‚¹‚ñ‚Å‚µ‚½");
   if (it == container_.end()) {

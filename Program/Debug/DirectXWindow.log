@@ -1,12 +1,9 @@
-﻿2015/10/21 21:14:31 にビルドを開始しました。
+﻿2015/10/21 22:29:20 にビルドを開始しました。
      1>ノード 2 上のプロジェクト "D:\WorkSpace\MiraiSouzouten\Program\Program\DirectXWindow.vcxproj" (Build ターゲット)。
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ID:\WorkSpace\MiraiSouzouten\Program\Program\\src /ID:\WorkSpace\MiraiSouzouten\Program\Program\\src /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\DirectXWindow.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /FIstdafx.h /FIcommon.h /analyze- /errorReport:prompt src\Framework\GameManager\GameManager.cpp src\Framework\Object\object3d.cpp src\Framework\Shader\shader_manager.cpp
-         GameManager.cpp
-         コードを生成中...
-         コンパイル中...
-         shader_manager.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ID:\WorkSpace\MiraiSouzouten\Program\Program\\src /ID:\WorkSpace\MiraiSouzouten\Program\Program\\src /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\DirectXWindow.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /FIstdafx.h /FIcommon.h /analyze- /errorReport:prompt src\Application\Test\Test.cpp src\Framework\Object\object3d.cpp
          object3d.cpp
+         Test.cpp
          コードを生成中...
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\WorkSpace\MiraiSouzouten\Program\Program\Debug\DirectXWindow.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\WorkSpace\MiraiSouzouten\Program\Program\Debug\DirectXWindow.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\WorkSpace\MiraiSouzouten\Program\Program\Debug\DirectXWindow.lib" /MACHINE:X86 Debug\Test.obj
@@ -27,6 +24,7 @@
          Debug\object_base.obj
          Debug\object_model.obj
          Debug\shader_manager.obj
+         Debug\texture_manager.obj
          Debug\main.obj
          Debug\stdafx.obj
          DirectXWindow.vcxproj -> D:\WorkSpace\MiraiSouzouten\Program\Program\Debug\DirectXWindow.exe
@@ -34,4 +32,4 @@
 
 ビルドに成功しました。
 
-経過時間 00:00:00.69
+経過時間 00:00:00.71
