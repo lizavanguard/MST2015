@@ -8,12 +8,14 @@
 // include
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #include "GameManager.h"
-#include "../Input/InputManager.h"
-#include "../Input/InputKeyboard.h"
-#include "../DebugProc/DebugProc.h"
-#include "Application/Test/Test.h"
-#include "liza/SafeDelete.h"
 
+#include "Framework/DebugProc/DebugProc.h"
+#include "Framework/Input/InputManager.h"
+#include "Framework/Input/InputKeyboard.h"
+#include "Framework/Utility/DeviceHolder.h"
+
+// HACK:
+#include "Application/Test/Test.h"
 
 //==============================================================================
 // class implementation
@@ -31,13 +33,13 @@ GameManager& GameManager::Instance( HINSTANCE hInstance, HWND hWnd, LPDIRECT3DDE
 // ctor
 //------------------------------------------------
 GameManager::GameManager( HINSTANCE hInstance, HWND hWnd, LPDIRECT3DDEVICE9 pDevice )
-	: pDevice_( pDevice )
-	, pDebugProc_( nullptr )
+	: pDebugProc_( nullptr )
 	, pInputManager_( nullptr )
 	, pTest_( nullptr )
 {
 	pDebugProc_ = new DebugProc();
-	pDebugProc_->Init( pDevice_ );
+  pDebugProc_->Init(pDevice);
+  DeviceHolder::Instance().SetDevice(pDevice);
 	pInputManager_ = new InputManager( hInstance, hWnd );
 	pTest_ = new Test();
 }

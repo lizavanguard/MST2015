@@ -45,13 +45,11 @@ public:
 	void Draw( void );
 
 	// Get
-	LPDIRECT3DDEVICE9 GetDevice( void ) { return pDevice_; }
 	DebugProc& GetDebugProc( void ) { return *pDebugProc_; }
 	InputManager& GetInputManager( void ) { return *pInputManager_; }
 
 private:
 	// property
-	LPDIRECT3DDEVICE9 pDevice_;
 	DebugProc* pDebugProc_;
 	InputManager* pInputManager_;
 	Test* pTest_;

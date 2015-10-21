@@ -10,6 +10,9 @@
 #include "Test.h"
 #include "Framework/Object/root.h"
 #include "Framework/Object/debug_object.h"
+#include "Framework/Object/object3d.h"
+#include "Framework/Light/light.h"
+#include "Framework/Object/object_model.h"
 
 Root* g_p_root = nullptr;
 
@@ -31,6 +34,12 @@ Test::Test() {
   p_debug_2->AttachChild(DebugObject::Create("ID-4"));
   Root* p_root2 = Root::Create();
   p_debug_2->AttachChild(p_root2);
+
+  Object3D* p_test = Object3D::Create(10);
+  g_p_root->AttachChild(p_test);
+
+  ObjectModel* p_model = ObjectModel::Create("data/Model/car000.x");
+  g_p_root->AttachChild(p_model);
 }
 
 
@@ -54,4 +63,5 @@ void Test::Update( void ) {
 // Draw
 //------------------------------------------------
 void Test::Draw( void ) {
+  g_p_root->DrawAll();
 }

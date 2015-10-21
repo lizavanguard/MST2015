@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application\Test\Test.cpp" />
+    <ClCompile Include="src\Framework\Camera\camera.cpp" />
     <ClCompile Include="src\Framework\DebugProc\DebugProc.cpp" />
     <ClCompile Include="src\Framework\GameManager\GameManager.cpp" />
     <ClCompile Include="src\Framework\GameWindow\GameDirectX.cpp" />
@@ -22,7 +23,10 @@
     <ClCompile Include="src\Framework\Input\InputManager.cpp" />
     <ClCompile Include="src\Framework\Input\InputMouse.cpp" />
     <ClCompile Include="src\Framework\Input\InputXInput.cpp" />
-    <ClCompile Include="src\Framework\Object\_object_base.cpp" />
+    <ClCompile Include="src\Framework\Light\light.cpp" />
+    <ClCompile Include="src\Framework\Object\object3d.cpp" />
+    <ClCompile Include="src\Framework\Object\object_base.cpp" />
+    <ClCompile Include="src\Framework\Object\object_model.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -32,6 +36,7 @@
   <ItemGroup>
     <ClInclude Include="src\Application\Test\Test.h" />
     <ClInclude Include="src\common.h" />
+    <ClInclude Include="src\Framework\Camera\camera.h" />
     <ClInclude Include="src\Framework\DebugProc\DebugProc.h" />
     <ClInclude Include="src\Framework\GameManager\GameManager.h" />
     <ClInclude Include="src\Framework\GameWindow\GameBase.h" />
@@ -44,12 +49,22 @@
     <ClInclude Include="src\Framework\Input\InputManager.h" />
     <ClInclude Include="src\Framework\Input\InputMouse.h" />
     <ClInclude Include="src\Framework\Input\InputXInput.h" />
+    <ClInclude Include="src\Framework\Light\light.h" />
+    <ClInclude Include="src\Framework\Object\creator.h" />
     <ClInclude Include="src\Framework\Object\debug_object.h" />
-    <ClInclude Include="src\Framework\Object\object.h" />
-    <ClInclude Include="src\Framework\Object\object3_base.h" />
+    <ClInclude Include="src\Framework\Object\object3d.h" />
+    <ClInclude Include="src\Framework\Object\object3d_base.h" />
+    <ClInclude Include="src\Framework\Object\object_base.h" />
+    <ClInclude Include="src\Framework\Object\object_model.h" />
     <ClInclude Include="src\Framework\Object\root.h" />
-    <ClInclude Include="src\Framework\Object\_object_base.h" />
+    <ClInclude Include="src\Framework\Utility\DeviceHolder.h" />
+    <ClInclude Include="src\liza\game\directx\render_target_holder.h" />
+    <ClInclude Include="src\liza\game\directx\utility.h" />
+    <ClInclude Include="src\liza\generic\Creation.hpp" />
+    <ClInclude Include="src\liza\generic\Lifetime.hpp" />
     <ClInclude Include="src\liza\generic\noncopyable.h" />
+    <ClInclude Include="src\liza\generic\SingletonHolder.hpp" />
+    <ClInclude Include="src\liza\generic\ThreadingModel.hpp" />
     <ClInclude Include="src\liza\math\MathConst.h" />
     <ClInclude Include="src\liza\math\MathUtility.hpp" />
     <ClInclude Include="src\liza\math\Vector.hpp" />
@@ -61,6 +76,8 @@
     <ClInclude Include="src\window_config.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="src\liza\game\directx\render_target_holder.inl" />
+    <None Include="src\liza\game\directx\utility.inl" />
     <None Include="src\liza\math\MathUtility.inl" />
     <None Include="src\liza\math\Vector2.inl" />
     <None Include="src\liza\math\Vector3.inl" />

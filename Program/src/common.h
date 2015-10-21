@@ -17,3 +17,4 @@
 #include "liza/SafeDelete.h"
 #include "liza/SafeRelease.h"
 #include "liza/utility/Assert.h"
+#include "liza/game/directx/utility.h"

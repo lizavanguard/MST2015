@@ -37,6 +37,18 @@
     <Filter Include="liza\generic">
       <UniqueIdentifier>{4d497bf8-e597-4729-bdcf-7c85bb54a9fc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\Utility">
+      <UniqueIdentifier>{883a511f-34bd-411c-bef5-c660d1470bf7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Camera">
+      <UniqueIdentifier>{7321f659-952c-494d-8cc2-37035df1cc0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Light">
+      <UniqueIdentifier>{9b5d228e-af26-480a-a1da-d735062d7fd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="liza\game">
+      <UniqueIdentifier>{10740d4c-7936-4656-8ff8-cfd3201ab606}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Framework\DebugProc\DebugProc.cpp">
@@ -74,7 +86,19 @@
     </ClCompile>
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\stdafx.cpp" />
-    <ClCompile Include="src\Framework\Object\_object_base.cpp">
+    <ClCompile Include="src\Framework\Object\object3d.cpp">
+      <Filter>Framework\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\Camera\camera.cpp">
+      <Filter>Framework\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\Light\light.cpp">
+      <Filter>Framework\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\Object\object_base.cpp">
+      <Filter>Framework\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\Object\object_model.cpp">
       <Filter>Framework\Object</Filter>
     </ClCompile>
   </ItemGroup>
@@ -139,9 +163,6 @@
     <ClInclude Include="src\window_config.h" />
     <ClInclude Include="src\common.h" />
     <ClInclude Include="src\stdafx.h" />
-    <ClInclude Include="src\Framework\Object\object.h">
-      <Filter>Framework\Object</Filter>
-    </ClInclude>
     <ClInclude Include="src\Framework\Object\root.h">
       <Filter>Framework\Object</Filter>
     </ClInclude>
@@ -154,10 +175,46 @@
     <ClInclude Include="src\liza\utility\Assert.h">
       <Filter>liza\utility</Filter>
     </ClInclude>
-    <ClInclude Include="src\Framework\Object\_object_base.h">
+    <ClInclude Include="src\Framework\Object\object3d_base.h">
       <Filter>Framework\Object</Filter>
     </ClInclude>
-    <ClInclude Include="src\Framework\Object\object3_base.h">
+    <ClInclude Include="src\Framework\Object\object3d.h">
+      <Filter>Framework\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Utility\DeviceHolder.h">
+      <Filter>Framework\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Camera\camera.h">
+      <Filter>Framework\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Light\light.h">
+      <Filter>Framework\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Object\creator.h">
+      <Filter>Framework\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Object\object_base.h">
+      <Filter>Framework\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="src\liza\game\directx\utility.h">
+      <Filter>liza\game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\liza\game\directx\render_target_holder.h">
+      <Filter>liza\game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\liza\generic\Lifetime.hpp">
+      <Filter>liza\generic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\liza\generic\SingletonHolder.hpp">
+      <Filter>liza\generic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\liza\generic\ThreadingModel.hpp">
+      <Filter>liza\generic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\liza\generic\Creation.hpp">
+      <Filter>liza\generic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Object\object_model.h">
       <Filter>Framework\Object</Filter>
     </ClInclude>
   </ItemGroup>
@@ -176,6 +233,12 @@
     </None>
     <None Include="src\liza\utility\Assert.inl">
       <Filter>liza\utility</Filter>
+    </None>
+    <None Include="src\liza\game\directx\render_target_holder.inl">
+      <Filter>liza\game</Filter>
+    </None>
+    <None Include="src\liza\game\directx\utility.inl">
+      <Filter>liza\game</Filter>
     </None>
   </ItemGroup>
 </Project>
