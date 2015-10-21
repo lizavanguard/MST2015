@@ -10,12 +10,12 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-#include "Framework/Object/object3d_base.h"
+#include "Framework/Object/object_base.h"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-class Light : public Object3DBase {
+class Light : public ObjectBase {
 public:
   // ctor
   Light(int, int){}

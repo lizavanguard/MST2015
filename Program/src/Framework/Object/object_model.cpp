@@ -51,6 +51,12 @@ ObjectModel::~ObjectModel() {
 // _Update
 //------------------------------------------------
 void ObjectModel::_Update(const float elapsed_time) {
+  static float theta = 0;
+  const float kSpeed = 0.032f;
+  const float kDistance = 5.0f;
+  position_.x = 100;
+  //position_.y += sinf(theta) * kDistance;
+  //theta += kSpeed;
 }
 
 //------------------------------------------------
@@ -61,20 +67,7 @@ void ObjectModel::_Draw(void) {
 
   p_device->SetRenderState(D3DRS_LIGHTING, FALSE);
 
-  // HACK: 
-  D3DXMATRIX view;
-  D3DXMatrixLookAtLH(&view, &D3DXVECTOR3(0, 10, -100), &D3DXVECTOR3(0, 0, 0), &D3DXVECTOR3(0, 1, 0));
-  p_device->SetTransform(D3DTS_VIEW, &view);
-
-  D3DXMATRIX projection;
-  D3DXMatrixPerspectiveFovLH(&projection, D3DX_PI * 0.5f, 1280 / 760.0f, 1.0f, 1000.0f); // TEKITOU
-  p_device->SetTransform(D3DTS_PROJECTION, &projection);
-
-  // WVP
-  D3DXMATRIX mtx_world;
-  //D3DXMatrixTranslation(&mtx_world, position_.x, position_.y, position_.z);
-  D3DXMatrixIdentity(&mtx_world);
-  p_device->SetTransform(D3DTS_WORLD, &mtx_world);
+  p_device->SetTransform(D3DTS_WORLD, &world_matrix_);
 
   p_device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 

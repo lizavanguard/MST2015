@@ -9,6 +9,6 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // const
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-const char* kWindowName = "WindowTest";
+static const char* kWindowName = "WindowTest";
 const unsigned int kWindowWidth = 1280;
 const unsigned int kWindowHeight = 760;

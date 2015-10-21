@@ -16,10 +16,16 @@
 // ctor
 //------------------------------------------------
 ObjectBase::ObjectBase()
-  : is_all_updated_(true)
+  : position_(0.0f, 0.0f, 0.0f)
+  , rotation_(0.0f, 0.0f, 0.0f)
+  , scale_(1.0f, 1.0f, 1.0f)
+  , velocity_(0.0f, 0.0f, 0.0f)
+  , p_parent_(nullptr)
+  , is_all_updated_(true)
   , is_all_drawed_(true)
   , is_child_updated_(true)
-  , is_child_drawed_(true) {
+  , is_child_drawed_(true)
+  , is_calculated_parent_matrix_(true) {
 }
 
 //------------------------------------------------
@@ -42,6 +48,7 @@ void ObjectBase::AttachChild(ObjectBase* const p_child) {
 #endif
   MY_BREAK_NULL_ASSERT(p_child);
   list_.push_back(p_child);
+  p_child->p_parent_ = this;
 }
 
 //------------------------------------------------
@@ -52,6 +59,7 @@ void ObjectBase::DetachChild(ObjectBase* const p_child) {
   for (auto p_child_in_list : list_) {
     if (p_child == p_child_in_list) {
       list_.remove(p_child);
+      p_child->p_parent_ = nullptr;
       return;
     }
   }
@@ -64,6 +72,8 @@ void ObjectBase::UpdateAll(const float elapsed_time) {
   if (!is_all_updated_) {
     return;
   }
+
+  _CalculateWorldMatrix();
 
   _Update(elapsed_time);
 
@@ -90,5 +100,25 @@ void ObjectBase::DrawAll(void) {
   }
   for (auto p_child : list_) {
     p_child->DrawAll();
+  }
+}
+
+//------------------------------------------------
+// calculate world-matrix
+//------------------------------------------------
+void ObjectBase::_CalculateWorldMatrix(void) {
+  D3DXMATRIX translation_matrix;
+  D3DXMatrixTranslation(&translation_matrix, position_.x, position_.y, position_.z);
+  D3DXMATRIX rotation_matrix;
+  D3DXMatrixRotationYawPitchRoll(&rotation_matrix, rotation_.y, rotation_.x, rotation_.z);
+  D3DXMATRIX scale_matrix;
+  D3DXMatrixScaling(&scale_matrix, scale_.x, scale_.y, scale_.z);
+  own_world_matrix_ = translation_matrix * rotation_matrix * scale_matrix;
+
+  if (p_parent_ && is_calculated_parent_matrix_) {
+    world_matrix_ = own_world_matrix_ * p_parent_->world_matrix_;
+  }
+  else {
+    world_matrix_ = own_world_matrix_;
   }
 }

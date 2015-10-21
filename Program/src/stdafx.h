@@ -11,8 +11,11 @@
 //------------------------------------------------
 // Standard Library
 //------------------------------------------------
+#include <deque>
 #include <list>
+#include <map>
 #include <string>
+#include <vector>
 
 //------------------------------------------------
 // Framework

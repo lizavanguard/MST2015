@@ -9,7 +9,9 @@
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #include "GameManager.h"
 
+#include "Framework/Camera/camera_manager.h"
 #include "Framework/DebugProc/DebugProc.h"
+#include "Framework/Shader/shader_manager.h"
 #include "Framework/Input/InputManager.h"
 #include "Framework/Input/InputKeyboard.h"
 #include "Framework/Utility/DeviceHolder.h"
@@ -23,25 +25,30 @@
 //------------------------------------------------
 // Get Instance
 //------------------------------------------------
-GameManager& GameManager::Instance( HINSTANCE hInstance, HWND hWnd, LPDIRECT3DDEVICE9 pDevice ) {
-	static GameManager instance( hInstance, hWnd, pDevice );
-	return instance;
+GameManager& GameManager::Instance(HINSTANCE hInstance, HWND hWnd, LPDIRECT3DDEVICE9 pDevice) {
+  static GameManager instance(hInstance, hWnd, pDevice);
+  return instance;
 }
 
 
 //------------------------------------------------
 // ctor
 //------------------------------------------------
-GameManager::GameManager( HINSTANCE hInstance, HWND hWnd, LPDIRECT3DDEVICE9 pDevice )
-	: pDebugProc_( nullptr )
-	, pInputManager_( nullptr )
-	, pTest_( nullptr )
+GameManager::GameManager(HINSTANCE hInstance, HWND hWnd, LPDIRECT3DDEVICE9 pDevice)
+  : pDebugProc_(nullptr)
+  , pInputManager_(nullptr)
+  , pTest_(nullptr)
 {
-	pDebugProc_ = new DebugProc();
-  pDebugProc_->Init(pDevice);
   DeviceHolder::Instance().SetDevice(pDevice);
-	pInputManager_ = new InputManager( hInstance, hWnd );
-	pTest_ = new Test();
+
+  CameraManager::Instance(); // Initialize
+  ShaderManager::Instance();
+
+  pDebugProc_ = new DebugProc();
+  pDebugProc_->Init(pDevice);
+  pInputManager_ = new InputManager(hInstance, hWnd);
+
+  pTest_ = new Test();
 }
 
 
@@ -49,28 +56,29 @@ GameManager::GameManager( HINSTANCE hInstance, HWND hWnd, LPDIRECT3DDEVICE9 pDev
 // dtor
 //------------------------------------------------
 GameManager::~GameManager() {
-	SafeDelete( pTest_ );
-	delete pInputManager_;
-	pDebugProc_->Uninit();
-	delete pDebugProc_;
+  SafeDelete(pTest_);
+  delete pInputManager_;
+  pDebugProc_->Uninit();
+  delete pDebugProc_;
 }
 
 
 //------------------------------------------------
 // update
 //------------------------------------------------
-void GameManager::Update( void ) {
-	pInputManager_->Update();
+void GameManager::Update(void) {
+  pInputManager_->Update();
+  CameraManager::Instance().Update(0.0f);
 
-	pTest_->Update();
+  pTest_->Update();
 }
 
 
 //------------------------------------------------
 // draw
 //------------------------------------------------
-void GameManager::Draw( void ) {
-	pTest_->Draw();
+void GameManager::Draw(void) {
+  pTest_->Draw();
 
-	pDebugProc_->Draw();
+  pDebugProc_->Draw();
 }

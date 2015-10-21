@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClCompile Include="src\Application\Test\Test.cpp" />
     <ClCompile Include="src\Framework\Camera\camera.cpp" />
+    <ClCompile Include="src\Framework\Camera\camera_manager.cpp" />
     <ClCompile Include="src\Framework\DebugProc\DebugProc.cpp" />
     <ClCompile Include="src\Framework\GameManager\GameManager.cpp" />
     <ClCompile Include="src\Framework\GameWindow\GameDirectX.cpp" />
@@ -27,6 +28,7 @@
     <ClCompile Include="src\Framework\Object\object3d.cpp" />
     <ClCompile Include="src\Framework\Object\object_base.cpp" />
     <ClCompile Include="src\Framework\Object\object_model.cpp" />
+    <ClCompile Include="src\Framework\Shader\shader_manager.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -37,6 +39,7 @@
     <ClInclude Include="src\Application\Test\Test.h" />
     <ClInclude Include="src\common.h" />
     <ClInclude Include="src\Framework\Camera\camera.h" />
+    <ClInclude Include="src\Framework\Camera\camera_manager.h" />
     <ClInclude Include="src\Framework\DebugProc\DebugProc.h" />
     <ClInclude Include="src\Framework\GameManager\GameManager.h" />
     <ClInclude Include="src\Framework\GameWindow\GameBase.h" />
@@ -53,10 +56,10 @@
     <ClInclude Include="src\Framework\Object\creator.h" />
     <ClInclude Include="src\Framework\Object\debug_object.h" />
     <ClInclude Include="src\Framework\Object\object3d.h" />
-    <ClInclude Include="src\Framework\Object\object3d_base.h" />
     <ClInclude Include="src\Framework\Object\object_base.h" />
     <ClInclude Include="src\Framework\Object\object_model.h" />
     <ClInclude Include="src\Framework\Object\root.h" />
+    <ClInclude Include="src\Framework\Shader\shader_manager.h" />
     <ClInclude Include="src\Framework\Utility\DeviceHolder.h" />
     <ClInclude Include="src\liza\game\directx\render_target_holder.h" />
     <ClInclude Include="src\liza\game\directx\utility.h" />
@@ -83,6 +86,12 @@
     <None Include="src\liza\math\Vector3.inl" />
     <None Include="src\liza\math\Vector4.inl" />
     <None Include="src\liza\utility\Assert.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="hlsl\object3d.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </FxCompile>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{BC7944F2-012B-4586-A4EF-9EAAA2F90922}</ProjectGuid>

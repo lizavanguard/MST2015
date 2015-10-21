@@ -9,18 +9,18 @@
 // include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 #include "creator.h"
-#include "object3d_base.h"
+#include "object_base.h"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-class ObjectModel : public Object3DBase, public Creator<ObjectModel> {
+class ObjectModel : public ObjectBase, public Creator<ObjectModel> {
 public:
   // ctor
   ObjectModel(const char* p_filename);
 
   // dtor
-  ~ObjectModel();
+  virtual ~ObjectModel();
 
 private:
   virtual void _Update(float elapsed_time) override;

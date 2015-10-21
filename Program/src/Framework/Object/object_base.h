@@ -49,12 +49,25 @@ public:
   // Draw All in list
   void DrawAll(void);
 
+  D3DXMATRIX GetWorldMatrix(void) const { return world_matrix_; }
+
 protected:
   // property
+  D3DXVECTOR3 position_;
+  D3DXVECTOR3 rotation_;
+  D3DXVECTOR3 scale_;
+  D3DXVECTOR3 velocity_;
+
+  D3DXMATRIX world_matrix_;  // ツリー構造の今まで全てのワールド行列が反映されたもの
+  D3DXMATRIX own_world_matrix_;  // 自分自身のワールド行列
+
+  ObjectBase* p_parent_;
+
   bool is_all_updated_;
   bool is_all_drawed_;
   bool is_child_updated_;
   bool is_child_drawed_;
+  bool is_calculated_parent_matrix_;
 
 private:
   // Update
@@ -62,6 +75,9 @@ private:
 
   // Draw
   virtual void _Draw(void) = 0;
+
+  // calculate world-matrix
+  void _CalculateWorldMatrix(void);
 
   // property
   ContainerType list_;
