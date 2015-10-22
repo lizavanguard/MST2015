@@ -59,7 +59,7 @@ Test::~Test() {
 //------------------------------------------------
 void Test::Update( void ) {
   if (GameManager::Instance().GetInputManager().GetPrimaryKeyboard().IsTrigger(DIK_A)) {
-    //SoundManager::Instance().PlaySound(SOUND_LABEL_SE1);
+    SoundManager::Instance().PlaySound("se000");
   }
   g_p_root->UpdateAll(0.016f);
 }

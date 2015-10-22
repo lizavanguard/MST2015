@@ -231,32 +231,40 @@ void _SoundManager::Load(void) {
 //------------------------------------------------
 // Play sound
 //------------------------------------------------
-bool _SoundManager::PlaySound(SoundLabels label) {
-  XAUDIO2_VOICE_STATE xa2state;
-  XAUDIO2_BUFFER buffer;
-
-  memset(&buffer, 0, sizeof(XAUDIO2_BUFFER));
-  buffer.AudioBytes = g_aSizeAudio[label];
-  buffer.pAudioData = g_apDataAudio[label];
-  buffer.Flags = XAUDIO2_END_OF_STREAM;
-  buffer.LoopCount = g_aParam[label].bLoop ? 0xffffffff : 0;
-
-  // 状態取得
-  g_apSourceVoice[label]->GetState(&xa2state);
-  if (xa2state.BuffersQueued != 0)
-  {// 再生中
-    // 一時停止
-    g_apSourceVoice[label]->Stop(0);
-
-    // オーディオバッファの削除
-    g_apSourceVoice[label]->FlushSourceBuffers();
+bool _SoundManager::PlaySound(const ContainerType::KeyType& sound_file_name) {
+  DataType data = p_container_->Find(sound_file_name);
+  MY_BREAK_ASSERTMSG(data != nullptr, "そんなファイルないよ");
+  if (!data) {
+    return false;
   }
 
-  // オーディオバッファの登録
-  g_apSourceVoice[label]->SubmitSourceBuffer(&buffer);
+  data->Play();
 
-  // 再生
-  g_apSourceVoice[label]->Start(0);
+  //XAUDIO2_VOICE_STATE xa2state;
+  //XAUDIO2_BUFFER buffer;
+
+  //memset(&buffer, 0, sizeof(XAUDIO2_BUFFER));
+  //buffer.AudioBytes = data;
+  //buffer.pAudioData = g_apDataAudio[label];
+  //buffer.Flags = XAUDIO2_END_OF_STREAM;
+  //buffer.LoopCount = g_aParam[label].bLoop ? 0xffffffff : 0;
+
+  //// 状態取得
+  //g_apSourceVoice[label]->GetState(&xa2state);
+  //if (xa2state.BuffersQueued != 0)
+  //{// 再生中
+  //  // 一時停止
+  //  g_apSourceVoice[label]->Stop(0);
+
+  //  // オーディオバッファの削除
+  //  g_apSourceVoice[label]->FlushSourceBuffers();
+  //}
+
+  //// オーディオバッファの登録
+  //g_apSourceVoice[label]->SubmitSourceBuffer(&buffer);
+
+  //// 再生
+  //g_apSourceVoice[label]->Start(0);
 
   return true;
 }
@@ -264,32 +272,43 @@ bool _SoundManager::PlaySound(SoundLabels label) {
 //------------------------------------------------
 // Stop sound
 //------------------------------------------------
-void StopSound(SoundLabels label) {
-  XAUDIO2_VOICE_STATE xa2state;
-
-  // 状態取得
-  g_apSourceVoice[label]->GetState(&xa2state);
-  if (xa2state.BuffersQueued != 0)
-  {// 再生中
-    // 一時停止
-    g_apSourceVoice[label]->Stop(0);
-
-    // オーディオバッファの削除
-    g_apSourceVoice[label]->FlushSourceBuffers();
+void _SoundManager::StopSound(const ContainerType::KeyType& sound_file_name) {
+  DataType data = p_container_->Find(sound_file_name);
+  MY_BREAK_ASSERTMSG(data != nullptr, "そんなファイルないよ");
+  if (!data) {
+    return;
   }
+
+  data->Stop();
+
+  //XAUDIO2_VOICE_STATE xa2state;
+
+  //// 状態取得
+  //g_apSourceVoice[label]->GetState(&xa2state);
+  //if (xa2state.BuffersQueued != 0)
+  //{// 再生中
+  //  // 一時停止
+  //  g_apSourceVoice[label]->Stop(0);
+
+  //  // オーディオバッファの削除
+  //  g_apSourceVoice[label]->FlushSourceBuffers();
+  //}
 
 }
 
-void StopSound(void) {
-  // 一時停止
-  for (int sound_cnt = 0; sound_cnt < kSoundMax; sound_cnt++)
-  {
-    if (g_apSourceVoice[sound_cnt])
-    {
-      // 一時停止
-      g_apSourceVoice[sound_cnt]->Stop(0);
-    }
-  }
+void _SoundManager::StopSound(void) {
+  //for (auto it : (*p_container_)) {
+  //  it.
+  //}
+  //// 一時停止
+  //for (int sound_cnt = 0; sound_cnt < kSoundMax; sound_cnt++)
+  //{
+  //  if (g_apSourceVoice[sound_cnt])
+  //  {
+  //    // 一時停止
+  //    g_apSourceVoice[sound_cnt]->Stop(0);
+  //  }
+  //}
 
 }
 

@@ -130,6 +130,54 @@ SoundDataHolder::~SoundDataHolder() {
 }
 
 //------------------------------------------------
+// Play
+//------------------------------------------------
+void SoundDataHolder::Play(void) {
+  XAUDIO2_VOICE_STATE xa2state;
+  XAUDIO2_BUFFER buffer;
+
+  memset(&buffer, 0, sizeof(XAUDIO2_BUFFER));
+  buffer.AudioBytes = size_;
+  buffer.pAudioData = p_sound_data_;
+  buffer.Flags = XAUDIO2_END_OF_STREAM;
+  buffer.LoopCount = is_loop_ ? 0xffffffff : 0;
+
+  // 状態取得
+  p_source_voice_->GetState(&xa2state);
+  if (xa2state.BuffersQueued != 0) {// 再生中
+    // 一時停止
+    p_source_voice_->Stop(0);
+
+    // オーディオバッファの削除
+    p_source_voice_->FlushSourceBuffers();
+  }
+
+  // オーディオバッファの登録
+  p_source_voice_->SubmitSourceBuffer(&buffer);
+
+  // 再生
+  p_source_voice_->Start(0);
+}
+
+//------------------------------------------------
+// Stop
+//------------------------------------------------
+void SoundDataHolder::Stop(void) {
+  XAUDIO2_VOICE_STATE xa2state;
+
+  // 状態取得
+  p_source_voice_->GetState(&xa2state);
+  if (xa2state.BuffersQueued != 0) {// 再生中
+    // 一時停止
+    p_source_voice_->Stop(0);
+
+    // オーディオバッファの削除
+    p_source_voice_->FlushSourceBuffers();
+  }
+
+}
+
+//------------------------------------------------
 // チャンクのチェック
 //------------------------------------------------
 HRESULT CheckChunk(HANDLE hFile, DWORD format, DWORD *pChunkSize, DWORD *pChunkDataPosition) {

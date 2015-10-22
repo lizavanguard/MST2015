@@ -16,8 +16,11 @@
 class SoundDataHolder {
 public:
   SoundDataHolder(IXAudio2* p_xaudio, const char* p_filename, bool is_loop);
-
   ~SoundDataHolder();
+
+  void Play(void);
+
+  void Stop(void);
 
 private:
   IXAudio2SourceVoice* p_source_voice_;

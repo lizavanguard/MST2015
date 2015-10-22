@@ -49,10 +49,10 @@ public:
   void Load(void);
 
   // Play sound
-  bool PlaySound(SoundLabels label);
+  bool PlaySound(const ContainerType::KeyType& sound_file_name);
 
   // Stop sound
-  void StopSound(SoundLabels label);
+  void StopSound(const ContainerType::KeyType& sound_file_name);
   void StopSound(void);
 
 private:
