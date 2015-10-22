@@ -10,17 +10,16 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 #include "liza/generic/SingletonHolder.hpp"
 
-#include "Framework/Utility/DataFinder.hpp"
+#include "Framework/Utility/GroupDataFinder.hpp"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 class _TextureManager {
 private:
-  using DataFinderType = DataFinder<LPDIRECT3DTEXTURE9>;
-  using KeyType = DataFinderType::KeyType;
-  using DataType = DataFinderType;
-  using ContainerType = std::map<KeyType, DataType*>;
+  using ContainerType = GroupDataFinder<LPDIRECT3DTEXTURE9>;
+  using KeyType = ContainerType::KeyType;
+  using DataFinderType = ContainerType::DataFinderType;
 
 public:
   // ctor
@@ -42,14 +41,13 @@ public:
   // find
   // SubDirectoryとファイル名をくっつけたやつ
   // ex) Title/texture000
-  LPDIRECT3DTEXTURE9 Find(const DataFinderType::KeyType& p_file_name) const;
+  LPDIRECT3DTEXTURE9 Find(const KeyType& p_file_name) const;
   // find
   // SubDirectoryとファイル名を分けたやつ
   LPDIRECT3DTEXTURE9 Find(const KeyType& p_sub_directory_name, const DataFinderType::KeyType& p_file_name) const;
 
 private:
-  ContainerType container_;
-  std::string main_directory_path_;
+  ContainerType* p_container_;
 };
 
 using TextureManager = liza::generic::SingletonHolder<_TextureManager>;

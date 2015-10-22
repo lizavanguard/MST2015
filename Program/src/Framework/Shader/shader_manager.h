@@ -17,7 +17,7 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 class _ShaderManager {
 private:
-  using DataFinderType = DataFinder<LPD3DXEFFECT>;
+  using ContainerType = DataFinder<LPD3DXEFFECT>;
 
 public:
   // ctor
@@ -27,10 +27,10 @@ public:
   ~_ShaderManager();
 
   // get
-  LPD3DXEFFECT FindShader(const DataFinderType::KeyType& shader_name);
+  LPD3DXEFFECT FindShader(const ContainerType::KeyType& shader_name);
 
 private:
-  DataFinderType* p_finder_;
+  ContainerType* p_finder_;
 };
 
 using ShaderManager = liza::generic::SingletonHolder<_ShaderManager>;

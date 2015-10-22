@@ -19,7 +19,7 @@
 //------------------------------------------------
 _ShaderManager::_ShaderManager() : p_finder_(nullptr) {
   static const char* kStartPath = "./hlsl/";
-  p_finder_ = new DataFinderType(kStartPath, [](const char* p_filename, LPD3DXEFFECT* pp_effect) {
+  p_finder_ = new ContainerType(kStartPath, [](const char* p_filename, LPD3DXEFFECT* pp_effect) {
     liza::game::directx::LoadShader(DeviceHolder::Instance().GetDevice(), p_filename, pp_effect); });
 }
 
@@ -33,6 +33,6 @@ _ShaderManager::~_ShaderManager() {
 //------------------------------------------------
 // get
 //------------------------------------------------
-LPD3DXEFFECT _ShaderManager::FindShader(const DataFinderType::KeyType& shader_name) {
+LPD3DXEFFECT _ShaderManager::FindShader(const ContainerType::KeyType& shader_name) {
   return p_finder_->Find(shader_name);
 }
