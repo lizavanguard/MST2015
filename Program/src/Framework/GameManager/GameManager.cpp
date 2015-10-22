@@ -12,6 +12,7 @@
 #include "Framework/Camera/camera_manager.h"
 #include "Framework/DebugProc/DebugProc.h"
 #include "Framework/Shader/shader_manager.h"
+#include "Framework/Sound/sound_manager.h"
 #include "Framework/Texture/texture_manager.h"
 #include "Framework/Input/InputManager.h"
 #include "Framework/Input/InputKeyboard.h"
@@ -46,6 +47,8 @@ GameManager::GameManager(HINSTANCE hInstance, HWND hWnd, LPDIRECT3DDEVICE9 pDevi
   ShaderManager::Instance();
   TextureManager::Instance().Load("General");
   TextureManager::Instance().Load("Game"); // TODO: Game -> Title?
+  // HACK:
+  SoundManager::Instance().Load();
 
   pDebugProc_ = new DebugProc();
   pDebugProc_->Init(pDevice);

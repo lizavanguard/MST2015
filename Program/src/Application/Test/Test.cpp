@@ -13,6 +13,7 @@
 #include "Framework/Object/object3d.h"
 #include "Framework/Light/light.h"
 #include "Framework/Object/object_model.h"
+#include "Framework/Sound/sound_manager.h"
 
 Root* g_p_root = nullptr;
 
@@ -40,6 +41,8 @@ Test::Test() {
   g_p_root->AttachChild(p_test);
   p_test->AttachChild(p_model);
   p_test->AttachChild(Object3D::Create("Game/texture002"));
+
+  //SoundManager::Instance().PlaySound(SOUND_LABEL_BGM1);
 }
 
 
@@ -55,6 +58,9 @@ Test::~Test() {
 // Update
 //------------------------------------------------
 void Test::Update( void ) {
+  if (GameManager::Instance().GetInputManager().GetPrimaryKeyboard().IsTrigger(DIK_A)) {
+    SoundManager::Instance().PlaySound(SOUND_LABEL_SE1);
+  }
   g_p_root->UpdateAll(0.016f);
 }
 

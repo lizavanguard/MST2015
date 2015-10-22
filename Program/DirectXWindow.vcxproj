@@ -29,6 +29,7 @@
     <ClCompile Include="src\Framework\Object\object_base.cpp" />
     <ClCompile Include="src\Framework\Object\object_model.cpp" />
     <ClCompile Include="src\Framework\Shader\shader_manager.cpp" />
+    <ClCompile Include="src\Framework\Sound\sound_manager.cpp" />
     <ClCompile Include="src\Framework\Texture\texture_manager.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\stdafx.cpp">
@@ -61,6 +62,7 @@
     <ClInclude Include="src\Framework\Object\object_model.h" />
     <ClInclude Include="src\Framework\Object\root.h" />
     <ClInclude Include="src\Framework\Shader\shader_manager.h" />
+    <ClInclude Include="src\Framework\Sound\sound_manager.h" />
     <ClInclude Include="src\Framework\Texture\texture_manager.h" />
     <ClInclude Include="src\Framework\Utility\DataFinder.hpp" />
     <ClInclude Include="src\Framework\Utility\DeviceHolder.h" />
