@@ -11,14 +11,14 @@
 #include "liza/generic/SingletonHolder.hpp"
 
 #include "Framework/Utility/DeviceHolder.h"
-#include "Framework/Utility/GroupDataFinder.hpp"
+#include "Framework/Utility/GroupDataLoader.hpp"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 class _TextureManager {
 private:
-  using ContainerType = GroupDataFinder<LPDIRECT3DTEXTURE9>;
+  using ContainerType = GroupDataLoader<LPDIRECT3DTEXTURE9>;
   using KeyType = ContainerType::KeyType;
   using DataFinderType = ContainerType::DataFinderType;
 

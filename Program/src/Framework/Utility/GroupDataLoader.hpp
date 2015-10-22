@@ -1,6 +1,6 @@
 //==============================================================================
 //
-// GroupDataFinder
+// GroupDataLoader
 // Author: Shimizu Shoji
 //
 // 読み込み関数の条件:
@@ -8,13 +8,17 @@
 //   2. T*
 // を引数に取ることです
 //
+// サブディレクトリの手前までのパスを生成時に渡して、
+// サブディレクトリ以下のロード時にサブディレクトリの名前とロード関数を指定すれば使える
+//
 //==============================================================================
 #pragma once
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 #include <unordered_map>
-#include "DataFinder.hpp"
+
+#include "DataLoader.hpp"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
@@ -23,18 +27,18 @@ template<
   typename T,
   template<class> class DestroyPolicy = UsingRelease
 >
-class GroupDataFinder {
+class GroupDataLoader {
 public:
-  using DataFinderType = DataFinder<T, DestroyPolicy>;
+  using DataFinderType = DataLoader<T, DestroyPolicy>;
   using KeyType = typename DataFinderType::KeyType;
-  using ContainerType = std::unordered_map<KeyType, DataFinderType*>;
+  using ContainerType = std::unordered_map<KeyType, DataFinderType*, std::hash<KeyType>, IgnoreCaseStringEqualTo>;
 
 public:
   // ctor
-  GroupDataFinder(const char* p_main_directory_path);
+  GroupDataLoader(const char* p_main_directory_path);
 
   // dtor
-  ~GroupDataFinder();
+  ~GroupDataLoader();
 
   // Load
   // 大元のディレクトリに、サブのディレクトリを加えたパスのファイルをロードする
@@ -63,4 +67,4 @@ private:
   std::string main_directory_path_;
 };
 
-#include "GroupDataFinder.inl"
+#include "GroupDataLoader.inl"

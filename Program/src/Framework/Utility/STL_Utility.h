@@ -1,6 +1,6 @@
 //==============================================================================
 //
-// ShaderManager
+// STL Utility
 // Author: Shimizu Shoji
 //
 //==============================================================================
@@ -8,29 +8,19 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-#include "liza/generic/SingletonHolder.hpp"
-
-#include "Framework/Utility/DataLoader.hpp"
+#include <functional>
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-class _ShaderManager {
-private:
-  using ContainerType = DataLoader<LPD3DXEFFECT>;
-
-public:
-  // ctor
-  _ShaderManager();
-
-  // dtor
-  ~_ShaderManager();
-
-  // get
-  LPD3DXEFFECT FindShader(const ContainerType::KeyType& shader_name);
-
-private:
-  ContainerType* p_finder_;
+//------------------------------------------------
+// 小文字、大文字の違いを無視して判定を行う関数オブジェクト
+// ex)
+// FooBar == foobar
+//------------------------------------------------
+struct IgnoreCaseStringEqualTo : public std::binary_function<std::string, std::string, bool> {
+  bool operator()(const std::string& lhs, const std::string& rhs) const {
+    return std::equal(lhs.cbegin(), lhs.cend(), rhs.cbegin(), [](char lhs, char rhs) {
+      return tolower(lhs) == tolower(rhs); });
+  }
 };
-
-using ShaderManager = liza::generic::SingletonHolder<_ShaderManager>;

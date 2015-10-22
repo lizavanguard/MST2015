@@ -68,10 +68,12 @@
     <ClInclude Include="src\Framework\Sound\sound_manager.h" />
     <ClInclude Include="src\Framework\Sound\xaudio_holder.h" />
     <ClInclude Include="src\Framework\Texture\texture_manager.h" />
-    <ClInclude Include="src\Framework\Utility\DataFinder.hpp" />
+    <ClInclude Include="src\Framework\Utility\DataLoader.hpp" />
     <ClInclude Include="src\Framework\Utility\DeviceHolder.h" />
-    <ClInclude Include="src\Framework\Utility\GroupDataFinder.hpp" />
+    <ClInclude Include="src\Framework\Utility\GroupDataLoader.hpp" />
+    <ClInclude Include="src\Framework\Utility\STL_Utility.h" />
     <ClInclude Include="src\Framework\Utility\_DataFinder.hpp" />
+    <ClInclude Include="src\Framework\Utility\_DataLoader.hpp" />
     <ClInclude Include="src\liza\game\directx\render_target_holder.h" />
     <ClInclude Include="src\liza\game\directx\utility.h" />
     <ClInclude Include="src\liza\generic\Creation.hpp" />
@@ -90,8 +92,8 @@
     <ClInclude Include="src\window_config.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\Framework\Utility\DataFinder.inl" />
-    <None Include="src\Framework\Utility\GroupDataFinder.inl" />
+    <None Include="src\Framework\Utility\DataLoader.inl" />
+    <None Include="src\Framework\Utility\GroupDataLoader.inl" />
     <None Include="src\liza\game\directx\render_target_holder.inl" />
     <None Include="src\liza\game\directx\utility.inl" />
     <None Include="src\liza\math\MathUtility.inl" />

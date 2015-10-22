@@ -1,6 +1,6 @@
 //==============================================================================
 //
-// DataFinder
+// DataLoader
 // Author: Shimizu Shoji
 //
 // 指定されたディレクトリ内のファイル名を読み込みます
@@ -15,6 +15,12 @@
 //   Destroy Policy: 生成したオブジェクトの破棄クラス
 //                   Destroy(T data)関数を提供すれば良い
 //
+// 色々書いたけど、そのまま使う時は、
+//   ロードしたい型
+//   データまでのパス
+//   ロード関数
+// を指定すれば良い
+//
 //==============================================================================
 #pragma once
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
@@ -24,7 +30,8 @@
 
 #include "liza/generic/noncopyable.h"
 
-#include "_DataFinder.hpp"
+#include "STL_Utility.h"
+#include "_DataLoader.hpp"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
@@ -33,21 +40,21 @@ template<
   typename T,
   template<class> class DestroyPolicy = UsingRelease
 >
-class DataFinder : public liza::generic::NonCopyable<DataFinder<T, DestroyPolicy>> {
+class DataLoader : public liza::generic::NonCopyable<DataLoader<T, DestroyPolicy>> {
 public:
   using KeyType = std::string;
   using DataType = T;
-  using ContainerType = std::unordered_map<KeyType, DataType>;
+  using ContainerType = std::unordered_map<KeyType, DataType, std::hash<KeyType>, IgnoreCaseStringEqualTo>;
   using Iterator = typename ContainerType::iterator;
   using ConstIterator = typename ContainerType::const_iterator;
 
 public:
   // ctor
   template<typename LoadFunction>
-  DataFinder(const char* p_start_directory_path, LoadFunction load_function);
+  DataLoader(const char* p_start_directory_path, LoadFunction load_function);
 
   // dtor
-  ~DataFinder();
+  ~DataLoader();
 
   // find data
   T Find(const KeyType& key) const;
@@ -63,4 +70,4 @@ private:
   ContainerType container_;
 };
 
-#include "DataFinder.inl"
+#include "DataLoader.inl"

@@ -12,7 +12,7 @@
 
 #include "liza/generic/SingletonHolder.hpp"
 
-#include "Framework/Utility/GroupDataFinder.hpp"
+#include "Framework/Utility/GroupDataLoader.hpp"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class declaration
@@ -25,7 +25,7 @@ class XAudioHolder;
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 class _SoundManager {
   using DataType = SoundDataHolder*;
-  using ContainerType = GroupDataFinder<DataType, UsingDelete>;
+  using ContainerType = GroupDataLoader<DataType, UsingDelete>;
 
 public:
   // ctor

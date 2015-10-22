@@ -1,6 +1,6 @@
 //==============================================================================
 //
-// DataFinder
+// DataLoader
 // Author: Shimizu Shoji
 //
 //==============================================================================
@@ -8,7 +8,7 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-#include "DataFinder.hpp"
+#include "DataLoader.hpp"
 
 //==============================================================================
 // function impl
@@ -21,7 +21,7 @@ template<
   template<class> class DestroyPolicy
 >
 template<typename LoadFunction>
-DataFinder<T, DestroyPolicy>::DataFinder(const char* p_start_directory_path, LoadFunction load_function) {
+DataLoader<T, DestroyPolicy>::DataLoader(const char* p_start_directory_path, LoadFunction load_function) {
   std::string file_path = p_start_directory_path;
   file_path += "/*.*";  // 全部
 
@@ -78,7 +78,7 @@ template<
   typename T,
   template<class> class DestroyPolicy
 >
-DataFinder<T, DestroyPolicy>::~DataFinder() {
+DataLoader<T, DestroyPolicy>::~DataLoader() {
   for (auto it = container_.begin(); it != container_.end();) {
     DestroyPolicy<T>::Destroy(it->second);
     it = container_.erase(it);
@@ -92,7 +92,7 @@ template<
   typename T,
   template<class> class DestroyPolicy
 >
-T DataFinder<T, DestroyPolicy>::Find(const KeyType& key) const {
+T DataLoader<T, DestroyPolicy>::Find(const KeyType& key) const {
   auto it = container_.find(key);
   MY_BREAK_ASSERTMSG(it != container_.end(), "データがありませんでした");
   if (it == container_.end()) {

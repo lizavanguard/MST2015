@@ -1,6 +1,6 @@
 //==============================================================================
 //
-// GroupDataFinder
+// GroupDataLoader
 // Author: Shimizu Shoji
 //
 //==============================================================================
@@ -8,7 +8,7 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-#include "GroupDataFinder.hpp"
+#include "GroupDataLoader.hpp"
 
 //==============================================================================
 // class implementation
@@ -20,7 +20,7 @@ template<
   typename T,
   template<class> class DestroyPolicy
 >
-GroupDataFinder<T, DestroyPolicy>::GroupDataFinder(const char* p_main_directory_path)
+GroupDataLoader<T, DestroyPolicy>::GroupDataLoader(const char* p_main_directory_path)
     : main_directory_path_(p_main_directory_path) {
 }
 
@@ -31,7 +31,7 @@ template<
   typename T,
   template<class> class DestroyPolicy
 >
-GroupDataFinder<T, DestroyPolicy>::~GroupDataFinder() {
+GroupDataLoader<T, DestroyPolicy>::~GroupDataLoader() {
   for (auto it = container_.begin(); it != container_.end();) {
     SafeDelete(it->second);
     it = container_.erase(it);
@@ -50,7 +50,7 @@ template<
   template<class> class DestroyPolicy
 >
 template<typename LoadFunction>
-void GroupDataFinder<T, DestroyPolicy>::Load(const char* p_sub_directory_name, LoadFunction load_function) {
+void GroupDataLoader<T, DestroyPolicy>::Load(const char* p_sub_directory_name, LoadFunction load_function) {
   std::string data_path = main_directory_path_;
   data_path += p_sub_directory_name;
   data_path += "/";
@@ -66,7 +66,7 @@ template<
   typename T,
   template<class> class DestroyPolicy
 >
-void GroupDataFinder<T, DestroyPolicy>::Unload(const char* p_sub_directory_name) {
+void GroupDataLoader<T, DestroyPolicy>::Unload(const char* p_sub_directory_name) {
   auto it = container_.find(p_sub_directory_name);
   if (it == container_.end()) {
     return;
@@ -82,7 +82,7 @@ template<
   typename T,
   template<class> class DestroyPolicy
 >
-T GroupDataFinder<T, DestroyPolicy>::Find(const KeyType& p_file_name) const {
+T GroupDataLoader<T, DestroyPolicy>::Find(const KeyType& p_file_name) const {
   std::string work = p_file_name;
 
   MY_BREAK_ASSERTMSG(work.size() >= 3, "ïsê≥Ç»ï∂éöóÒÇ™ì¸Ç¡ÇƒÇ¢Ç‹Ç∑");
@@ -111,7 +111,7 @@ template<
   typename T,
   template<class> class DestroyPolicy
 >
-T GroupDataFinder<T, DestroyPolicy>::Find(const KeyType& p_sub_directory_name, const KeyType& p_file_name) const {
+T GroupDataLoader<T, DestroyPolicy>::Find(const KeyType& p_sub_directory_name, const KeyType& p_file_name) const {
   auto it = container_.find(p_sub_directory_name);
   if (it == container_.end()) {
     return nullptr;
