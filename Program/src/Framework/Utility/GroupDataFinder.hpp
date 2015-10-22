@@ -3,28 +3,35 @@
 // GroupDataFinder
 // Author: Shimizu Shoji
 //
+// ì«Ç›çûÇ›ä÷êîÇÃèåè:
+//   1. const char*
+//   2. T*
+// Çà¯êîÇ…éÊÇÈÇ±Ç∆Ç≈Ç∑
+//
 //==============================================================================
 #pragma once
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-#include <map>
+#include <unordered_map>
 #include "DataFinder.hpp"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-template<typename T>
+template<
+  typename T,
+  template<class> class DestroyPolicy = UsingRelease
+>
 class GroupDataFinder {
 public:
-  using DataFinderType = DataFinder<T>;
+  using DataFinderType = DataFinder<T, DestroyPolicy>;
   using KeyType = typename DataFinderType::KeyType;
-  using ContainerType = std::map<KeyType, DataFinderType*>;
-  using LoadFunctionType = typename DataFinderType::LoadFunctionType;
+  using ContainerType = std::unordered_map<KeyType, DataFinderType*>;
 
 public:
   // ctor
-  GroupDataFinder(const char* p_main_directory_path, LoadFunctionType load_function);
+  GroupDataFinder(const char* p_main_directory_path);
 
   // dtor
   ~GroupDataFinder();
@@ -34,7 +41,8 @@ public:
   // main = ./data/xxx/
   // sub  = Title
   //  => ./data/xxx/Title/
-  void Load(const char* p_sub_directory_name);
+  template<typename LoadFunction>
+  void Load(const char* p_sub_directory_name, LoadFunction load_function);
 
   // Unload
   void Unload(const char* p_sub_directory_name);
@@ -52,7 +60,6 @@ public:
 
 private:
   ContainerType container_;
-  LoadFunctionType load_function_;
   std::string main_directory_path_;
 };
 

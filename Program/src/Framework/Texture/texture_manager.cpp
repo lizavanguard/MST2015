@@ -9,8 +9,6 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 #include "texture_manager.h"
 
-#include "Framework/Utility/DeviceHolder.h"
-
 //==============================================================================
 // class implementation
 //==============================================================================
@@ -19,8 +17,7 @@
 //------------------------------------------------
 _TextureManager::_TextureManager() : p_container_(nullptr) {
   static const char* kMainDirectoryPath = "./data/Texture/";
-  p_container_ = new ContainerType(kMainDirectoryPath, [](const char* p_filename, LPDIRECT3DTEXTURE9* pp_texture) {
-    D3DXCreateTextureFromFile(DeviceHolder::Instance().GetDevice(), p_filename, pp_texture); });
+  p_container_ = new ContainerType(kMainDirectoryPath);
 }
 
 //------------------------------------------------
@@ -38,7 +35,8 @@ _TextureManager::~_TextureManager() {
 //  => ./data/texture/Title/
 //------------------------------------------------
 void _TextureManager::Load(const char* p_sub_directory_name) {
-  p_container_->Load(p_sub_directory_name);
+  p_container_->Load(p_sub_directory_name, [](const char* p_filename, LPDIRECT3DTEXTURE9* pp_texture) {
+    D3DXCreateTextureFromFile(DeviceHolder::Instance().GetDevice(), p_filename, pp_texture);});
 }
 
 //------------------------------------------------

@@ -10,6 +10,7 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 #include "liza/generic/SingletonHolder.hpp"
 
+#include "Framework/Utility/DeviceHolder.h"
 #include "Framework/Utility/GroupDataFinder.hpp"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=

@@ -20,7 +20,8 @@ template<
   typename T,
   template<class> class DestroyPolicy
 >
-DataFinder<T, DestroyPolicy>::DataFinder(const char* p_start_directory_path, LoadFunctionType load_function) {
+template<typename LoadFunction>
+DataFinder<T, DestroyPolicy>::DataFinder(const char* p_start_directory_path, LoadFunction load_function) {
   std::string file_path = p_start_directory_path;
   file_path += "/*.*";  // ‘S•”
 

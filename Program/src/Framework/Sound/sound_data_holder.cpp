@@ -9,14 +9,6 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 #include "sound_data_holder.h"
 
-//------------------------------------------------
-//------------------------------------------------
-static HRESULT CheckChunk(HANDLE hFile, DWORD format, DWORD *pChunkSize, DWORD *pChunkDataPosition);
-
-//------------------------------------------------
-//------------------------------------------------
-static HRESULT ReadChunkData(HANDLE hFile, void *pBuffer, DWORD dwBuffersize, DWORD dwBufferoffset);
-
 //==============================================================================
 // class implementation
 //==============================================================================
@@ -29,7 +21,7 @@ SoundDataHolder::SoundDataHolder(IXAudio2* p_xaudio, const char* p_filename, con
     , size_(0)
     , is_loop_(is_loop) {
 #define _HR_ASSERT(x) MY_BREAK_ASSERTMSG(SUCCEEDED(hr), x);
-  HANDLE hFile;
+  HANDLE h_file;
   DWORD dwChunkSize = 0;
   DWORD dwChunkPosition = 0;
   DWORD dwFiletype;
@@ -41,26 +33,26 @@ SoundDataHolder::SoundDataHolder(IXAudio2* p_xaudio, const char* p_filename, con
   memset(&buffer, 0, sizeof(XAUDIO2_BUFFER));
 
   // サウンドデータファイルの生成
-  hFile = CreateFile(p_filename, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL);
-  MY_BREAK_ASSERTMSG(hFile != INVALID_HANDLE_VALUE, "サウンドデータファイルの生成に失敗！(1)");
-  if (hFile == INVALID_HANDLE_VALUE) {
+  h_file = CreateFile(p_filename, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL);
+  MY_BREAK_ASSERTMSG(h_file != INVALID_HANDLE_VALUE, "サウンドデータファイルの生成に失敗！(1)");
+  if (h_file == INVALID_HANDLE_VALUE) {
     return;
   }
 
   // ファイルポインタを先頭に移動
-  DWORD ret = SetFilePointer(hFile, 0, NULL, FILE_BEGIN);
+  DWORD ret = SetFilePointer(h_file, 0, NULL, FILE_BEGIN);
   MY_BREAK_ASSERTMSG(ret != INVALID_SET_FILE_POINTER, "サウンドデータファイルの生成に失敗！(2)");
-  if (SetFilePointer(hFile, 0, NULL, FILE_BEGIN) == INVALID_SET_FILE_POINTER) {
+  if (SetFilePointer(h_file, 0, NULL, FILE_BEGIN) == INVALID_SET_FILE_POINTER) {
     return;
   }
 
   // WAVEファイルのチェック
-  HRESULT hr = CheckChunk(hFile, 'FFIR', &dwChunkSize, &dwChunkPosition);
+  HRESULT hr = _CheckChunk(h_file, 'FFIR', &dwChunkSize, &dwChunkPosition);
   _HR_ASSERT("WAVEファイルのチェックに失敗！(1)");
   if (FAILED(hr)) {
     return;
   }
-  hr = ReadChunkData(hFile, &dwFiletype, sizeof(DWORD), dwChunkPosition);
+  hr = _ReadChunkData(h_file, &dwFiletype, sizeof(DWORD), dwChunkPosition);
   _HR_ASSERT("WAVEファイルのチェックに失敗！(2)");
   if (FAILED(hr)) {
     return;
@@ -71,25 +63,25 @@ SoundDataHolder::SoundDataHolder(IXAudio2* p_xaudio, const char* p_filename, con
   }
 
   // フォーマットチェック
-  hr = CheckChunk(hFile, ' tmf', &dwChunkSize, &dwChunkPosition);
+  hr = _CheckChunk(h_file, ' tmf', &dwChunkSize, &dwChunkPosition);
   _HR_ASSERT("フォーマットチェックに失敗！(1)");
   if (FAILED(hr)) {
     return;
   }
-  hr = ReadChunkData(hFile, &wfx, dwChunkSize, dwChunkPosition);
+  hr = _ReadChunkData(h_file, &wfx, dwChunkSize, dwChunkPosition);
   _HR_ASSERT("フォーマットチェックに失敗！(2)");
   if (FAILED(hr)) {
     return;
   }
 
   // オーディオデータ読み込み
-  hr = CheckChunk(hFile, 'atad', &size_, &dwChunkPosition);
+  hr = _CheckChunk(h_file, 'atad', &size_, &dwChunkPosition);
   _HR_ASSERT("オーディオデータ読み込みに失敗！(1)");
   if (FAILED(hr)) {
     return;
   }
   p_sound_data_ = (BYTE*)malloc(size_);
-  hr = ReadChunkData(hFile, p_sound_data_, size_, dwChunkPosition);
+  hr = _ReadChunkData(h_file, p_sound_data_, size_, dwChunkPosition);
   _HR_ASSERT("オーディオデータ読み込みに失敗！(2)");
   if (FAILED(hr)) {
     return;
@@ -180,54 +172,54 @@ void SoundDataHolder::Stop(void) {
 //------------------------------------------------
 // チャンクのチェック
 //------------------------------------------------
-HRESULT CheckChunk(HANDLE hFile, DWORD format, DWORD *pChunkSize, DWORD *pChunkDataPosition) {
+HRESULT SoundDataHolder::_CheckChunk(HANDLE h_file, DWORD format, DWORD *p_chunk_size, DWORD *p_chunk_data_position) {
   HRESULT hr = S_OK;
-  DWORD dwRead;
-  DWORD dwChunkType;
-  DWORD dwChunkDataSize;
-  DWORD dwRIFFDataSize = 0;
-  DWORD dwFileType;
-  DWORD dwBytesRead = 0;
-  DWORD dwOffset = 0;
+  DWORD read;
+  DWORD chunk_type;
+  DWORD chunk_data_size;
+  DWORD riff_data_size = 0;
+  DWORD file_type;
+  DWORD bytes_read = 0;
+  DWORD offset = 0;
 
-  if (SetFilePointer(hFile, 0, NULL, FILE_BEGIN) == INVALID_SET_FILE_POINTER) {// ファイルポインタを先頭に移動
+  if (SetFilePointer(h_file, 0, NULL, FILE_BEGIN) == INVALID_SET_FILE_POINTER) {// ファイルポインタを先頭に移動
     return HRESULT_FROM_WIN32(GetLastError());
   }
 
   while (hr == S_OK) {
-    if (ReadFile(hFile, &dwChunkType, sizeof(DWORD), &dwRead, NULL) == 0) {// チャンクの読み込み
+    if (ReadFile(h_file, &chunk_type, sizeof(DWORD), &read, NULL) == 0) {// チャンクの読み込み
       hr = HRESULT_FROM_WIN32(GetLastError());
     }
 
-    if (ReadFile(hFile, &dwChunkDataSize, sizeof(DWORD), &dwRead, NULL) == 0) {// チャンクデータの読み込み
+    if (ReadFile(h_file, &chunk_data_size, sizeof(DWORD), &read, NULL) == 0) {// チャンクデータの読み込み
       hr = HRESULT_FROM_WIN32(GetLastError());
     }
 
-    switch (dwChunkType) {
+    switch (chunk_type) {
       case 'FFIR':
-        dwRIFFDataSize = dwChunkDataSize;
-        dwChunkDataSize = 4;
-        if (ReadFile(hFile, &dwFileType, sizeof(DWORD), &dwRead, NULL) == 0) {// ファイルタイプの読み込み
+        riff_data_size = chunk_data_size;
+        chunk_data_size = 4;
+        if (ReadFile(h_file, &file_type, sizeof(DWORD), &read, NULL) == 0) {// ファイルタイプの読み込み
           hr = HRESULT_FROM_WIN32(GetLastError());
         }
         break;
 
       default:
-        if (SetFilePointer(hFile, dwChunkDataSize, NULL, FILE_CURRENT) == INVALID_SET_FILE_POINTER) {// ファイルポインタをチャンクデータ分移動
+        if (SetFilePointer(h_file, chunk_data_size, NULL, FILE_CURRENT) == INVALID_SET_FILE_POINTER) {// ファイルポインタをチャンクデータ分移動
           return HRESULT_FROM_WIN32(GetLastError());
         }
     }
 
-    dwOffset += sizeof(DWORD)* 2;
-    if (dwChunkType == format) {
-      *pChunkSize = dwChunkDataSize;
-      *pChunkDataPosition = dwOffset;
+    offset += sizeof(DWORD)* 2;
+    if (chunk_type == format) {
+      *p_chunk_size = chunk_data_size;
+      *p_chunk_data_position = offset;
 
       return S_OK;
     }
 
-    dwOffset += dwChunkDataSize;
-    if (dwBytesRead >= dwRIFFDataSize) {
+    offset += chunk_data_size;
+    if (bytes_read >= riff_data_size) {
       return S_FALSE;
     }
   }
@@ -238,14 +230,14 @@ HRESULT CheckChunk(HANDLE hFile, DWORD format, DWORD *pChunkSize, DWORD *pChunkD
 //------------------------------------------------
 // チャンクデータの読み込み
 //------------------------------------------------
-HRESULT ReadChunkData(HANDLE hFile, void *pBuffer, DWORD dwBuffersize, DWORD dwBufferoffset) {
-  DWORD dwRead;
+HRESULT SoundDataHolder::_ReadChunkData(HANDLE h_file, void *p_buffer, DWORD buffer_size, DWORD buffer_offset) {
+  DWORD read;
 
-  if (SetFilePointer(hFile, dwBufferoffset, NULL, FILE_BEGIN) == INVALID_SET_FILE_POINTER) {// ファイルポインタを指定位置まで移動
+  if (SetFilePointer(h_file, buffer_offset, NULL, FILE_BEGIN) == INVALID_SET_FILE_POINTER) {// ファイルポインタを指定位置まで移動
     return HRESULT_FROM_WIN32(GetLastError());
   }
 
-  if (ReadFile(hFile, pBuffer, dwBuffersize, &dwRead, NULL) == 0) {// データの読み込み
+  if (ReadFile(h_file, p_buffer, buffer_size, &read, NULL) == 0) {// データの読み込み
     return HRESULT_FROM_WIN32(GetLastError());
   }
 

@@ -135,6 +135,9 @@
     <ClCompile Include="src\Framework\Sound\sound_data_holder.cpp">
       <Filter>src\Framework\Sound</Filter>
     </ClCompile>
+    <ClCompile Include="src\Framework\Sound\xaudio_holder.cpp">
+      <Filter>src\Framework\Sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Framework\DebugProc\DebugProc.h">
@@ -277,6 +280,9 @@
     </ClInclude>
     <ClInclude Include="src\Framework\Utility\_DataFinder.hpp">
       <Filter>src\liza\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Sound\xaudio_holder.h">
+      <Filter>src\Framework\Sound</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

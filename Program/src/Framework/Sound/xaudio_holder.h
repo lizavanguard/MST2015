@@ -1,6 +1,6 @@
 //==============================================================================
 //
-// SoundDataHolder
+// XAduioHolder
 // Author: Shimizu Shoji
 //
 //==============================================================================
@@ -13,20 +13,18 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-class SoundDataHolder {
+class XAudioHolder {
 public:
-  SoundDataHolder(IXAudio2* p_xaudio, const char* p_filename, bool is_loop);
-  ~SoundDataHolder();
+  XAudioHolder();
+  ~XAudioHolder();
 
-  void Play(void);
-  void Stop(void);
+  IXAudio2* GetXAudio(void) { return p_xaudio_; }
 
 private:
-  HRESULT _CheckChunk(HANDLE h_file, DWORD format, DWORD* p_chunk_size, DWORD* p_chunk_data_position);
-  HRESULT _ReadChunkData(HANDLE h_file, void* p_buffer, DWORD buffer_size, DWORD buffer_offset);
+  static const int kObjectGenerateLimit = 1;
 
-  IXAudio2SourceVoice* p_source_voice_;
-  BYTE* p_sound_data_;
-  DWORD size_;
-  bool is_loop_;
+  static unsigned int s_num_object_;
+
+  IXAudio2* p_xaudio_;
+  IXAudio2MasteringVoice* p_mastering_voice_;
 };

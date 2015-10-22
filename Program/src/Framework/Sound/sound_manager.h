@@ -12,31 +12,20 @@
 
 #include "liza/generic/SingletonHolder.hpp"
 
-#include "Framework/Utility/DataFinder.hpp"
+#include "Framework/Utility/GroupDataFinder.hpp"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class declaration
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 class SoundDataHolder;
-
-//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// 列挙型定義
-//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//------------------------------------------------
-// サウンドファイル一覧
-//------------------------------------------------
-typedef enum {
-  SOUND_LABEL_BGM1,
-  SOUND_LABEL_SE1,
-  kSoundMax
-} SoundLabels;
+class XAudioHolder;
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 class _SoundManager {
   using DataType = SoundDataHolder*;
-  using ContainerType = DataFinder<DataType, UsingDelete>;
+  using ContainerType = GroupDataFinder<DataType, UsingDelete>;
 
 public:
   // ctor
@@ -53,10 +42,12 @@ public:
 
   // Stop sound
   void StopSound(const ContainerType::KeyType& sound_file_name);
+  // Stop sound all
   void StopSound(void);
 
 private:
   ContainerType* p_container_;
+  XAudioHolder* p_xaudio_;
 };
 
 using SoundManager = liza::generic::SingletonHolder<_SoundManager>;

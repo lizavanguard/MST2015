@@ -16,17 +16,22 @@
 //------------------------------------------------
 // ctor
 //------------------------------------------------
-template<typename T>
-GroupDataFinder<T>::GroupDataFinder(const char* p_main_directory_path, LoadFunctionType load_function)
-    : load_function_(load_function)
-    , main_directory_path_(p_main_directory_path) {
+template<
+  typename T,
+  template<class> class DestroyPolicy
+>
+GroupDataFinder<T, DestroyPolicy>::GroupDataFinder(const char* p_main_directory_path)
+    : main_directory_path_(p_main_directory_path) {
 }
 
 //------------------------------------------------
 // dtor
 //------------------------------------------------
-template<typename T>
-GroupDataFinder<T>::~GroupDataFinder() {
+template<
+  typename T,
+  template<class> class DestroyPolicy
+>
+GroupDataFinder<T, DestroyPolicy>::~GroupDataFinder() {
   for (auto it = container_.begin(); it != container_.end();) {
     SafeDelete(it->second);
     it = container_.erase(it);
@@ -40,12 +45,16 @@ GroupDataFinder<T>::~GroupDataFinder() {
 // sub  = Title
 //  => ./data/texture/Title/
 //------------------------------------------------
-template<typename T>
-void GroupDataFinder<T>::Load(const char* p_sub_directory_name) {
+template<
+  typename T,
+  template<class> class DestroyPolicy
+>
+template<typename LoadFunction>
+void GroupDataFinder<T, DestroyPolicy>::Load(const char* p_sub_directory_name, LoadFunction load_function) {
   std::string data_path = main_directory_path_;
   data_path += p_sub_directory_name;
   data_path += "/";
-  DataFinderType* p_finder = new DataFinderType(data_path.c_str(), load_function_);
+  DataFinderType* p_finder = new DataFinderType(data_path.c_str(), load_function);
 
   container_.insert(std::make_pair(p_sub_directory_name, p_finder));
 }
@@ -53,8 +62,11 @@ void GroupDataFinder<T>::Load(const char* p_sub_directory_name) {
 //------------------------------------------------
 // Unload
 //------------------------------------------------
-template<typename T>
-void GroupDataFinder<T>::Unload(const char* p_sub_directory_name) {
+template<
+  typename T,
+  template<class> class DestroyPolicy
+>
+void GroupDataFinder<T, DestroyPolicy>::Unload(const char* p_sub_directory_name) {
   auto it = container_.find(p_sub_directory_name);
   if (it == container_.end()) {
     return;
@@ -66,8 +78,11 @@ void GroupDataFinder<T>::Unload(const char* p_sub_directory_name) {
 // find
 // SubDirectoryとファイル名をくっつけたやつ
 //------------------------------------------------
-template<typename T>
-T GroupDataFinder<T>::Find(const KeyType& p_file_name) const {
+template<
+  typename T,
+  template<class> class DestroyPolicy
+>
+T GroupDataFinder<T, DestroyPolicy>::Find(const KeyType& p_file_name) const {
   std::string work = p_file_name;
 
   MY_BREAK_ASSERTMSG(work.size() >= 3, "不正な文字列が入っています");
@@ -92,8 +107,11 @@ T GroupDataFinder<T>::Find(const KeyType& p_file_name) const {
 // find
 // SubDirectoryとファイル名を分けたやつ
 //------------------------------------------------
-template<typename T>
-T GroupDataFinder<T>::Find(const KeyType& p_sub_directory_name, const KeyType& p_file_name) const {
+template<
+  typename T,
+  template<class> class DestroyPolicy
+>
+T GroupDataFinder<T, DestroyPolicy>::Find(const KeyType& p_sub_directory_name, const KeyType& p_file_name) const {
   auto it = container_.find(p_sub_directory_name);
   if (it == container_.end()) {
     return nullptr;
