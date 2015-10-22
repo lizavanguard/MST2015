@@ -12,6 +12,13 @@
 
 #include "liza/generic/SingletonHolder.hpp"
 
+#include "Framework/Utility/DataFinder.hpp"
+
+//--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
+// class declaration
+//--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
+class SoundDataHolder;
+
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // —ñ‹“Œ^’è‹`
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -28,6 +35,9 @@ typedef enum {
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 class _SoundManager {
+  using DataType = SoundDataHolder*;
+  using ContainerType = DataFinder<DataType, UsingDelete>;
+
 public:
   // ctor
   _SoundManager();
@@ -45,6 +55,8 @@ public:
   void StopSound(SoundLabels label);
   void StopSound(void);
 
+private:
+  ContainerType* p_container_;
 };
 
 using SoundManager = liza::generic::SingletonHolder<_SoundManager>;

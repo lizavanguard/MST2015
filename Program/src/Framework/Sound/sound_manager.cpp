@@ -9,6 +9,8 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 #include "sound_manager.h"
 
+#include "sound_data_holder.h"
+
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // 構造体定義
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -53,13 +55,36 @@ SoundParam g_aParam[kSoundMax] = {
 //------------------------------------------------
 // ctor
 //------------------------------------------------
-_SoundManager::_SoundManager() {
+_SoundManager::_SoundManager()
+    : p_container_(nullptr) {
+#define _HR_ASSERT(x) MY_BREAK_ASSERTMSG(SUCCEEDED(hr), x);
+  CoInitializeEx(nullptr, COINIT_MULTITHREADED);
+
+  HRESULT hr = XAudio2Create(&g_pXAudio2, 0);
+  _HR_ASSERT("XAudio2オブジェクトの作成に失敗！");
+  if (FAILED(hr)) {
+    CoUninitialize();
+    return;
+  }
+
+  hr = g_pXAudio2->CreateMasteringVoice(&g_pMasteringVoice);
+  _HR_ASSERT("マスターボイスの生成に失敗！");
+  if (FAILED(hr)) {
+    SafeRelease(g_pXAudio2);
+    CoUninitialize();
+    return;
+  }
+
+  p_container_ = new ContainerType("data/Sound/Se/", [](const char* p_filename, DataType* p_sound_data) {
+    *p_sound_data = new SoundDataHolder(g_pXAudio2, p_filename, true);
+  });
 }
 
 //------------------------------------------------
 // dtor
 //------------------------------------------------
 _SoundManager::~_SoundManager() {
+  SafeDelete(p_container_);
   // 一時停止
   for (int sound_cnt = 0; sound_cnt < kSoundMax; sound_cnt++)
   {

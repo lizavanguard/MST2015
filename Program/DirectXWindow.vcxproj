@@ -29,6 +29,7 @@
     <ClCompile Include="src\Framework\Object\object_base.cpp" />
     <ClCompile Include="src\Framework\Object\object_model.cpp" />
     <ClCompile Include="src\Framework\Shader\shader_manager.cpp" />
+    <ClCompile Include="src\Framework\Sound\sound_data_holder.cpp" />
     <ClCompile Include="src\Framework\Sound\sound_manager.cpp" />
     <ClCompile Include="src\Framework\Texture\texture_manager.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -62,11 +63,13 @@
     <ClInclude Include="src\Framework\Object\object_model.h" />
     <ClInclude Include="src\Framework\Object\root.h" />
     <ClInclude Include="src\Framework\Shader\shader_manager.h" />
+    <ClInclude Include="src\Framework\Sound\sound_data_holder.h" />
     <ClInclude Include="src\Framework\Sound\sound_manager.h" />
     <ClInclude Include="src\Framework\Texture\texture_manager.h" />
     <ClInclude Include="src\Framework\Utility\DataFinder.hpp" />
     <ClInclude Include="src\Framework\Utility\DeviceHolder.h" />
     <ClInclude Include="src\Framework\Utility\GroupDataFinder.hpp" />
+    <ClInclude Include="src\Framework\Utility\_DataFinder.hpp" />
     <ClInclude Include="src\liza\game\directx\render_target_holder.h" />
     <ClInclude Include="src\liza\game\directx\utility.h" />
     <ClInclude Include="src\liza\generic\Creation.hpp" />

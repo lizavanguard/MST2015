@@ -16,8 +16,11 @@
 //------------------------------------------------
 // ctor
 //------------------------------------------------
-template<typename T>
-DataFinder<T>::DataFinder(const char* p_start_directory_path, LoadFunctionType load_function) {
+template<
+  typename T,
+  template<class> class DestroyPolicy
+>
+DataFinder<T, DestroyPolicy>::DataFinder(const char* p_start_directory_path, LoadFunctionType load_function) {
   std::string file_path = p_start_directory_path;
   file_path += "/*.*";  // 全部
 
@@ -70,10 +73,13 @@ DataFinder<T>::DataFinder(const char* p_start_directory_path, LoadFunctionType l
 //------------------------------------------------
 // dtor
 //------------------------------------------------
-template<typename T>
-DataFinder<T>::~DataFinder() {
+template<
+  typename T,
+  template<class> class DestroyPolicy
+>
+DataFinder<T, DestroyPolicy>::~DataFinder() {
   for (auto it = container_.begin(); it != container_.end();) {
-    SafeRelease(it->second);
+    DestroyPolicy<T>::Destroy(it->second);
     it = container_.erase(it);
   }
 }
@@ -81,8 +87,11 @@ DataFinder<T>::~DataFinder() {
 //------------------------------------------------
 // find data
 //------------------------------------------------
-template<typename T>
-T DataFinder<T>::Find(const KeyType& key) const {
+template<
+  typename T,
+  template<class> class DestroyPolicy
+>
+T DataFinder<T, DestroyPolicy>::Find(const KeyType& key) const {
   auto it = container_.find(key);
   MY_BREAK_ASSERTMSG(it != container_.end(), "データがありませんでした");
   if (it == container_.end()) {

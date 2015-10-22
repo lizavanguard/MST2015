@@ -47,8 +47,7 @@ GameManager::GameManager(HINSTANCE hInstance, HWND hWnd, LPDIRECT3DDEVICE9 pDevi
   ShaderManager::Instance();
   TextureManager::Instance().Load("General");
   TextureManager::Instance().Load("Game"); // TODO: Game -> Title?
-  // HACK:
-  SoundManager::Instance().Load();
+  SoundManager::Instance();
 
   pDebugProc_ = new DebugProc();
   pDebugProc_->Init(pDevice);
