@@ -64,6 +64,9 @@
     <Filter Include="src\Framework\Sound">
       <UniqueIdentifier>{43623334-ee86-410f-b943-00d54b671e8e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Framework\Model">
+      <UniqueIdentifier>{442a3b0f-aa16-45bc-9851-296ca5fa5eeb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Framework\DebugProc\DebugProc.cpp">
@@ -137,6 +140,9 @@
     </ClCompile>
     <ClCompile Include="src\Framework\Sound\xaudio_holder.cpp">
       <Filter>src\Framework\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\Model\model_manager.cpp">
+      <Filter>src\Framework\Model</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -289,6 +295,9 @@
     </ClInclude>
     <ClInclude Include="src\Framework\Utility\GroupDataLoader.hpp">
       <Filter>src\Framework\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Model\model_manager.h">
+      <Filter>src\Framework\Model</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

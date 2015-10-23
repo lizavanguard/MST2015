@@ -58,6 +58,9 @@ public:
 
   // find data
   T Find(const KeyType& key) const;
+  // find data with pure key
+  // ‰½‚à•ÏŠ·‚µ‚È‚¢‚ÅƒL[‚ğ‚»‚Ì‚Ü‚Ü“n‚·
+  T FindWithPureKey(const KeyType& key) const;
 
   Iterator begin(void) { return container_.begin(); }
   ConstIterator begin(void) const { return container_.begin(); }

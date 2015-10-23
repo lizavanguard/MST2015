@@ -83,6 +83,30 @@ template<
   template<class> class DestroyPolicy
 >
 T GroupDataLoader<T, DestroyPolicy>::Find(const KeyType& p_file_name) const {
+  return FindWithPureKey(DeleteExtension(p_file_name));
+}
+
+//------------------------------------------------
+// find
+// SubDirectoryとファイル名を分けたやつ
+//------------------------------------------------
+template<
+  typename T,
+  template<class> class DestroyPolicy
+>
+T GroupDataLoader<T, DestroyPolicy>::Find(const KeyType& p_sub_directory_name, const KeyType& p_file_name) const {
+  return FindWithPureKey(p_sub_directory_name, DeleteExtension(p_file_name));
+}
+
+//------------------------------------------------
+// find
+// ファイル名を加工せずそのまま渡す
+//------------------------------------------------
+template<
+  typename T,
+  template<class> class DestroyPolicy
+>
+T GroupDataLoader<T, DestroyPolicy>::FindWithPureKey(const KeyType& p_file_name) const {
   std::string work = p_file_name;
 
   MY_BREAK_ASSERTMSG(work.size() >= 3, "不正な文字列が入っています");
@@ -106,12 +130,13 @@ T GroupDataLoader<T, DestroyPolicy>::Find(const KeyType& p_file_name) const {
 //------------------------------------------------
 // find
 // SubDirectoryとファイル名を分けたやつ
+// ファイル名を加工せずそのまま渡す
 //------------------------------------------------
 template<
   typename T,
   template<class> class DestroyPolicy
 >
-T GroupDataLoader<T, DestroyPolicy>::Find(const KeyType& p_sub_directory_name, const KeyType& p_file_name) const {
+T GroupDataLoader<T, DestroyPolicy>::FindWithPureKey(const KeyType& p_sub_directory_name, const KeyType& p_file_name) const {
   auto it = container_.find(p_sub_directory_name);
   if (it == container_.end()) {
     return nullptr;

@@ -19,7 +19,7 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 namespace {
   const float kSize = 100.0f;
-  const char* kShaderFilename = "object3d";
+  const char* kShaderFilename = "object3d.hlsl";
 }
 
 //==============================================================================

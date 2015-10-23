@@ -46,6 +46,7 @@ GameManager::GameManager(HINSTANCE hInstance, HWND hWnd, LPDIRECT3DDEVICE9 pDevi
   CameraManager::Instance(); // Initialize
   ShaderManager::Instance();
   TextureManager::Instance().Load("General");
+  TextureManager::Instance().Load("Model");
   TextureManager::Instance().Load("Game"); // TODO: Game -> Title?
   SoundManager::Instance();
 

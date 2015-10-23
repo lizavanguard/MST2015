@@ -33,9 +33,12 @@ ObjectModel::ObjectModel(const char* p_filename) {
     &p_materials_,
     &num_materials_);
 
-  liza::game::directx::AttachVertexDeclarationToMesh(p_device, &p_mesh_, elements);
+  //liza::game::directx::AttachVertexDeclarationToMesh(p_device, &p_mesh_, elements);
 
-  
+  //D3DMATERIAL9 mat_def;
+  //DeviceHolder::Instance().GetDevice()->GetMaterial(&mat_def);
+  //D3DXMATERIAL* p_d3dx_mat = (D3DXMATERIAL*)p_materials_->GetBufferPointer();
+  //p_d3dx_mat->pTextureFilename;
 }
 
 //------------------------------------------------

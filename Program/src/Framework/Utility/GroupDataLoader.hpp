@@ -62,6 +62,15 @@ public:
   // SubDirectoryとファイル名を分けたやつ
   T Find(const KeyType& p_sub_directory_name, const KeyType& p_file_name) const;
 
+  // find
+  // ファイル名を加工せずそのまま渡す
+  T FindWithPureKey(const KeyType& p_file_name) const;
+
+  // find
+  // SubDirectoryとファイル名を分けたやつ
+  // ファイル名を加工せずそのまま渡す
+  T FindWithPureKey(const KeyType& p_sub_directory_name, const KeyType& p_file_name) const;
+
 private:
   ContainerType container_;
   std::string main_directory_path_;

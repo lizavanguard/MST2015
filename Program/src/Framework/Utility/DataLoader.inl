@@ -55,16 +55,17 @@ DataLoader<T, DestroyPolicy>::DataLoader(const char* p_start_directory_path, Loa
 
     // 拡張子を消す(拡張子がないファイルは考慮していない)
     std::string file_name = find_data.cFileName;
-    for (int char_index = file_name.size(); char_index > 0; --char_index) {
-      if (file_name[char_index - 1] == '.') {
-        file_name.pop_back();
-        break;
-      }
-      file_name.pop_back();
-    }
+    //for (int char_index = file_name.size(); char_index > 0; --char_index) {
+    //  if (file_name[char_index - 1] == '.') {
+    //    file_name.pop_back();
+    //    break;
+    //  }
+    //  file_name.pop_back();
+    //}
+    std::string data_name = DeleteExtension(file_name);
 
     // 登録
-    container_.insert(std::make_pair(file_name, p_data));
+    container_.insert(std::make_pair(data_name, p_data));
   }
 
   // close
@@ -93,6 +94,17 @@ template<
   template<class> class DestroyPolicy
 >
 T DataLoader<T, DestroyPolicy>::Find(const KeyType& key) const {
+  return FindWithPureKey(DeleteExtension(key.c_str()));
+}
+
+//------------------------------------------------
+// find data with extension
+//------------------------------------------------
+template<
+  typename T,
+  template<class> class DestroyPolicy
+>
+T DataLoader<T, DestroyPolicy>::FindWithPureKey(const KeyType& key) const {
   auto it = container_.find(key);
   MY_BREAK_ASSERTMSG(it != container_.end(), "データがありませんでした");
   if (it == container_.end()) {

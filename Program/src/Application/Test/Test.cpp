@@ -37,10 +37,10 @@ Test::Test() {
   p_debug_2->AttachChild(p_root2);
 
   Object3D* p_test = Object3D::Create("General/texture001");
-  ObjectModel* p_model = ObjectModel::Create("data/Model/car000.x");
+  ObjectModel* p_model = ObjectModel::Create("data/Model/kuma");
   g_p_root->AttachChild(p_test);
   p_test->AttachChild(p_model);
-  p_test->AttachChild(Object3D::Create("Game/texture002"));
+  p_test->AttachChild(Object3D::Create("Model/bear_001"));
 
   //SoundManager::Instance().PlaySound(SOUND_LABEL_BGM1);
 }
