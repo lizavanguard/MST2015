@@ -39,7 +39,7 @@ private:
 
 public:
 	// Update
-	void Update( void );
+	void Update( float elpasedTime );
 	
 	// Draw
 	void Draw( void );

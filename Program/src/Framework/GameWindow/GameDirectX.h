@@ -39,7 +39,7 @@ public:
 	void Finalize( void ) override;
 
 	// Update
-	void Update( void ) override;
+	void Update( float elapsedTime ) override;
 
 	// Draw
 	void Draw( void ) override;

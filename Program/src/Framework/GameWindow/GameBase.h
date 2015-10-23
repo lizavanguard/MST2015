@@ -29,7 +29,7 @@ public:
 	virtual void Finalize( void ) = 0;
 
 	// Update
-	virtual void Update( void ) = 0;
+	virtual void Update( float elapsedTime ) = 0;
 
 	// Draw
 	virtual void Draw( void ) = 0;

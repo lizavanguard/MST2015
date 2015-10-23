@@ -67,6 +67,9 @@
     <Filter Include="src\Framework\Model">
       <UniqueIdentifier>{442a3b0f-aa16-45bc-9851-296ca5fa5eeb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Application\Player">
+      <UniqueIdentifier>{c332bc34-2398-4a39-b823-15c80dbaf8db}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Framework\DebugProc\DebugProc.cpp">
@@ -143,6 +146,9 @@
     </ClCompile>
     <ClCompile Include="src\Framework\Model\model_manager.cpp">
       <Filter>src\Framework\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Application\Player\Player.cpp">
+      <Filter>src\Application\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -298,6 +304,9 @@
     </ClInclude>
     <ClInclude Include="src\Framework\Model\model_manager.h">
       <Filter>src\Framework\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Application\Player\Player.h">
+      <Filter>src\Application\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

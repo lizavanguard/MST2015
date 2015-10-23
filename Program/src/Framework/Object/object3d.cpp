@@ -19,7 +19,7 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 namespace {
   const float kSize = 100.0f;
-  const char* kShaderFilename = "object3d.hlsl";
+  const char* kShadername = "object3d";
 }
 
 //==============================================================================
@@ -31,7 +31,7 @@ namespace {
 Object3D::Object3D(const char* p_filename)
     : p_shader_(nullptr)
     , p_declaration_(nullptr) {
-  p_shader_ = ShaderManager::Instance().FindShader(kShaderFilename);
+  p_shader_ = ShaderManager::Instance().FindShader(kShadername);
 
   D3DVERTEXELEMENT9 elements[] = {
     {0, 0, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 0},
@@ -57,6 +57,7 @@ Object3D::~Object3D() {
 // _Update
 //------------------------------------------------
 void Object3D::_Update(const float elapsed_time) {
+  int a = 0;
 }
 
 //------------------------------------------------

@@ -169,8 +169,8 @@ void GameDirectX::Finalize( void ) {
 //------------------------------------------------
 // Update
 //------------------------------------------------
-void GameDirectX::Update( void ) {
-	GameManager::Instance().Update();
+void GameDirectX::Update( const float elapsedTime ) {
+	GameManager::Instance().Update(elapsedTime);
 }
 
 

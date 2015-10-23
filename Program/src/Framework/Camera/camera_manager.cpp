@@ -17,7 +17,7 @@
 //------------------------------------------------
 _CameraManager::_CameraManager() {
   // TODO:
-  static const D3DXVECTOR3 kInitialEyePosition = {0.0f, 75.0f, -100.0f};
+  static const D3DXVECTOR3 kInitialEyePosition = {0.0f, 10.0f, -15.0f};
   PushCamera(Camera::Create(kInitialEyePosition, D3DXVECTOR3(0, 0, 0)));
 }
 

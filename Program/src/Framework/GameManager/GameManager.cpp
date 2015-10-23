@@ -74,9 +74,9 @@ GameManager::~GameManager() {
 //------------------------------------------------
 // update
 //------------------------------------------------
-void GameManager::Update(void) {
+void GameManager::Update(const float elpasedTime) {
   pInputManager_->Update();
-  CameraManager::Instance().Update(0.0f);
+  CameraManager::Instance().Update(elpasedTime);
 
   pTest_->Update();
 }

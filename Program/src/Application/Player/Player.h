@@ -1,6 +1,6 @@
 //==============================================================================
 //
-// ObjectModel
+// Player
 // Author: Shimizu Shoji
 //
 //==============================================================================
@@ -8,27 +8,19 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-#include "creator.h"
-#include "object_base.h"
-
-#include "Framework/Model/model_manager.h"
+#include "Framework/Object/object_model.h"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-class ObjectModel : public ObjectBase, virtual public Creator<ObjectModel> {
+class Player : public ObjectModel {
 public:
   // ctor
-  ObjectModel(const char* p_filename);
+  Player();
 
   // dtor
-  virtual ~ObjectModel();
+  virtual ~Player();
 
 private:
   virtual void _Update(float elapsed_time) override;
-  virtual void _Draw(void) override;
-
-  // property
-  XModelData* p_xmodel_data_;
-  LPD3DXEFFECT p_shader_;
 };

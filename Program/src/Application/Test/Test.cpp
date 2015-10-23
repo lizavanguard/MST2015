@@ -14,6 +14,7 @@
 #include "Framework/Light/light.h"
 #include "Framework/Object/object_model.h"
 #include "Framework/Sound/sound_manager.h"
+#include "Application/Player/Player.h"
 
 Root* g_p_root = nullptr;
 
@@ -25,8 +26,11 @@ Root* g_p_root = nullptr;
 //------------------------------------------------
 Test::Test() {
   g_p_root = Root::Create();
-  g_p_root->AttachChild(ObjectModel::Create("simple_field"));
-  g_p_root->AttachChild(ObjectModel::Create("simple_blue_sphere"));
+  //auto ball = ObjectModel::Create("ball");
+  //g_p_root->AttachChild(ball);
+  g_p_root->AttachChild(ObjectModel::Create("field"));
+  // TODO: Error
+  //g_p_root->AttachChild(Player::Create());
 
   //g_p_root->AttachChild(DebugObject::Create("ID-1"));
   //g_p_root->AttachChild(DebugObject::Create("ID-3"));
