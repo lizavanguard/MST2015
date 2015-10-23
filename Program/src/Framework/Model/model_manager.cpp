@@ -1,6 +1,6 @@
 //==============================================================================
 //
-// ModelManager
+// _ModelManager
 // Author: Shimizu Shoji
 //
 //==============================================================================
@@ -17,20 +17,23 @@
 //------------------------------------------------
 // ctor
 //------------------------------------------------
-ModelManager::ModelManager() : p_container_(nullptr) {
+_ModelManager::_ModelManager() : p_container_(nullptr) {
   static const char* kModelDirectoryPath = "data/Model/x/";
   p_container_ = new ContainerType(kModelDirectoryPath, [](const char* p_filename, DataType* p_data){
-    LPD3DXMESH p_mesh;
-    LPD3DXBUFFER p_materials;
-    DWORD num_materials;
-    liza::game::directx::LoadMeshFromX(DeviceHolder::Instance().GetDevice(), p_filename, &p_mesh, &p_materials, &num_materials);
-    *p_data = new _XModel(p_mesh, p_materials, num_materials);
+    *p_data = new _XModelData(p_filename);
   });
 }
 
 //------------------------------------------------
 // dtor
 //------------------------------------------------
-ModelManager::~ModelManager() {
+_ModelManager::~_ModelManager() {
   SafeDelete(p_container_);
+}
+
+//------------------------------------------------
+// ƒtƒ@ƒCƒ‹–¼‚ÅŒŸõ
+//------------------------------------------------
+_ModelManager::DataType _ModelManager::Find(const KeyType& filename) {
+  return p_container_->Find(filename);
 }

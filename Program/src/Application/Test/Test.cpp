@@ -25,22 +25,25 @@ Root* g_p_root = nullptr;
 //------------------------------------------------
 Test::Test() {
   g_p_root = Root::Create();
-  g_p_root->AttachChild(DebugObject::Create("ID-1"));
-  g_p_root->AttachChild(DebugObject::Create("ID-3"));
-  g_p_root->AttachChild(DebugObject::Create("ID-5"));
+  g_p_root->AttachChild(ObjectModel::Create("simple_field"));
+  g_p_root->AttachChild(ObjectModel::Create("simple_blue_sphere"));
 
-  DebugObject* p_debug_2 = DebugObject::Create("ID-2");
-  g_p_root->AttachChild(p_debug_2);
-  p_debug_2->AttachChild(Root::Create());
-  p_debug_2->AttachChild(DebugObject::Create("ID-4"));
-  Root* p_root2 = Root::Create();
-  p_debug_2->AttachChild(p_root2);
+  //g_p_root->AttachChild(DebugObject::Create("ID-1"));
+  //g_p_root->AttachChild(DebugObject::Create("ID-3"));
+  //g_p_root->AttachChild(DebugObject::Create("ID-5"));
 
-  Object3D* p_test = Object3D::Create("General/texture001");
-  ObjectModel* p_model = ObjectModel::Create("data/Model/kuma");
-  g_p_root->AttachChild(p_test);
-  p_test->AttachChild(p_model);
-  p_test->AttachChild(Object3D::Create("Model/bear_001"));
+  //DebugObject* p_debug_2 = DebugObject::Create("ID-2");
+  //g_p_root->AttachChild(p_debug_2);
+  //p_debug_2->AttachChild(Root::Create());
+  //p_debug_2->AttachChild(DebugObject::Create("ID-4"));
+  //Root* p_root2 = Root::Create();
+  //p_debug_2->AttachChild(p_root2);
+
+  //Object3D* p_test = Object3D::Create("General/texture001");
+  //ObjectModel* p_model = ObjectModel::Create("kuma");
+  //g_p_root->AttachChild(p_test);
+  //p_test->AttachChild(p_model);
+  //p_test->AttachChild(Object3D::Create("Model/bear_001"));
 
   //SoundManager::Instance().PlaySound(SOUND_LABEL_BGM1);
 }

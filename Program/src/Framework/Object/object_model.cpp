@@ -8,6 +8,8 @@
 // include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 #include "object_model.h"
+
+#include "Framework/Texture/texture_manager.h"
 #include "Framework/Utility/DeviceHolder.h"
 
 //==============================================================================
@@ -16,7 +18,7 @@
 //------------------------------------------------
 // ctor
 //------------------------------------------------
-ObjectModel::ObjectModel(const char* p_filename) {
+ObjectModel::ObjectModel(const char* p_filename) : p_xmodel_data_(nullptr) {
   D3DVERTEXELEMENT9 elements[] = {
     {0, 0, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 0},
     {0, 12, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_NORMAL, 0},
@@ -26,27 +28,16 @@ ObjectModel::ObjectModel(const char* p_filename) {
 
   auto p_device = DeviceHolder::Instance().GetDevice();
 
-  liza::game::directx::LoadMeshFromX(
-    p_device,
-    p_filename,
-    &p_mesh_,
-    &p_materials_,
-    &num_materials_);
+  p_xmodel_data_ = ModelManager::Instance().Find(p_filename);
 
-  //liza::game::directx::AttachVertexDeclarationToMesh(p_device, &p_mesh_, elements);
+  liza::game::directx::AttachVertexDeclarationToMesh(p_device, &p_xmodel_data_->p_mesh, elements);
 
-  //D3DMATERIAL9 mat_def;
-  //DeviceHolder::Instance().GetDevice()->GetMaterial(&mat_def);
-  //D3DXMATERIAL* p_d3dx_mat = (D3DXMATERIAL*)p_materials_->GetBufferPointer();
-  //p_d3dx_mat->pTextureFilename;
 }
 
 //------------------------------------------------
 // dtor
 //------------------------------------------------
 ObjectModel::~ObjectModel() {
-  SafeRelease(p_materials_);
-  SafeRelease(p_mesh_);
 }
 
 
@@ -54,12 +45,6 @@ ObjectModel::~ObjectModel() {
 // _Update
 //------------------------------------------------
 void ObjectModel::_Update(const float elapsed_time) {
-  static float theta = 0;
-  const float kSpeed = 0.032f;
-  const float kDistance = 5.0f;
-  position_.x = 100;
-  //position_.y += sinf(theta) * kDistance;
-  //theta += kSpeed;
 }
 
 //------------------------------------------------
@@ -75,11 +60,19 @@ void ObjectModel::_Draw(void) {
   p_device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
   // set texture
-  p_device->SetTexture(0, nullptr);
 
-  for (unsigned int count_material = 0; count_material < num_materials_; ++count_material) {
-    p_mesh_->DrawSubset(count_material);
+  D3DMATERIAL9 material_old;
+  p_device->GetMaterial(&material_old);
+  D3DXMATERIAL* p_d3dx_material = (D3DXMATERIAL*)p_xmodel_data_->p_materials->GetBufferPointer();
+  for (unsigned int count_material = 0; count_material < p_xmodel_data_->num_materials; ++count_material) {
+    D3DMATERIAL9 material;
+    ZeroMemory(&material, sizeof(material));
+    material.Diffuse = D3DXCOLOR(D3DCOLOR_RGBA(128, 128, 255, 255));
+    p_device->SetMaterial(&material);
+    p_device->SetTexture(0, p_xmodel_data_->p_textures[count_material]);
+    p_xmodel_data_->p_mesh->DrawSubset(count_material);
   }
+  p_device->SetMaterial(&material_old);
 
   //p_device->Set
 }

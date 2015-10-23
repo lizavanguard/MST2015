@@ -11,6 +11,8 @@
 #include "creator.h"
 #include "object_base.h"
 
+#include "Framework/Model/model_manager.h"
+
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
@@ -27,7 +29,5 @@ private:
   virtual void _Draw(void) override;
 
   // property
-  LPD3DXMESH p_mesh_;
-  LPD3DXBUFFER p_materials_;
-  DWORD num_materials_;
+  XModelData* p_xmodel_data_;
 };

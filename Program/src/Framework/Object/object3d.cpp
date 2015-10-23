@@ -31,8 +31,6 @@ namespace {
 Object3D::Object3D(const char* p_filename)
     : p_shader_(nullptr)
     , p_declaration_(nullptr) {
-  // TODO: ä«óùÉNÉâÉX
-  //liza::game::directx::LoadShader(DeviceHolder::Instance().GetDevice(), kShaderFilename, &p_shader_);
   p_shader_ = ShaderManager::Instance().FindShader(kShaderFilename);
 
   D3DVERTEXELEMENT9 elements[] = {
@@ -52,20 +50,13 @@ Object3D::Object3D(const char* p_filename)
 // dtor
 //------------------------------------------------
 Object3D::~Object3D() {
-  //SafeRelease(p_texture_);
   SafeRelease(p_declaration_);
-  //SafeRelease(p_shader_);
 }
 
 //------------------------------------------------
 // _Update
 //------------------------------------------------
 void Object3D::_Update(const float elapsed_time) {
-  static float theta = 0.0f;
-  static const float kSpeed = 0.016f;
-  static const float kDistance = 10.0f;
-  rotation_.y = sinf(theta) * kDistance;
-  theta += kSpeed;
 }
 
 //------------------------------------------------

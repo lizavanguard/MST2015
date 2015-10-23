@@ -16,6 +16,7 @@
 #include "Framework/Texture/texture_manager.h"
 #include "Framework/Input/InputManager.h"
 #include "Framework/Input/InputKeyboard.h"
+#include "Framework/Model/model_manager.h"
 #include "Framework/Utility/DeviceHolder.h"
 
 // HACK:
@@ -48,6 +49,7 @@ GameManager::GameManager(HINSTANCE hInstance, HWND hWnd, LPDIRECT3DDEVICE9 pDevi
   TextureManager::Instance().Load("General");
   TextureManager::Instance().Load("Model");
   TextureManager::Instance().Load("Game"); // TODO: Game -> Title?
+  ModelManager::Instance();
   SoundManager::Instance();
 
   pDebugProc_ = new DebugProc();

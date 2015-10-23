@@ -333,5 +333,8 @@
     <FxCompile Include="hlsl\object3d.hlsl">
       <Filter>hlsl</Filter>
     </FxCompile>
+    <FxCompile Include="hlsl\objectx.hlsl">
+      <Filter>hlsl</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>
