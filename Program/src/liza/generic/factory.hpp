@@ -1,6 +1,6 @@
 //==============================================================================
 //
-// Root Object
+// factory
 // Author: Shimizu Shoji
 //
 //==============================================================================
@@ -8,31 +8,29 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-#include "liza/generic/factory.hpp"
+#include <assert.h>
+#include <utility>
 
-#include "object_base.h"
+#include <liza/generic/noncopyable.h>
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-class Root : public ObjectBase {
+namespace liza {
+  namespace generic {
+
+// HeaderÇéQè∆
+template<typename T>
+class Factory : private liza::generic::NonCopyable<Factory<T>> {
 public:
-  // ctor
-  Root() {}
-
-  // dtor
-  virtual ~Root() {}
-
-private:
-  // Update
-  virtual void _Update(float) final {
-    DebugProc::Print("ROOT::Update\n");
-  }
-
-  // Draw
-  virtual void _Draw(void) final {
-    DebugProc::Print("ROOT::Draw\n");
+  // Create object
+  template<typename ...Args>
+  static T* Create(Args&&... args) {
+    T* p = new T(std::forward<Args>(args)...);
+    assert(p != nullptr);
+    return p;
   }
 };
 
-using RootFactory = liza::generic::Factory<Root>;
+  }  // namespace generic
+}  // namespace liza

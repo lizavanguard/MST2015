@@ -15,12 +15,17 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-#include "Framework/Object/creator.h"
+#include "liza/generic/factory.hpp"
+
+class CameraSteeringFixed;
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-class Camera : public Creator<Camera> {
+class Camera {
+public:
+  friend class CameraSteeringFixed;
+
 public:
   // ctor
   Camera(const D3DXVECTOR3& eye, const D3DXVECTOR3& at);
@@ -34,12 +39,18 @@ public:
 
   virtual void Update(float elapsed_time);
 
-private:
+  // assign
+  void AssignCameraSteering(CameraSteeringFixed* p_camera_steering);
 
+private:
   // property
   D3DXMATRIX projection_;
   D3DXMATRIX view_;
 
   D3DXVECTOR3 eye_;
   D3DXVECTOR3 at_;
+
+  CameraSteeringFixed* p_camera_steering_;
 };
+
+using CameraFactory = liza::generic::Factory<Camera>;

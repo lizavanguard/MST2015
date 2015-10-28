@@ -1,13 +1,16 @@
 //==============================================================================
 //
-// _CameraManager
+// CameraSteeringFixed
 // Author: Shimizu Shoji
 //
 //==============================================================================
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-#include "camera_manager.h"
+#include "camera_steering_fixed.h"
+#include "camera.h"
+
+#include "Framework/Object/object_base.h"
 
 //==============================================================================
 // class implementation
@@ -15,23 +18,21 @@
 //------------------------------------------------
 // ctor
 //------------------------------------------------
-_CameraManager::_CameraManager() {
-  // TODO:
-  //static const D3DXVECTOR3 kInitialEyePosition = {0.0f, 10.0f, -15.0f};
-  static const D3DXVECTOR3 kInitialEyePosition = {0.0f, 75.0f, -40.0f};
-  PushCamera(CameraFactory::Create(kInitialEyePosition, D3DXVECTOR3(0, 0, 0)));
+CameraSteeringFixed::CameraSteeringFixed(Camera& camera, ObjectBase& target)
+    : camera_(camera)
+    , target_(target) {
 }
 
 //------------------------------------------------
-// Get Camera
+// dtor
 //------------------------------------------------
-Camera& _CameraManager::GetCamera(const unsigned int index) {
-   return *container_[index];
- }
+CameraSteeringFixed::~CameraSteeringFixed() {
+}
 
 //------------------------------------------------
-// Push
+// Update
 //------------------------------------------------
-void _CameraManager::PushCamera(Camera* p_camera) {
-  container_.push_back(p_camera);
+void CameraSteeringFixed::Update(const float elapsed_time) {
+  const D3DXVECTOR3 target_position = target_.GetPosition();
+  camera_.at_ = target_.GetPosition();
 }

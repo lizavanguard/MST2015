@@ -70,6 +70,15 @@
     <Filter Include="src\Application\Player">
       <UniqueIdentifier>{c332bc34-2398-4a39-b823-15c80dbaf8db}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Application\Pin">
+      <UniqueIdentifier>{ca3961d0-cda2-4c53-94b1-29fccaec9def}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Framework\Collision">
+      <UniqueIdentifier>{554f1ff1-29ed-4ca9-8fb3-34babd97bde0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Application\Collision">
+      <UniqueIdentifier>{f7d25af1-27b2-430a-9583-a969957c05dc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Framework\DebugProc\DebugProc.cpp">
@@ -149,6 +158,30 @@
     </ClCompile>
     <ClCompile Include="src\Application\Player\Player.cpp">
       <Filter>src\Application\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Application\Pin\Pin.cpp">
+      <Filter>src\Application\Pin</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Application\Pin\PinManager.cpp">
+      <Filter>src\Application\Pin</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Application\Pin\StandardPins.cpp">
+      <Filter>src\Application\Pin</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Application\Pin\LanePin.cpp">
+      <Filter>src\Application\Pin</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Application\Pin\LanePins.cpp">
+      <Filter>src\Application\Pin</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\Collision\collision.cpp">
+      <Filter>src\Framework\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Application\Collision\CollisionManager.cpp">
+      <Filter>src\Application\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\Camera\camera_steering_fixed.cpp">
+      <Filter>src\Framework\Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -233,9 +266,6 @@
     <ClInclude Include="src\Framework\Light\light.h">
       <Filter>src\Framework\Light</Filter>
     </ClInclude>
-    <ClInclude Include="src\Framework\Object\creator.h">
-      <Filter>src\Framework\Object</Filter>
-    </ClInclude>
     <ClInclude Include="src\Framework\Object\object_base.h">
       <Filter>src\Framework\Object</Filter>
     </ClInclude>
@@ -307,6 +337,33 @@
     </ClInclude>
     <ClInclude Include="src\Application\Player\Player.h">
       <Filter>src\Application\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="src\liza\generic\factory.hpp">
+      <Filter>src\liza\generic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Application\Pin\Pin.h">
+      <Filter>src\Application\Pin</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Application\Pin\PinManager.h">
+      <Filter>src\Application\Pin</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Application\Pin\StandardPins.h">
+      <Filter>src\Application\Pin</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Application\Pin\LanePin.h">
+      <Filter>src\Application\Pin</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Application\Pin\LanePins.h">
+      <Filter>src\Application\Pin</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Collision\collision.h">
+      <Filter>src\Framework\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Application\Collision\CollisionManager.h">
+      <Filter>src\Application\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Camera\camera_steering_fixed.h">
+      <Filter>src\Framework\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

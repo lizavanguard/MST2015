@@ -1,38 +1,31 @@
 //==============================================================================
 //
-// Root Object
+// CollisionManager
 // Author: Shimizu Shoji
 //
 //==============================================================================
 #pragma once
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-// include
+// class declaration
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-#include "liza/generic/factory.hpp"
-
-#include "object_base.h"
+class Player;
+class PinManager;
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-class Root : public ObjectBase {
+class CollisionManager {
 public:
   // ctor
-  Root() {}
+  CollisionManager(Player& player, PinManager& pin_manager);
 
   // dtor
-  virtual ~Root() {}
+  ~CollisionManager();
+
+  // Update
+  void Update(void);
 
 private:
-  // Update
-  virtual void _Update(float) final {
-    DebugProc::Print("ROOT::Update\n");
-  }
-
-  // Draw
-  virtual void _Draw(void) final {
-    DebugProc::Print("ROOT::Draw\n");
-  }
+  Player& player_;
+  PinManager& pin_manager_;
 };
-
-using RootFactory = liza::generic::Factory<Root>;

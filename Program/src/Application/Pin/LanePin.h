@@ -1,6 +1,6 @@
 //==============================================================================
 //
-// Root Object
+// LanePin
 // Author: Shimizu Shoji
 //
 //==============================================================================
@@ -8,31 +8,21 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-#include "liza/generic/factory.hpp"
-
-#include "object_base.h"
+#include "Pin.h"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-class Root : public ObjectBase {
+class LanePin : public Pin {
 public:
   // ctor
-  Root() {}
+  LanePin(const D3DXVECTOR3& position);
 
   // dtor
-  virtual ~Root() {}
+  ~LanePin();
 
 private:
-  // Update
-  virtual void _Update(float) final {
-    DebugProc::Print("ROOT::Update\n");
-  }
-
-  // Draw
-  virtual void _Draw(void) final {
-    DebugProc::Print("ROOT::Draw\n");
-  }
+  DEFINITION_DEFAULT_UPDATE
 };
 
-using RootFactory = liza::generic::Factory<Root>;
+using LanePinFactory = liza::generic::Factory<LanePin>;

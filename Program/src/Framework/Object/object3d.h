@@ -8,13 +8,14 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
+#include "liza/generic/factory.hpp"
+
 #include "object_base.h"
-#include "creator.h"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-class Object3D : public ObjectBase, public Creator<Object3D> {
+class Object3D : public ObjectBase {
 public:
   // ctor
   Object3D(const char* p_filename);
@@ -31,3 +32,5 @@ private:
   PDIRECT3DVERTEXDECLARATION9 p_declaration_;
   LPDIRECT3DTEXTURE9 p_texture_;
 };
+
+using Object3DFactory = liza::generic::Factory<Object3D>;

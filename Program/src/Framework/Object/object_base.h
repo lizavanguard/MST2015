@@ -49,7 +49,10 @@ public:
   // Draw All in list
   void DrawAll(void);
 
+
+  // get
   D3DXMATRIX GetWorldMatrix(void) const { return world_matrix_; }
+  const D3DXVECTOR3& GetPosition(void) const { return position_; }
 
 protected:
   // property
@@ -82,3 +85,7 @@ private:
   // property
   ContainerType list_;
 };
+
+#define DEFINITION_DEFAULT_UPDATE virtual void _Update(float elapsed_time) override {}
+#define DEFINITION_DEFAULT_DRAW virtual void _Draw(void) override {}
+#define DEFINITION_DEFAULT_UPDATE_AND_DRAW DEFINITION_DEFAULT_UPDATE DEFINITION_DEFAULT_DRAW

@@ -1,6 +1,6 @@
 //==============================================================================
 //
-// Debug Object
+// Pin
 // Author: Shimizu Shoji
 //
 //==============================================================================
@@ -10,43 +10,27 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 #include "liza/generic/factory.hpp"
 
-#include "object_base.h"
+#include "Framework/Object/object_model.h"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-class DebugObject : public ObjectBase {
+class Pin : public ObjectModel {
 public:
   // ctor
-  DebugObject(const char* message)
-#ifdef _DEBUG
-    : message_(message)
-#endif
-  {
-  }
+  Pin(const D3DXVECTOR3& position);
 
   // dtor
-  virtual ~DebugObject() {}
+  virtual ~Pin();
 
-private:
-  // Update
-  virtual void _Update(float) final {
-#ifdef _DEBUG
-    DebugProc::Print("DebugObject::Update[%s]\n", message_.c_str());
-#endif
-  }
+  // Reset
+  void Reset(void);
 
-  // Draw
-  virtual void _Draw(void) final {
-#ifdef _DEBUG
-    DebugProc::Print("DebugObject::Draw[%s]\n", message_.c_str());
-#endif
-  }
+  // Get
+  float GetSize(void) const;
 
-private:
-#ifdef _DEBUG
-  std::string message_;
-#endif
+  // React collision
+  void ReactCollision(void) { is_all_drawed_ = false; }
 };
 
-using DebugObjectFactory = liza::generic::Factory<DebugObject>;
+using PinFactory = liza::generic::Factory<Pin>;

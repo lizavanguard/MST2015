@@ -11,6 +11,7 @@
 #include "Framework/Utility/DeviceHolder.h"
 
 #include "window_config.h"
+#include "camera_steering_fixed.h"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // const
@@ -31,22 +32,34 @@ namespace {
 Camera::Camera(const D3DXVECTOR3& eye, const D3DXVECTOR3& at)
     : eye_(eye)
     , at_(at) {
+  p_camera_steering_ = nullptr;
 }
 
 //------------------------------------------------
 // dtor
 //------------------------------------------------
 Camera::~Camera() {
+  SafeDelete(p_camera_steering_);
 }
 
 //------------------------------------------------
 // Update
 //------------------------------------------------
 void Camera::Update(const float elapsed_time) {
+  // HACK:
   auto p_device = DeviceHolder::Instance().GetDevice();
   D3DXMatrixLookAtLH(&view_, &eye_, &at_, &D3DXVECTOR3(0.0f, 1.0f, 0.0f));
   p_device->SetTransform(D3DTS_VIEW, &view_);
 
   D3DXMatrixPerspectiveFovLH(&projection_, kFov, kAspect, kNear, kFar);
   p_device->SetTransform(D3DTS_PROJECTION, &projection_);
+
+  p_camera_steering_->Update(elapsed_time);
+}
+
+//------------------------------------------------
+// assign
+//------------------------------------------------
+void Camera::AssignCameraSteering(CameraSteeringFixed* p_camera_steering) {
+  p_camera_steering_ = p_camera_steering;
 }

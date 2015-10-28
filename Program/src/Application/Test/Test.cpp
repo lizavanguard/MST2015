@@ -8,15 +8,23 @@
 // include
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #include "Test.h"
+
+#include "Framework/Camera/camera_manager.h"
 #include "Framework/Object/root.h"
 #include "Framework/Object/debug_object.h"
 #include "Framework/Object/object3d.h"
 #include "Framework/Light/light.h"
 #include "Framework/Object/object_model.h"
 #include "Framework/Sound/sound_manager.h"
+
+#include "Application/Collision/CollisionManager.h"
+#include "Application/Pin/PinManager.h"
 #include "Application/Player/Player.h"
 
+#include "Framework/Camera/camera_steering_fixed.h"
+
 Root* g_p_root = nullptr;
+CollisionManager* g_p_collision = nullptr;
 
 //==============================================================================
 // class implementation
@@ -25,12 +33,18 @@ Root* g_p_root = nullptr;
 // ctor
 //------------------------------------------------
 Test::Test() {
-  g_p_root = Root::Create();
+  g_p_root = RootFactory::Create();
   //auto ball = ObjectModel::Create("ball");
   //g_p_root->AttachChild(ball);
-  g_p_root->AttachChild(ObjectModel::Create("field"));
+  g_p_root->AttachChild(ObjectModelFactory::Create("field"));
   // TODO: Error
-  //g_p_root->AttachChild(Player::Create());
+  auto player = PlayerFactory::Create();
+  g_p_root->AttachChild(player);
+
+  auto pin_manager = PinManagerFactory::Create();
+  g_p_root->AttachChild(pin_manager);
+
+  CameraManager::Instance().GetCamera(0).AssignCameraSteering(new CameraSteeringFixed(CameraManager::Instance().GetCamera(0), *player));
 
   //g_p_root->AttachChild(DebugObject::Create("ID-1"));
   //g_p_root->AttachChild(DebugObject::Create("ID-3"));
@@ -50,6 +64,7 @@ Test::Test() {
   //p_test->AttachChild(Object3D::Create("Model/bear_001"));
 
   //SoundManager::Instance().PlaySound(SOUND_LABEL_BGM1);
+  g_p_collision = new CollisionManager(*player, *pin_manager);
 }
 
 
@@ -57,6 +72,7 @@ Test::Test() {
 // dtor
 //------------------------------------------------
 Test::~Test() {
+  SafeDelete(g_p_collision);
   Root::Destroy(g_p_root);
 }
 
@@ -65,10 +81,12 @@ Test::~Test() {
 // Update
 //------------------------------------------------
 void Test::Update( void ) {
-  if (GameManager::Instance().GetInputManager().GetPrimaryKeyboard().IsTrigger(DIK_A)) {
+  if (GameManager::Instance().GetInputManager().GetPrimaryKeyboard().IsTrigger(DIK_1)) {
     SoundManager::Instance().PlaySound("SE/se000");
   }
   g_p_root->UpdateAll(0.016f);
+
+  g_p_collision->Update();
 }
 
 

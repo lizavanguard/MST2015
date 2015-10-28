@@ -8,6 +8,8 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
+#include "liza/generic/factory.hpp"
+
 #include "Framework/Object/object_model.h"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
@@ -21,6 +23,18 @@ public:
   // dtor
   virtual ~Player();
 
+  // Shoot
+  void Shoot(const D3DXVECTOR3& direction);
+
+  // Reset
+  void Reset(void);
+
+  // get
+  const D3DXVECTOR3& GetPosition(void) const { return position_; }
+  float GetSize(void) const;
+
 private:
   virtual void _Update(float elapsed_time) override;
 };
+
+using PlayerFactory = liza::generic::Factory<Player>;

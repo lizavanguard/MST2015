@@ -1,13 +1,15 @@
 //==============================================================================
 //
-// _CameraManager
+// LanePins
 // Author: Shimizu Shoji
 //
 //==============================================================================
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-#include "camera_manager.h"
+#include "LanePins.h"
+
+#include "LanePin.h"
 
 //==============================================================================
 // class implementation
@@ -15,23 +17,20 @@
 //------------------------------------------------
 // ctor
 //------------------------------------------------
-_CameraManager::_CameraManager() {
-  // TODO:
-  //static const D3DXVECTOR3 kInitialEyePosition = {0.0f, 10.0f, -15.0f};
-  static const D3DXVECTOR3 kInitialEyePosition = {0.0f, 75.0f, -40.0f};
-  PushCamera(CameraFactory::Create(kInitialEyePosition, D3DXVECTOR3(0, 0, 0)));
+LanePins::LanePins() {
+  static int kNumPins = 20;
+  static float kDistance = 5.0f;
+
+  for (int pin_count = 0; pin_count < kNumPins; ++pin_count) {
+    const D3DXVECTOR3 position = {0.0f, 0.0f, kDistance * pin_count};
+    auto p_pin = LanePinFactory::Create(position);
+    pins_.push_back(p_pin);
+    AttachChild(p_pin);
+  }
 }
 
 //------------------------------------------------
-// Get Camera
+// dtor
 //------------------------------------------------
-Camera& _CameraManager::GetCamera(const unsigned int index) {
-   return *container_[index];
- }
-
-//------------------------------------------------
-// Push
-//------------------------------------------------
-void _CameraManager::PushCamera(Camera* p_camera) {
-  container_.push_back(p_camera);
+LanePins::~LanePins() {
 }

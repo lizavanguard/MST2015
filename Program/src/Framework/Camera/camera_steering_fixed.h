@@ -1,29 +1,33 @@
 //==============================================================================
 //
-// Creator
+// CameraSteeringFixed
 // Author: Shimizu Shoji
+//
+// 現在のカメラ位置からターゲットの位置を追従する？
 //
 //==============================================================================
 #pragma once
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-// include
+// class declaration
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-#include <utility>
+class Camera;
+class ObjectBase;
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-template<typename T>
-class Creator {
+class CameraSteeringFixed {
 public:
-  template<typename ...Args>
-  static T* Create(Args&&... args) {
-    T* p = new T(std::forward<Args>(args)...);
-    MY_BREAK_NULL_ASSERT(p);
-    if (!p) {
-      return nullptr;
-    }
+  // ctor
+  CameraSteeringFixed(Camera& camera, ObjectBase& target);
 
-    return p;
-  }
+  // dtor
+  ~CameraSteeringFixed();
+
+  // Update
+  void Update(float elapsed_time);
+
+private:
+  Camera& camera_;
+  const ObjectBase& target_;
 };

@@ -8,15 +8,15 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-#include "creator.h"
-#include "object_base.h"
-
+#include "liza/generic/factory.hpp"
 #include "Framework/Model/model_manager.h"
+
+#include "object_base.h"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-class ObjectModel : public ObjectBase, virtual public Creator<ObjectModel> {
+class ObjectModel : public ObjectBase {
 public:
   // ctor
   ObjectModel(const char* p_filename);
@@ -32,3 +32,5 @@ private:
   XModelData* p_xmodel_data_;
   LPD3DXEFFECT p_shader_;
 };
+
+using ObjectModelFactory = liza::generic::Factory<ObjectModel>;

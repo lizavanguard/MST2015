@@ -12,6 +12,7 @@
 // Standard Library
 //------------------------------------------------
 #include <algorithm>
+#include <array>
 #include <deque>
 #include <functional>
 #include <list>
