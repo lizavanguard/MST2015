@@ -17,14 +17,43 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 #include "liza/generic/factory.hpp"
 
-class CameraSteeringFixed;
+//--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
+// class declaration
+//--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
+class ObjectBase;
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 class Camera {
 public:
-  friend class CameraSteeringFixed;
+  // ÉJÉÅÉâÇÃìÆÇ´ÇÃíäè€ÉNÉâÉX
+  class CameraSteering {
+  public:
+    // ctor
+    CameraSteering(Camera& camera, ObjectBase& target)
+        : camera_(camera), target_(target) {
+    }
+
+    // dtor
+    virtual ~CameraSteering() {}
+
+    // Update
+    virtual void Update(float elapsed_time) = 0;
+
+  protected:
+    // get
+    const D3DXVECTOR3& GetAt(void) const { return camera_.at_; }
+    const D3DXVECTOR3& GetEye(void) const { return camera_.eye_; }
+
+    // set
+    void SetAt(const D3DXVECTOR3& at) { camera_.at_ = at; }
+    void SetEye(const D3DXVECTOR3& eye) { camera_.eye_ = eye; }
+
+    // property
+    Camera& camera_;
+    const ObjectBase& target_;
+  };
 
 public:
   // ctor
@@ -40,9 +69,9 @@ public:
   virtual void Update(float elapsed_time);
 
   // assign
-  void AssignCameraSteering(CameraSteeringFixed* p_camera_steering);
+  void AssignCameraSteering(CameraSteering* p_camera_steering);
 
-private:
+protected:
   // property
   D3DXMATRIX projection_;
   D3DXMATRIX view_;
@@ -50,7 +79,7 @@ private:
   D3DXVECTOR3 eye_;
   D3DXVECTOR3 at_;
 
-  CameraSteeringFixed* p_camera_steering_;
+  CameraSteering* p_camera_steering_;
 };
 
 using CameraFactory = liza::generic::Factory<Camera>;

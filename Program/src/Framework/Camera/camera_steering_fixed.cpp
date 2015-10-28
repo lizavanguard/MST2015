@@ -19,8 +19,7 @@
 // ctor
 //------------------------------------------------
 CameraSteeringFixed::CameraSteeringFixed(Camera& camera, ObjectBase& target)
-    : camera_(camera)
-    , target_(target) {
+    : CameraSteering(camera, target) {
 }
 
 //------------------------------------------------
@@ -34,5 +33,5 @@ CameraSteeringFixed::~CameraSteeringFixed() {
 //------------------------------------------------
 void CameraSteeringFixed::Update(const float elapsed_time) {
   const D3DXVECTOR3 target_position = target_.GetPosition();
-  camera_.at_ = target_.GetPosition();
+  SetAt(target_.GetPosition());
 }

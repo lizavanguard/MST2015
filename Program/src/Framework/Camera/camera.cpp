@@ -31,15 +31,18 @@ namespace {
 //------------------------------------------------
 Camera::Camera(const D3DXVECTOR3& eye, const D3DXVECTOR3& at)
     : eye_(eye)
-    , at_(at) {
-  p_camera_steering_ = nullptr;
+    , at_(at)
+    , p_camera_steering_(nullptr) {
 }
 
 //------------------------------------------------
 // dtor
 //------------------------------------------------
 Camera::~Camera() {
-  SafeDelete(p_camera_steering_);
+  if (p_camera_steering_) {
+    delete p_camera_steering_;
+    p_camera_steering_ = nullptr;
+  }
 }
 
 //------------------------------------------------
@@ -60,6 +63,6 @@ void Camera::Update(const float elapsed_time) {
 //------------------------------------------------
 // assign
 //------------------------------------------------
-void Camera::AssignCameraSteering(CameraSteeringFixed* p_camera_steering) {
+void Camera::AssignCameraSteering(CameraSteering* p_camera_steering) {
   p_camera_steering_ = p_camera_steering;
 }

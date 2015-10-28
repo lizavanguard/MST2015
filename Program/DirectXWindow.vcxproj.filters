@@ -365,6 +365,9 @@
     <ClInclude Include="src\Framework\Camera\camera_steering_fixed.h">
       <Filter>src\Framework\Camera</Filter>
     </ClInclude>
+    <ClInclude Include="src\Framework\Camera\camera_steering.h">
+      <Filter>src\Framework\Camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\liza\math\Vector2.inl">

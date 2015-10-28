@@ -8,26 +8,21 @@
 //==============================================================================
 #pragma once
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-// class declaration
+// include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-class Camera;
-class ObjectBase;
+#include "camera.h"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-class CameraSteeringFixed {
+class CameraSteeringFixed : public Camera::CameraSteering {
 public:
   // ctor
   CameraSteeringFixed(Camera& camera, ObjectBase& target);
 
   // dtor
-  ~CameraSteeringFixed();
+  virtual ~CameraSteeringFixed();
 
   // Update
-  void Update(float elapsed_time);
-
-private:
-  Camera& camera_;
-  const ObjectBase& target_;
+  virtual void Update(float elapsed_time) override;
 };

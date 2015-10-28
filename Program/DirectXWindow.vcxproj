@@ -61,6 +61,7 @@
     <ClInclude Include="src\common.h" />
     <ClInclude Include="src\Framework\Camera\camera.h" />
     <ClInclude Include="src\Framework\Camera\camera_manager.h" />
+    <ClInclude Include="src\Framework\Camera\camera_steering.h" />
     <ClInclude Include="src\Framework\Camera\camera_steering_fixed.h" />
     <ClInclude Include="src\Framework\Collision\collision.h" />
     <ClInclude Include="src\Framework\DebugProc\DebugProc.h" />
