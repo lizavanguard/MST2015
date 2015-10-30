@@ -23,3 +23,16 @@ LanePin::LanePin(const D3DXVECTOR3& position) : Pin(position) {
 //------------------------------------------------
 LanePin::~LanePin() {
 }
+
+//------------------------------------------------
+// React collision
+//------------------------------------------------
+void LanePin::ReactCollision(const D3DXVECTOR3& power) {
+  D3DXVECTOR3 direction;
+  D3DXVec3Normalize(&direction, &power);
+  //const float impact_power = D3DXVec3Length(&power);
+
+  velocity_ += direction * 100;
+  is_all_drawed_ = false;
+  is_collided_ = true;
+};

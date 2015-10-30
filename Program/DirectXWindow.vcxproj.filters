@@ -186,6 +186,9 @@
     <ClCompile Include="src\Framework\Camera\camera_steering_homing.cpp">
       <Filter>src\Framework\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="src\Application\Pin\StandardPin.cpp">
+      <Filter>src\Application\Pin</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Framework\DebugProc\DebugProc.h">
@@ -373,6 +376,12 @@
     </ClInclude>
     <ClInclude Include="src\Framework\Camera\camera_steering_homing.h">
       <Filter>src\Framework\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Application\Pin\StandardPin.h">
+      <Filter>src\Application\Pin</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Collision\collision_object.h">
+      <Filter>src\Framework\Collision</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

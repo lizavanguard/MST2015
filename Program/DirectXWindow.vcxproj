@@ -16,6 +16,7 @@
     <ClCompile Include="src\Application\Pin\LanePins.cpp" />
     <ClCompile Include="src\Application\Pin\Pin.cpp" />
     <ClCompile Include="src\Application\Pin\PinManager.cpp" />
+    <ClCompile Include="src\Application\Pin\StandardPin.cpp" />
     <ClCompile Include="src\Application\Pin\StandardPins.cpp" />
     <ClCompile Include="src\Application\Player\Player.cpp" />
     <ClCompile Include="src\Application\Test\Test.cpp" />
@@ -56,6 +57,7 @@
     <ClInclude Include="src\Application\Pin\LanePins.h" />
     <ClInclude Include="src\Application\Pin\Pin.h" />
     <ClInclude Include="src\Application\Pin\PinManager.h" />
+    <ClInclude Include="src\Application\Pin\StandardPin.h" />
     <ClInclude Include="src\Application\Pin\StandardPins.h" />
     <ClInclude Include="src\Application\Player\Player.h" />
     <ClInclude Include="src\Application\Test\Test.h" />
@@ -65,6 +67,7 @@
     <ClInclude Include="src\Framework\Camera\camera_steering_fixed.h" />
     <ClInclude Include="src\Framework\Camera\camera_steering_homing.h" />
     <ClInclude Include="src\Framework\Collision\collision.h" />
+    <ClInclude Include="src\Framework\Collision\collision_object.h" />
     <ClInclude Include="src\Framework\DebugProc\DebugProc.h" />
     <ClInclude Include="src\Framework\GameManager\GameManager.h" />
     <ClInclude Include="src\Framework\GameWindow\GameBase.h" />

@@ -24,7 +24,7 @@ namespace {
 // ctor
 //------------------------------------------------
 Player::Player()
-    : ObjectModel(kModelname) {
+    : ObjectModel(kModelname), CollisionObject(kSize) {
   Reset();
 }
 
@@ -52,6 +52,13 @@ void Player::Reset(void) {
 }
 
 //------------------------------------------------
+// React collision
+//------------------------------------------------
+void Player::ReactCollision(const D3DXVECTOR3&) {
+  return;
+}
+
+//------------------------------------------------
 // Update
 //------------------------------------------------
 void Player::_Update(const float elapsed_time) {
@@ -66,10 +73,10 @@ void Player::_Update(const float elapsed_time) {
     velocity_.z -= true_speed;
   }
   if (keyboard.IsPress(DIK_A)) {
-    velocity_.x += true_speed;
+    velocity_.x -= true_speed;
   }
   if (keyboard.IsPress(DIK_D)) {
-    velocity_.x -= true_speed;
+    velocity_.x += true_speed;
   }
   if (keyboard.IsPress(DIK_RETURN)) {
     Shoot(D3DXVECTOR3());
@@ -80,11 +87,4 @@ void Player::_Update(const float elapsed_time) {
 
   velocity_ *= 0.998f;
   position_ += velocity_;
-}
-
-//------------------------------------------------
-// get
-//------------------------------------------------
-float Player::GetSize(void) const {
-  return kSize;
 }

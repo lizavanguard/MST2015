@@ -1,21 +1,13 @@
 //==============================================================================
 //
-// Pin
+// StandardPin
 // Author: Shimizu Shoji
 //
 //==============================================================================
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-#include "Pin.h"
-
-//--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-// const
-//--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-namespace {
-  const char* kModelname = "ball";
-  const float kSize = 1.5f;
-}
+#include "StandardPin.h"
 
 //==============================================================================
 // class implementation
@@ -23,24 +15,24 @@ namespace {
 //------------------------------------------------
 // ctor
 //------------------------------------------------
-Pin::Pin(const D3DXVECTOR3& position)
-    : ObjectModel(kModelname), CollisionObject(kSize) {
-  position_ = position;
+StandardPin::StandardPin(const D3DXVECTOR3& position) : Pin(position) {
 }
 
 //------------------------------------------------
 // dtor
 //------------------------------------------------
-Pin::~Pin() {
+StandardPin::~StandardPin() {
 }
 
 //------------------------------------------------
-// Reset
+// React collision
 //------------------------------------------------
-void Pin::Reset(void) {
-  position_ = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-  rotation_ = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-  velocity_ = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+void StandardPin::ReactCollision(const D3DXVECTOR3& power) {
+  D3DXVECTOR3 direction;
+  D3DXVec3Normalize(&direction, &power);
+  const float impact_power = D3DXVec3Length(&power);
 
+  velocity_ += direction * impact_power * 10;
   is_all_drawed_ = true;
-}
+  is_collided_ = true;
+};

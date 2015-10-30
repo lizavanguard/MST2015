@@ -15,14 +15,15 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class declaration
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-class Pin;
+class StandardPin;
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 class StandardPins : public ObjectBase {
   static const int kNumPins = 10;
-  using ContainerType = std::array<Pin*, kNumPins>;
+  using DataType = StandardPin*;
+  using ContainerType = std::array<DataType, kNumPins>;
   using Iterator = ContainerType::iterator;
   using ConstIterator = ContainerType::const_iterator;
 
@@ -38,6 +39,11 @@ public:
   ConstIterator begin(void) const { return pins_.begin(); }
   Iterator end(void) { return pins_.end(); }
   ConstIterator end(void) const { return pins_.end(); }
+  ContainerType::size_type size(void) const { return pins_.size(); }
+
+  // operator
+  DataType operator[](unsigned int index) { return pins_[index]; }
+  const DataType operator[](unsigned int index) const { return pins_[index]; }
 
 private:
   DEFINITION_DEFAULT_UPDATE_AND_DRAW

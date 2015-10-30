@@ -23,7 +23,8 @@ class LanePin;
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 class LanePins : public ObjectBase {
-  using ContainerType = std::deque<LanePin*>;
+  using DataType = LanePin*;
+  using ContainerType = std::deque<DataType>;
   using Iterator = ContainerType::iterator;
   using ConstIterator = ContainerType::const_iterator;
 

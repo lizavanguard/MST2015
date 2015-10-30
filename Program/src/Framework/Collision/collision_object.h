@@ -1,28 +1,31 @@
 //==============================================================================
 //
-// LanePin
+// CollisionObject
 // Author: Shimizu Shoji
 //
 //==============================================================================
 #pragma once
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-// include
-//--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-#include "Pin.h"
-
-//--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-class LanePin : public Pin {
+class CollisionObject {
 public:
   // ctor
-  LanePin(const D3DXVECTOR3& position);
+  CollisionObject(float size) : size_(size), is_collided_(false) {
+  }
 
   // dtor
-  ~LanePin();
+  virtual ~CollisionObject() {}
 
   // React collision
-  virtual void ReactCollision(const D3DXVECTOR3& power) override;
-};
+  // è’ìÀÇµÇΩï˚å¸Ç∆ÇªÇÃóÕÇ©ÇÁè’ìÀâûìöÇçsÇ§
+  virtual void ReactCollision(const D3DXVECTOR3& power) = 0;
 
-using LanePinFactory = liza::generic::Factory<LanePin>;
+  // get
+  float GetSize(void) const { return size_; }
+  bool IsCollided(void) const { return is_collided_; }
+
+protected:
+  float size_;
+  bool is_collided_;
+};

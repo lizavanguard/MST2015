@@ -1,6 +1,6 @@
 //==============================================================================
 //
-// Pin
+// StandardPin
 // Author: Shimizu Shoji
 //
 //==============================================================================
@@ -8,24 +8,23 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-#include "liza/generic/factory.hpp"
-
-#include "Framework/Object/object_model.h"
-#include "Framework/Collision/collision_object.h"
+#include "Pin.h"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-class Pin : public ObjectModel, public CollisionObject {
+class StandardPin : public Pin {
 public:
   // ctor
-  Pin(const D3DXVECTOR3& position);
+  StandardPin(const D3DXVECTOR3& position);
 
   // dtor
-  virtual ~Pin();
+  ~StandardPin();
 
-  // Reset
-  void Reset(void);
+  // React collision
+  virtual void ReactCollision(const D3DXVECTOR3& power) override;
+
+private:
 };
 
-using PinFactory = liza::generic::Factory<Pin>;
+using StandardPinFactory = liza::generic::Factory<StandardPin>;

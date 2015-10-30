@@ -4,9 +4,13 @@
 // Created : Shimizu Shoji
 //
 // Lighting
-// カメラ（ボール内と俯瞰？）
 //
 // Lane(Course)
+//
+// ピン弾く
+// 背景
+// git
+// Xモデルの透明、半透明
 //
 // 2D(UI)
 // score

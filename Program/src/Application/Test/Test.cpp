@@ -46,7 +46,7 @@ Test::Test() {
   auto pin_manager = PinManagerFactory::Create();
   g_p_root->AttachChild(pin_manager);
 
-  CameraManager::Instance().GetCamera(0).AssignCameraSteering(new CameraSteeringHoming(CameraManager::Instance().GetCamera(0), *player));
+  CameraManager::Instance().GetCamera(0).AssignCameraSteering(new CameraSteeringFixed(CameraManager::Instance().GetCamera(0), *player));
 
   //g_p_root->AttachChild(DebugObject::Create("ID-1"));
   //g_p_root->AttachChild(DebugObject::Create("ID-3"));
