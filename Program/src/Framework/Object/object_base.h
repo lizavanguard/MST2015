@@ -51,8 +51,11 @@ public:
 
 
   // get
-  D3DXMATRIX GetWorldMatrix(void) const { return world_matrix_; }
+  const D3DXMATRIX& GetWorldMatrix(void) const { return world_matrix_; }
   const D3DXVECTOR3& GetPosition(void) const { return position_; }
+  const D3DXVECTOR3& GetRotation(void) const { return rotation_; }
+  const D3DXVECTOR3& GetScale(void) const { return scale_; }
+  const D3DXVECTOR3& GetVelocity(void) const { return velocity_; }
 
 protected:
   // property

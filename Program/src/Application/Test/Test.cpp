@@ -22,6 +22,7 @@
 #include "Application/Player/Player.h"
 
 #include "Framework/Camera/camera_steering_fixed.h"
+#include "Framework/Camera/camera_steering_homing.h"
 
 Root* g_p_root = nullptr;
 CollisionManager* g_p_collision = nullptr;
@@ -34,17 +35,18 @@ CollisionManager* g_p_collision = nullptr;
 //------------------------------------------------
 Test::Test() {
   g_p_root = RootFactory::Create();
-  //auto ball = ObjectModel::Create("ball");
-  //g_p_root->AttachChild(ball);
+
+  // field
   g_p_root->AttachChild(ObjectModelFactory::Create("field"));
-  // TODO: Error
+
+  // player
   auto player = PlayerFactory::Create();
   g_p_root->AttachChild(player);
 
   auto pin_manager = PinManagerFactory::Create();
   g_p_root->AttachChild(pin_manager);
 
-  CameraManager::Instance().GetCamera(0).AssignCameraSteering(new CameraSteeringFixed(CameraManager::Instance().GetCamera(0), *player));
+  CameraManager::Instance().GetCamera(0).AssignCameraSteering(new CameraSteeringHoming(CameraManager::Instance().GetCamera(0), *player));
 
   //g_p_root->AttachChild(DebugObject::Create("ID-1"));
   //g_p_root->AttachChild(DebugObject::Create("ID-3"));

@@ -183,6 +183,9 @@
     <ClCompile Include="src\Framework\Camera\camera_steering_fixed.cpp">
       <Filter>src\Framework\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="src\Framework\Camera\camera_steering_homing.cpp">
+      <Filter>src\Framework\Camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Framework\DebugProc\DebugProc.h">
@@ -365,7 +368,10 @@
     <ClInclude Include="src\Framework\Camera\camera_steering_fixed.h">
       <Filter>src\Framework\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="src\Framework\Camera\camera_steering.h">
+    <ClInclude Include="src\liza\game\State.hpp">
+      <Filter>src\liza\game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Camera\camera_steering_homing.h">
       <Filter>src\Framework\Camera</Filter>
     </ClInclude>
   </ItemGroup>

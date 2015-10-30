@@ -17,10 +17,7 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 #include "liza/generic/factory.hpp"
 
-//--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-// class declaration
-//--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-class ObjectBase;
+#include "Framework/Object/object_base.h"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
@@ -45,11 +42,15 @@ public:
     // get
     const D3DXVECTOR3& GetAt(void) const { return camera_.at_; }
     const D3DXVECTOR3& GetEye(void) const { return camera_.eye_; }
+    const D3DXVECTOR3& GetTargetPosition(void) const { return target_.GetPosition(); }
+    const D3DXVECTOR3& GetTargetRotation(void) const { return target_.GetPosition(); }
+    const D3DXVECTOR3& GetTargetVelocity(void) const { return target_.GetVelocity(); }
 
     // set
     void SetAt(const D3DXVECTOR3& at) { camera_.at_ = at; }
     void SetEye(const D3DXVECTOR3& eye) { camera_.eye_ = eye; }
 
+  private:
     // property
     Camera& camera_;
     const ObjectBase& target_;
@@ -71,7 +72,7 @@ public:
   // assign
   void AssignCameraSteering(CameraSteering* p_camera_steering);
 
-protected:
+private:
   // property
   D3DXMATRIX projection_;
   D3DXMATRIX view_;

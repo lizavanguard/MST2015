@@ -22,6 +22,7 @@
     <ClCompile Include="src\Framework\Camera\camera.cpp" />
     <ClCompile Include="src\Framework\Camera\camera_manager.cpp" />
     <ClCompile Include="src\Framework\Camera\camera_steering_fixed.cpp" />
+    <ClCompile Include="src\Framework\Camera\camera_steering_homing.cpp" />
     <ClCompile Include="src\Framework\Collision\collision.cpp" />
     <ClCompile Include="src\Framework\DebugProc\DebugProc.cpp" />
     <ClCompile Include="src\Framework\GameManager\GameManager.cpp" />
@@ -61,8 +62,8 @@
     <ClInclude Include="src\common.h" />
     <ClInclude Include="src\Framework\Camera\camera.h" />
     <ClInclude Include="src\Framework\Camera\camera_manager.h" />
-    <ClInclude Include="src\Framework\Camera\camera_steering.h" />
     <ClInclude Include="src\Framework\Camera\camera_steering_fixed.h" />
+    <ClInclude Include="src\Framework\Camera\camera_steering_homing.h" />
     <ClInclude Include="src\Framework\Collision\collision.h" />
     <ClInclude Include="src\Framework\DebugProc\DebugProc.h" />
     <ClInclude Include="src\Framework\GameManager\GameManager.h" />
@@ -96,6 +97,7 @@
     <ClInclude Include="src\Framework\Utility\_DataLoader.hpp" />
     <ClInclude Include="src\liza\game\directx\render_target_holder.h" />
     <ClInclude Include="src\liza\game\directx\utility.h" />
+    <ClInclude Include="src\liza\game\State.hpp" />
     <ClInclude Include="src\liza\generic\Creation.hpp" />
     <ClInclude Include="src\liza\generic\factory.hpp" />
     <ClInclude Include="src\liza\generic\Lifetime.hpp" />

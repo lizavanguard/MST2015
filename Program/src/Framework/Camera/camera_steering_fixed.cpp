@@ -31,7 +31,6 @@ CameraSteeringFixed::~CameraSteeringFixed() {
 //------------------------------------------------
 // Update
 //------------------------------------------------
-void CameraSteeringFixed::Update(const float elapsed_time) {
-  const D3DXVECTOR3 target_position = target_.GetPosition();
-  SetAt(target_.GetPosition());
+void CameraSteeringFixed::Update(const float) {
+  SetAt(GetTargetPosition());
 }
