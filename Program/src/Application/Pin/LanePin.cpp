@@ -33,6 +33,6 @@ void LanePin::ReactCollision(const D3DXVECTOR3& power) {
   //const float impact_power = D3DXVec3Length(&power);
 
   velocity_ += direction * 100;
-  is_all_drawed_ = false;
+  is_all_drawed_ = true;
   is_collided_ = true;
 };

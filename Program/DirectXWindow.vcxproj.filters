@@ -79,6 +79,9 @@
     <Filter Include="src\Application\Collision">
       <UniqueIdentifier>{f7d25af1-27b2-430a-9583-a969957c05dc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Framework\SkyBox">
+      <UniqueIdentifier>{8808b05f-702c-49e4-93c2-f582297946e3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Framework\DebugProc\DebugProc.cpp">

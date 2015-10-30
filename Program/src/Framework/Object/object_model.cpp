@@ -53,7 +53,7 @@ ObjectModel::~ObjectModel() {
 //------------------------------------------------
 void ObjectModel::_Update(const float elapsed_time) {
   position_ += velocity_ * elapsed_time;
-  velocity_ *= 0.998f;
+  velocity_ *= 0.99f;
 }
 
 //------------------------------------------------
