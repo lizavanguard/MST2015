@@ -18,44 +18,49 @@
 // const
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 namespace {
-  const char* kTexturenames[] = {
+  const float kSize = 100.0f;
+  const float kSizeHalf = kSize / 2.0f;
+  const float kSizeOffset = kSizeHalf - 0.5f;
+  const char* kSkyboxCameraName = "SKYBOX_CAMERA";
+
+  const unsigned int kNumFaces = 6;
+  const char* kTexturenames[kNumFaces] = {
     //"data/Texture/SkyBox/PurpleValley/purplevalley_bk.tga",	// Z+
     //"data/Texture/SkyBox/PurpleValley/purplevalley_ft.tga",	// Z-
     //"data/Texture/SkyBox/PurpleValley/purplevalley_rt.tga",	// X+
     //"data/Texture/SkyBox/PurpleValley/purplevalley_lf.tga",	// X-
     //"data/Texture/SkyBox/PurpleValley/purplevalley_up.tga",	// Y+
     //"data/Texture/SkyBox/PurpleValley/purplevalley_dn.tga",	// Y-
-    "st_bk.tga",	// Z+
-    "st_ft.tga",	// Z-
-    "st_rt.tga",	// X+
-    "st_lf.tga",	// X-
-    "st_up.tga",	// Y+
-    "st_dn.tga",	// Y-
+    "SkyBox_St/st_ft.tga",	// Z+
+    "SkyBox_St/st_bk.tga",	// Z-
+    "SkyBox_St/st_rt.tga",	// X+
+    "SkyBox_St/st_lf.tga",	// X-
+    "SkyBox_St/st_up.tga",	// Y+
+    "SkyBox_St/st_dn.tga",	// Y-
   };
 
-  const float kSize = 100.0f;
-  const float kSizeHalf = kSize / 2.0f;
-  const float kSizeOffset = kSizeHalf - 0.5f;
-
-  const D3DXVECTOR3 kPoses[6] = {
+  const D3DXVECTOR3 kPoses[kNumFaces] = {
     D3DXVECTOR3(0, 0, kSizeOffset),	// Z+
     D3DXVECTOR3(0, 0, -kSizeOffset),	// Z-
-    D3DXVECTOR3(kSizeOffset, 0, 0),	// X+
-    D3DXVECTOR3(-kSizeOffset, 0, 0),	// X-
+    D3DXVECTOR3(-kSizeOffset, 0, 0),	// X+
+    D3DXVECTOR3(kSizeOffset, 0, 0),	// X-
     D3DXVECTOR3(0, kSizeOffset, 0),	// Y+
     D3DXVECTOR3(0, -kSizeOffset, 0),	// Y-
   };
 
-  const D3DXVECTOR3 kRots[SkyBox::kNumFaces] = {
+  const D3DXVECTOR3 kRots[kNumFaces] = {
     D3DXVECTOR3(0, 0, 0),
     D3DXVECTOR3(0, liza::math::kPIf, 0),
     D3DXVECTOR3(0, -liza::math::kPIHalff, 0),
     D3DXVECTOR3(0, liza::math::kPIHalff, 0),
-    D3DXVECTOR3(0, -liza::math::kPIHalff, liza::math::kPIHalff),
-    D3DXVECTOR3(0, -liza::math::kPIHalff, -liza::math::kPIHalff),
+
+    D3DXVECTOR3(-liza::math::kPIHalff, liza::math::kPIf, +liza::math::kPIHalff),
+    D3DXVECTOR3( liza::math::kPIHalff, liza::math::kPIf, -liza::math::kPIHalff),
   };
 }
 
+#include "Framework/Camera/camera_steering_set.h"
+#include "Framework/Object/root.h"
 
 //==============================================================================
 // class implementation
@@ -63,20 +68,33 @@ namespace {
 //------------------------------------------------
 // ctor
 //------------------------------------------------
-SkyBox::SkyBox() {
+SkyBox::SkyBox() : p_camera_steering_(nullptr) {
+  // create a skybox camera
+  Camera& main_camera = CameraManager::Instance().FindUsingHandle(0);
+  D3DXVECTOR3 at = main_camera.CalculateCameraDirection();
+  D3DXVECTOR3 eye(-at);
+  Camera* p_camera = new Camera(eye, at);
+  CameraManager::Instance().Register(kSkyboxCameraName, p_camera);
+
+  p_camera_steering_ = new CameraSteeringSet(*p_camera, Root());
+  p_camera->AssignCameraSteering(p_camera_steering_);
+
+  // create faces
+  const _CameraManager::CameraHandle camera_handle = CameraManager::Instance().GetCameraHandle(kSkyboxCameraName);
   for (unsigned int face_count = 0; face_count < kNumFaces; ++face_count) {
     auto object = Object3DFactory::Create(kTexturenames[face_count]);
     object->SetPosition(kPoses[face_count]);
     object->SetRotation(kRots[face_count]);
+    static const float kOffset = 0.0005f;
+    const float min = kOffset;
+    const float max = 1 - kOffset;
+    object->SetUVCorner(min, min, max, max);
+    object->OffBottomCentered();
+    object->SetCameraHandle(camera_handle);
     AttachChild(object);
   }
-
-  //// UV
-  //for (int face_count = 0; face_count < kNumFaces; ++face_count) {
-  //  pMeshBoards_[face_count]->ChangeUV(0.0005f, 0.9995f, 0.0005f, 0.9995f);
-  //}
+  is_child_auto_drawed_ = false;
 }
-
 
 //------------------------------------------------
 // dtor
@@ -84,13 +102,11 @@ SkyBox::SkyBox() {
 SkyBox::~SkyBox() {
 }
 
-
 //------------------------------------------------
 // Update
 //------------------------------------------------
-void SkyBox::_Update(const float elapsed_time) {
+void SkyBox::_Update(const float) {
 }
-
 
 //------------------------------------------------
 // Draw
@@ -103,25 +119,14 @@ void SkyBox::_Draw(void) {
   p_device->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
   p_device->SetRenderState(D3DRS_LIGHTING, FALSE);
 
-  Camera& camera = CameraManager::Instance().GetCamera(0);
-  D3DXVECTOR3 up(0, 1, 0);
-  D3DXVECTOR3 dir = camera.CalculateCameraDirection();
+  auto& camera = CameraManager::Instance().Find(kSkyboxCameraName);
+  Camera& main_camera = CameraManager::Instance().FindUsingHandle(0);
+  D3DXVECTOR3 dir = main_camera.CalculateCameraDirection();
   D3DXVECTOR3 eye(-dir);
-  D3DXMATRIX view;
-  D3DXMatrixLookAtLH(&view, &eye, &dir, &up);
-  p_device->SetTransform(D3DTS_VIEW, &view);
+  p_camera_steering_->SetAtValue(dir);
+  p_camera_steering_->SetEyeValue(eye);
 
-  for (int face_count = 0; face_count < kNumFaces; ++face_count) {
-    D3DXMATRIX translation;
-    D3DXMatrixTranslation(&translation, kPoses[face_count].x, kPoses[face_count].y, kPoses[face_count].z);
-    D3DXMATRIX rotation;
-    D3DXMatrixRotationYawPitchRoll(&rotation, kRots[face_count].y, kRots[face_count].x, kRots[face_count].z);
-    D3DXMATRIX world = translation * rotation;
-    p_device->SetTransform(D3DTS_WORLD, &world);
-
-    //RendererSingleton::Instance().SetTexture(pMeshTexs_[face_count]);
-    //pMeshBoards_[face_count]->Draw();
-  }
+  _DrawChildAll();
 
   p_device->SetRenderState(D3DRS_LIGHTING, TRUE);
   p_device->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);

@@ -1,6 +1,6 @@
 //==============================================================================
 //
-// SkyBox
+// CameraSteeringSet
 // Author: Shimizu Shoji
 //
 //==============================================================================
@@ -8,32 +8,22 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-#include "Framework/Object/object_base.h"
-
-#include "liza/generic/factory.hpp"
-
-//--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-// class declaration
-//--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-class Object3D;
-class CameraSteeringSet;
+#include "camera.h"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-class SkyBox : public ObjectBase {
+class CameraSteeringSet : public Camera::CameraSteering {
 public:
   // ctor
-  SkyBox();
+  CameraSteeringSet(Camera& camera, ObjectBase& target);
 
   // dtor
-  virtual ~SkyBox();
+  ~CameraSteeringSet();
 
-private:
-  virtual void _Update(float elapsed_time) override;
-  virtual void _Draw(void) override;
+  // set
+  void SetAtValue(const D3DXVECTOR3& at);
+  void SetEyeValue(const D3DXVECTOR3& eye);
 
-  CameraSteeringSet* p_camera_steering_;
+  virtual void Update(float elapsed_time) override;
 };
-
-using SkyBoxFactory = liza::generic::Factory<SkyBox>;

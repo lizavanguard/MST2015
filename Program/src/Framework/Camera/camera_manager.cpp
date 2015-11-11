@@ -8,6 +8,7 @@
 // include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 #include "camera_manager.h"
+#include "camera.h"
 
 //==============================================================================
 // class implementation
@@ -44,7 +45,7 @@ Camera& _CameraManager::Find(const char* camera_name) {
   return *container_[it->second];
 }
 
-Camera& _CameraManager::Find(CameraHandle camera_handle) {
+Camera& _CameraManager::FindUsingHandle(const CameraHandle camera_handle) {
   return *container_[camera_handle];
 }
 

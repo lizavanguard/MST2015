@@ -85,6 +85,13 @@ void Player::_Update(const float elapsed_time) {
     Reset();
   }
 
+  if (keyboard.IsPress(DIK_I)) {
+    velocity_.y += true_speed;
+  }
+  if (keyboard.IsPress(DIK_K)) {
+    velocity_.y -= true_speed;
+  }
+
   velocity_ *= 0.998f;
   position_ += velocity_;
 }

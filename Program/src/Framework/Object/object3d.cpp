@@ -9,8 +9,8 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 #include "Object3D.h"
 
+#include "Framework/Camera/camera.h"
 #include "Framework/Utility/DeviceHolder.h"
-#include "Framework/Camera/camera_manager.h"
 #include "Framework/Shader/shader_manager.h"
 #include "Framework/Texture/texture_manager.h"
 
@@ -19,6 +19,7 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 namespace {
   const float kSize = 100.0f;
+  const float kSizeHalf = kSize * 0.5f;
   const char* kShadername = "object3d";
 }
 
@@ -30,7 +31,9 @@ namespace {
 //------------------------------------------------
 Object3D::Object3D(const char* p_filename)
     : p_shader_(nullptr)
-    , p_declaration_(nullptr) {
+    , p_declaration_(nullptr)
+    , p_texture_(nullptr)
+    , is_bottom_centered_(true) {
   p_shader_ = ShaderManager::Instance().FindShader(kShadername);
 
   D3DVERTEXELEMENT9 elements[] = {
@@ -44,6 +47,10 @@ Object3D::Object3D(const char* p_filename)
   p_device->CreateVertexDeclaration(elements, &p_declaration_);
 
   p_texture_ = TextureManager::Instance().Find(p_filename);
+  uv_left_top_.x = 0.0f;
+  uv_left_top_.y = 0.0f;
+  uv_right_bottom_.x = 1.0f;
+  uv_right_bottom_.y = 1.0f;
 }
 
 //------------------------------------------------
@@ -73,17 +80,23 @@ void Object3D::_Draw(void) {
     D3DXVECTOR2 texcoord;
   };
   // vertices
-  const float half_x = kSize * 0.5f;
   Vertex3D data[] = {
-    {D3DXVECTOR3(-half_x, kSize, 0.0f), D3DXCOLOR(0xffffffff), D3DXVECTOR2(0, 0)},  // lt
-    {D3DXVECTOR3(+half_x, kSize, 0.0f), D3DXCOLOR(0xffffffff), D3DXVECTOR2(1, 0)},  // rt
-    {D3DXVECTOR3(-half_x, 0.0f, 0.0f), D3DXCOLOR(0xffffffff), D3DXVECTOR2(0, 1)},  // lb
-    {D3DXVECTOR3(+half_x, 0.0f, 0.0f), D3DXCOLOR(0xffffffff), D3DXVECTOR2(1, 1)},  // rb
+    {D3DXVECTOR3(-kSizeHalf, +kSizeHalf, 0.0f), D3DXCOLOR(0xffffffff), D3DXVECTOR2(    uv_left_top_.x,     uv_left_top_.y)},  // lt
+    {D3DXVECTOR3(+kSizeHalf, +kSizeHalf, 0.0f), D3DXCOLOR(0xffffffff), D3DXVECTOR2(uv_right_bottom_.x,     uv_left_top_.y)},  // rt
+    {D3DXVECTOR3(-kSizeHalf, -kSizeHalf, 0.0f), D3DXCOLOR(0xffffffff), D3DXVECTOR2(    uv_left_top_.x, uv_right_bottom_.y)},  // lb
+    {D3DXVECTOR3(+kSizeHalf, -kSizeHalf, 0.0f), D3DXCOLOR(0xffffffff), D3DXVECTOR2(uv_right_bottom_.x, uv_right_bottom_.y)},  // rb
   };
+  if (is_bottom_centered_) {
+    data[0].vertex.y = kSize;
+    data[1].vertex.y = kSize;
+    data[3].vertex.y = 0.0f;
+    data[2].vertex.y = 0.0f;
+  }
 
   p_device->SetVertexDeclaration(p_declaration_);
 
-  D3DXMATRIX wvp = world_matrix_ * CameraManager::Instance().Find("MAIN_CAMERA").GetViewMatrix() * CameraManager::Instance().Find("MAIN_CAMERA").GetProjectionMatrix();
+  auto& camera = CameraManager::Instance().FindUsingHandle(camera_handle_);
+  D3DXMATRIX wvp = world_matrix_ * camera.GetViewMatrix() * camera.GetProjectionMatrix();
   p_shader_->SetMatrix("u_wvp", &wvp);
 
   p_shader_->SetTexture("texture_decale", p_texture_);

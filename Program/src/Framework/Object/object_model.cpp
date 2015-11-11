@@ -9,6 +9,7 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 #include "object_model.h"
 
+#include "Framework/Camera/camera.h"
 #include "Framework/Camera/camera_manager.h"
 #include "Framework/Shader/shader_manager.h"
 #include "Framework/Texture/texture_manager.h"
@@ -61,7 +62,7 @@ void ObjectModel::_Update(const float elapsed_time) {
 //------------------------------------------------
 void ObjectModel::_Draw(void) {
   auto p_device = DeviceHolder::Instance().GetDevice();
-  auto& camera = CameraManager::Instance().Find("MAIN_CAMERA");
+  auto& camera = CameraManager::Instance().FindUsingHandle(camera_handle_);
   D3DXMATRIX wvp = world_matrix_ * camera.GetViewMatrix() * camera.GetProjectionMatrix();
 
   p_shader_->SetMatrix("u_wvp", &wvp);

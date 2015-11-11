@@ -22,8 +22,10 @@
     <ClCompile Include="src\Application\Test\Test.cpp" />
     <ClCompile Include="src\Framework\Camera\camera.cpp" />
     <ClCompile Include="src\Framework\Camera\camera_manager.cpp" />
+    <ClCompile Include="src\Framework\Camera\camera_steering_control.cpp" />
     <ClCompile Include="src\Framework\Camera\camera_steering_fixed.cpp" />
     <ClCompile Include="src\Framework\Camera\camera_steering_homing.cpp" />
+    <ClCompile Include="src\Framework\Camera\camera_steering_set.cpp" />
     <ClCompile Include="src\Framework\Collision\collision.cpp" />
     <ClCompile Include="src\Framework\DebugProc\DebugProc.cpp" />
     <ClCompile Include="src\Framework\GameManager\GameManager.cpp" />
@@ -41,6 +43,7 @@
     <ClCompile Include="src\Framework\Object\object_base.cpp" />
     <ClCompile Include="src\Framework\Object\object_model.cpp" />
     <ClCompile Include="src\Framework\Shader\shader_manager.cpp" />
+    <ClCompile Include="src\Framework\SkyBox\SkyBox.cpp" />
     <ClCompile Include="src\Framework\Sound\sound_data_holder.cpp" />
     <ClCompile Include="src\Framework\Sound\sound_manager.cpp" />
     <ClCompile Include="src\Framework\Sound\xaudio_holder.cpp" />
@@ -64,8 +67,10 @@
     <ClInclude Include="src\common.h" />
     <ClInclude Include="src\Framework\Camera\camera.h" />
     <ClInclude Include="src\Framework\Camera\camera_manager.h" />
+    <ClInclude Include="src\Framework\Camera\camera_steering_control.h" />
     <ClInclude Include="src\Framework\Camera\camera_steering_fixed.h" />
     <ClInclude Include="src\Framework\Camera\camera_steering_homing.h" />
+    <ClInclude Include="src\Framework\Camera\camera_steering_set.h" />
     <ClInclude Include="src\Framework\Collision\collision.h" />
     <ClInclude Include="src\Framework\Collision\collision_object.h" />
     <ClInclude Include="src\Framework\DebugProc\DebugProc.h" />
@@ -88,6 +93,7 @@
     <ClInclude Include="src\Framework\Object\object_model.h" />
     <ClInclude Include="src\Framework\Object\root.h" />
     <ClInclude Include="src\Framework\Shader\shader_manager.h" />
+    <ClInclude Include="src\Framework\SkyBox\SkyBox.h" />
     <ClInclude Include="src\Framework\Sound\sound_data_holder.h" />
     <ClInclude Include="src\Framework\Sound\sound_manager.h" />
     <ClInclude Include="src\Framework\Sound\xaudio_holder.h" />

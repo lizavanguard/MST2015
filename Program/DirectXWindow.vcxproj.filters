@@ -192,6 +192,15 @@
     <ClCompile Include="src\Application\Pin\StandardPin.cpp">
       <Filter>src\Application\Pin</Filter>
     </ClCompile>
+    <ClCompile Include="src\Framework\SkyBox\SkyBox.cpp">
+      <Filter>src\Framework\SkyBox</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\Camera\camera_steering_control.cpp">
+      <Filter>src\Framework\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\Camera\camera_steering_set.cpp">
+      <Filter>src\Framework\Camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Framework\DebugProc\DebugProc.h">
@@ -385,6 +394,15 @@
     </ClInclude>
     <ClInclude Include="src\Framework\Collision\collision_object.h">
       <Filter>src\Framework\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\SkyBox\SkyBox.h">
+      <Filter>src\Framework\SkyBox</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Camera\camera_steering_control.h">
+      <Filter>src\Framework\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Camera\camera_steering_set.h">
+      <Filter>src\Framework\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

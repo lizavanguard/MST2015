@@ -1,39 +1,38 @@
 //==============================================================================
 //
-// SkyBox
+// CameraSteeringControl
 // Author: Shimizu Shoji
+//
+// 現在のカメラ位置からターゲットの位置を追従する？
 //
 //==============================================================================
 #pragma once
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-#include "Framework/Object/object_base.h"
-
-#include "liza/generic/factory.hpp"
+#include "camera.h"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class declaration
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-class Object3D;
-class CameraSteeringSet;
+class CameraSteeringHoming;
+class ObjectBase;
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-class SkyBox : public ObjectBase {
+class CameraSteeringControl : public Camera::CameraSteering {
 public:
   // ctor
-  SkyBox();
+  CameraSteeringControl(Camera& camera, ObjectBase& target);
 
   // dtor
-  virtual ~SkyBox();
+  virtual ~CameraSteeringControl();
+
+  // Update
+  virtual void Update(float elapsed_time) override;
 
 private:
-  virtual void _Update(float elapsed_time) override;
-  virtual void _Draw(void) override;
-
-  CameraSteeringSet* p_camera_steering_;
+  CameraSteeringHoming* p_steering_;
+  ObjectBase* p_dummy_;
 };
-
-using SkyBoxFactory = liza::generic::Factory<SkyBox>;

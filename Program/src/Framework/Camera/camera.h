@@ -43,18 +43,22 @@ public:
     const D3DXVECTOR3& GetAt(void) const { return camera_.at_; }
     const D3DXVECTOR3& GetEye(void) const { return camera_.eye_; }
     const D3DXVECTOR3& GetTargetPosition(void) const { return target_.GetPosition(); }
-    const D3DXVECTOR3& GetTargetRotation(void) const { return target_.GetPosition(); }
+    const D3DXVECTOR3& GetTargetRotation(void) const { return target_.GetRotation(); }
     const D3DXVECTOR3& GetTargetVelocity(void) const { return target_.GetVelocity(); }
 
     // set
     void SetAt(const D3DXVECTOR3& at) { camera_.at_ = at; }
     void SetEye(const D3DXVECTOR3& eye) { camera_.eye_ = eye; }
 
-  private:
+   protected:
     // property
     Camera& camera_;
     const ObjectBase& target_;
   };
+
+  //class NullCameraSteeringObject : public CameraSteering {
+
+  //};
 
 public:
   // ctor

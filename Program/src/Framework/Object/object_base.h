@@ -10,6 +10,8 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 #include <liza/generic/noncopyable.h>
 
+#include "Framework/Camera/camera_manager.h"
+
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
@@ -19,6 +21,7 @@ private:
   using ContainerType = std::list<ObjectBase*>;
   using Iterator = ContainerType::iterator;
   using ConstIterator = ContainerType::const_iterator;
+  using CameraHandle = _CameraManager::CameraHandle;
 
 protected:
   // ctor
@@ -60,8 +63,15 @@ public:
   void SetPosition(const D3DXVECTOR3& position) { position_ = position; }
   void SetRotation(const D3DXVECTOR3& rotation) { rotation_ = rotation; }
   void SetScale(const D3DXVECTOR3& scale) { scale_ = scale; }
+  void SetCameraHandle(CameraHandle camera_handle) { camera_handle_ = camera_handle; }
 
 protected:
+  // 通常、子の呼び出しは自動で行われます
+  // この関数は、子の呼び出しを手動で行う必要がある時のみ使用してください
+  // 例えば、子呼び出しの前後に処理を挟みたい時などに効果的です
+  void _UpdateChildAll(float elapsed_time);
+  void _DrawChildAll(void);
+
   // property
   D3DXVECTOR3 position_;
   D3DXVECTOR3 rotation_;
@@ -72,11 +82,12 @@ protected:
   D3DXMATRIX own_world_matrix_;  // 自分自身のワールド行列
 
   ObjectBase* p_parent_;
+  CameraHandle camera_handle_;
 
   bool is_all_updated_;
   bool is_all_drawed_;
-  bool is_child_updated_;
-  bool is_child_drawed_;
+  bool is_child_auto_updated_;
+  bool is_child_auto_drawed_;
   bool is_calculated_parent_matrix_;
 
 private:

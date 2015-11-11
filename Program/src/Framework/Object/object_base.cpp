@@ -21,10 +21,11 @@ ObjectBase::ObjectBase()
   , scale_(1.0f, 1.0f, 1.0f)
   , velocity_(0.0f, 0.0f, 0.0f)
   , p_parent_(nullptr)
+  , camera_handle_(0)
   , is_all_updated_(true)
   , is_all_drawed_(true)
-  , is_child_updated_(true)
-  , is_child_drawed_(true)
+  , is_child_auto_updated_(true)
+  , is_child_auto_drawed_(true)
   , is_calculated_parent_matrix_(true) {
 }
 
@@ -76,12 +77,8 @@ void ObjectBase::UpdateAll(const float elapsed_time) {
   _CalculateWorldMatrix();
 
   _Update(elapsed_time);
-
-  if (!is_child_updated_) {
-    return;
-  }
-  for (auto p_child : list_) {
-    p_child->UpdateAll(elapsed_time);
+  if (is_child_auto_updated_) {
+    _UpdateChildAll(elapsed_time);
   }
 }
 
@@ -94,10 +91,23 @@ void ObjectBase::DrawAll(void) {
   }
 
   _Draw();
-
-  if (!is_child_drawed_) {
-    return;
+  if (is_child_auto_drawed_) {
+    _DrawChildAll();
   }
+}
+
+//------------------------------------------------
+// 通常、子の呼び出しは自動で行われます
+// この関数は、子の呼び出しを手動で行う必要がある時のみ使用してください
+// 例えば、子呼び出しの前後に処理を挟みたい時などに効果的です
+//------------------------------------------------
+void ObjectBase::_UpdateChildAll(const float elapsed_time) {
+  for (auto p_child : list_) {
+    p_child->UpdateAll(elapsed_time);
+  }
+}
+
+void ObjectBase::_DrawChildAll(void) {
   for (auto p_child : list_) {
     p_child->DrawAll();
   }
@@ -113,10 +123,10 @@ void ObjectBase::_CalculateWorldMatrix(void) {
   D3DXMatrixRotationYawPitchRoll(&rotation_matrix, rotation_.y, rotation_.x, rotation_.z);
   D3DXMATRIX scale_matrix;
   D3DXMatrixScaling(&scale_matrix, scale_.x, scale_.y, scale_.z);
-  own_world_matrix_ = translation_matrix * rotation_matrix * scale_matrix;
+  own_world_matrix_ = scale_matrix * rotation_matrix * translation_matrix;
 
   if (p_parent_ && is_calculated_parent_matrix_) {
-    world_matrix_ = own_world_matrix_ * p_parent_->world_matrix_;
+    world_matrix_ = p_parent_->world_matrix_ * own_world_matrix_;
   }
   else {
     world_matrix_ = own_world_matrix_;

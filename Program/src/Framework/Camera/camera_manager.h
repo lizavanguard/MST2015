@@ -8,20 +8,25 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-#include "camera.h"
 #include "liza/generic/SingletonHolder.hpp"
+
+//--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
+// class declaration
+//--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
+class Camera;
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 class _CameraManager {
+public:
+  using CameraHandle = unsigned int;
+  static const int none = 4294967295;
+
 private:
   using DataType = Camera*;
-  using CameraHandle = unsigned int;
   using ContainerType = std::vector<DataType>;
   using HandleContainerType = std::unordered_map<std::string, CameraHandle>;
-
-  static const int none = 4294967295;
 
 public:
   // ctor
@@ -36,7 +41,7 @@ public:
   // Find
   // カメラを検索する
   Camera& Find(const char* camera_name);
-  Camera& Find(CameraHandle camera_handle);
+  Camera& FindUsingHandle(CameraHandle camera_handle);
 
   // Register
   // カメラ名とカメラデータを登録する

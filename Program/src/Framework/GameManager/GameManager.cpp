@@ -48,6 +48,7 @@ GameManager::GameManager(HINSTANCE hInstance, HWND hWnd, LPDIRECT3DDEVICE9 pDevi
   ShaderManager::Instance();
   TextureManager::Instance().Load("General");
   TextureManager::Instance().Load("Model");
+  TextureManager::Instance().Load("SkyBox_St");
   TextureManager::Instance().Load("Game"); // TODO: Game -> Title?
   ModelManager::Instance();
   SoundManager::Instance();
