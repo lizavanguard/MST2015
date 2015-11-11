@@ -1,7 +1,7 @@
 //==============================================================================
 //
-// スカイボックス [SkyBox.cpp]
-// Created : Shimizu Shoji
+// SkyBox
+// Author: Shimizu Shoji
 //
 //==============================================================================
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
@@ -10,56 +10,49 @@
 #include "SkyBox.h"
 
 #include "Framework/Object/object3d.h"
+#include "Framework/Utility/DeviceHolder.h"
+#include "Framework/Camera/camera_manager.h"
+//#include "Framework/Camera/camera_manager.h"
 
-#include "Camera/Camera.h"
-#include "Camera/CameraManager.h"
-#include "GameManager/GameManager.h"
-#include "3D/Mesh/MeshBoard.h"
-#include "3D/Renderer/RendererDX.h"
-#include "3D/ResourceManager/ResourceManager.h"
-#include "3D/Texture/TextureDX.h"
-
-
-#include "GameManager/GameManager.h"
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // const
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 namespace {
-  const char* kTexnames[SkyBox::kFaceMax] = {
+  const char* kTexturenames[] = {
     //"data/Texture/SkyBox/PurpleValley/purplevalley_bk.tga",	// Z+
     //"data/Texture/SkyBox/PurpleValley/purplevalley_ft.tga",	// Z-
     //"data/Texture/SkyBox/PurpleValley/purplevalley_rt.tga",	// X+
     //"data/Texture/SkyBox/PurpleValley/purplevalley_lf.tga",	// X-
     //"data/Texture/SkyBox/PurpleValley/purplevalley_up.tga",	// Y+
     //"data/Texture/SkyBox/PurpleValley/purplevalley_dn.tga",	// Y-
-    "data/Texture/SkyBox/St/st_bk.tga",	// Z+
-    "data/Texture/SkyBox/St/st_ft.tga",	// Z-
-    "data/Texture/SkyBox/St/st_rt.tga",	// X+
-    "data/Texture/SkyBox/St/st_lf.tga",	// X-
-    "data/Texture/SkyBox/St/st_up.tga",	// Y+
-    "data/Texture/SkyBox/St/st_dn.tga",	// Y-
+    "st_bk.tga",	// Z+
+    "st_ft.tga",	// Z-
+    "st_rt.tga",	// X+
+    "st_lf.tga",	// X-
+    "st_up.tga",	// Y+
+    "st_dn.tga",	// Y-
   };
 
   const float kSize = 100.0f;
   const float kSizeHalf = kSize / 2.0f;
   const float kSizeOffset = kSizeHalf - 0.5f;
 
-  const Vector3 kPoses[SkyBox::kFaceMax] = {
-    Vector3(0, 0, kSizeOffset),	// Z+
-    Vector3(0, 0, -kSizeOffset),	// Z-
-    Vector3(kSizeOffset, 0, 0),	// X+
-    Vector3(-kSizeOffset, 0, 0),	// X-
-    Vector3(0, kSizeOffset, 0),	// Y+
-    Vector3(0, -kSizeOffset, 0),	// Y-
+  const D3DXVECTOR3 kPoses[6] = {
+    D3DXVECTOR3(0, 0, kSizeOffset),	// Z+
+    D3DXVECTOR3(0, 0, -kSizeOffset),	// Z-
+    D3DXVECTOR3(kSizeOffset, 0, 0),	// X+
+    D3DXVECTOR3(-kSizeOffset, 0, 0),	// X-
+    D3DXVECTOR3(0, kSizeOffset, 0),	// Y+
+    D3DXVECTOR3(0, -kSizeOffset, 0),	// Y-
   };
 
-  const Vector3 kRots[SkyBox::kFaceMax] = {
-    Vector3(0, 0, 0),
-    Vector3(0, liza::math::kPIf, 0),
-    Vector3(0, -liza::math::kPIHalff, 0),
-    Vector3(0, liza::math::kPIHalff, 0),
-    Vector3(0, -liza::math::kPIHalff, liza::math::kPIHalff),
-    Vector3(0, -liza::math::kPIHalff, -liza::math::kPIHalff),
+  const D3DXVECTOR3 kRots[SkyBox::kNumFaces] = {
+    D3DXVECTOR3(0, 0, 0),
+    D3DXVECTOR3(0, liza::math::kPIf, 0),
+    D3DXVECTOR3(0, -liza::math::kPIHalff, 0),
+    D3DXVECTOR3(0, liza::math::kPIHalff, 0),
+    D3DXVECTOR3(0, -liza::math::kPIHalff, liza::math::kPIHalff),
+    D3DXVECTOR3(0, -liza::math::kPIHalff, -liza::math::kPIHalff),
   };
 }
 
@@ -71,25 +64,17 @@ namespace {
 // ctor
 //------------------------------------------------
 SkyBox::SkyBox() {
-  for (int i = 0; i < kFaceMax; ++i) {
-    pMeshBoards_[i] = nullptr;
-    pMeshTexs_[i] = nullptr;
+  for (unsigned int face_count = 0; face_count < kNumFaces; ++face_count) {
+    auto object = Object3DFactory::Create(kTexturenames[face_count]);
+    object->SetPosition(kPoses[face_count]);
+    object->SetRotation(kRots[face_count]);
+    AttachChild(object);
   }
 
-  // Create Mesh
-  for (int i = 0; i < kFaceMax; ++i) {
-    pMeshBoards_[i] = new MeshBoard(kSize, kSize);
-  }
-
-  // Load Tex
-  for (int i = 0; i < kFaceMax; ++i) {
-    pMeshTexs_[i] = ResourceManager::Instance().CreateTextureFromFile(kTexnames[i]);
-  }
-
-  // UV
-  for (int i = 0; i < kFaceMax; ++i) {
-    pMeshBoards_[i]->ChangeUV(0.0005f, 0.9995f, 0.0005f, 0.9995f);
-  }
+  //// UV
+  //for (int face_count = 0; face_count < kNumFaces; ++face_count) {
+  //  pMeshBoards_[face_count]->ChangeUV(0.0005f, 0.9995f, 0.0005f, 0.9995f);
+  //}
 }
 
 
@@ -97,62 +82,48 @@ SkyBox::SkyBox() {
 // dtor
 //------------------------------------------------
 SkyBox::~SkyBox() {
-  for (int i = 0; i < kFaceMax; ++i) {
-    SafeDelete(pMeshBoards_[i]);
-  }
 }
 
 
 //------------------------------------------------
 // Update
 //------------------------------------------------
-void SkyBox::Update(const float elapsedTime) {
+void SkyBox::_Update(const float elapsed_time) {
 }
 
 
 //------------------------------------------------
 // Draw
 //------------------------------------------------
-void SkyBox::Draw(void) {
-  auto& rRenderer = RendererSingleton::Instance();
-  LPDIRECT3DDEVICE9 pDevice = rRenderer.GetDevice();
+void SkyBox::_Draw(void) {
+  auto p_device = DeviceHolder::Instance().GetDevice();
 
-  // 現在のビュー行列を取得
-  Matrix mtxViewOld;
-  rRenderer.GetTransform(D3DTS_VIEW, &mtxViewOld);
+  D3DXMATRIX view_old;
+  p_device->GetTransform(D3DTS_VIEW, &view_old);
+  p_device->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
+  p_device->SetRenderState(D3DRS_LIGHTING, FALSE);
 
-  // Zバッファ書き込みを無効
-  rRenderer.SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
+  Camera& camera = CameraManager::Instance().GetCamera(0);
+  D3DXVECTOR3 up(0, 1, 0);
+  D3DXVECTOR3 dir = camera.CalculateCameraDirection();
+  D3DXVECTOR3 eye(-dir);
+  D3DXMATRIX view;
+  D3DXMatrixLookAtLH(&view, &eye, &dir, &up);
+  p_device->SetTransform(D3DTS_VIEW, &view);
 
-  // ライトの無効
-  rRenderer.SetRenderState(D3DRS_LIGHTING, FALSE);
+  for (int face_count = 0; face_count < kNumFaces; ++face_count) {
+    D3DXMATRIX translation;
+    D3DXMatrixTranslation(&translation, kPoses[face_count].x, kPoses[face_count].y, kPoses[face_count].z);
+    D3DXMATRIX rotation;
+    D3DXMatrixRotationYawPitchRoll(&rotation, kRots[face_count].y, kRots[face_count].x, kRots[face_count].z);
+    D3DXMATRIX world = translation * rotation;
+    p_device->SetTransform(D3DTS_WORLD, &world);
 
-  // 新しいビュー行列を設定
-  Camera& rCamera = GameManagerSingleton::Instance().GetCameraManager().GetPrimaryCamera();
-  Vector3 up(0, 1, 0);
-  Vector3 dir(rCamera.GetAt() - rCamera.GetEye());
-  dir.Normalize();
-  Vector3 eye(-dir);
-  Matrix mtxView;
-  mtxView.LookAt(eye, dir, up);
-  rRenderer.SetTransform(D3DTS_VIEW, mtxView);
-
-  // 六面描画
-  for (int i = 0; i < kFaceMax; ++i) {
-    Matrix mtxWorld;
-    mtxWorld.Transform(kPoses[i], kRots[i], Vector3(1, 1, 1));
-    rRenderer.SetTransform(D3DTS_WORLD, mtxWorld);
-
-    RendererSingleton::Instance().SetTexture(pMeshTexs_[i]);
-    pMeshBoards_[i]->Draw();
+    //RendererSingleton::Instance().SetTexture(pMeshTexs_[face_count]);
+    //pMeshBoards_[face_count]->Draw();
   }
 
-  // ライトを有効
-  rRenderer.SetRenderState(D3DRS_LIGHTING, TRUE);
-
-  // Zバッファ書き込みを有効
-  rRenderer.SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
-
-  // ビュー行列を戻す
-  rRenderer.SetTransform(D3DTS_VIEW, mtxViewOld);
+  p_device->SetRenderState(D3DRS_LIGHTING, TRUE);
+  p_device->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
+  p_device->SetTransform(D3DTS_VIEW, &view_old);
 }

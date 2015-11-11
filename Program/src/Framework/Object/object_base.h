@@ -49,13 +49,17 @@ public:
   // Draw All in list
   void DrawAll(void);
 
-
   // get
   const D3DXMATRIX& GetWorldMatrix(void) const { return world_matrix_; }
   const D3DXVECTOR3& GetPosition(void) const { return position_; }
   const D3DXVECTOR3& GetRotation(void) const { return rotation_; }
   const D3DXVECTOR3& GetScale(void) const { return scale_; }
   const D3DXVECTOR3& GetVelocity(void) const { return velocity_; }
+
+  // set
+  void SetPosition(const D3DXVECTOR3& position) { position_ = position; }
+  void SetRotation(const D3DXVECTOR3& rotation) { rotation_ = rotation; }
+  void SetScale(const D3DXVECTOR3& scale) { scale_ = scale; }
 
 protected:
   // property

@@ -63,14 +63,21 @@ public:
   // dtor
   ~Camera();
 
+  // Assign
+  void AssignCameraSteering(CameraSteering* p_camera_steering);
+
+  // Calculate camera-direction
+  D3DXVECTOR3 CalculateCameraDirection(void) const {
+    D3DXVECTOR3 direction = at_ - eye_;
+    return *D3DXVec3Normalize(&direction, &direction);
+  }
+
+  // Update
+  virtual void Update(float elapsed_time);
+
   // get
   const D3DXMATRIX& GetProjectionMatrix(void) const { return projection_; }
   const D3DXMATRIX& GetViewMatrix(void) const { return view_; }
-
-  virtual void Update(float elapsed_time);
-
-  // assign
-  void AssignCameraSteering(CameraSteering* p_camera_steering);
 
 private:
   // property

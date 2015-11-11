@@ -46,7 +46,10 @@ Test::Test() {
   auto pin_manager = PinManagerFactory::Create();
   g_p_root->AttachChild(pin_manager);
 
-  CameraManager::Instance().GetCamera(0).AssignCameraSteering(new CameraSteeringFixed(CameraManager::Instance().GetCamera(0), *player));
+  static const D3DXVECTOR3 kInitialEyePosition = {0.0f, 75.0f, -40.0f};
+  auto camera = CameraFactory::Create(kInitialEyePosition, D3DXVECTOR3(0, 0, 0));
+  camera->AssignCameraSteering(new CameraSteeringFixed(*camera, *player));
+  CameraManager::Instance().Register("MAIN_CAMERA", camera);
 
   //g_p_root->AttachChild(DebugObject::Create("ID-1"));
   //g_p_root->AttachChild(DebugObject::Create("ID-3"));

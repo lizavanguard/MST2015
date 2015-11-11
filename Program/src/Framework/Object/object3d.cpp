@@ -83,7 +83,7 @@ void Object3D::_Draw(void) {
 
   p_device->SetVertexDeclaration(p_declaration_);
 
-  D3DXMATRIX wvp = world_matrix_ * CameraManager::Instance().GetCamera(0).GetViewMatrix() * CameraManager::Instance().GetCamera(0).GetProjectionMatrix();
+  D3DXMATRIX wvp = world_matrix_ * CameraManager::Instance().Find("MAIN_CAMERA").GetViewMatrix() * CameraManager::Instance().Find("MAIN_CAMERA").GetProjectionMatrix();
   p_shader_->SetMatrix("u_wvp", &wvp);
 
   p_shader_->SetTexture("texture_decale", p_texture_);

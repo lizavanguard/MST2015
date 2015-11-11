@@ -1,7 +1,7 @@
 //==============================================================================
 //
-// スカイボックス [SkyBox.h]
-// Created : Shimizu Shoji
+// SkyBox
+// Author: Shimizu Shoji
 //
 //==============================================================================
 #pragma once
@@ -19,30 +19,17 @@ class Object3D;
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 class SkyBox : public ObjectBase {
-public:
-  // const
-  static const int kFaceMax = 6;
+private:
+  static const int kNumFaces = 6;
 
 public:
   // ctor
   SkyBox();
 
   // dtor
-  ~SkyBox();
-
-  // Update
-  void Update(float elapsedTime);
-
-  // Draw
-  void Draw(void);
-
-  Vector3 GetRottt(void) const;
+  virtual ~SkyBox();
 
 private:
-  // property
-  MeshBoard* pMeshBoards_[kFaceMax];
-  TextureDX* pMeshTexs_[kFaceMax];
+  virtual void _Update(float elapsed_time) override;
+  virtual void _Draw(void) override;
 };
-
-
-#endif // __H_SKYBOX_H__

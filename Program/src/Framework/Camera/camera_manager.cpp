@@ -16,22 +16,67 @@
 // ctor
 //------------------------------------------------
 _CameraManager::_CameraManager() {
-  // TODO:
-  //static const D3DXVECTOR3 kInitialEyePosition = {0.0f, 10.0f, -15.0f};
-  static const D3DXVECTOR3 kInitialEyePosition = {0.0f, 75.0f, -40.0f};
-  PushCamera(CameraFactory::Create(kInitialEyePosition, D3DXVECTOR3(0, 0, 0)));
 }
 
 //------------------------------------------------
-// Get Camera
+// dtor
 //------------------------------------------------
-Camera& _CameraManager::GetCamera(const unsigned int index) {
-   return *container_[index];
- }
+_CameraManager::~_CameraManager() {
+  UnRegister();
+}
 
 //------------------------------------------------
-// Push
+// Update
 //------------------------------------------------
-void _CameraManager::PushCamera(Camera* p_camera) {
+void _CameraManager::Update(const float elapsed_time) {
+  for (auto p_camera : container_) {
+    p_camera->Update(elapsed_time);
+  }
+}
+
+//------------------------------------------------
+// Find
+// カメラを検索する
+//------------------------------------------------
+Camera& _CameraManager::Find(const char* camera_name) {
+  auto it = handle_container_.find(camera_name);
+  MY_BREAK_ASSERT(it != handle_container_.end());
+  return *container_[it->second];
+}
+
+Camera& _CameraManager::Find(CameraHandle camera_handle) {
+  return *container_[camera_handle];
+}
+
+//------------------------------------------------
+// Register
+// カメラ名とカメラデータを登録する
+//------------------------------------------------
+void _CameraManager::Register(const char* camera_name, Camera* p_camera) {
+  unsigned int num = container_.size();
   container_.push_back(p_camera);
+  handle_container_.insert(std::make_pair(camera_name, num));
+}
+
+//------------------------------------------------
+// UnRegister
+// カメラ名とカメラデータを抹消する
+//------------------------------------------------
+void _CameraManager::UnRegister(void) {
+  for (auto p_camera : container_) {
+    SafeDelete(p_camera);
+  }
+
+  container_.clear();
+  handle_container_.clear();
+}
+
+//------------------------------------------------
+// Get camera handle
+// カメラのハンドルを取得する
+//------------------------------------------------
+_CameraManager::CameraHandle _CameraManager::GetCameraHandle(const char* camera_name) const {
+  auto it = handle_container_.find(camera_name);
+  MY_BREAK_ASSERT(it != handle_container_.end());
+  return it->second;
 }
