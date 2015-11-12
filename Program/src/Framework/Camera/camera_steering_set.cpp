@@ -15,8 +15,7 @@
 //------------------------------------------------
 // ctor
 //------------------------------------------------
-CameraSteeringSet::CameraSteeringSet(Camera& camera, ObjectBase& target)
-    : CameraSteering(camera, target) {
+CameraSteeringSet::CameraSteeringSet() {
 }
 
 //------------------------------------------------
@@ -26,18 +25,9 @@ CameraSteeringSet::~CameraSteeringSet() {
 }
 
 //------------------------------------------------
-// Update
+// Execute
 //------------------------------------------------
-void CameraSteeringSet::Update(const float) {
-}
-
-//------------------------------------------------
-// set
-//------------------------------------------------
-void CameraSteeringSet::SetAtValue(const D3DXVECTOR3& at) {
-  SetAt(at);
-}
-
-void CameraSteeringSet::SetEyeValue(const D3DXVECTOR3& eye) {
-  SetEye(eye);
+void CameraSteeringSet::Execute(Camera& camera, const float) {
+  CameraSteering::SetAt(camera, at_);
+  CameraSteering::SetEye(camera, eye_);
 }

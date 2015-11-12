@@ -9,10 +9,10 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 #include "SkyBox.h"
 
-#include "Framework/Object/object3d.h"
-#include "Framework/Utility/DeviceHolder.h"
 #include "Framework/Camera/camera_manager.h"
-//#include "Framework/Camera/camera_manager.h"
+#include "Framework/Utility/DeviceHolder.h"
+#include "Framework/Object/object3d.h"
+#include "Framework/Texture/texture_manager.h"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // const
@@ -24,20 +24,26 @@ namespace {
   const char* kSkyboxCameraName = "SKYBOX_CAMERA";
 
   const unsigned int kNumFaces = 6;
+
+// Skybox name
+#define SKYBOX_NAME "stratosphere"
+
+#define _SKYBOX_TEXTURE_NAMES(x) "SkyBox_" SKYBOX_NAME "/" SKYBOX_NAME "_" #x ".tga"
+#define SKYBOX_TEXTURE_NAMES \
+  _SKYBOX_TEXTURE_NAMES(ft), \
+  _SKYBOX_TEXTURE_NAMES(bk), \
+  _SKYBOX_TEXTURE_NAMES(rt), \
+  _SKYBOX_TEXTURE_NAMES(lf), \
+  _SKYBOX_TEXTURE_NAMES(up), \
+  _SKYBOX_TEXTURE_NAMES(dn)
+
   const char* kTexturenames[kNumFaces] = {
-    //"data/Texture/SkyBox/PurpleValley/purplevalley_bk.tga",	// Z+
-    //"data/Texture/SkyBox/PurpleValley/purplevalley_ft.tga",	// Z-
-    //"data/Texture/SkyBox/PurpleValley/purplevalley_rt.tga",	// X+
-    //"data/Texture/SkyBox/PurpleValley/purplevalley_lf.tga",	// X-
-    //"data/Texture/SkyBox/PurpleValley/purplevalley_up.tga",	// Y+
-    //"data/Texture/SkyBox/PurpleValley/purplevalley_dn.tga",	// Y-
-    "SkyBox_St/st_ft.tga",	// Z+
-    "SkyBox_St/st_bk.tga",	// Z-
-    "SkyBox_St/st_rt.tga",	// X+
-    "SkyBox_St/st_lf.tga",	// X-
-    "SkyBox_St/st_up.tga",	// Y+
-    "SkyBox_St/st_dn.tga",	// Y-
+    SKYBOX_TEXTURE_NAMES
   };
+  const char* kSkyboxname = "Skybox_" SKYBOX_NAME;
+
+#undef _SKYBOX_TEXTURE_NAMES
+#undef SKYBOX_TEXTURE_NAMES
 
   const D3DXVECTOR3 kPoses[kNumFaces] = {
     D3DXVECTOR3(0, 0, kSizeOffset),	// Z+
@@ -69,6 +75,9 @@ namespace {
 // ctor
 //------------------------------------------------
 SkyBox::SkyBox() : p_camera_steering_(nullptr) {
+  // load texture
+  TextureManager::Instance().Load(kSkyboxname);
+
   // create a skybox camera
   Camera& main_camera = CameraManager::Instance().FindUsingHandle(0);
   D3DXVECTOR3 at = main_camera.CalculateCameraDirection();
@@ -76,7 +85,7 @@ SkyBox::SkyBox() : p_camera_steering_(nullptr) {
   Camera* p_camera = new Camera(eye, at);
   CameraManager::Instance().Register(kSkyboxCameraName, p_camera);
 
-  p_camera_steering_ = new CameraSteeringSet(*p_camera, Root());
+  p_camera_steering_ = new CameraSteeringSet();
   p_camera->AssignCameraSteering(p_camera_steering_);
 
   // create faces

@@ -66,12 +66,11 @@ private:
 //------------------------------------------------
 // ctor
 //------------------------------------------------
-CameraSteeringControl::CameraSteeringControl(Camera& camera, ObjectBase& target)
-    : CameraSteering(camera, target)
-    , p_steering_(nullptr)
+CameraSteeringControl::CameraSteeringControl(Camera& camera)
+    : p_steering_(nullptr)
     , p_dummy_(nullptr) {
   p_dummy_ = new ControlableObject();
-  p_steering_ = new CameraSteeringHoming(camera, *p_dummy_);
+  p_steering_ = new CameraSteeringHoming(*p_dummy_);
 }
 
 //------------------------------------------------
@@ -83,9 +82,9 @@ CameraSteeringControl::~CameraSteeringControl() {
 }
 
 //------------------------------------------------
-// Update
+// Execute
 //------------------------------------------------
-void CameraSteeringControl::Update(const float elapsed_time) {
+void CameraSteeringControl::Execute(Camera& camera, const float elapsed_time) {
   p_dummy_->UpdateAll(elapsed_time);
-  p_steering_->Update(elapsed_time);
+  p_steering_->Execute(camera, elapsed_time);
 }

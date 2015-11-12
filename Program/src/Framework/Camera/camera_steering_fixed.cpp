@@ -18,8 +18,8 @@
 //------------------------------------------------
 // ctor
 //------------------------------------------------
-CameraSteeringFixed::CameraSteeringFixed(Camera& camera, ObjectBase& target)
-    : CameraSteering(camera, target) {
+CameraSteeringFixed::CameraSteeringFixed(ObjectBase& target)
+    : target_(target) {
 }
 
 //------------------------------------------------
@@ -29,8 +29,8 @@ CameraSteeringFixed::~CameraSteeringFixed() {
 }
 
 //------------------------------------------------
-// Update
+// Execute
 //------------------------------------------------
-void CameraSteeringFixed::Update(const float) {
-  SetAt(GetTargetPosition());
+void CameraSteeringFixed::Execute(Camera& camera, const float) {
+  SetAt(camera, target_.GetPosition());
 }

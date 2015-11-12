@@ -23,7 +23,7 @@ public:
 	virtual void Entry( T* pObject ) = 0;
 
 	// Execute
-	virtual void Execute( T* pObject ) = 0;
+	virtual void Execute( T* pObject , float elapsedTime ) = 0;
 
 	// Exit
 	virtual void Exit( T* pObject ) = 0;

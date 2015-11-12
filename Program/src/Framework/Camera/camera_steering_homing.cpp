@@ -15,8 +15,8 @@
 //------------------------------------------------
 // ctor
 //------------------------------------------------
-CameraSteeringHoming::CameraSteeringHoming(Camera& camera, ObjectBase& target)
-    : CameraSteering(camera, target) {
+CameraSteeringHoming::CameraSteeringHoming(ObjectBase& target)
+    : target_(target) {
 }
 
 //------------------------------------------------
@@ -26,12 +26,12 @@ CameraSteeringHoming::~CameraSteeringHoming() {
 }
 
 //------------------------------------------------
-// Update
+// Execute
 //------------------------------------------------
-void CameraSteeringHoming::Update(const float) {
-  const D3DXVECTOR3 target_position = GetTargetPosition();
-  const D3DXVECTOR3 target_rotation = GetTargetRotation();
-  const D3DXVECTOR3 target_velocity = GetTargetVelocity();
+void CameraSteeringHoming::Execute(Camera& camera, const float) {
+  const D3DXVECTOR3 target_position = target_.GetPosition();
+  const D3DXVECTOR3 target_rotation = target_.GetRotation();
+  const D3DXVECTOR3 target_velocity = target_.GetVelocity();
 
   const float sin = sinf(target_rotation.y);
   const float cos = cosf(target_rotation.y);
@@ -42,11 +42,11 @@ void CameraSteeringHoming::Update(const float) {
   camera_eye.x -=  sin * kEyeDistance;
   camera_eye.z -=  cos * kEyeDistance;
   camera_eye.y += kEyeHeight;
-  SetEye(camera_eye);
+  SetEye(camera, camera_eye);
 
   D3DXVECTOR3 camera_at = camera_eye;
   static const float kAtDistance = 40.0f;
   camera_at.x += sin * kAtDistance;
   camera_at.z += cos * kAtDistance;
-  SetAt(camera_at);
+  SetAt(camera, camera_at);
 }

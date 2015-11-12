@@ -18,11 +18,14 @@
 class CameraSteeringFixed : public Camera::CameraSteering {
 public:
   // ctor
-  CameraSteeringFixed(Camera& camera, ObjectBase& target);
+  CameraSteeringFixed(ObjectBase& target);
 
   // dtor
   virtual ~CameraSteeringFixed();
 
-  // Update
-  virtual void Update(float elapsed_time) override;
+  // Execute
+  virtual void Execute(Camera& camera, float elapsed_time) override;
+
+private:
+  ObjectBase& target_;
 };

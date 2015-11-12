@@ -24,13 +24,13 @@ class ObjectBase;
 class CameraSteeringControl : public Camera::CameraSteering {
 public:
   // ctor
-  CameraSteeringControl(Camera& camera, ObjectBase& target);
+  CameraSteeringControl(Camera& camera);
 
   // dtor
   virtual ~CameraSteeringControl();
 
-  // Update
-  virtual void Update(float elapsed_time) override;
+  // Execute
+  virtual void Execute(Camera& camera, float elapsed_time) override;
 
 private:
   CameraSteeringHoming* p_steering_;

@@ -32,7 +32,7 @@ namespace {
 Camera::Camera(const D3DXVECTOR3& eye, const D3DXVECTOR3& at)
     : eye_(eye)
     , at_(at)
-    , p_camera_steering_(nullptr) {
+    , p_camera_steering_(new NullCameraSteeringObject()) {
 }
 
 //------------------------------------------------
@@ -57,15 +57,13 @@ void Camera::Update(const float elapsed_time) {
   D3DXMatrixPerspectiveFovLH(&projection_, kFov, kAspect, kNear, kFar);
   p_device->SetTransform(D3DTS_PROJECTION, &projection_);
 
-  // TODO: NULL OBJECT
-  if (p_camera_steering_) {
-    p_camera_steering_->Update(elapsed_time);
-  }
+  p_camera_steering_->Execute(*this, elapsed_time);
 }
 
 //------------------------------------------------
 // assign
 //------------------------------------------------
 void Camera::AssignCameraSteering(CameraSteering* p_camera_steering) {
+  SafeDelete(p_camera_steering_);
   p_camera_steering_ = p_camera_steering;
 }

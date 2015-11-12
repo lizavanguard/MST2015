@@ -15,6 +15,7 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
+#include "liza/game/State.hpp"
 #include "liza/generic/factory.hpp"
 
 #include "Framework/Object/object_base.h"
@@ -28,37 +29,35 @@ public:
   class CameraSteering {
   public:
     // ctor
-    CameraSteering(Camera& camera, ObjectBase& target)
-        : camera_(camera), target_(target) {
-    }
+    CameraSteering() {}
 
     // dtor
     virtual ~CameraSteering() {}
 
-    // Update
-    virtual void Update(float elapsed_time) = 0;
+    // Execute
+    virtual void Execute(Camera& camera, float elapsed_time) = 0;
 
   protected:
     // get
-    const D3DXVECTOR3& GetAt(void) const { return camera_.at_; }
-    const D3DXVECTOR3& GetEye(void) const { return camera_.eye_; }
-    const D3DXVECTOR3& GetTargetPosition(void) const { return target_.GetPosition(); }
-    const D3DXVECTOR3& GetTargetRotation(void) const { return target_.GetRotation(); }
-    const D3DXVECTOR3& GetTargetVelocity(void) const { return target_.GetVelocity(); }
+    const D3DXVECTOR3& GetAt(const Camera& camera) const { return camera.at_; }
+    const D3DXVECTOR3& GetEye(const Camera& camera) const { return camera.eye_; }
+    const D3DXVECTOR3& GetTargetPosition(ObjectBase& target) const { return target.GetPosition(); }
+    const D3DXVECTOR3& GetTargetRotation(ObjectBase& target) const { return target.GetRotation(); }
+    const D3DXVECTOR3& GetTargetVelocity(ObjectBase& target) const { return target.GetVelocity(); }
 
     // set
-    void SetAt(const D3DXVECTOR3& at) { camera_.at_ = at; }
-    void SetEye(const D3DXVECTOR3& eye) { camera_.eye_ = eye; }
-
-   protected:
-    // property
-    Camera& camera_;
-    const ObjectBase& target_;
+    void SetAt(Camera& camera, const D3DXVECTOR3& at) { camera.at_ = at; }
+    void SetEye(Camera& camera, const D3DXVECTOR3& eye) { camera.eye_ = eye; }
   };
 
-  //class NullCameraSteeringObject : public CameraSteering {
+  friend CameraSteering;
 
-  //};
+  // Null object
+  class NullCameraSteeringObject : public CameraSteering {
+  public:
+    virtual ~NullCameraSteeringObject() {}
+    virtual void Execute(Camera&, float) final {};
+  };
 
 public:
   // ctor

@@ -16,14 +16,19 @@
 class CameraSteeringSet : public Camera::CameraSteering {
 public:
   // ctor
-  CameraSteeringSet(Camera& camera, ObjectBase& target);
+  CameraSteeringSet();
 
   // dtor
   ~CameraSteeringSet();
 
-  // set
-  void SetAtValue(const D3DXVECTOR3& at);
-  void SetEyeValue(const D3DXVECTOR3& eye);
+  // Execute
+  virtual void Execute(Camera& camera, float elapsed_time) override;
 
-  virtual void Update(float elapsed_time) override;
+  // set
+  void SetAtValue(const D3DXVECTOR3& at) { at_ = at; }
+  void SetEyeValue(const D3DXVECTOR3& eye) { eye_ = eye; }
+
+private:
+  D3DXVECTOR3 at_;
+  D3DXVECTOR3 eye_;
 };
