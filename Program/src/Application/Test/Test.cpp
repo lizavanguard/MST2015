@@ -66,8 +66,8 @@ Test::Test() {
   // sound
   //SoundManager::Instance().PlaySound(SOUND_LABEL_BGM1);
 
-  camera->AssignCameraSteering(new CameraSteeringFixed(*player));
-  //camera->AssignCameraSteering(new CameraSteeringHoming(*player));
+  //camera->AssignCameraSteering(new CameraSteeringFixed(*player));
+  camera->AssignCameraSteering(new CameraSteeringHoming(*player));
 }
 
 

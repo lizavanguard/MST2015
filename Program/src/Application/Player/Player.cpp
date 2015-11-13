@@ -16,7 +16,7 @@ namespace {
   const char* kModelname = "ball";
   const float kSize = 3.0f;
 
-  const float kMovingSpeed = 1.0f;
+  const float kMovingSpeed = 0.3f;
 
   const float kAdjustedValueRotationToPower = 15.0f;
   const float kCurveReaction = 0.025f;
@@ -51,11 +51,11 @@ Player::~Player() {
 // Move
 //------------------------------------------------
 void Player::MoveLeft(void) {
-  position_.x += moving_speed_;
+  position_.x -= moving_speed_;
 }
 
 void Player::MoveRight(void) {
-  position_.x -= moving_speed_;
+  position_.x += moving_speed_;
 }
 
 //------------------------------------------------
@@ -110,10 +110,10 @@ void Player::_Update(const float elapsed_time) {
     speed_.z -= true_speed;
   }
   if (keyboard.IsPress(DIK_A)) {
-    speed_.x -= true_speed;
+    MoveLeft();
   }
   if (keyboard.IsPress(DIK_D)) {
-    speed_.x += true_speed;
+    MoveRight();
   }
   if (keyboard.IsPress(DIK_LCONTROL)) {
     Shoot(shot_rotation);
@@ -131,12 +131,12 @@ void Player::_Update(const float elapsed_time) {
 
   if (keyboard.IsPress(DIK_1)) { shot_rotation += 0.01f; }
   if (keyboard.IsPress(DIK_2)) { shot_rotation -= 0.01f; }
-  if (keyboard.IsPress(DIK_3)) { curve_reaction_+= 0.001f; }
-  if (keyboard.IsPress(DIK_4)) { curve_reaction_ -= 0.001f; }
+  if (keyboard.IsPress(DIK_3)) { curve_reaction_+= 0.0003f; }
+  if (keyboard.IsPress(DIK_4)) { curve_reaction_ -= 0.0003f; }
   if (keyboard.IsPress(DIK_5)) { shot_speed_ += 0.1f; }
   if (keyboard.IsPress(DIK_6)) { shot_speed_ -= 0.1f; }
-  if (keyboard.IsPress(DIK_7)) { adjusted_value_ += 0.01f; }
-  if (keyboard.IsPress(DIK_8)) { adjusted_value_ -= 0.01f; }
+  if (keyboard.IsPress(DIK_7)) { adjusted_value_ += 0.1f; }
+  if (keyboard.IsPress(DIK_8)) { adjusted_value_ -= 0.1f; }
 
   DebugProc::Print("éÀèoéûâÒì]ó :[%.3f]\nã»Ç™ÇËï˚:[%.3f]\néÀèoóÕ:[%.3f]\nã»Ç™ÇËï˚ÇÃí≤êÆíl:[%.3f]\n", shot_rotation, curve_reaction_, shot_speed_, adjusted_value_);
 
