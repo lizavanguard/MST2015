@@ -25,8 +25,12 @@ public:
   // dtor
   virtual ~Player();
 
+  // Move
+  void MoveLeft(void);
+  void MoveRight(void);
+
   // Shoot
-  void Shoot(const D3DXVECTOR3& direction);
+  void Shoot(float rotation);
 
   // Reset
   void Reset(void);
@@ -39,6 +43,14 @@ public:
 
 private:
   virtual void _Update(float elapsed_time) override;
+
+  D3DXVECTOR3 speed_;
+  bool is_shot_;
+
+  float adjusted_value_;
+  float curve_reaction_;
+  float moving_speed_;
+  float shot_speed_;
 };
 
 using PlayerFactory = liza::generic::Factory<Player>;
