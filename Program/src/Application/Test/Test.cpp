@@ -75,6 +75,7 @@ Test::Test() {
 // dtor
 //------------------------------------------------
 Test::~Test() {
+  CameraManager::Instance().UnRegister();
   SafeDelete(g_p_collision);
   Root::Destroy(g_p_root);
 }

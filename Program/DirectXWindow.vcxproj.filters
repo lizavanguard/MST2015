@@ -82,6 +82,18 @@
     <Filter Include="src\Framework\SkyBox">
       <UniqueIdentifier>{8808b05f-702c-49e4-93c2-f582297946e3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Framework\Scene">
+      <UniqueIdentifier>{20360aa4-0972-43ba-8c55-dc21b0782bfc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Framework\Fade">
+      <UniqueIdentifier>{c44538ae-982c-48a2-8ef9-b5a8c3ab60ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Application\Title">
+      <UniqueIdentifier>{bf97a5d4-e573-4f54-88d0-a221712e7cb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Application\Game">
+      <UniqueIdentifier>{3ae120bd-b7e7-442a-8cb0-c4415d4248ed}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Framework\DebugProc\DebugProc.cpp">
@@ -200,6 +212,24 @@
     </ClCompile>
     <ClCompile Include="src\Framework\Camera\camera_steering_set.cpp">
       <Filter>src\Framework\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\Scene\SceneManager.cpp">
+      <Filter>src\Framework\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\Fade\Fade.cpp">
+      <Filter>src\Framework\Fade</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Application\Title\SceneTitle.cpp">
+      <Filter>src\Application\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Application\Game\SceneGame.cpp">
+      <Filter>src\Application\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Application\Title\SceneTitleFactory.cpp">
+      <Filter>src\Application\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Application\Game\SceneGameFactory.cpp">
+      <Filter>src\Application\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -403,6 +433,30 @@
     </ClInclude>
     <ClInclude Include="src\Framework\Camera\camera_steering_set.h">
       <Filter>src\Framework\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Scene\SceneManager.h">
+      <Filter>src\Framework\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Scene\Scene.h">
+      <Filter>src\Framework\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Fade\Fade.h">
+      <Filter>src\Framework\Fade</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Application\Title\SceneTitle.h">
+      <Filter>src\Application\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Scene\SceneFactory.h">
+      <Filter>src\Framework\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Application\Game\SceneGame.h">
+      <Filter>src\Application\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Application\Title\SceneTitleFactory.h">
+      <Filter>src\Application\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Application\Game\SceneGameFactory.h">
+      <Filter>src\Application\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

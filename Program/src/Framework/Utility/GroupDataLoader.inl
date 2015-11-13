@@ -72,6 +72,7 @@ void GroupDataLoader<T, DestroyPolicy>::Unload(const char* p_sub_directory_name)
     return;
   }
   SafeDelete(it->second);
+  container_.erase(it);
 }
 
 //------------------------------------------------

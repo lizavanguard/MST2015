@@ -75,7 +75,7 @@ namespace {
 // ctor
 //------------------------------------------------
 SkyBox::SkyBox() : p_camera_steering_(nullptr) {
-  // load texture
+  // Skybox
   TextureManager::Instance().Load(kSkyboxname);
 
   // create a skybox camera
@@ -109,6 +109,7 @@ SkyBox::SkyBox() : p_camera_steering_(nullptr) {
 // dtor
 //------------------------------------------------
 SkyBox::~SkyBox() {
+  TextureManager::Instance().Unload(kSkyboxname);
 }
 
 //------------------------------------------------

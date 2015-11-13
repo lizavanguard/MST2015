@@ -19,6 +19,7 @@
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 class DebugProc;
 class InputManager;
+class SceneManager;
 class Test;
 
 
@@ -52,6 +53,7 @@ private:
 	// property
 	DebugProc* pDebugProc_;
 	InputManager* pInputManager_;
+  SceneManager* pSceneManager_;
 	Test* pTest_;
 };
 

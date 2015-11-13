@@ -11,6 +11,7 @@
 
 #include "Framework/Camera/camera_manager.h"
 #include "Framework/DebugProc/DebugProc.h"
+#include "Framework/Scene/SceneManager.h"
 #include "Framework/Shader/shader_manager.h"
 #include "Framework/Sound/sound_manager.h"
 #include "Framework/Texture/texture_manager.h"
@@ -20,7 +21,8 @@
 #include "Framework/Utility/DeviceHolder.h"
 
 // HACK:
-#include "Application/Test/Test.h"
+#include "Application/Title/SceneTitle.h"
+#include "Application/Game/SceneGame.h"
 
 //==============================================================================
 // class implementation
@@ -40,7 +42,7 @@ GameManager& GameManager::Instance(HINSTANCE hInstance, HWND hWnd, LPDIRECT3DDEV
 GameManager::GameManager(HINSTANCE hInstance, HWND hWnd, LPDIRECT3DDEVICE9 pDevice)
   : pDebugProc_(nullptr)
   , pInputManager_(nullptr)
-  , pTest_(nullptr)
+  , pSceneManager_(nullptr)
 {
   DeviceHolder::Instance().SetDevice(pDevice);
 
@@ -56,7 +58,8 @@ GameManager::GameManager(HINSTANCE hInstance, HWND hWnd, LPDIRECT3DDEVICE9 pDevi
   pDebugProc_->Init(pDevice);
   pInputManager_ = new InputManager(hInstance, hWnd);
 
-  pTest_ = new Test();
+  //pSceneManager_ = new SceneManager(new SceneTitle());
+  pSceneManager_ = new SceneManager(new SceneGame());
 }
 
 
@@ -64,7 +67,7 @@ GameManager::GameManager(HINSTANCE hInstance, HWND hWnd, LPDIRECT3DDEVICE9 pDevi
 // dtor
 //------------------------------------------------
 GameManager::~GameManager() {
-  SafeDelete(pTest_);
+  delete pSceneManager_;
   delete pInputManager_;
   pDebugProc_->Uninit();
   delete pDebugProc_;
@@ -74,11 +77,11 @@ GameManager::~GameManager() {
 //------------------------------------------------
 // update
 //------------------------------------------------
-void GameManager::Update(const float elpasedTime) {
+void GameManager::Update(const float elapsedTime) {
   pInputManager_->Update();
-  CameraManager::Instance().Update(elpasedTime);
+  CameraManager::Instance().Update(elapsedTime);
 
-  pTest_->Update();
+  pSceneManager_->Update(elapsedTime);
 }
 
 
@@ -86,7 +89,7 @@ void GameManager::Update(const float elpasedTime) {
 // draw
 //------------------------------------------------
 void GameManager::Draw(void) {
-  pTest_->Draw();
+  pSceneManager_->Draw();
 
   pDebugProc_->Draw();
 }
