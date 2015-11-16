@@ -36,7 +36,7 @@ public:
   // テクスチャ、サーフェイス及びビューポートを描画機構に割り当てる
   // 使い終わったら割り当てを解除すること
   // 直前に割り当てられていたものは保存され、割り当て解除時に自動的に再割り当てされる
-  void AssignRenderTarget(void);
+  void AssignRenderTarget(unsigned int render_target_index);
 
   // テクスチャ、サーフェイス及びビューポートの描画機構への割り当てを解除
   void UnAssignRenderTarget(void);
@@ -63,6 +63,8 @@ public:
   LPDIRECT3DSURFACE9 p_surface_old_;
   LPDIRECT3DSURFACE9 p_depth_buffer_old_;
   D3DVIEWPORT9 viewport_old_;
+
+  unsigned int render_target_index_;
 
   bool is_assigned_;
 };

@@ -94,6 +94,9 @@
     <Filter Include="src\Application\Game">
       <UniqueIdentifier>{3ae120bd-b7e7-442a-8cb0-c4415d4248ed}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Framework\RenderTarget">
+      <UniqueIdentifier>{8df43e66-aa7a-4c5f-9ecc-03867b46b30d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Framework\DebugProc\DebugProc.cpp">
@@ -230,6 +233,9 @@
     </ClCompile>
     <ClCompile Include="src\Application\Game\SceneGameFactory.cpp">
       <Filter>src\Application\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\RenderTarget\RenderTargetManager.cpp">
+      <Filter>src\Framework\RenderTarget</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -458,6 +464,15 @@
     <ClInclude Include="src\Application\Game\SceneGameFactory.h">
       <Filter>src\Application\Game</Filter>
     </ClInclude>
+    <ClInclude Include="src\liza\game\DirectXUtility\DirectXUtility.h">
+      <Filter>src\liza\game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\RenderTarget\RenderTargetManager.h">
+      <Filter>src\Framework\RenderTarget</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\RenderTarget\RenderTargetConfig.h">
+      <Filter>src\Framework\RenderTarget</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\liza\math\Vector2.inl">
@@ -486,6 +501,9 @@
     </None>
     <None Include="src\Framework\Utility\GroupDataLoader.inl">
       <Filter>src\Framework\Utility</Filter>
+    </None>
+    <None Include="src\liza\game\DirectXUtility\DirectXUtility.inl">
+      <Filter>src\liza\game</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

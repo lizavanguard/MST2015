@@ -35,6 +35,7 @@ liza::game::directx::RenderTargetHolder::RenderTargetHolder(
     , p_texture_old_(nullptr)
     , p_surface_old_(nullptr)
     , p_depth_buffer_old_(nullptr)
+    , render_target_index_(0)
     , is_assigned_(false) {
   // create texture
   HRESULT hr = p_device_->CreateTexture(
@@ -96,20 +97,23 @@ liza::game::directx::RenderTargetHolder::~RenderTargetHolder() {
 // ’¼‘O‚ÉŠ„‚è“–‚Ä‚ç‚ê‚Ä‚¢‚½‚à‚Ì‚Í•Û‘¶‚³‚êAŠ„‚è“–‚Ä‰ðœŽž‚ÉŽ©“®“I‚ÉÄŠ„‚è“–‚Ä‚³‚ê‚é
 //------------------------------------------------
 inline
-void liza::game::directx::RenderTargetHolder::AssignRenderTarget(void) {
+void liza::game::directx::RenderTargetHolder::AssignRenderTarget(const unsigned int render_target_index) {
   // guard
   assert(!is_assigned_);
   if (is_assigned_) {
     return;
   }
 
+  // set target index
+  render_target_index_ = render_target_index;
+
   // save render target
-  p_device_->GetRenderTarget(0, &p_surface_old_);
+  p_device_->GetRenderTarget(render_target_index_, &p_surface_old_);
   p_device_->GetDepthStencilSurface(&p_depth_buffer_old_);
   p_device_->GetViewport(&viewport_old_);
 
   // assign render target
-  p_device_->SetRenderTarget(0, p_surface_);
+  p_device_->SetRenderTarget(render_target_index_, p_surface_);
   p_device_->SetDepthStencilSurface(p_depth_buffer_);
   p_device_->SetViewport(&viewport_);
 
@@ -128,7 +132,7 @@ void liza::game::directx:: RenderTargetHolder::UnAssignRenderTarget(void) {
   }
 
   // unassign render target
-  p_device_->SetRenderTarget(0, p_surface_old_);
+  p_device_->SetRenderTarget(render_target_index_, p_surface_old_);
   p_device_->SetDepthStencilSurface(p_depth_buffer_old_);
   p_device_->SetViewport(&viewport_old_);
   SafeRelease(p_surface_old_);
@@ -145,10 +149,10 @@ void liza::game::directx:: RenderTargetHolder::UnAssignRenderTarget(void) {
 inline
 void liza::game::directx::RenderTargetHolder::Clear(void) {
   if (is_assigned_) {
-    p_device_->Clear(0, nullptr, (D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER), 0xffffffff, 1.0f, 0L);
+    p_device_->Clear(0, nullptr, (D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER), 0x00707000, 1.0f, 0L);
   }
   else {
-    AssignRenderTarget();
+    AssignRenderTarget(render_target_index_);
     Clear();
     UnAssignRenderTarget();
   }
