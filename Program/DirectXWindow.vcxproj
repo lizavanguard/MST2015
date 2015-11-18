@@ -25,6 +25,7 @@
     <ClCompile Include="src\Application\Title\SceneTitle.cpp" />
     <ClCompile Include="src\Application\Title\SceneTitleFactory.cpp" />
     <ClCompile Include="src\Application\WiiController\CWiiController.cpp" />
+    <ClCompile Include="src\Application\WiiController\WiiControllerManager.cpp" />
     <ClCompile Include="src\Framework\Camera\camera.cpp" />
     <ClCompile Include="src\Framework\Camera\camera_manager.cpp" />
     <ClCompile Include="src\Framework\Camera\camera_steering_control.cpp" />
@@ -79,6 +80,7 @@
     <ClInclude Include="src\Application\Title\SceneTitle.h" />
     <ClInclude Include="src\Application\Title\SceneTitleFactory.h" />
     <ClInclude Include="src\Application\WiiController\CWiiController.h" />
+    <ClInclude Include="src\Application\WiiController\WiiControllerManager.h" />
     <ClInclude Include="src\common.h" />
     <ClInclude Include="src\Framework\Camera\camera.h" />
     <ClInclude Include="src\Framework\Camera\camera_manager.h" />

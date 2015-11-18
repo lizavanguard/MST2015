@@ -252,6 +252,9 @@
     <ClCompile Include="src\WiiYourself\wiimote.cpp">
       <Filter>src\WiiYourself</Filter>
     </ClCompile>
+    <ClCompile Include="src\Application\WiiController\WiiControllerManager.cpp">
+      <Filter>src\Application\WiiController</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Framework\DebugProc\DebugProc.h">
@@ -502,6 +505,9 @@
     </ClInclude>
     <ClInclude Include="src\WiiYourself\wiimote_state.h">
       <Filter>src\WiiYourself</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Application\WiiController\WiiControllerManager.h">
+      <Filter>src\Application\WiiController</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

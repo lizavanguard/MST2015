@@ -24,11 +24,11 @@
 // HACK:
 #include "Application/Title/SceneTitle.h"
 #include "Application/Game/SceneGame.h"
-
-#include "liza/game/DirectXUtility/DirectXUtility.h"
-
 #include "Application/WiiController/CWiiController.h"
-CWiiController* p_controller = nullptr;
+#include "Application/WiiController/WiiControllerManager.h"
+
+// TODO: delete
+#include "liza/game/DirectXUtility/DirectXUtility.h"
 
 //==============================================================================
 // class implementation
@@ -59,6 +59,7 @@ GameManager::GameManager(HINSTANCE hInstance, HWND hWnd, LPDIRECT3DDEVICE9 pDevi
   TextureManager::Instance().Load("Game"); // TODO: Game -> Title?
   ModelManager::Instance();
   SoundManager::Instance();
+  WiiControllerManager::Instance();
 
   pDebugProc_ = new DebugProc();
   pDebugProc_->Init(pDevice);
@@ -68,8 +69,6 @@ GameManager::GameManager(HINSTANCE hInstance, HWND hWnd, LPDIRECT3DDEVICE9 pDevi
   pSceneManager_ = new SceneManager(new SceneGame());
 
   RenderTargetManager::Instance();
-
-  p_controller = new CWiiController();
 }
 
 
@@ -77,7 +76,6 @@ GameManager::GameManager(HINSTANCE hInstance, HWND hWnd, LPDIRECT3DDEVICE9 pDevi
 // dtor
 //------------------------------------------------
 GameManager::~GameManager() {
-  SafeDelete(p_controller);
   delete pSceneManager_;
   delete pInputManager_;
   pDebugProc_->Uninit();
@@ -89,13 +87,13 @@ GameManager::~GameManager() {
 // update
 //------------------------------------------------
 void GameManager::Update(const float elapsedTime) {
+  WiiControllerManager::Instance().Update();
   pInputManager_->Update();
   CameraManager::Instance().Update(elapsedTime);
 
   pSceneManager_->Update(elapsedTime);
 
-  p_controller->update();
-  DebugProc::Print("CONTROLLER1:‰Á‘¬“xX[%.3f]\n", p_controller->getAccelerationX());
+  DebugProc::Print("CONTROLLER1:‰Á‘¬“xX[%.3f]\n", WiiControllerManager::Instance().GetWiiController(0).getAccelerationX());
 }
 
 
