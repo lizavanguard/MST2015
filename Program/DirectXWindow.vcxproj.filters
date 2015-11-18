@@ -237,6 +237,9 @@
     <ClCompile Include="src\Framework\RenderTarget\RenderTargetManager.cpp">
       <Filter>src\Framework\RenderTarget</Filter>
     </ClCompile>
+    <ClCompile Include="src\Framework\Object\object2d.cpp">
+      <Filter>src\Framework\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Framework\DebugProc\DebugProc.h">
@@ -472,6 +475,9 @@
     </ClInclude>
     <ClInclude Include="src\Framework\RenderTarget\RenderTargetConfig.h">
       <Filter>src\Framework\RenderTarget</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Object\object2d.h">
+      <Filter>src\Framework\Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

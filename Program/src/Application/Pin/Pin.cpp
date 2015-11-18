@@ -13,7 +13,7 @@
 // const
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 namespace {
-  const char* kModelname = "ball";
+  const char* kModelname = "pin";
   const float kSize = 1.5f;
 }
 
