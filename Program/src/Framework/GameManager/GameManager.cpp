@@ -27,6 +27,9 @@
 
 #include "liza/game/DirectXUtility/DirectXUtility.h"
 
+#include "Application/WiiController/CWiiController.h"
+CWiiController* p_controller = nullptr;
+
 //==============================================================================
 // class implementation
 //==============================================================================
@@ -65,6 +68,8 @@ GameManager::GameManager(HINSTANCE hInstance, HWND hWnd, LPDIRECT3DDEVICE9 pDevi
   pSceneManager_ = new SceneManager(new SceneGame());
 
   RenderTargetManager::Instance();
+
+  p_controller = new CWiiController();
 }
 
 
@@ -72,6 +77,7 @@ GameManager::GameManager(HINSTANCE hInstance, HWND hWnd, LPDIRECT3DDEVICE9 pDevi
 // dtor
 //------------------------------------------------
 GameManager::~GameManager() {
+  SafeDelete(p_controller);
   delete pSceneManager_;
   delete pInputManager_;
   pDebugProc_->Uninit();
@@ -87,6 +93,9 @@ void GameManager::Update(const float elapsedTime) {
   CameraManager::Instance().Update(elapsedTime);
 
   pSceneManager_->Update(elapsedTime);
+
+  p_controller->update();
+  DebugProc::Print("CONTROLLER1:‰Á‘¬“xX[%.3f]\n", p_controller->getAccelerationX());
 }
 
 

@@ -24,6 +24,7 @@
     <ClCompile Include="src\Application\Test\Test.cpp" />
     <ClCompile Include="src\Application\Title\SceneTitle.cpp" />
     <ClCompile Include="src\Application\Title\SceneTitleFactory.cpp" />
+    <ClCompile Include="src\Application\WiiController\CWiiController.cpp" />
     <ClCompile Include="src\Framework\Camera\camera.cpp" />
     <ClCompile Include="src\Framework\Camera\camera_manager.cpp" />
     <ClCompile Include="src\Framework\Camera\camera_steering_control.cpp" />
@@ -61,6 +62,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\WiiYourself\wiimote.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application\Collision\CollisionManager.h" />
@@ -76,6 +78,7 @@
     <ClInclude Include="src\Application\Test\Test.h" />
     <ClInclude Include="src\Application\Title\SceneTitle.h" />
     <ClInclude Include="src\Application\Title\SceneTitleFactory.h" />
+    <ClInclude Include="src\Application\WiiController\CWiiController.h" />
     <ClInclude Include="src\common.h" />
     <ClInclude Include="src\Framework\Camera\camera.h" />
     <ClInclude Include="src\Framework\Camera\camera_manager.h" />
@@ -141,6 +144,9 @@
     <ClInclude Include="src\liza\utility\Assert.h" />
     <ClInclude Include="src\liza\utility\HandyLeakCheck.h" />
     <ClInclude Include="src\stdafx.h" />
+    <ClInclude Include="src\WiiYourself\wiimote.h" />
+    <ClInclude Include="src\WiiYourself\wiimote_common.h" />
+    <ClInclude Include="src\WiiYourself\wiimote_state.h" />
     <ClInclude Include="src\window_config.h" />
   </ItemGroup>
   <ItemGroup>

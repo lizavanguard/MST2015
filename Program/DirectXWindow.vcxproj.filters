@@ -97,6 +97,12 @@
     <Filter Include="src\Framework\RenderTarget">
       <UniqueIdentifier>{8df43e66-aa7a-4c5f-9ecc-03867b46b30d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\WiiYourself">
+      <UniqueIdentifier>{df702fb3-bdc6-4c70-aab8-9b6c432c36d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Application\WiiController">
+      <UniqueIdentifier>{214d5fb6-6e5c-4351-9824-02e1231e8468}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Framework\DebugProc\DebugProc.cpp">
@@ -239,6 +245,12 @@
     </ClCompile>
     <ClCompile Include="src\Framework\Object\object2d.cpp">
       <Filter>src\Framework\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Application\WiiController\CWiiController.cpp">
+      <Filter>src\Application\WiiController</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WiiYourself\wiimote.cpp">
+      <Filter>src\WiiYourself</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -478,6 +490,18 @@
     </ClInclude>
     <ClInclude Include="src\Framework\Object\object2d.h">
       <Filter>src\Framework\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Application\WiiController\CWiiController.h">
+      <Filter>src\Application\WiiController</Filter>
+    </ClInclude>
+    <ClInclude Include="src\WiiYourself\wiimote.h">
+      <Filter>src\WiiYourself</Filter>
+    </ClInclude>
+    <ClInclude Include="src\WiiYourself\wiimote_common.h">
+      <Filter>src\WiiYourself</Filter>
+    </ClInclude>
+    <ClInclude Include="src\WiiYourself\wiimote_state.h">
+      <Filter>src\WiiYourself</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
