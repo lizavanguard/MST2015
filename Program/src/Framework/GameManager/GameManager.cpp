@@ -58,8 +58,8 @@ GameManager::GameManager(HINSTANCE hInstance, HWND hWnd, LPDIRECT3DDEVICE9 pDevi
   pDebugProc_->Init(pDevice);
   pInputManager_ = new InputManager(hInstance, hWnd);
 
-  //pSceneManager_ = new SceneManager(new SceneTitle());
-  pSceneManager_ = new SceneManager(new SceneGame());
+  pSceneManager_ = new SceneManager(new SceneTitle());
+  //pSceneManager_ = new SceneManager(new SceneGame());
 }
 
 

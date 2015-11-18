@@ -17,6 +17,7 @@
 #include "Framework/Object/root.h"
 #include "Framework/Object/debug_object.h"
 #include "Framework/Object/object3d.h"
+#include "Framework/Object/object2d.h"
 #include "Framework/Object/object_model.h"
 #include "Framework/SkyBox/SkyBox.h"
 #include "Framework/Sound/sound_manager.h"
@@ -60,14 +61,19 @@ Test::Test() {
   auto pin_manager = PinManagerFactory::Create();
   g_p_root->AttachChild(pin_manager);
 
+  // 2D
+  auto obj2d = Object2DFactory::Create("field");
+  obj2d->SetPosition(D3DXVECTOR3(640, 360, 0));
+  g_p_root->AttachChild(obj2d);
+
   // collision
   g_p_collision = new CollisionManager(*player, *pin_manager);
 
   // sound
   //SoundManager::Instance().PlaySound(SOUND_LABEL_BGM1);
 
-  camera->AssignCameraSteering(new CameraSteeringFixed(*player));
-  //camera->AssignCameraSteering(new CameraSteeringHoming(*player));
+  //camera->AssignCameraSteering(new CameraSteeringFixed(*player));
+  camera->AssignCameraSteering(new CameraSteeringHoming(*player));
 }
 
 

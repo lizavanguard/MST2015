@@ -231,6 +231,9 @@
     <ClCompile Include="src\Application\Game\SceneGameFactory.cpp">
       <Filter>src\Application\Game</Filter>
     </ClCompile>
+    <ClCompile Include="src\Framework\Object\object2d.cpp">
+      <Filter>src\Framework\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Framework\DebugProc\DebugProc.h">
@@ -457,6 +460,9 @@
     </ClInclude>
     <ClInclude Include="src\Application\Game\SceneGameFactory.h">
       <Filter>src\Application\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Object\object2d.h">
+      <Filter>src\Framework\Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
