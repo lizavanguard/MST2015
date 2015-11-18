@@ -18,11 +18,14 @@
 #include "Framework/Input/InputManager.h"
 #include "Framework/Input/InputKeyboard.h"
 #include "Framework/Model/model_manager.h"
+#include "Framework/RenderTarget/RenderTargetManager.h"
 #include "Framework/Utility/DeviceHolder.h"
 
 // HACK:
 #include "Application/Title/SceneTitle.h"
 #include "Application/Game/SceneGame.h"
+
+#include "liza/game/DirectXUtility/DirectXUtility.h"
 
 //==============================================================================
 // class implementation
@@ -58,8 +61,10 @@ GameManager::GameManager(HINSTANCE hInstance, HWND hWnd, LPDIRECT3DDEVICE9 pDevi
   pDebugProc_->Init(pDevice);
   pInputManager_ = new InputManager(hInstance, hWnd);
 
-  pSceneManager_ = new SceneManager(new SceneTitle());
-  //pSceneManager_ = new SceneManager(new SceneGame());
+  //pSceneManager_ = new SceneManager(new SceneTitle());
+  pSceneManager_ = new SceneManager(new SceneGame());
+
+  RenderTargetManager::Instance();
 }
 
 
@@ -89,7 +94,22 @@ void GameManager::Update(const float elapsedTime) {
 // draw
 //------------------------------------------------
 void GameManager::Draw(void) {
-  pSceneManager_->Draw();
+  auto pDevice = DeviceHolder::Instance().GetDevice();
 
+  pDevice->EndScene();
+  RenderTargetManager::Instance().Assign();
+  RenderTargetManager::Instance().Clear();
+  pDevice->BeginScene();
+
+  pSceneManager_->Draw();
   pDebugProc_->Draw();
+
+  pDevice->EndScene();
+  RenderTargetManager::Instance().UnAssign();
+  pDevice->BeginScene();
+
+  // TODO: blend
+  pDevice->SetTexture(0, RenderTargetManager::Instance().GetTexture(0));
+  DrawFullScreenQuad(pDevice, 0, 0, 1, 1);
+  pDevice->SetTexture(0, nullptr);
 }
