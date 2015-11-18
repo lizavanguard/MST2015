@@ -1,37 +1,45 @@
 //==============================================================================
 //
-// SceneGame
+// Controller
 // Author: Shimizu Shoji
 //
 //==============================================================================
 #pragma once
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-// include
+// class declaration
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-#include "Framework/Scene/Scene.h"
-
-//--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-// class delcaration
-//--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-class Controller;
+class InputKeyboard;
+class Player;
+class CWiiController;
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-class SceneGame : public Scene {
+class Controller {
 public:
   // ctor
-  SceneGame();
+  Controller(Player& player);
 
   // dtor
-  virtual ~SceneGame();
+  ~Controller();
+
+  // Update
+  void Update(void);
+
+  // Change current WiiControllerID
+  void ChangeCurrentWiiControllerID(unsigned int wii_controller_id);
 
 private:
-  // Update
-  virtual void _Update(SceneManager* p_scene_manager, float elapsed_time) override;
+  bool _IsMovedToLeft(void);
+  bool _IsMovedToRight(void);
+  bool _IsSetUp(void);
+  bool _IsShot(void);
+  float _GetControllerRotation(void);
 
-  // Draw
-  virtual void _Draw(void) override;
+  // property
+  Player& player_;
+  const InputKeyboard& keyboard_;
+  CWiiController& wii_controller_;
 
-  Controller* p_controller_;
+  float old_rotation_;
 };

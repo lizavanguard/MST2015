@@ -15,19 +15,26 @@
 
 #include "Application/Title/SceneTitleFactory.h"
 
+// HACK:
+#include "Application/Test/Test.h"
+Test* g_p_test = nullptr;
+
 //==============================================================================
 // class implementation
 //==============================================================================
 //------------------------------------------------
 // ctor
 //------------------------------------------------
-SceneGame::SceneGame() {
+SceneGame::SceneGame()
+    :p_controller_(nullptr) {
+  g_p_test = new Test();
 }
 
 //------------------------------------------------
 // dtor
 //------------------------------------------------
 SceneGame::~SceneGame() {
+  delete g_p_test;
 }
 
 //------------------------------------------------
@@ -38,10 +45,13 @@ void SceneGame::_Update(SceneManager* p_scene_manager, const float elapsed_time)
   if (keyboard.IsTrigger(DIK_RETURN)) {
     p_scene_manager->PushNextSceneFactory(new SceneTitleFactory());
   }
+
+  g_p_test->Update();
 }
 
 //------------------------------------------------
 // Draw
 //------------------------------------------------
 void SceneGame::_Draw(void) {
+  g_p_test->Draw();
 }

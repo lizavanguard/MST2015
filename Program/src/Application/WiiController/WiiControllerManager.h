@@ -36,6 +36,7 @@ public:
 
   // get
   CWiiController& GetWiiController(unsigned int index) { return *container_[index]; }
+  const CWiiController& GetWiiController(unsigned int index) const { return *container_[index]; }
 
 private:
   ContainerType container_;

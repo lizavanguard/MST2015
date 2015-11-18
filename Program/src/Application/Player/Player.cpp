@@ -20,6 +20,7 @@ namespace {
 
   const float kAdjustedValueRotationToPower = 15.0f;
   const float kCurveReaction = 0.025f;
+  //const float kCurveReaction = 0.1f;
   const float kShotSpeed = 100.0f;
 }
 
@@ -68,7 +69,7 @@ void Player::Shoot(const float rotation) {
 
   speed_.z += shot_speed_;
 
-  const float true_power = rotation * adjusted_value_;
+  const float true_power = -rotation * adjusted_value_;
   speed_.x = true_power;
   velocity_.x -= true_power * curve_reaction_;
 
@@ -108,15 +109,6 @@ void Player::_Update(const float elapsed_time) {
   }
   if (keyboard.IsPress(DIK_S)) {
     speed_.z -= true_speed;
-  }
-  if (keyboard.IsPress(DIK_A)) {
-    MoveLeft();
-  }
-  if (keyboard.IsPress(DIK_D)) {
-    MoveRight();
-  }
-  if (keyboard.IsPress(DIK_LCONTROL)) {
-    Shoot(shot_rotation);
   }
   if (keyboard.IsPress(DIK_SPACE)) {
     Reset();

@@ -26,10 +26,13 @@
 #include "Application/Pin/PinManager.h"
 #include "Application/Player/Player.h"
 
+#include "Application/Controller/Controller.h"
+
 
 Root* g_p_root = nullptr;
 CollisionManager* g_p_collision = nullptr;
 Player* player = nullptr;
+Controller* p_controller = nullptr;
 
 //==============================================================================
 // class implementation
@@ -74,6 +77,8 @@ Test::Test() {
 
   //camera->AssignCameraSteering(new CameraSteeringFixed(*player));
   camera->AssignCameraSteering(new CameraSteeringHoming(*player));
+
+  p_controller = new Controller(*player);
 }
 
 
@@ -81,6 +86,7 @@ Test::Test() {
 // dtor
 //------------------------------------------------
 Test::~Test() {
+  SafeDelete(p_controller);
   CameraManager::Instance().UnRegister();
   SafeDelete(g_p_collision);
   Root::Destroy(g_p_root);
@@ -94,6 +100,8 @@ void Test::Update( void ) {
   if (GameManager::Instance().GetInputManager().GetPrimaryKeyboard().IsTrigger(DIK_1)) {
     SoundManager::Instance().PlaySound("SE/se000");
   }
+  p_controller->Update();
+
   g_p_root->UpdateAll(0.016f);
 
   g_p_collision->Update();

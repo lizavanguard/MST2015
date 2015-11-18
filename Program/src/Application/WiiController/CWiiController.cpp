@@ -55,6 +55,7 @@ rotPrev()
 			connectTryCount = -1;
 			//MESSAGE("wiiƒŠƒ‚ƒRƒ“‚ÌÚ‘±‚Í‚³‚ê‚Ü‚¹‚ñ‚Å‚µ‚½");
 
+      //MY_BREAK_ASSERT(false);
 			return;
 		}
 		connectTryCount++;

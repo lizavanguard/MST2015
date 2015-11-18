@@ -103,6 +103,9 @@
     <Filter Include="src\Application\WiiController">
       <UniqueIdentifier>{214d5fb6-6e5c-4351-9824-02e1231e8468}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Application\Contoller">
+      <UniqueIdentifier>{a89dbace-32d8-4859-99b9-41c763e6ad5e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Framework\DebugProc\DebugProc.cpp">
@@ -254,6 +257,9 @@
     </ClCompile>
     <ClCompile Include="src\Application\WiiController\WiiControllerManager.cpp">
       <Filter>src\Application\WiiController</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Application\Controller\Controller.cpp">
+      <Filter>src\Application\Contoller</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -508,6 +514,9 @@
     </ClInclude>
     <ClInclude Include="src\Application\WiiController\WiiControllerManager.h">
       <Filter>src\Application\WiiController</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Application\Controller\Controller.h">
+      <Filter>src\Application\Contoller</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

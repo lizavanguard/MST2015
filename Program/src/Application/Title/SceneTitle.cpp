@@ -14,10 +14,6 @@
 #include "Framework/Scene/SceneManager.h"
 
 #include "Application/Game/SceneGameFactory.h"
-#include "Application/Test/Test.h"
-
-// HACK:
-Test* g_p_test = nullptr;
 
 //==============================================================================
 // class implementation
@@ -26,14 +22,12 @@ Test* g_p_test = nullptr;
 // ctor
 //------------------------------------------------
 SceneTitle::SceneTitle() {
-  g_p_test = new Test();
 }
 
 //------------------------------------------------
 // dtor
 //------------------------------------------------
 SceneTitle::~SceneTitle() {
-  delete g_p_test;
 }
 
 //------------------------------------------------
@@ -44,13 +38,10 @@ void SceneTitle::_Update(SceneManager* p_scene_manager, const float elapsed_time
   if (keyboard.IsTrigger(DIK_RETURN)) {
     p_scene_manager->PushNextSceneFactory(new SceneGameFactory());
   }
-
-  g_p_test->Update();
 }
 
 //------------------------------------------------
 // Draw
 //------------------------------------------------
 void SceneTitle::_Draw(void) {
-  g_p_test->Draw();
 }

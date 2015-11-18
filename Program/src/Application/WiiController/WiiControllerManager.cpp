@@ -20,6 +20,7 @@
 _WiiControllerManager::_WiiControllerManager() {
   for (unsigned int controller_count = 0; controller_count < kNumControllers; ++controller_count) {
     container_[controller_count] = new CWiiController();
+    container_[controller_count]->update();
   }
 }
 
