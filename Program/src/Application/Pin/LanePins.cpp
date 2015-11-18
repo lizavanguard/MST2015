@@ -34,3 +34,10 @@ LanePins::LanePins() {
 //------------------------------------------------
 LanePins::~LanePins() {
 }
+
+//------------------------------------------------
+// Reset
+//------------------------------------------------
+void LanePins::Reset(void) {
+  std::for_each(pins_.begin(), pins_.end(), [](LanePin* pin) { pin->Reset(); });
+}

@@ -26,6 +26,9 @@ public:
 
   // Reset
   void Reset(void);
+
+private:
+  D3DXVECTOR3 initial_position_;
 };
 
 using PinFactory = liza::generic::Factory<Pin>;

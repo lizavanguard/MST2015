@@ -33,6 +33,9 @@ public:
   const StandardPins& GetStandardPins(void) const { return *p_standard_pins_; }
   const LanePins& GetLanePins(void) const { return *p_lane_pins_; }
 
+  // Reset
+  void Reset(void);
+
 private:
   virtual void _Update(float elapsed_time) override {}
   virtual void _Draw(void) override {}

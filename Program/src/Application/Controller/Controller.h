@@ -8,9 +8,10 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class declaration
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
+class CWiiController;
 class InputKeyboard;
 class Player;
-class CWiiController;
+class PinManager;
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
@@ -18,7 +19,7 @@ class CWiiController;
 class Controller {
 public:
   // ctor
-  Controller(Player& player);
+  Controller(Player& player, PinManager& pin_manager);
 
   // dtor
   ~Controller();
@@ -37,9 +38,15 @@ private:
   float _GetControllerRotation(void);
 
   // property
-  Player& player_;
   const InputKeyboard& keyboard_;
   CWiiController& wii_controller_;
+  Player& player_;
+  PinManager& pin_manager_;
 
   float old_rotation_;
+
+#ifdef _DEBUG
+  float thrown_rotation_;
+  bool _IsResetted(void);
+#endif
 };

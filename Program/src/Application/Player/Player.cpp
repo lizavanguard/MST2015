@@ -110,10 +110,6 @@ void Player::_Update(const float elapsed_time) {
   if (keyboard.IsPress(DIK_S)) {
     speed_.z -= true_speed;
   }
-  if (keyboard.IsPress(DIK_SPACE)) {
-    Reset();
-  }
-
   if (keyboard.IsPress(DIK_I)) {
     speed_.y += true_speed;
   }

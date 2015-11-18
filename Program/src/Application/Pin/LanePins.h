@@ -36,6 +36,9 @@ public:
   // dtor
   ~LanePins();
 
+  // Reset
+  void Reset(void);
+
   // iterator
   Iterator begin(void) { return pins_.begin(); }
   ConstIterator begin(void) const { return pins_.begin(); }

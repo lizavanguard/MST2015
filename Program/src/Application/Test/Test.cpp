@@ -78,7 +78,7 @@ Test::Test() {
   //camera->AssignCameraSteering(new CameraSteeringFixed(*player));
   camera->AssignCameraSteering(new CameraSteeringHoming(*player));
 
-  p_controller = new Controller(*player);
+  p_controller = new Controller(*player, *pin_manager);
 }
 
 

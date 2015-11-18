@@ -41,3 +41,10 @@ StandardPins::StandardPins(const D3DXVECTOR3& center_position, const D3DXVECTOR3
 //------------------------------------------------
 StandardPins::~StandardPins() {
 }
+
+//------------------------------------------------
+// Reset
+//------------------------------------------------
+void StandardPins::Reset(void) {
+  std::for_each(pins_.begin(), pins_.end(), [](StandardPin* pin) { pin->Reset(); });
+}

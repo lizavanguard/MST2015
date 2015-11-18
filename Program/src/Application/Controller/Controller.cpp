@@ -10,6 +10,7 @@
 #include "Controller.h"
 
 #include "Application/Player/Player.h"
+#include "Application/Pin/PinManager.h"
 #include "Application/WiiController/CWiiController.h"
 #include "Application/WiiController/WiiControllerManager.h"
 
@@ -19,10 +20,11 @@
 //------------------------------------------------
 // ctor
 //------------------------------------------------
-Controller::Controller(Player& player)
-    : player_(player)
-    , keyboard_(GameManager::Instance().GetInputManager().GetPrimaryKeyboard())
-    , wii_controller_(WiiControllerManager::Instance().GetWiiController(0)) {
+Controller::Controller(Player& player, PinManager& pin_manager)
+    : keyboard_(GameManager::Instance().GetInputManager().GetPrimaryKeyboard())
+    , wii_controller_(WiiControllerManager::Instance().GetWiiController(0))
+    , player_(player)
+    , pin_manager_(pin_manager) {
 }
 
 //------------------------------------------------
@@ -35,9 +37,6 @@ Controller::~Controller() {
 // Update
 //------------------------------------------------
 void Controller::Update(void) {
-#ifdef _DEBUG
-  static float throwed_rotation = 0;
-#endif
   if (_IsMovedToLeft()) {
     player_.MoveLeft();
   }
@@ -53,12 +52,17 @@ void Controller::Update(void) {
     player_.Shoot(rotation - old_rotation_);
 
 #ifdef _DEBUG
-    throwed_rotation = rotation - old_rotation_;
+    thrown_rotation_ = rotation - old_rotation_;
 #endif
   }
 
 #ifdef _DEBUG
-  DebugProc::Print("ç≈èIìäÇ∞ÇÁÇÍÇΩäpìx[%.4f]\n", throwed_rotation);
+  DebugProc::Print("ìäÇ∞ÇΩéûÇÃâÒì]ó [%.4f]\n", thrown_rotation_);
+
+  if (_IsResetted()) {
+    player_.Reset();
+    pin_manager_.Reset();
+  }
 #endif
 }
 
@@ -91,3 +95,9 @@ bool Controller::_IsShot(void) {
 float Controller::_GetControllerRotation(void) {
   return wii_controller_.getAccelerationX();
 }
+
+#ifdef _DEBUG
+bool Controller::_IsResetted(void) {
+  return keyboard_.IsTrigger(DIK_SPACE) || wii_controller_.getTrigger(WC_B);
+}
+#endif

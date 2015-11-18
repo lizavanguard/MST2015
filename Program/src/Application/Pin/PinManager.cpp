@@ -31,3 +31,11 @@ PinManager::PinManager()
 //------------------------------------------------
 PinManager::~PinManager() {
 }
+
+//------------------------------------------------
+// Reset
+//------------------------------------------------
+void PinManager::Reset(void) {
+  p_standard_pins_->Reset();
+  p_lane_pins_->Reset();
+}
