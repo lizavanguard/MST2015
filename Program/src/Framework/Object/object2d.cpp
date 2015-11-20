@@ -13,6 +13,7 @@
 #include "Framework/Utility/DeviceHolder.h"
 #include "Framework/Shader/shader_manager.h"
 #include "Framework/Texture/texture_manager.h"
+#include "Framework/Steering/Object2D/Object2DSteering.h"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // const
@@ -29,20 +30,24 @@ namespace {
 //------------------------------------------------
 // ctor
 //------------------------------------------------
-Object2D::Object2D(const char* p_filename)
-  : p_shader_(nullptr)
-  , p_declaration_(nullptr)
-  , p_texture_(nullptr)
-  , is_bottom_centered_(true) {
+Object2D::Object2D(const char* p_filename, const D3DXVECTOR3& position, const D3DXVECTOR2& size, Object2DSteering* p_steering)
+    : p_shader_(nullptr)
+    , p_declaration_(nullptr)
+    , p_texture_(nullptr)
+    , size_(size)
+    , alpha_(1.0f)
+    , uv_left_top_(0.0f, 0.0f)
+    , uv_right_bottom_(0.0f, 0.0f)
+    , p_steering_(p_steering) {
+  position_ = position;
   p_shader_ = ShaderManager::Instance().FindShader(kShadername);
 
   D3DVERTEXELEMENT9 elements[] = {
     {0, 0, D3DDECLTYPE_FLOAT4, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITIONT, 0},
-    {0, 12, D3DDECLTYPE_FLOAT4, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_COLOR, 0},
-    {0, 28, D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 0},
+    {0, 16, D3DDECLTYPE_FLOAT4, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_COLOR, 0},
+    {0, 32, D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 0},
     D3DDECL_END()
   };
-
   auto p_device = DeviceHolder::Instance().GetDevice();
   p_device->CreateVertexDeclaration(elements, &p_declaration_);
 
@@ -51,12 +56,17 @@ Object2D::Object2D(const char* p_filename)
   uv_left_top_.y = 0.0f;
   uv_right_bottom_.x = 1.0f;
   uv_right_bottom_.y = 1.0f;
+
+  if (!p_steering_) {
+    p_steering_ = new NullObject2DSteering();
+  }
 }
 
 //------------------------------------------------
 // dtor
 //------------------------------------------------
 Object2D::~Object2D() {
+  SafeDelete(p_steering_);
   SafeRelease(p_declaration_);
 }
 
@@ -64,7 +74,7 @@ Object2D::~Object2D() {
 // _Update
 //------------------------------------------------
 void Object2D::_Update(const float elapsed_time) {
-  int a = 0;
+  p_steering_->Update(*this, elapsed_time);
 }
 
 //------------------------------------------------
@@ -74,24 +84,20 @@ void Object2D::_Update(const float elapsed_time) {
 void Object2D::_Draw(void) {
   auto p_device = DeviceHolder::Instance().GetDevice();
 
-  struct Vertex3D {
+  struct _Vertex3D {
     D3DXVECTOR4 vertex;
     D3DXVECTOR4 diffuse;
     D3DXVECTOR2 texcoord;
   };
+
+  D3DXVECTOR2 half_size = size_ * 0.5f;
   // vertices
-  Vertex3D data[] = {
-    {D3DXVECTOR4(position_.x - kSizeHalf, position_.y - kSizeHalf, 0.0f, 1.0f), D3DXCOLOR(0xffffffff), D3DXVECTOR2(    uv_left_top_.x,     uv_left_top_.y)},  // lt
-    {D3DXVECTOR4(position_.x + kSizeHalf, position_.y - kSizeHalf, 0.0f, 1.0f), D3DXCOLOR(0xffffffff), D3DXVECTOR2(uv_right_bottom_.x,     uv_left_top_.y)},  // rt
-    {D3DXVECTOR4(position_.x - kSizeHalf, position_.y + kSizeHalf, 0.0f, 1.0f), D3DXCOLOR(0xffffffff), D3DXVECTOR2(    uv_left_top_.x, uv_right_bottom_.y)},  // lb
-    {D3DXVECTOR4(position_.x + kSizeHalf, position_.y + kSizeHalf, 0.0f, 1.0f), D3DXCOLOR(0xffffffff), D3DXVECTOR2(uv_right_bottom_.x, uv_right_bottom_.y)},  // rb
+  _Vertex3D data[] = {
+    {D3DXVECTOR4(position_.x - half_size.x, position_.y - half_size.y, 0.0f, 1.0f), D3DXCOLOR(1.0f, 1.0f, 1.0f, alpha_), D3DXVECTOR2(        uv_left_top_.x, uv_left_top_.y)},  // lt
+    {D3DXVECTOR4(position_.x + half_size.x, position_.y - half_size.y, 0.0f, 1.0f), D3DXCOLOR(1.0f, 1.0f, 1.0f, alpha_), D3DXVECTOR2(uv_right_bottom_.x, uv_left_top_.y)},  // rt
+    {D3DXVECTOR4(position_.x - half_size.x, position_.y + half_size.y, 0.0f, 1.0f), D3DXCOLOR(1.0f, 1.0f, 1.0f, alpha_), D3DXVECTOR2(uv_left_top_.x, uv_right_bottom_.y)},  // lb
+    {D3DXVECTOR4(position_.x + half_size.x, position_.y + half_size.y, 0.0f, 1.0f), D3DXCOLOR(1.0f, 1.0f, 1.0f, alpha_), D3DXVECTOR2(uv_right_bottom_.x, uv_right_bottom_.y)},  // rb
   };
-  if (is_bottom_centered_) {
-    data[0].vertex.y = position_.y - kSize;
-    data[1].vertex.y = position_.y - kSize;
-    data[3].vertex.y = position_.y;
-    data[2].vertex.y = position_.y;
-  }
 
   p_device->SetVertexDeclaration(p_declaration_);
   p_device->SetTransform(D3DTS_WORLD, &world_matrix_);
@@ -104,8 +110,8 @@ void Object2D::_Draw(void) {
 
   //p_shader_->Begin(nullptr, 0);
   //p_shader_->BeginPass(0);
-
-  p_device->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, data, sizeof(Vertex3D));
+  p_device->SetTexture(0, p_texture_);
+  p_device->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, data, sizeof(_Vertex3D));
 
   //p_shader_->EndPass();
   //p_shader_->End();

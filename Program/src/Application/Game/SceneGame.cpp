@@ -15,12 +15,10 @@
 
 #include "Application/Title/SceneTitleFactory.h"
 
+
 // HACK:
 #include "Application/Test/Test.h"
 Test* g_p_test = nullptr;
-
-
-#include "liza/generic/ServiceLocator.hpp"
 
 //==============================================================================
 // class implementation
@@ -29,7 +27,8 @@ Test* g_p_test = nullptr;
 // ctor
 //------------------------------------------------
 SceneGame::SceneGame()
-    :p_controller_(nullptr) {
+    : p_controller_(nullptr)
+    , is_ready_(true) {
   g_p_test = new Test();
 }
 
@@ -44,6 +43,10 @@ SceneGame::~SceneGame() {
 // Update
 //------------------------------------------------
 void SceneGame::_Update(SceneManager* p_scene_manager, const float elapsed_time) {
+  if (is_ready_) {
+
+  }
+
   const auto& keyboard = GameManager::Instance().GetInputManager().GetPrimaryKeyboard();
   if (keyboard.IsTrigger(DIK_RETURN)) {
     p_scene_manager->PushNextSceneFactory(new SceneTitleFactory());

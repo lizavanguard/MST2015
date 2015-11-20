@@ -136,11 +136,13 @@ void GameWindow::Run( void ) {
 			currentTime = timeGetTime();
 
 			if( ( currentTime - execLastTime ) >= kMSecondPerFrame ) {
-				// ˆ—‚µ‚½Žž‚ð•Û‘¶
+        DWORD diff = currentTime - execLastTime;
+
+        // ˆ—‚µ‚½Žž‚ð•Û‘¶
 				execLastTime = currentTime;
 
 				// Update
-				pGameImpl_->Update((currentTime - execLastTime) * 0.001f);
+				pGameImpl_->Update(diff * 0.001f);
 
 				// Draw
 				pGameImpl_->Draw();

@@ -1,37 +1,38 @@
 //==============================================================================
 //
-// SceneTitle
+// Object2DSteering
 // Author: Shimizu Shoji
 //
 //==============================================================================
 #pragma once
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-// include
-//--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-#include "Framework/Scene/Scene.h"
-
-//--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class declaration
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-class Root;
+class Object2D;
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-class SceneTitle : public Scene {
+// INTERFACE
+class Object2DSteering {
 public:
   // ctor
-  SceneTitle();
+  Object2DSteering() {}
 
   // dtor
-  virtual ~SceneTitle();
+  virtual ~Object2DSteering() {}
 
-private:
   // Update
-  virtual void _Update(SceneManager* p_scene_manager, float elapsed_time) override;
+  virtual void Update(Object2D& object, float elapsed_time) = 0;
 
-  // Draw
-  virtual void _Draw(void) override;
+};
 
-  Root* p_root_;
+// NULL OBJECT
+class NullObject2DSteering : public Object2DSteering {
+public:
+  // ctor
+  NullObject2DSteering() {}
+
+  // Update
+  virtual void Update(Object2D&, float) override {}
 };

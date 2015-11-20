@@ -106,6 +106,15 @@
     <Filter Include="src\Application\Contoller">
       <UniqueIdentifier>{a89dbace-32d8-4859-99b9-41c763e6ad5e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Application\Title\PushStartButton">
+      <UniqueIdentifier>{78ea0f68-e824-4f29-b355-4efe3f2759b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Framework\Steering">
+      <UniqueIdentifier>{5d4cb1b4-de47-439b-8f06-1b4771c5611e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Framework\Steering\Object2D">
+      <UniqueIdentifier>{21998a4c-ce86-402d-b1bd-c24ec51972e7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Framework\DebugProc\DebugProc.cpp">
@@ -260,6 +269,9 @@
     </ClCompile>
     <ClCompile Include="src\Application\Controller\Controller.cpp">
       <Filter>src\Application\Contoller</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\Steering\Object2D\Object2DSteeringFlashing.cpp">
+      <Filter>src\Framework\Steering\Object2D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -523,6 +535,15 @@
     </ClInclude>
     <ClInclude Include="src\liza\generic\ServiceLocatorArray.hpp">
       <Filter>src\liza\generic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Application\Title\PushStartButton\PushStartButton.h">
+      <Filter>src\Application\Title\PushStartButton</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Steering\Object2D\Object2DSteering.h">
+      <Filter>src\Framework\Steering\Object2D</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Steering\Object2D\Object2DSteeringFlashing.h">
+      <Filter>src\Framework\Steering\Object2D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

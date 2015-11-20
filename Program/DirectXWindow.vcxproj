@@ -58,6 +58,7 @@
     <ClCompile Include="src\Framework\Sound\sound_data_holder.cpp" />
     <ClCompile Include="src\Framework\Sound\sound_manager.cpp" />
     <ClCompile Include="src\Framework\Sound\xaudio_holder.cpp" />
+    <ClCompile Include="src\Framework\Steering\Object2D\Object2DSteeringFlashing.cpp" />
     <ClCompile Include="src\Framework\Texture\texture_manager.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\stdafx.cpp">
@@ -79,6 +80,7 @@
     <ClInclude Include="src\Application\Pin\StandardPins.h" />
     <ClInclude Include="src\Application\Player\Player.h" />
     <ClInclude Include="src\Application\Test\Test.h" />
+    <ClInclude Include="src\Application\Title\PushStartButton\PushStartButton.h" />
     <ClInclude Include="src\Application\Title\SceneTitle.h" />
     <ClInclude Include="src\Application\Title\SceneTitleFactory.h" />
     <ClInclude Include="src\Application\WiiController\CWiiController.h" />
@@ -123,6 +125,8 @@
     <ClInclude Include="src\Framework\Sound\sound_data_holder.h" />
     <ClInclude Include="src\Framework\Sound\sound_manager.h" />
     <ClInclude Include="src\Framework\Sound\xaudio_holder.h" />
+    <ClInclude Include="src\Framework\Steering\Object2D\Object2DSteering.h" />
+    <ClInclude Include="src\Framework\Steering\Object2D\Object2DSteeringFlashing.h" />
     <ClInclude Include="src\Framework\Texture\texture_manager.h" />
     <ClInclude Include="src\Framework\Utility\DataLoader.hpp" />
     <ClInclude Include="src\Framework\Utility\DeviceHolder.h" />

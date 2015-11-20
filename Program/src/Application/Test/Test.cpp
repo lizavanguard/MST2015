@@ -65,7 +65,7 @@ Test::Test() {
   g_p_root->AttachChild(pin_manager);
 
   // 2D
-  auto obj2d = Object2DFactory::Create("field");
+  auto obj2d = Object2DFactory::Create("Game/texture001", D3DXVECTOR3(100, 100, 100), D3DXVECTOR2(100, 100));
   obj2d->SetPosition(D3DXVECTOR3(640, 360, 0));
   g_p_root->AttachChild(obj2d);
 

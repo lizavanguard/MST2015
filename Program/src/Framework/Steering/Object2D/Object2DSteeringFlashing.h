@@ -1,6 +1,6 @@
 //==============================================================================
 //
-// SceneTitle
+// Object2DSteeringFlashing
 // Author: Shimizu Shoji
 //
 //==============================================================================
@@ -8,30 +8,29 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-#include "Framework/Scene/Scene.h"
-
-//--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-// class declaration
-//--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-class Root;
+#include "Object2DSteering.h"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-class SceneTitle : public Scene {
+class Object2DSteeringFlashing : public Object2DSteering {
 public:
   // ctor
-  SceneTitle();
+  Object2DSteeringFlashing()
+      : time_(0.0f)
+      , speed_rate_(1.0f) {
+  }
 
   // dtor
-  virtual ~SceneTitle();
+  virtual ~Object2DSteeringFlashing() {}
+
+  // Update
+  virtual void Update(Object2D& object, float elapsed_time);
+
+  // set
+  void SetSpeedRate(float speed_rate) { speed_rate_ = speed_rate; }
 
 private:
-  // Update
-  virtual void _Update(SceneManager* p_scene_manager, float elapsed_time) override;
-
-  // Draw
-  virtual void _Draw(void) override;
-
-  Root* p_root_;
+  float time_;
+  float speed_rate_;
 };
