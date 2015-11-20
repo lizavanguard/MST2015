@@ -19,8 +19,19 @@
 //------------------------------------------------
 _WiiControllerManager::_WiiControllerManager() {
   for (unsigned int controller_count = 0; controller_count < kNumControllers; ++controller_count) {
-    container_[controller_count] = new CWiiController();
-    container_[controller_count]->update();
+    CWiiController* p_controller = new CWiiController();
+    if (p_controller->getConnectFlag()) {
+      p_controller->update();
+    }
+    else {
+      SafeDelete(p_controller);
+    }
+    container_[controller_count] = p_controller;
+  }
+
+  // provide to locator
+  for (unsigned int controller_count = 0; controller_count < kNumControllers; ++controller_count) {
+    WiiControllerServiceLocator::Provide(container_[controller_count], controller_count);
   }
 }
 
@@ -38,6 +49,8 @@ _WiiControllerManager::~_WiiControllerManager() {
 //------------------------------------------------
 void _WiiControllerManager::Update(void) {
   for (unsigned int controller_count = 0; controller_count < kNumControllers; ++controller_count) {
-    container_[controller_count]->update();
+    if (container_[controller_count]) {
+      container_[controller_count]->update();
+    }
   }
 }

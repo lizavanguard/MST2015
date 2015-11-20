@@ -37,8 +37,9 @@ void CameraSteeringHoming::Execute(Camera& camera, const float) {
   const float cos = cosf(target_rotation.y);
 
   D3DXVECTOR3 camera_eye = target_position + target_velocity;
-  static const float kEyeDistance = 15.0f;
-  static const float kEyeHeight = 10.0f;
+  //static const float kEyeDistance = 15.0f;
+  static const float kEyeDistance = 5.0f;
+  static const float kEyeHeight = 5.0f;
   camera_eye.x -=  sin * kEyeDistance;
   camera_eye.z -=  cos * kEyeDistance;
   camera_eye.y += kEyeHeight;

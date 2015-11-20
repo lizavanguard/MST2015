@@ -19,6 +19,9 @@
 #include "Application/Test/Test.h"
 Test* g_p_test = nullptr;
 
+
+#include "liza/generic/ServiceLocator.hpp"
+
 //==============================================================================
 // class implementation
 //==============================================================================

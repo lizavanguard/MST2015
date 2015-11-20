@@ -36,16 +36,18 @@ private:
   bool _IsSetUp(void);
   bool _IsShot(void);
   float _GetControllerRotation(void);
+  float _CalcRotation(void);
 
   // property
   const InputKeyboard& keyboard_;
-  CWiiController& wii_controller_;
+  CWiiController* p_wii_controller_;
   Player& player_;
   PinManager& pin_manager_;
 
   float old_rotation_;
 
 #ifdef _DEBUG
+  float debug_rotation_;
   float thrown_rotation_;
   bool _IsResetted(void);
 #endif

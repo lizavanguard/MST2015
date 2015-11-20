@@ -518,6 +518,12 @@
     <ClInclude Include="src\Application\Controller\Controller.h">
       <Filter>src\Application\Contoller</Filter>
     </ClInclude>
+    <ClInclude Include="src\liza\generic\ServiceLocator.hpp">
+      <Filter>src\liza\generic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\liza\generic\ServiceLocatorArray.hpp">
+      <Filter>src\liza\generic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\liza\math\Vector2.inl">

@@ -93,7 +93,7 @@ void GameManager::Update(const float elapsedTime) {
 
   pSceneManager_->Update(elapsedTime);
 
-  DebugProc::Print("CONTROLLER1:‰Á‘¬“xX[%.3f]\n", WiiControllerManager::Instance().GetWiiController(0).getAccelerationX());
+  //DebugProc::Print("CONTROLLER1:‰Á‘¬“xX[%.3f]\n", WiiControllerManager::Instance().GetWiiController(0)->getAccelerationX());
 }
 
 

@@ -102,7 +102,6 @@ void Player::_Update(const float elapsed_time) {
   auto& keyboard = GameManager::Instance().GetInputManager().GetPrimaryKeyboard();
   static const float kSpeed = 1.0f;
   const float true_speed = kSpeed /** elapsed_time*/;
-  static float shot_rotation = 0.0f;
 
   if (keyboard.IsPress(DIK_W)) {
     speed_.z += true_speed;
@@ -117,8 +116,6 @@ void Player::_Update(const float elapsed_time) {
     speed_.y -= true_speed;
   }
 
-  if (keyboard.IsPress(DIK_1)) { shot_rotation += 0.01f; }
-  if (keyboard.IsPress(DIK_2)) { shot_rotation -= 0.01f; }
   if (keyboard.IsPress(DIK_3)) { curve_reaction_+= 0.0003f; }
   if (keyboard.IsPress(DIK_4)) { curve_reaction_ -= 0.0003f; }
   if (keyboard.IsPress(DIK_5)) { shot_speed_ += 0.1f; }
@@ -126,7 +123,7 @@ void Player::_Update(const float elapsed_time) {
   if (keyboard.IsPress(DIK_7)) { adjusted_value_ += 0.1f; }
   if (keyboard.IsPress(DIK_8)) { adjusted_value_ -= 0.1f; }
 
-  DebugProc::Print("射出時回転量:[%.3f]\n曲がり方:[%.3f]\n射出力:[%.3f]\n曲がり方の調整値:[%.3f]\n", shot_rotation, curve_reaction_, shot_speed_, adjusted_value_);
+  DebugProc::Print("曲がり方:[%.3f]\n射出力:[%.3f]\n曲がり方の調整値:[%.3f]\n", curve_reaction_, shot_speed_, adjusted_value_);
 
 #endif
 

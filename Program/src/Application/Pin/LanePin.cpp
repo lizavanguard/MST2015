@@ -32,7 +32,12 @@ void LanePin::ReactCollision(const D3DXVECTOR3& power) {
   D3DXVec3Normalize(&direction, &power);
   //const float impact_power = D3DXVec3Length(&power);
 
-  velocity_ += direction * 100;
+  speed_ += direction * 100.0f;
+  speed_.y = 200.0f;
+  int random = (rand() % 2) ? 1 : -1;
+  speed_.x = random * 100.0f;
+
+  velocity_.y -= 9.8f;
   is_all_drawed_ = true;
   is_collided_ = true;
 };

@@ -138,6 +138,8 @@
     <ClInclude Include="src\liza\generic\factory.hpp" />
     <ClInclude Include="src\liza\generic\Lifetime.hpp" />
     <ClInclude Include="src\liza\generic\noncopyable.h" />
+    <ClInclude Include="src\liza\generic\ServiceLocator.hpp" />
+    <ClInclude Include="src\liza\generic\ServiceLocatorArray.hpp" />
     <ClInclude Include="src\liza\generic\SingletonHolder.hpp" />
     <ClInclude Include="src\liza\generic\ThreadingModel.hpp" />
     <ClInclude Include="src\liza\math\MathConst.h" />

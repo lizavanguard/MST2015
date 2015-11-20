@@ -32,7 +32,7 @@ void StandardPin::ReactCollision(const D3DXVECTOR3& power) {
   D3DXVec3Normalize(&direction, &power);
   const float impact_power = D3DXVec3Length(&power);
 
-  velocity_ += direction * impact_power * 10;
+  speed_ += direction * impact_power * 10;
   is_all_drawed_ = true;
   is_collided_ = true;
 };
