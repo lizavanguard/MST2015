@@ -27,8 +27,9 @@ namespace {
 //------------------------------------------------
 // ctor
 //------------------------------------------------
-GameStatePlayerInput::GameStatePlayerInput()
-    : p_root_(nullptr) {
+GameStatePlayerInput::GameStatePlayerInput(SceneGame& scene_game)
+    : GameState(scene_game)
+    , p_root_(nullptr) {
   p_root_ = new Root();
 }
 
@@ -42,7 +43,7 @@ GameStatePlayerInput::~GameStatePlayerInput() {
 //------------------------------------------------
 // Update
 //------------------------------------------------
-void GameStatePlayerInput::Update(const float elapsed_time, SceneGame::GameState* p_next_state) {
+void GameStatePlayerInput::Update(const float elapsed_time) {
   p_root_->UpdateAll(elapsed_time);
 }
 

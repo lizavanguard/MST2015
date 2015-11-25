@@ -14,7 +14,6 @@
 // class delcaration
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 class CollisionManager;
-class Controller;
 class Player;
 class PinManager;
 class Root;
@@ -27,9 +26,13 @@ public:
   // interface
   class GameState {
   public:
+    GameState(SceneGame& scene_game) : scene_game_(scene_game) {}
     virtual ~GameState() {}
-    virtual void Update(float elapsed_time, GameState* p_next_state) = 0;
+    virtual void Update(float elapsed_time) = 0;
     virtual void Draw(void) = 0;
+
+  protected:
+    SceneGame& scene_game_;
   };
 
 public:
@@ -39,8 +42,12 @@ public:
   // dtor
   virtual ~SceneGame();
 
-  // change controller
-  void ChangeController(Controller* p_controller);
+  // change game-state
+  void ChangeGameState(GameState* p_game_state);
+
+  // HACK:
+  Player& GetPlayer(void) const { return *p_player_; }
+  PinManager& GetPinManager(void) const { return *p_pin_manager_; }
 
 private:
   // Update
@@ -50,7 +57,7 @@ private:
   virtual void _Draw(void) override;
 
   GameState* p_game_state_;
-  Controller* p_controller_;
+  GameState* p_next_game_state_;
   CollisionManager* p_collision_manager_;
 
   Root* p_root_;

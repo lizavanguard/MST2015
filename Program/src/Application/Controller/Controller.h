@@ -19,13 +19,13 @@ class PinManager;
 class Controller {
 public:
   // ctor
-  Controller();
+  Controller(Player& player, PinManager& pin_manager);
 
   // dtor
   ~Controller();
 
   // Update
-  void Update(Player& player, PinManager& pin_manager);
+  void Update();
 
   // Change current WiiControllerID
   void ChangeCurrentWiiControllerID(unsigned int wii_controller_id);
@@ -45,9 +45,10 @@ private:
   // property
   const InputKeyboard& keyboard_;
   CWiiController* p_wii_controller_;
+  Player& player_;
+  PinManager& pin_manager_;
 
   float old_rotation_;
-
   bool is_active_;
 
 #ifdef _DEBUG

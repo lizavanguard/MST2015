@@ -20,9 +20,11 @@
 //------------------------------------------------
 // ctor
 //------------------------------------------------
-Controller::Controller()
+Controller::Controller(Player& player_, PinManager& pin_manager)
     : keyboard_(GameManager::Instance().GetInputManager().GetPrimaryKeyboard())
     , p_wii_controller_(WiiControllerManager::Instance().GetWiiController(0))
+    , player_(player_)
+    , pin_manager_(pin_manager)
     , is_active_(true)
 #ifdef _DEBUG
     , debug_rotation_(0.0f)
@@ -40,16 +42,16 @@ Controller::~Controller() {
 //------------------------------------------------
 // Update
 //------------------------------------------------
-void Controller::Update(Player& player, PinManager& pin_manager) {
+void Controller::Update(void) {
   if (!is_active_) {
     return;
   }
 
   if (_IsMovedToLeft()) {
-    player.MoveLeft();
+    player_.MoveLeft();
   }
   if (_IsMovedToRight()) {
-    player.MoveRight();
+    player_.MoveRight();
   }
 
   if (_IsSetUp()) {
@@ -57,7 +59,7 @@ void Controller::Update(Player& player, PinManager& pin_manager) {
   }
   else if (_IsShot()) {
     const float rotation = _CalcRotation();
-    player.Shoot(rotation);
+    player_.Shoot(rotation);
 
 #ifdef _DEBUG
     thrown_rotation_ = rotation;
@@ -78,8 +80,8 @@ void Controller::Update(Player& player, PinManager& pin_manager) {
   DebugProc::Print("デバッグ時の回転量[%.4f]\n", debug_rotation_);
 
   if (_IsResetted()) {
-    player.Reset();
-    pin_manager.Reset();
+    player_.Reset();
+    pin_manager_.Reset();
   }
 #endif
 }

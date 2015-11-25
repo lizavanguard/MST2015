@@ -23,13 +23,13 @@ class Root;
 class GameStatePlayerInput : public SceneGame::GameState {
 public:
   // ctor
-  GameStatePlayerInput();
+  GameStatePlayerInput(SceneGame& scene_game);
 
   // dtor
   virtual ~GameStatePlayerInput();
 
   // Update
-  virtual void Update(float elapsed_time, GameState* p_next_state) override;
+  virtual void Update(float elapsed_time) override;
 
   // Draw
   virtual void Draw(void) override;

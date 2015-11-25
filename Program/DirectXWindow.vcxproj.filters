@@ -22,9 +22,6 @@
     <Filter Include="src\Application">
       <UniqueIdentifier>{d5528e54-1c3b-48bc-8ad6-1f1bb7f0ba7f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Application\Test">
-      <UniqueIdentifier>{b20714ee-e576-440b-a124-65a1d1c61b00}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Framework">
       <UniqueIdentifier>{3e6158d2-b4ab-4e36-a827-3c605dd3e0d6}</UniqueIdentifier>
     </Filter>
@@ -146,9 +143,6 @@
     </ClCompile>
     <ClCompile Include="src\Framework\Input\InputXInput.cpp">
       <Filter>src\Framework\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Application\Test\Test.cpp">
-      <Filter>src\Application\Test</Filter>
     </ClCompile>
     <ClCompile Include="src\Framework\Object\object3d.cpp">
       <Filter>src\Framework\Object</Filter>
@@ -319,9 +313,6 @@
     </ClInclude>
     <ClInclude Include="src\Framework\Input\InputXInput.h">
       <Filter>src\Framework\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Application\Test\Test.h">
-      <Filter>src\Application\Test</Filter>
     </ClInclude>
     <ClInclude Include="src\liza\SafeDelete.h">
       <Filter>src\liza</Filter>
