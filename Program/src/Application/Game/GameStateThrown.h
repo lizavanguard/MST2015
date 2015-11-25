@@ -1,9 +1,7 @@
 //==============================================================================
 //
-// GameStatePlayerInput
+// GameStateThrown
 // Author: Shimizu Shoji
-//
-// MEMO: UIÉgÉJÅH
 //
 //==============================================================================
 #pragma once
@@ -15,19 +13,18 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class delcaration
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-class Controller;
 class Root;
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-class GameStatePlayerInput : public SceneGame::GameState {
+class GameStateThrown : public SceneGame::GameState {
 public:
   // ctor
-  GameStatePlayerInput(SceneGame& scene_game);
+  GameStateThrown(SceneGame& scene_game);
 
   // dtor
-  virtual ~GameStatePlayerInput();
+  virtual ~GameStateThrown();
 
   // Update
   virtual void Update(float elapsed_time) override;
@@ -37,5 +34,5 @@ public:
 
 private:
   Root* p_root_;
-  Controller* p_controller_;
+  float ready_time_;
 };

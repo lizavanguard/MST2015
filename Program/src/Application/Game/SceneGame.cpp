@@ -83,6 +83,14 @@ void SceneGame::ChangeGameState(GameState* p_game_state) {
 }
 
 //------------------------------------------------
+// reset
+//------------------------------------------------
+void SceneGame::Reset(void) {
+  p_player_->Reset();
+  p_pin_manager_->Reset();
+}
+
+//------------------------------------------------
 // Update
 //------------------------------------------------
 void SceneGame::_Update(SceneManager* p_scene_manager, const float elapsed_time) {
@@ -91,6 +99,7 @@ void SceneGame::_Update(SceneManager* p_scene_manager, const float elapsed_time)
   if (p_next_game_state_) {
     SafeDelete(p_game_state_);
     p_game_state_ = p_next_game_state_;
+    p_next_game_state_ = nullptr;
   }
 
   p_root_->UpdateAll(elapsed_time);

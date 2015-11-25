@@ -8,17 +8,17 @@
 // include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 #include "GameStateReady.h"
+#include "GameStatePlayerInput.h"
 
 #include "Framework/Object/object2d.h"
 #include "Framework/Object/root.h"
 
-#include "Application/Controller/Controller.h"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // const
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 namespace {
-  const float kReadyTime = 5.0f;
+  const float kReadyTime = 3.0f;
 }
 
 //==============================================================================
@@ -32,16 +32,13 @@ GameStateReady::GameStateReady(SceneGame& scene_game)
     , p_root_(nullptr)
     , ready_time_(kReadyTime) {
   p_root_ = new Root();
-  p_root_->AttachChild(Object2DFactory::Create("Game/ready", D3DXVECTOR3(640, 320, 0), D3DXVECTOR2(300, 300)));
-
-  p_controller_ = new Controller(scene_game.GetPlayer(), scene_game_.GetPinManager());
+  p_root_->AttachChild(Object2DFactory::Create("Game/ready", D3DXVECTOR3(200, 200, 0), D3DXVECTOR2(300, 300)));
 }
 
 //------------------------------------------------
 // dtor
 //------------------------------------------------
 GameStateReady::~GameStateReady() {
-  SafeDelete(p_controller_);
   SafeDelete(p_root_);
 }
 
@@ -50,10 +47,8 @@ GameStateReady::~GameStateReady() {
 //------------------------------------------------
 void GameStateReady::Update(const float elapsed_time) {
   if (ready_time_ <= 0.0f) {
-     
+    scene_game_.ChangeGameState(new GameStatePlayerInput(scene_game_));
   }
-
-  p_controller_->Update();
 
   p_root_->UpdateAll(elapsed_time);
 

@@ -45,6 +45,8 @@ public:
   // change game-state
   void ChangeGameState(GameState* p_game_state);
 
+  void Reset(void);
+
   // HACK:
   Player& GetPlayer(void) const { return *p_player_; }
   PinManager& GetPinManager(void) const { return *p_pin_manager_; }

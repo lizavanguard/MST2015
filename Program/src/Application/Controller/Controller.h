@@ -25,7 +25,7 @@ public:
   ~Controller();
 
   // Update
-  void Update();
+  bool Update(void);
 
   // Change current WiiControllerID
   void ChangeCurrentWiiControllerID(unsigned int wii_controller_id);

@@ -42,9 +42,9 @@ Controller::~Controller() {
 //------------------------------------------------
 // Update
 //------------------------------------------------
-void Controller::Update(void) {
+bool Controller::Update(void) {
   if (!is_active_) {
-    return;
+    return false;
   }
 
   if (_IsMovedToLeft()) {
@@ -64,6 +64,8 @@ void Controller::Update(void) {
 #ifdef _DEBUG
     thrown_rotation_ = rotation;
 #endif
+
+    return true;
   }
 
 #ifdef _DEBUG
@@ -84,6 +86,7 @@ void Controller::Update(void) {
     pin_manager_.Reset();
   }
 #endif
+  return false;
 }
 
 //------------------------------------------------
