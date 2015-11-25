@@ -70,6 +70,18 @@ Object2D::~Object2D() {
   SafeRelease(p_declaration_);
 }
 
+
+//------------------------------------------------
+// Assign steering
+//------------------------------------------------
+void Object2D::AssignSteering(Object2DSteering* p_steering) {
+  if (p_steering_) {
+    delete p_steering_;
+    p_steering_ = nullptr;
+  }
+  p_steering_ = p_steering;
+}
+
 //------------------------------------------------
 // _Update
 //------------------------------------------------

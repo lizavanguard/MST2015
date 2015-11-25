@@ -1,6 +1,6 @@
 //==============================================================================
 //
-// SceneGame
+// GameStateReady
 // Author: Shimizu Shoji
 //
 //==============================================================================
@@ -8,52 +8,31 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-#include "Framework/Scene/Scene.h"
+#include "Application/Game/SceneGame.h"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class delcaration
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-class CollisionManager;
-class Controller;
-class Player;
-class PinManager;
 class Root;
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-class SceneGame : public Scene {
-public:
-  // interface
-  class GameState {
-  public:
-    virtual ~GameState() {}
-    virtual void Update(float elapsed_time, GameState* p_next_state) = 0;
-    virtual void Draw(void) = 0;
-  };
-
+class GameStateReady : public SceneGame::GameState {
 public:
   // ctor
-  SceneGame();
+  GameStateReady();
 
   // dtor
-  virtual ~SceneGame();
+  virtual ~GameStateReady();
 
-  // change controller
-  void ChangeController(Controller* p_controller);
-
-private:
   // Update
-  virtual void _Update(SceneManager* p_scene_manager, float elapsed_time) override;
+  virtual void Update(float elapsed_time, GameState* p_next_state) override;
 
   // Draw
-  virtual void _Draw(void) override;
+  virtual void Draw(void) override;
 
-  GameState* p_game_state_;
-  Controller* p_controller_;
-  CollisionManager* p_collision_manager_;
-
+private:
   Root* p_root_;
-  Player* p_player_;
-  PinManager* p_pin_manager_;
+  float ready_time_;
 };

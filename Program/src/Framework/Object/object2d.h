@@ -37,10 +37,7 @@ public:
   void SetSize(float width, float height) { size_.x = width; size_.y = height; }
 
   // Assign steering
-  void AssignSteering(Object2DSteering* p_steering) {
-    SafeDelete(p_steering_);
-    p_steering_ = p_steering;
-  }
+  void AssignSteering(Object2DSteering* p_steering);
 
 private:
   // virtual function
