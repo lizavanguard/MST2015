@@ -32,7 +32,7 @@ GameStatePlayerInput::GameStatePlayerInput(SceneGame& scene_game)
     : GameState(scene_game)
     , p_root_(nullptr) {
   p_root_ = new Root();
-  p_root_->AttachChild(Object2DFactory::Create("Game/please_throw", D3DXVECTOR3(200, 200, 0), D3DXVECTOR2(300, 300)));
+  p_root_->AttachChild(Object2DFactory::Create("Game/please_throw", D3DXVECTOR3(200 + 500, 200, 0), D3DXVECTOR2(300, 300)));
   p_controller_ = new Controller(scene_game.GetPlayer(), scene_game_.GetPinManager());
 }
 

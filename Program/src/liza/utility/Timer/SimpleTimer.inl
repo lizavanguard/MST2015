@@ -1,40 +1,47 @@
 //==============================================================================
 //
-// GameMaster
+// SimpleTimer
 // Author: Shimizu Shoji
 //
 //==============================================================================
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-#include "GameMaster.h"
+#include "SimpleTimer.h"
 
-#include "Framework/Object/Hud/HudNumber/HudNumber.h"
+#include <Windows.h>
 
-#include "Application/Collision/CollisionManager.h"
+#pragma comment ( lib, "winmm.lib" )
 
 //==============================================================================
 // class implementation
 //==============================================================================
 //------------------------------------------------
 // ctor
+// タイマーの通知間隔を設定する
 //------------------------------------------------
-GameMaster::GameMaster(HudNumber& hud_pin_number, PinManager& pin_manager, CollisionManager& collision_manager)
-    : threw_count_(0)
-    , hud_pin_number_(hud_pin_number)
-    , collision_manager_(collision_manager)
-    , pin_manager_(pin_manager) {
-}
-
-//------------------------------------------------
-// dtor
-//------------------------------------------------
-GameMaster::~GameMaster() {
+liza::utility::SimpleTimer::SimpleTimer() : start_time_(0.0f) {
+  Reset();
 }
 
 //------------------------------------------------
 // Update
+// 経過時間を更新
 //------------------------------------------------
-void GameMaster::Update(float elapsed_time) {
-  hud_pin_number_.AddNumber( collision_manager_.GetNumKilledPinsAtCurrentLoop());
+float liza::utility::SimpleTimer::Update(void) {
+  return _GetTime() -start_time_;
+}
+
+//------------------------------------------------
+// Reset
+//------------------------------------------------
+void liza::utility::SimpleTimer::Reset(void) {
+  start_time_ = _GetTime();
+}
+
+//------------------------------------------------
+// 時間を返す
+//------------------------------------------------
+float liza::utility::SimpleTimer::_GetTime(void) const {
+  return static_cast<float>(timeGetTime());
 }

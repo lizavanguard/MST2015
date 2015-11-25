@@ -50,6 +50,8 @@
     <ClCompile Include="src\Framework\Input\InputXInput.cpp" />
     <ClCompile Include="src\Framework\Light\light.cpp" />
     <ClCompile Include="src\Framework\Model\model_manager.cpp" />
+    <ClCompile Include="src\Framework\Object\Hud\HudNumber\HudNumber.cpp" />
+    <ClCompile Include="src\Framework\Object\Hud\HudOverlay\HudOverlay.cpp" />
     <ClCompile Include="src\Framework\Object\object2d.cpp" />
     <ClCompile Include="src\Framework\Object\object3d.cpp" />
     <ClCompile Include="src\Framework\Object\object_base.cpp" />
@@ -115,6 +117,8 @@
     <ClInclude Include="src\Framework\Light\light.h" />
     <ClInclude Include="src\Framework\Model\model_manager.h" />
     <ClInclude Include="src\Framework\Object\debug_object.h" />
+    <ClInclude Include="src\Framework\Object\Hud\HudNumber\HudNumber.h" />
+    <ClInclude Include="src\Framework\Object\Hud\HudOverlay\HudOverlay.h" />
     <ClInclude Include="src\Framework\Object\object2d.h" />
     <ClInclude Include="src\Framework\Object\object3d.h" />
     <ClInclude Include="src\Framework\Object\object_base.h" />
@@ -137,6 +141,7 @@
     <ClInclude Include="src\Framework\Utility\DeviceHolder.h" />
     <ClInclude Include="src\Framework\Utility\GroupDataLoader.hpp" />
     <ClInclude Include="src\Framework\Utility\STL_Utility.h" />
+    <ClInclude Include="src\Framework\Utility\Vertex2Standard.h" />
     <ClInclude Include="src\Framework\Utility\_DataFinder.hpp" />
     <ClInclude Include="src\Framework\Utility\_DataLoader.hpp" />
     <ClInclude Include="src\liza\game\DirectXUtility\DirectXUtility.h" />
@@ -157,7 +162,13 @@
     <ClInclude Include="src\liza\SafeDelete.h" />
     <ClInclude Include="src\liza\SafeRelease.h" />
     <ClInclude Include="src\liza\utility\Assert.h" />
+    <ClInclude Include="src\liza\utility\Counter\Counter.h" />
     <ClInclude Include="src\liza\utility\HandyLeakCheck.h" />
+    <ClInclude Include="src\liza\utility\Timer\BoundedTimer.h" />
+    <ClInclude Include="src\liza\utility\Timer\SimpleTimer.h" />
+    <ClInclude Include="src\liza\utility\Timer\StandardTimer.h" />
+    <ClInclude Include="src\liza\utility\Timer\Timer.h" />
+    <ClInclude Include="src\liza\utility\Utility\Utility.h" />
     <ClInclude Include="src\stdafx.h" />
     <ClInclude Include="src\WiiYourself\wiimote.h" />
     <ClInclude Include="src\WiiYourself\wiimote_common.h" />
@@ -175,6 +186,8 @@
     <None Include="src\liza\math\Vector3.inl" />
     <None Include="src\liza\math\Vector4.inl" />
     <None Include="src\liza\utility\Assert.inl" />
+    <None Include="src\liza\utility\Timer\SimpleTimer.inl" />
+    <None Include="src\liza\utility\Utility\Utility.inl" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="hlsl\object3d.hlsl">

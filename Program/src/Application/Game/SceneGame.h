@@ -14,6 +14,9 @@
 // class delcaration
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 class CollisionManager;
+class GameMaster;
+class HudNumber;
+class ObjectBase;
 class Player;
 class PinManager;
 class Root;
@@ -45,7 +48,12 @@ public:
   // change game-state
   void ChangeGameState(GameState* p_game_state);
 
+  // Reset
   void Reset(void);
+
+  // Push
+  void Attach2D(ObjectBase* p_object);
+  void Detatch2D(ObjectBase* p_object);
 
   // HACK:
   Player& GetPlayer(void) const { return *p_player_; }
@@ -61,8 +69,11 @@ private:
   GameState* p_game_state_;
   GameState* p_next_game_state_;
   CollisionManager* p_collision_manager_;
+  GameMaster* p_game_master_;
 
-  Root* p_root_;
+  Root* p_2d_root_;
+  Root* p_3d_root_;
   Player* p_player_;
   PinManager* p_pin_manager_;
+  HudNumber* p_hud_number_;
 };

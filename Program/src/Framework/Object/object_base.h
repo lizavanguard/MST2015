@@ -64,8 +64,14 @@ public:
   void SetRotation(const D3DXVECTOR3& rotation) { rotation_ = rotation; }
   void SetScale(const D3DXVECTOR3& scale) { scale_ = scale; }
   void SetCameraHandle(CameraHandle camera_handle) { camera_handle_ = camera_handle; }
+  void OnAllDrawed(void) { is_all_drawed_ = true; }
+  void OffAllDrawed(void) { is_all_drawed_ = false; }
+
 
 protected:
+  // 直下の子供を返すよ
+  ObjectBase& GetChild(unsigned int index);
+
   // 通常、子の呼び出しは自動で行われます
   // この関数は、子の呼び出しを手動で行う必要がある時のみ使用してください
   // 例えば、子呼び出しの前後に処理を挟みたい時などに効果的です

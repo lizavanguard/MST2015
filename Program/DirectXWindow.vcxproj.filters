@@ -112,6 +112,15 @@
     <Filter Include="src\Application\Game\GameMaster">
       <UniqueIdentifier>{a7360de8-a6e2-4ca7-bb75-181f4448fee5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Framework\Object\Hud">
+      <UniqueIdentifier>{e5e05f9b-4a68-4769-b0a0-8608db55d488}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Framework\Object\Hud\HudOverlay">
+      <UniqueIdentifier>{6b1268a7-5e44-4cb7-a150-ca9609ab81d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Framework\Object\Hud\HudNumber">
+      <UniqueIdentifier>{49817d8b-f50b-4497-b9a1-18ea1b2e8991}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Framework\DebugProc\DebugProc.cpp">
@@ -278,6 +287,12 @@
     </ClCompile>
     <ClCompile Include="src\Application\Game\GameStateThrown.cpp">
       <Filter>src\Application\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\Object\Hud\HudOverlay\HudOverlay.cpp">
+      <Filter>src\Framework\Object\Hud\HudOverlay</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\Object\Hud\HudNumber\HudNumber.cpp">
+      <Filter>src\Framework\Object\Hud\HudNumber</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -557,6 +572,33 @@
     <ClInclude Include="src\Application\Game\GameStateThrown.h">
       <Filter>src\Application\Game</Filter>
     </ClInclude>
+    <ClInclude Include="src\Framework\Object\Hud\HudOverlay\HudOverlay.h">
+      <Filter>src\Framework\Object\Hud\HudOverlay</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Utility\Vertex2Standard.h">
+      <Filter>src\Framework\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Object\Hud\HudNumber\HudNumber.h">
+      <Filter>src\Framework\Object\Hud\HudNumber</Filter>
+    </ClInclude>
+    <ClInclude Include="src\liza\utility\Timer\BoundedTimer.h">
+      <Filter>src\liza\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\liza\utility\Timer\SimpleTimer.h">
+      <Filter>src\liza\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\liza\utility\Timer\StandardTimer.h">
+      <Filter>src\liza\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\liza\utility\Timer\Timer.h">
+      <Filter>src\liza\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\liza\utility\Counter\Counter.h">
+      <Filter>src\liza\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\liza\utility\Utility\Utility.h">
+      <Filter>src\liza\utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\liza\math\Vector2.inl">
@@ -588,6 +630,12 @@
     </None>
     <None Include="src\liza\game\DirectXUtility\DirectXUtility.inl">
       <Filter>src\liza\game</Filter>
+    </None>
+    <None Include="src\liza\utility\Timer\SimpleTimer.inl">
+      <Filter>src\liza\utility</Filter>
+    </None>
+    <None Include="src\liza\utility\Utility\Utility.inl">
+      <Filter>src\liza\utility</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

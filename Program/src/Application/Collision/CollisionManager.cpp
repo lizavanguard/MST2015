@@ -26,7 +26,8 @@
 //------------------------------------------------
 CollisionManager::CollisionManager(Player& player, PinManager& pin_manager)
     : player_(player)
-    , pin_manager_(pin_manager) {
+    , pin_manager_(pin_manager)
+    , num_killed_pins_at_current_loop_(0) {
 }
 
 //------------------------------------------------
@@ -39,6 +40,8 @@ CollisionManager::~CollisionManager() {
 // Update
 //------------------------------------------------
 void CollisionManager::Update(void) {
+  num_killed_pins_at_current_loop_ = 0;
+
   // player x standard_pins
   {
     const D3DXVECTOR3 player_position = player_.GetPosition();
@@ -52,6 +55,7 @@ void CollisionManager::Update(void) {
         continue;
       }
       p_standard_pin->ReactCollision(pin_position - player_position);
+      ++num_killed_pins_at_current_loop_;
     }
   }  // player x standard_pins
 
@@ -71,26 +75,27 @@ void CollisionManager::Update(void) {
         continue;
       }
       p_lane_pin->ReactCollision(pin_position - player_position);
+      ++num_killed_pins_at_current_loop_;
     }
   }
 
-  // standard_pin x standard_pins
-  {
-    auto& standard_pins = pin_manager_.GetStandardPins();
-    for (unsigned int i = 0; i < standard_pins.size(); ++i) {
-      const D3DXVECTOR3 pin_position_a = standard_pins[i]->GetPosition();
-      const float pin_size_a = standard_pins[i]->GetSize();
+  //// standard_pin x standard_pins
+  //{
+  //  auto& standard_pins = pin_manager_.GetStandardPins();
+  //  for (unsigned int i = 0; i < standard_pins.size(); ++i) {
+  //    const D3DXVECTOR3 pin_position_a = standard_pins[i]->GetPosition();
+  //    const float pin_size_a = standard_pins[i]->GetSize();
 
-      for (unsigned int j = i + 1; j < standard_pins.size(); ++j) {
-        const D3DXVECTOR3 pin_position_b = standard_pins[j]->GetPosition();
-        const float pin_size_b = standard_pins[j]->GetSize();
+  //    for (unsigned int j = i + 1; j < standard_pins.size(); ++j) {
+  //      const D3DXVECTOR3 pin_position_b = standard_pins[j]->GetPosition();
+  //      const float pin_size_b = standard_pins[j]->GetSize();
 
-        const bool is_intersected = IsSphereHit2(pin_position_a.x, pin_position_a.z, pin_size_a, pin_position_b.x, pin_position_b.z, pin_size_b);
-        if (!is_intersected) {
-          continue;
-        }
-        standard_pins[j]->ReactCollision(pin_position_b - pin_position_a);
-      }
-    }
-  }
+  //      const bool is_intersected = IsSphereHit2(pin_position_a.x, pin_position_a.z, pin_size_a, pin_position_b.x, pin_position_b.z, pin_size_b);
+  //      if (!is_intersected) {
+  //        continue;
+  //      }
+  //      standard_pins[j]->ReactCollision(pin_position_b - pin_position_a);
+  //    }
+  //  }
+  //}
 }
