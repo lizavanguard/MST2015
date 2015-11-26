@@ -56,6 +56,7 @@ public:
   void Detatch2D(ObjectBase* p_object);
 
   // HACK:
+  GameMaster& GetGameMaster(void) const { return *p_game_master_; }
   Player& GetPlayer(void) const { return *p_player_; }
   PinManager& GetPinManager(void) const { return *p_pin_manager_; }
 

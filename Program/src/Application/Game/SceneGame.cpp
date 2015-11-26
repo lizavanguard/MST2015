@@ -46,7 +46,7 @@ SceneGame::SceneGame()
   p_3d_root_ = RootFactory::Create();
 
   // game state
-  p_game_state_ = new GameStateReady(*this);
+  p_game_state_ = new GameStateReady(*this, 0);
 
   // camera
   static const D3DXVECTOR3 kInitialEyePosition = {0.0f, 75.0f, -40.0f};
@@ -115,7 +115,15 @@ void SceneGame::Detatch2D(ObjectBase* p_object) { p_2d_root_->DetachChild(p_obje
 // Update
 //------------------------------------------------
 void SceneGame::_Update(SceneManager* p_scene_manager, const float elapsed_time) {
+  if (p_game_master_->IsEndGame()) {
+    return;
+  }
+
   p_game_state_->Update(elapsed_time);
+  if (p_game_master_->IsEndGame()) {
+    p_scene_manager->PushNextSceneFactory(new SceneTitleFactory());
+    return;
+  }
 
   if (p_next_game_state_) {
     SafeDelete(p_game_state_);
@@ -134,6 +142,7 @@ void SceneGame::_Update(SceneManager* p_scene_manager, const float elapsed_time)
   const auto& keyboard = GameManager::Instance().GetInputManager().GetPrimaryKeyboard();
   if (keyboard.IsTrigger(DIK_RETURN)) {
     p_scene_manager->PushNextSceneFactory(new SceneTitleFactory());
+    return;
   }
 #endif
 }

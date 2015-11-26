@@ -9,6 +9,7 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 #include "GameStateThrown.h"
 #include "GameStateReady.h"
+#include "GameMaster/GameMaster.h"
 
 #include "Framework/Object/object2d.h"
 #include "Framework/Object/root.h"
@@ -46,7 +47,13 @@ GameStateThrown::~GameStateThrown() {
 //------------------------------------------------
 void GameStateThrown::Update(const float elapsed_time) {
   if (ready_time_ <= 0.0f) {
-    scene_game_.ChangeGameState(new GameStateReady(scene_game_));
+    auto& game_master = scene_game_.GetGameMaster();
+    if (game_master.IsLastThrow()) {
+      game_master.EndGame();
+      return;
+    }
+    game_master.GoToNextThrowing();
+    scene_game_.ChangeGameState(new GameStateReady(scene_game_, game_master.GetThrowCount()));
     scene_game_.Reset();
   }
 

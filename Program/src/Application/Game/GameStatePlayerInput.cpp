@@ -41,7 +41,7 @@ GameStatePlayerInput::GameStatePlayerInput(SceneGame& scene_game)
 //------------------------------------------------
 GameStatePlayerInput::~GameStatePlayerInput() {
   SafeDelete(p_controller_);
-  SafeDelete(p_root_);
+  Root::Destroy(p_root_);
 }
 
 //------------------------------------------------

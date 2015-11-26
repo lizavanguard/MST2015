@@ -3,6 +3,8 @@
 // DirectX用のウィンドウ管理クラス [DirectXWindow.h]
 // Created : Shimizu Shoji
 //
+// すろーかうんと
+// 
 // Fade
 // Texture no Unload ??
 //

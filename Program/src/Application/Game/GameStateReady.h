@@ -21,7 +21,7 @@ class Root;
 class GameStateReady : public SceneGame::GameState {
 public:
   // ctor
-  GameStateReady(SceneGame& scene_game);
+  GameStateReady(SceneGame& scene_game, unsigned int throw_count);
 
   // dtor
   virtual ~GameStateReady();
