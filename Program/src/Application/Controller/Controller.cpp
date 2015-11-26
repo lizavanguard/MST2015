@@ -26,6 +26,7 @@ Controller::Controller(Player& player_, PinManager& pin_manager)
     , player_(player_)
     , pin_manager_(pin_manager)
     , is_active_(true)
+    , is_set_up_(false)
 #ifdef _DEBUG
     , debug_rotation_(0.0f)
     , thrown_rotation_(0.0f)
@@ -54,10 +55,11 @@ bool Controller::Update(void) {
     player_.MoveRight();
   }
 
-  if (_IsSetUp()) {
+  if (_IsSetUp() && !is_set_up_) {
     old_rotation_ = _GetControllerRotation();
+    is_set_up_ = true;
   }
-  else if (_IsShot()) {
+  else if (is_set_up_ && _IsShot() ) {
     const float rotation = _CalcRotation();
     player_.Shoot(rotation);
 
@@ -65,6 +67,7 @@ bool Controller::Update(void) {
     thrown_rotation_ = rotation;
 #endif
 
+    is_set_up_ = false;
     return true;
   }
 

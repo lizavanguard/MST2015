@@ -50,6 +50,7 @@ private:
 
   float old_rotation_;
   bool is_active_;
+  bool is_set_up_;
 
 #ifdef _DEBUG
   float debug_rotation_;
