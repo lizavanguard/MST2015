@@ -60,7 +60,7 @@ SceneGame::SceneGame()
   p_pin_manager_ = PinManagerFactory::Create();
   p_3d_root_->AttachChild(p_pin_manager_);
   p_3d_root_->AttachChild(SkyBoxFactory::Create());
-  p_3d_root_->AttachChild(ObjectModelFactory::Create("field"));
+  p_3d_root_->AttachChild(ObjectModelFactory::Create("fieldx10"));
 
   p_hud_number_ = new HudNumber(3, Vector2(100, 100), Vector2(50, 50));
   p_2d_root_->AttachChild(p_hud_number_);

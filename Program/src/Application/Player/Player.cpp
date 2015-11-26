@@ -21,7 +21,9 @@ namespace {
   const float kAdjustedValueRotationToPower = 15.0f;
   const float kCurveReaction = 0.025f;
   //const float kCurveReaction = 0.1f;
-  const float kShotSpeed = 100.0f;
+  const float kShotSpeed = 200.0f;
+
+  const Vector3 kStartPosition(0.0f, 1.0f, -100.0f);
 }
 
 //==============================================================================
@@ -82,7 +84,7 @@ void Player::Shoot(const float rotation) {
 void Player::Reset(void) {
   is_shot_ = false;
   speed_ = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-  position_ = D3DXVECTOR3(0.0f, 0.0f, -30.0f);
+  position_ = kStartPosition;
   rotation_ = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
   velocity_ = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 }
