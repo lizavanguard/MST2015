@@ -150,7 +150,6 @@ void GameDirectX::Initialize( HINSTANCE hInstance, HWND hWnd ) {
 	pDevice_->SetTextureStageState( 0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE );
 	// 2”Ô–Ú‚ÌƒAƒ‹ƒtƒ@ˆø”
 	pDevice_->SetTextureStageState( 0, D3DTSS_ALPHAARG2, D3DTA_CURRENT );
-
 	GameManager::Instance( hInstance, hWnd, pDevice_ );
 
 	return;

@@ -19,6 +19,8 @@
     <ClCompile Include="src\Application\Game\GameStateThrown.cpp" />
     <ClCompile Include="src\Application\Game\SceneGame.cpp" />
     <ClCompile Include="src\Application\Game\SceneGameFactory.cpp" />
+    <ClCompile Include="src\Application\Pin\GoalPin.cpp" />
+    <ClCompile Include="src\Application\Pin\GoalPins.cpp" />
     <ClCompile Include="src\Application\Pin\LanePin.cpp" />
     <ClCompile Include="src\Application\Pin\LanePins.cpp" />
     <ClCompile Include="src\Application\Pin\Pin.cpp" />
@@ -81,6 +83,8 @@
     <ClInclude Include="src\Application\Game\GameStateThrown.h" />
     <ClInclude Include="src\Application\Game\SceneGame.h" />
     <ClInclude Include="src\Application\Game\SceneGameFactory.h" />
+    <ClInclude Include="src\Application\Pin\GoalPin.h" />
+    <ClInclude Include="src\Application\Pin\GoalPins.h" />
     <ClInclude Include="src\Application\Pin\LanePin.h" />
     <ClInclude Include="src\Application\Pin\LanePins.h" />
     <ClInclude Include="src\Application\Pin\Pin.h" />

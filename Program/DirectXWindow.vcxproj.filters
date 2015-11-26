@@ -294,6 +294,12 @@
     <ClCompile Include="src\Framework\Object\Hud\HudNumber\HudNumber.cpp">
       <Filter>src\Framework\Object\Hud\HudNumber</Filter>
     </ClCompile>
+    <ClCompile Include="src\Application\Pin\GoalPin.cpp">
+      <Filter>src\Application\Pin</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Application\Pin\GoalPins.cpp">
+      <Filter>src\Application\Pin</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Framework\DebugProc\DebugProc.h">
@@ -598,6 +604,12 @@
     </ClInclude>
     <ClInclude Include="src\liza\utility\Utility\Utility.h">
       <Filter>src\liza\utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Application\Pin\GoalPin.h">
+      <Filter>src\Application\Pin</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Application\Pin\GoalPins.h">
+      <Filter>src\Application\Pin</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

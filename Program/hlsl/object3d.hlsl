@@ -16,8 +16,8 @@ sampler sampler_decale= sampler_state {
   MagFilter = LINEAR;
   MipFilter = NONE;
 
-  AddressU = Clamp;
-  AddressV = Clamp;
+  AddressU = Wrap;
+  AddressV = Wrap;
 };
 
 //==============================================================================

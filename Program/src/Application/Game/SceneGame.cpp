@@ -11,6 +11,7 @@
 
 #include "Framework/Camera/camera.h"
 #include "Framework/Camera/camera_manager.h"
+#include "Framework/Camera/camera_steering_fixed.h"
 #include "Framework/Camera/camera_steering_homing.h"
 #include "Framework/GameManager/GameManager.h"
 #include "Framework/Input/InputKeyboard.h"
@@ -49,7 +50,7 @@ SceneGame::SceneGame()
   p_game_state_ = new GameStateReady(*this, 0);
 
   // camera
-  static const D3DXVECTOR3 kInitialEyePosition = {0.0f, 75.0f, -40.0f};
+  static const D3DXVECTOR3 kInitialEyePosition = {0.0f, 75.0f, -101.0f};
   //static const D3DXVECTOR3 kInitialEyePosition = {0.0f, 10.0f, -40.0f};
   auto camera = CameraFactory::Create(kInitialEyePosition, D3DXVECTOR3(0, 0, 0));
   CameraManager::Instance().Register("MAIN_CAMERA", camera);
@@ -72,7 +73,7 @@ SceneGame::SceneGame()
   p_game_master_ = new GameMaster(*p_hud_number_, *p_pin_manager_, *p_collision_manager_);
 
   // camera setting
-  //camera->AssignCameraSteering(new CameraSteeringFixed(*player));
+  //camera->AssignCameraSteering(new CameraSteeringFixed(*p_player_));
   camera->AssignCameraSteering(new CameraSteeringHoming(*p_player_));
 }
 

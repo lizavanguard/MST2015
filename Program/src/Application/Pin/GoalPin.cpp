@@ -1,17 +1,13 @@
 //==============================================================================
 //
-// PinManager
+// GoalPin
 // Author: Shimizu Shoji
 //
 //==============================================================================
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-#include "PinManager.h"
-
-#include "GoalPins.h"
-#include "StandardPins.h"
-#include "LanePins.h"
+#include "GoalPin.h"
 
 //==============================================================================
 // class implementation
@@ -19,28 +15,29 @@
 //------------------------------------------------
 // ctor
 //------------------------------------------------
-PinManager::PinManager()
-    : p_goal_pins_(nullptr)
-    , p_standard_pins_(nullptr)
-    , p_lane_pins_(nullptr) {
-  const float kZ = 120.0f;
-  const float kGoalPinR = 50.0f;
-  AttachChild(p_goal_pins_ = GoalPinsFactory::Create(D3DXVECTOR3(-50, 10, 0), kGoalPinR));
-  AttachChild(p_standard_pins_ = StandardPinsFactory::Create(D3DXVECTOR3(0, 0, kZ), D3DXVECTOR3(0, 0, 0)));
-  AttachChild(p_lane_pins_ =  LanePinsFactory::Create());
+GoalPin::GoalPin(const D3DXVECTOR3& position) : Pin(position) {
 }
 
 //------------------------------------------------
 // dtor
 //------------------------------------------------
-PinManager::~PinManager() {
+GoalPin::~GoalPin() {
 }
 
 //------------------------------------------------
-// Reset
+// React collision
+// power = collision position
 //------------------------------------------------
-void PinManager::Reset(void) {
-  p_goal_pins_->Reset();
-  p_standard_pins_->Reset();
-  p_lane_pins_->Reset();
-}
+void GoalPin::ReactCollision(const D3DXVECTOR3& power) {
+  D3DXVECTOR3 to_me = position_ - power;
+  to_me.y = 0.0f;
+  const float distance = D3DXVec3Length(&to_me);
+  D3DXVECTOR3 direction;
+  D3DXVec3Normalize(&direction, &to_me);
+
+  float impact = 1000.0f / distance;
+  speed_ = direction * impact;
+
+  is_all_drawed_ = true;
+  is_collided_ = true;
+};
