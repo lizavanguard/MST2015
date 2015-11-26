@@ -13,7 +13,7 @@
 // const
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 namespace {
-  const char* kModelname = "ball";
+  const char* kModelname = "ball01";
   const float kSize = 3.0f;
 
   const float kMovingSpeed = 0.3f;
@@ -40,7 +40,9 @@ Player::Player()
     , adjusted_value_(kAdjustedValueRotationToPower)
     , curve_reaction_(kCurveReaction)
     , shot_speed_(kShotSpeed)
-    , moving_speed_(kMovingSpeed) {
+    , moving_speed_(kMovingSpeed)
+    , rotation_power_(0.0f)
+    , rotation_axis_(1.0f, 0.0f, 0.0f) {
   Reset();
 }
 
@@ -54,11 +56,11 @@ Player::~Player() {
 // Move
 //------------------------------------------------
 void Player::MoveLeft(void) {
-  position_.x -= moving_speed_;
+  speed_.x -= moving_speed_;
 }
 
 void Player::MoveRight(void) {
-  position_.x += moving_speed_;
+  speed_.x += moving_speed_;
 }
 
 //------------------------------------------------
@@ -75,6 +77,13 @@ void Player::Shoot(const float rotation) {
   speed_.x = true_power;
   velocity_.x -= true_power * curve_reaction_;
 
+  // âÒì]ó ÇÃí≤êÆ
+  const float kMaxRotationPower = 4.0f;
+  const float kMaxRotation = D3DX_PI * 0.25f;
+  const float fixed_rotation = -(kMaxRotation * (rotation / kMaxRotationPower));
+  rotation_axis_.x = cosf(fixed_rotation);
+  rotation_axis_.y = sinf(fixed_rotation);
+
   is_shot_ = true;
 }
 
@@ -87,6 +96,8 @@ void Player::Reset(void) {
   position_ = kStartPosition;
   rotation_ = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
   velocity_ = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+  rotation_power_ = 0;
+  rotation_axis_ = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
 }
 
 //------------------------------------------------
@@ -133,4 +144,11 @@ void Player::_Update(const float elapsed_time) {
   speed_ += velocity_;
   speed_ *= 0.998f;
   position_ += speed_ * elapsed_time;
+
+  rotation_power_ += speed_.z * 0.005f;
+
+  // É{Å[ÉãÇÃâÒì]
+  D3DXQUATERNION q;
+  D3DXQuaternionRotationAxis(&q, &rotation_axis_, rotation_power_);
+  D3DXMatrixRotationQuaternion(&rotation_matrix_, &q);
 }

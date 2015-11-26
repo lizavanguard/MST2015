@@ -27,6 +27,7 @@ ObjectBase::ObjectBase()
   , is_child_auto_updated_(true)
   , is_child_auto_drawed_(true)
   , is_calculated_parent_matrix_(true) {
+  D3DXMatrixIdentity(&rotation_matrix_);
 }
 
 //------------------------------------------------
@@ -128,8 +129,14 @@ void ObjectBase::_DrawChildAll(void) {
 void ObjectBase::_CalculateWorldMatrix(void) {
   D3DXMATRIX translation_matrix;
   D3DXMatrixTranslation(&translation_matrix, position_.x, position_.y, position_.z);
+
   D3DXMATRIX rotation_matrix;
-  D3DXMatrixRotationYawPitchRoll(&rotation_matrix, rotation_.y, rotation_.x, rotation_.z);
+  if (D3DXMatrixIsIdentity(&rotation_matrix_)) {
+    D3DXMatrixRotationYawPitchRoll(&rotation_matrix, rotation_.y, rotation_.x, rotation_.z);
+  }
+  else {
+    rotation_matrix = rotation_matrix_;
+  }
   D3DXMATRIX scale_matrix;
   D3DXMatrixScaling(&scale_matrix, scale_.x, scale_.y, scale_.z);
   own_world_matrix_ = scale_matrix * rotation_matrix * translation_matrix;

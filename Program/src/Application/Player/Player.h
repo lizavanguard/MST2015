@@ -51,6 +51,9 @@ private:
   float curve_reaction_;
   float moving_speed_;
   float shot_speed_;
+
+  float rotation_power_;
+  D3DXVECTOR3 rotation_axis_;
 };
 
 using PlayerFactory = liza::generic::Factory<Player>;

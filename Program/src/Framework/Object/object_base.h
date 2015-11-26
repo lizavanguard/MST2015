@@ -63,6 +63,7 @@ public:
   void SetPosition(const D3DXVECTOR3& position) { position_ = position; }
   void SetRotation(const D3DXVECTOR3& rotation) { rotation_ = rotation; }
   void SetScale(const D3DXVECTOR3& scale) { scale_ = scale; }
+  void SetRotationMatrix(const D3DXMATRIX& rotation_matrix) { rotation_matrix_ = rotation_matrix; }
   void SetCameraHandle(CameraHandle camera_handle) { camera_handle_ = camera_handle; }
   void OnAllDrawed(void) { is_all_drawed_ = true; }
   void OffAllDrawed(void) { is_all_drawed_ = false; }
@@ -86,6 +87,8 @@ protected:
 
   D3DXMATRIX world_matrix_;  // ツリー構造の今まで全てのワールド行列が反映されたもの
   D3DXMATRIX own_world_matrix_;  // 自分自身のワールド行列
+
+  D3DXMATRIX rotation_matrix_;
 
   ObjectBase* p_parent_;
   CameraHandle camera_handle_;
