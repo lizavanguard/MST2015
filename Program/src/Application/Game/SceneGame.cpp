@@ -59,12 +59,18 @@ SceneGame::SceneGame()
   CameraManager::Instance().Register("MAIN_CAMERA", camera);
 
   // object
+  auto p_skybox = SkyBoxFactory::Create();
+  p_skybox->OnAllDrawed();
+  p_3d_root_->AttachChild(p_skybox);
+
   p_player_ = PlayerFactory::Create();
+  p_player_->OnAllDrawed();
   p_3d_root_->AttachChild(p_player_);
   p_pin_manager_ = PinManagerFactory::Create();
   p_3d_root_->AttachChild(p_pin_manager_);
-  p_3d_root_->AttachChild(SkyBoxFactory::Create());
-  p_3d_root_->AttachChild(ObjectModelFactory::Create("fieldx10"));
+  auto p_field = ObjectModelFactory::Create("fieldx10");
+  p_field->OnAllDrawed();
+  p_3d_root_->AttachChild(p_field);
 
   p_hud_number_ = new HudNumber(3, Vector2(100, 100), Vector2(50, 50));
   p_2d_root_->AttachChild(p_hud_number_);
@@ -77,8 +83,8 @@ SceneGame::SceneGame()
 
   // camera setting
   //camera->AssignCameraSteering(new CameraSteeringFixed(*p_player_));
-  camera->AssignCameraSteering(new CameraSteeringHoming(*p_player_));
-  //camera->AssignCameraSteering(new CameraSteeringControl());
+  //camera->AssignCameraSteering(new CameraSteeringHoming(*p_player_));
+  camera->AssignCameraSteering(new CameraSteeringControl());
 }
 
 //------------------------------------------------
@@ -155,7 +161,7 @@ void SceneGame::_Update(SceneManager* p_scene_manager, const float elapsed_time)
   }
 
   if (keyboard.IsTrigger(DIK_9)) {
-    EffectManagerServiceLocator::Get()->Play("test2", 0, 0, 0);
+    EffectManagerServiceLocator::Get()->Play("test1", 0, 0, 0);
   }
 
   if (keyboard.IsTrigger(DIK_YEN)) {
@@ -170,7 +176,7 @@ void SceneGame::_Update(SceneManager* p_scene_manager, const float elapsed_time)
 // Draw
 //------------------------------------------------
 void SceneGame::_Draw(void) {
-  p_game_state_->Draw();
-  p_3d_root_->DrawAll();
-  p_2d_root_->DrawAll();
+  //p_game_state_->Draw();
+  //p_3d_root_->DrawAll();
+  //p_2d_root_->DrawAll();
 }

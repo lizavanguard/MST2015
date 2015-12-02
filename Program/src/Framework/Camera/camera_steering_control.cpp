@@ -31,23 +31,29 @@ private:
     auto& keyboard = GameManager::Instance().GetInputManager().GetPrimaryKeyboard();
     D3DXVECTOR3 speed(0.0f, 0.0f, 0.0f);
     if (keyboard.IsPress(DIK_W)) {
-      speed.z += kMovingSpeed;
+      speed.x += sinf(rotation_.y);
+      speed.z += cosf(rotation_.y);
     }
     if (keyboard.IsPress(DIK_S)) {
-      speed.z -= kMovingSpeed;
+      speed.x += sinf(rotation_.y + D3DX_PI);
+      speed.z += cosf(rotation_.y + D3DX_PI);
     }
     if (keyboard.IsPress(DIK_D)) {
-      speed.x += kMovingSpeed;
+      speed.x += sinf(rotation_.y + D3DX_PI * 0.5f);
+      speed.z += cosf(rotation_.y + D3DX_PI * 0.5f);
     }
     if (keyboard.IsPress(DIK_A)) {
-      speed.x -= kMovingSpeed;
+      speed.x += sinf(rotation_.y - D3DX_PI * 0.5f);
+      speed.z += cosf(rotation_.y - D3DX_PI * 0.5f);
     }
     if (keyboard.IsPress(DIK_I)) {
-      speed.y += kMovingSpeed;
+      speed.y += 1.0f;
     }
     if (keyboard.IsPress(DIK_K)) {
-      speed.y -= kMovingSpeed;
+      speed.y -= 1.0f;
     }
+    speed *= kMovingSpeed;
+
     position_ += speed;
 
     float rotation = 0.0f;
