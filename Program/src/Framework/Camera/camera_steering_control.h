@@ -24,7 +24,7 @@ class ObjectBase;
 class CameraSteeringControl : public Camera::CameraSteering {
 public:
   // ctor
-  CameraSteeringControl(Camera& camera);
+  CameraSteeringControl();
 
   // dtor
   virtual ~CameraSteeringControl();

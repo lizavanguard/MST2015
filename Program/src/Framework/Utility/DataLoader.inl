@@ -10,6 +10,9 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 #include "DataLoader.hpp"
 
+#include <shlwapi.h>
+#pragma comment(lib, "shlwapi.lib")
+
 //==============================================================================
 // function impl
 //==============================================================================
@@ -43,6 +46,12 @@ DataLoader<T, DestroyPolicy>::DataLoader(const char* p_start_directory_path, Loa
     file_path += find_data.cFileName;
     // Thumbs.db‚ð”ò‚Î‚·
     if (std::string(find_data.cFileName) == "Thumbs.db") {
+      continue;
+    }
+
+    // check a file
+    const bool is_directory = PathIsDirectory(file_path.c_str()) != 0;
+    if (is_directory) {
       continue;
     }
 

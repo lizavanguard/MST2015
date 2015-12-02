@@ -13,11 +13,13 @@
 #include <Windows.h>
 #include "d3dx9.h"
 
+//#include "Framework/Effect/EffectManager.h"
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // class declaration
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 class DebugProc;
+class EffectManager;
 class InputManager;
 class SceneManager;
 
@@ -50,6 +52,7 @@ public:
 private:
 	// property
 	DebugProc* pDebugProc_;
+  EffectManager* pEffectManager_;
 	InputManager* pInputManager_;
   SceneManager* pSceneManager_;
 };

@@ -13,6 +13,7 @@
 #include "Framework/Camera/camera_manager.h"
 #include "Framework/Camera/camera_steering_fixed.h"
 #include "Framework/Camera/camera_steering_homing.h"
+#include "Framework/Camera/camera_steering_control.h"
 #include "Framework/GameManager/GameManager.h"
 #include "Framework/Input/InputKeyboard.h"
 #include "Framework/Object/root.h"
@@ -26,6 +27,8 @@
 #include "Application/Player/Player.h"
 #include "Application/Pin/PinManager.h"
 #include "Application/Title/SceneTitleFactory.h"
+
+#include "Framework/Effect/EffectManager.h"
 
 //==============================================================================
 // class implementation
@@ -75,6 +78,7 @@ SceneGame::SceneGame()
   // camera setting
   //camera->AssignCameraSteering(new CameraSteeringFixed(*p_player_));
   camera->AssignCameraSteering(new CameraSteeringHoming(*p_player_));
+  //camera->AssignCameraSteering(new CameraSteeringControl());
 }
 
 //------------------------------------------------
@@ -144,6 +148,20 @@ void SceneGame::_Update(SceneManager* p_scene_manager, const float elapsed_time)
   if (keyboard.IsTrigger(DIK_RETURN)) {
     p_scene_manager->PushNextSceneFactory(new SceneTitleFactory());
     return;
+  }
+
+  if (keyboard.IsTrigger(DIK_0)) {
+    EffectManagerServiceLocator::Get()->Play("b_square", 0, 0, 0);
+  }
+
+  if (keyboard.IsTrigger(DIK_9)) {
+    EffectManagerServiceLocator::Get()->Play("test2", 0, 0, 0);
+  }
+
+  if (keyboard.IsTrigger(DIK_YEN)) {
+    static bool is_wireframe = true;
+    DeviceHolder::Instance().GetDevice()->SetRenderState(D3DRS_FILLMODE, is_wireframe ? D3DFILL_WIREFRAME : D3DFILL_SOLID);
+    is_wireframe = !is_wireframe;
   }
 #endif
 }

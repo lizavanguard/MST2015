@@ -66,7 +66,7 @@ private:
 //------------------------------------------------
 // ctor
 //------------------------------------------------
-CameraSteeringControl::CameraSteeringControl(Camera& camera)
+CameraSteeringControl::CameraSteeringControl()
     : p_steering_(nullptr)
     , p_dummy_(nullptr) {
   p_dummy_ = new ControlableObject();

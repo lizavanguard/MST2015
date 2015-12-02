@@ -10,18 +10,8 @@
 #include "Camera.h"
 #include "Framework/Utility/DeviceHolder.h"
 
-#include "window_config.h"
+#include "camera_config.h"
 #include "camera_steering_fixed.h"
-
-//--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-// const
-//--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-namespace {
-  const float kFov = D3DX_PI / 2.0f;
-  const float kAspect = kWindowWidth / (float)kWindowHeight;
-  const float kNear = 1.0f;
-  const float kFar = 1000.0f;
-}
 
 //==============================================================================
 // class implementation

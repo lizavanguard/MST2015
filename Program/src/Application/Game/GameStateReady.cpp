@@ -21,7 +21,8 @@
 namespace {
   const float kReadyTime = 3.0f;
   const char* kThrowCountTexturename[] = {
-    "Game/count_one", "Game/count_two"
+    "General/particle02", "Game/count_two"
+    //"Game/count_one", "Game/count_two"
   };
 }
 

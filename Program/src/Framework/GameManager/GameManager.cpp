@@ -9,8 +9,11 @@
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #include "GameManager.h"
 
+#include "Framework/Camera/camera.h"
+#include "Framework/Camera/camera_config.h"
 #include "Framework/Camera/camera_manager.h"
 #include "Framework/DebugProc/DebugProc.h"
+#include "Framework/Effect/EffectManager.h"
 #include "Framework/Scene/SceneManager.h"
 #include "Framework/Shader/shader_manager.h"
 #include "Framework/Sound/sound_manager.h"
@@ -61,6 +64,9 @@ GameManager::GameManager(HINSTANCE hInstance, HWND hWnd, LPDIRECT3DDEVICE9 pDevi
   SoundManager::Instance();
   WiiControllerManager::Instance();
 
+  pEffectManager_ = new EffectManager(pDevice, kFov, kAspect, 0.01f, 10000.0f);
+  EffectManagerServiceLocator::Provide(pEffectManager_);
+
   pDebugProc_ = new DebugProc();
   pDebugProc_->Init(pDevice);
   pInputManager_ = new InputManager(hInstance, hWnd);
@@ -76,6 +82,7 @@ GameManager::GameManager(HINSTANCE hInstance, HWND hWnd, LPDIRECT3DDEVICE9 pDevi
 // dtor
 //------------------------------------------------
 GameManager::~GameManager() {
+  delete pEffectManager_;
   delete pSceneManager_;
   delete pInputManager_;
   pDebugProc_->Uninit();
@@ -93,6 +100,9 @@ void GameManager::Update(const float elapsedTime) {
 
   pSceneManager_->Update(elapsedTime);
 
+  auto& camera = CameraManager::Instance().Find("MAIN_CAMERA");
+  pEffectManager_->Update(camera._GetEye(), camera._GetAt(), D3DXVECTOR3(0, 1, 0));
+
   //DebugProc::Print("CONTROLLER1:‰Á‘¬“xX[%.3f]\n", WiiControllerManager::Instance().GetWiiController(0)->getAccelerationX());
 }
 
@@ -109,6 +119,7 @@ void GameManager::Draw(void) {
   pDevice->BeginScene();
 
   pSceneManager_->Draw();
+  pEffectManager_->Draw();
   pDebugProc_->Draw();
 
   pDevice->EndScene();

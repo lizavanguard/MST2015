@@ -47,7 +47,7 @@ void PS(in float4 in_color : COLOR0,
         in float  in_light_power : TEXCOORD1,
         out float4 out_color : COLOR0) {
   out_color = tex2D(sampler_decale, in_texcoord) * in_color;
-  out_color.a = 1.0f;
+  //out_color.a = 1.0f;
 }
 
 //==============================================================================

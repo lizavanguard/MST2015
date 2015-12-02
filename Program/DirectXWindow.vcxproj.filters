@@ -121,6 +121,12 @@
     <Filter Include="src\Framework\Object\Hud\HudNumber">
       <UniqueIdentifier>{49817d8b-f50b-4497-b9a1-18ea1b2e8991}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Effekseer">
+      <UniqueIdentifier>{a6d43afa-f649-4a8b-9a8c-b0ef7484925e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Framework\Effect">
+      <UniqueIdentifier>{e1a17bee-cd1d-4739-a415-7bbe81fa5d35}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Framework\DebugProc\DebugProc.cpp">
@@ -299,6 +305,12 @@
     </ClCompile>
     <ClCompile Include="src\Application\Pin\GoalPins.cpp">
       <Filter>src\Application\Pin</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\Effect\EffectManager.cpp">
+      <Filter>src\Framework\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\Effect\EffekSeerUtility.cpp">
+      <Filter>src\Framework\Effect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -610,6 +622,24 @@
     </ClInclude>
     <ClInclude Include="src\Application\Pin\GoalPins.h">
       <Filter>src\Application\Pin</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Effect\EffectManager.h">
+      <Filter>src\Framework\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Effekseer\EffekseerRendererDX9.h">
+      <Filter>src\Effekseer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Effekseer\EffekseerSoundXAudio2.h">
+      <Filter>src\Effekseer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Effekseer\Effekseer.h">
+      <Filter>src\Effekseer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Camera\camera_config.h">
+      <Filter>src\Framework\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Effect\EffekSeerUtility.h">
+      <Filter>src\Framework\Effect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
