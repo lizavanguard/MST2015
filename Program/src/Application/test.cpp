@@ -1,15 +1,17 @@
 //==============================================================================
 //
-// LanePins
+// Test
 // Author: Shimizu Shoji
 //
 //==============================================================================
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-#include "LanePins.h"
+#include "Test.h"
+#include "FBX/fbx_model.h"
+#include "Framework/Utility/DeviceHolder.h"
 
-#include "LanePin.h"
+FbxModel* g_p_fbx = nullptr;
 
 //==============================================================================
 // class implementation
@@ -17,27 +19,24 @@
 //------------------------------------------------
 // ctor
 //------------------------------------------------
-LanePins::LanePins() {
-  static int kNumPins = 20;
-  static float kDistance = 100.0f;
-
-  for (int pin_count = 0; pin_count < kNumPins; ++pin_count) {
-    const D3DXVECTOR3 position = {0.0f, 0.0f, kDistance * pin_count};
-    auto p_pin = LanePinFactory::Create(position);
-    pins_.push_back(p_pin);
-    AttachChild(p_pin);
-  }
+Test::Test() {
+  g_p_fbx = new FbxModel(DeviceHolder::Instance().GetDevice());
+  g_p_fbx->Load("data/Model/fbx/stage_03_ketsugou.fbx");
+  g_p_fbx->AnimationStop();
 }
 
 //------------------------------------------------
 // dtor
 //------------------------------------------------
-LanePins::~LanePins() {
+Test::~Test() {
+  delete g_p_fbx;
 }
 
-//------------------------------------------------
-// Reset
-//------------------------------------------------
-void LanePins::Reset(void) {
-  std::for_each(pins_.begin(), pins_.end(), [](LanePin* pin) { pin->Reset(); });
+
+void Test::Update(void) {
+  g_p_fbx->Update();
+}
+
+void Test::Draw(void) {
+  g_p_fbx->Draw();
 }

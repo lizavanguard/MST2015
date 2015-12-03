@@ -18,7 +18,12 @@ namespace {
   const char* kStartPath = "./data/Effect";
 }
 
-Effekseer::Effect* p_effect = nullptr;
+// エフェクトの読込
+static
+Effekseer::Effect* effect;
+// エフェクトの再生
+static
+Effekseer::Handle handle;
 
 //==============================================================================
 // class implementation
@@ -55,6 +60,11 @@ EffectManager::EffectManager(LPDIRECT3DDEVICE9 p_device,
 
   ChangePerspective(fov, aspect, zn, zf);
 
+  // エフェクトの読込
+  //effect = Effekseer::Effect::Create(p_manager_, (const EFK_CHAR*)(L"data/Effect/b_square.efk"));
+  // エフェクトの再生
+  p_manager_->Play(_Find("b_square"), 0, 0, 0);
+
   //p_effect = Effekseer::Effect::Create(p_manager_, (const EFK_CHAR*)(L"./data/Effect/b_square.efk"));
   //p_manager_->Play(p_effect, 0, 0, 0);
 }
@@ -70,14 +80,30 @@ EffectManager::~EffectManager() {
   SafeDelete(p_finder_);
 }
 
+#include "Framework/Camera/camera.h"
 //------------------------------------------------
 // Update
 //------------------------------------------------
 void EffectManager::Update(const D3DXVECTOR3& eye, const D3DXVECTOR3& at, const D3DXVECTOR3& up) {
   ChangeLookAt(eye, at, up);
 
-  p_renderer_->SetCameraMatrix(view_matrix_);
-  p_renderer_->SetProjectionMatrix(projection_matrix_);
+  //p_renderer_->SetCameraMatrix(view_matrix_);
+  //p_renderer_->SetProjectionMatrix(projection_matrix_);
+  auto& camera = CameraManager::Instance().Find("MAIN_CAMERA");
+  const auto& proj = camera.GetProjectionMatrix();
+  const auto& view = camera.GetViewMatrix();
+  Effekseer::Matrix44 efk_view;
+  Effekseer::Matrix44 efk_proj;
+  for (int i = 0; i < 4; ++i) {
+    for (int j = 0; j < 4; ++j) {
+      efk_view.Values[i][j] = view.m[i][j];
+      efk_proj.Values[i][j] = proj.m[i][j];
+    }
+  }
+  // 投影行列の更新
+  p_renderer_->SetProjectionMatrix(efk_proj);
+  // カメラ行列の更新
+  p_renderer_->SetCameraMatrix(efk_view);
 
   // 3Dサウンド用リスナー設定の更新
   //p_sound_->SetListener(リスナー位置, 注目点, 上方向ベクトル);
@@ -90,11 +116,11 @@ void EffectManager::Update(const D3DXVECTOR3& eye, const D3DXVECTOR3& at, const 
 //------------------------------------------------
 void EffectManager::Draw(void) {
   auto p_device = DeviceHolder::Instance().GetDevice();
-  p_device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+  //p_device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
   p_renderer_->BeginRendering();
   p_manager_->Draw();
   p_renderer_->EndRendering();
-  p_device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+  //p_device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 }
 
 //------------------------------------------------

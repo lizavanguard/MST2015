@@ -50,4 +50,6 @@ void DrawFade( void );
 //------------------------------------------------
 void SetFade( Fades fade );
 
+float GetAlpha(void);
+
 #endif // ifndef __H_FADE_H__

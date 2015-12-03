@@ -13,7 +13,7 @@
 // const
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 namespace {
-  const char* kModelname = "ball01";
+  const char* kModelname = "ball_02.fbx";
   const float kSize = 3.0f;
 
   const float kMovingSpeed = 0.3f;
@@ -33,7 +33,7 @@ namespace {
 // ctor
 //------------------------------------------------
 Player::Player()
-    : ObjectModel(kModelname)
+    : ObjectFBXModel(kModelname)
     , CollisionObject(kSize)
     , is_shot_(false)
     , speed_(0.0f, 0.0f, 0.0f)
@@ -151,4 +151,7 @@ void Player::_Update(const float elapsed_time) {
   D3DXQUATERNION q;
   D3DXQuaternionRotationAxis(&q, &rotation_axis_, rotation_power_);
   D3DXMatrixRotationQuaternion(&rotation_matrix_, &q);
+
+  ObjectFBXModel::SetRotationMatrix(rotation_matrix_);
+  ObjectFBXModel::_Update(elapsed_time);
 }

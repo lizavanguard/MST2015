@@ -16,6 +16,7 @@
 #include "Framework/Camera/camera_steering_control.h"
 #include "Framework/GameManager/GameManager.h"
 #include "Framework/Input/InputKeyboard.h"
+#include "Framework/Object/object_fbx_model.h"
 #include "Framework/Object/root.h"
 #include "Framework/Object/Hud/HudNumber/HudNumber.h"
 #include "Framework/Scene/SceneManager.h"
@@ -30,6 +31,8 @@
 
 #include "Framework/Effect/EffectManager.h"
 
+#include "Application/test.h"
+Test* g_p_test = nullptr;
 //==============================================================================
 // class implementation
 //==============================================================================
@@ -63,14 +66,16 @@ SceneGame::SceneGame()
   p_skybox->OnAllDrawed();
   p_3d_root_->AttachChild(p_skybox);
 
+  p_pin_manager_ = PinManagerFactory::Create();
+  p_3d_root_->AttachChild(p_pin_manager_);
+  auto p_field = ObjectFbxModelFactory::Create("stage_03_ketsugou.fbx");
+  p_3d_root_->AttachChild(p_field);
+
+  // Player ‚ð 3Dƒ‚ƒfƒ‹‚Ì’†‚Å‚Íˆê”ÔÅŒã‚É•`‰æ‚·‚é‚±‚Æ
   p_player_ = PlayerFactory::Create();
   p_player_->OnAllDrawed();
   p_3d_root_->AttachChild(p_player_);
-  p_pin_manager_ = PinManagerFactory::Create();
-  p_3d_root_->AttachChild(p_pin_manager_);
-  auto p_field = ObjectModelFactory::Create("fieldx10");
-  p_field->OnAllDrawed();
-  p_3d_root_->AttachChild(p_field);
+
 
   p_hud_number_ = new HudNumber(3, Vector2(100, 100), Vector2(50, 50));
   p_2d_root_->AttachChild(p_hud_number_);
@@ -85,12 +90,16 @@ SceneGame::SceneGame()
   //camera->AssignCameraSteering(new CameraSteeringFixed(*p_player_));
   //camera->AssignCameraSteering(new CameraSteeringHoming(*p_player_));
   camera->AssignCameraSteering(new CameraSteeringControl());
+
+  g_p_test = new Test();
 }
 
 //------------------------------------------------
 // dtor
 //------------------------------------------------
 SceneGame::~SceneGame() {
+  delete g_p_test;
+
   CameraManager::Instance().UnRegister();
   SafeDelete(p_game_master_);
   SafeDelete(p_collision_manager_);
@@ -157,7 +166,7 @@ void SceneGame::_Update(SceneManager* p_scene_manager, const float elapsed_time)
   }
 
   if (keyboard.IsTrigger(DIK_0)) {
-    EffectManagerServiceLocator::Get()->Play("b_square", 0, 0, 0);
+    EffectManagerServiceLocator::Get()->Play("test2", 0, 0, 0);
   }
 
   if (keyboard.IsTrigger(DIK_9)) {
@@ -176,7 +185,7 @@ void SceneGame::_Update(SceneManager* p_scene_manager, const float elapsed_time)
 // Draw
 //------------------------------------------------
 void SceneGame::_Draw(void) {
-  //p_game_state_->Draw();
-  //p_3d_root_->DrawAll();
-  //p_2d_root_->DrawAll();
+  p_game_state_->Draw();
+  p_3d_root_->DrawAll();
+  p_2d_root_->DrawAll();
 }

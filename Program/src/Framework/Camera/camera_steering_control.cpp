@@ -25,7 +25,7 @@ public:
 
 private:
   virtual void _Update(float) {
-    static const float kMovingSpeed = 0.5f;
+    static const float kMovingSpeed = 1.0f;
     static const float kRotationSpeed = 0.1f;
 
     auto& keyboard = GameManager::Instance().GetInputManager().GetPrimaryKeyboard();

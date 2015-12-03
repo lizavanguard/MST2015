@@ -10,14 +10,14 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 #include "liza/generic/factory.hpp"
 
-#include "Framework/Object/object_model.h"
+#include "Framework/Object/object_fbx_model.h"
 
 #include "Framework/Collision/collision_object.h"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-class Player : public ObjectModel, public CollisionObject {
+class Player : public ObjectFBXModel, public CollisionObject {
 public:
   // ctor
   Player();

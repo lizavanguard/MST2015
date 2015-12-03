@@ -28,10 +28,13 @@
     <ClCompile Include="src\Application\Pin\StandardPin.cpp" />
     <ClCompile Include="src\Application\Pin\StandardPins.cpp" />
     <ClCompile Include="src\Application\Player\Player.cpp" />
+    <ClCompile Include="src\Application\test.cpp" />
+    <ClCompile Include="src\Application\test2.cpp" />
     <ClCompile Include="src\Application\Title\SceneTitle.cpp" />
     <ClCompile Include="src\Application\Title\SceneTitleFactory.cpp" />
     <ClCompile Include="src\Application\WiiController\CWiiController.cpp" />
     <ClCompile Include="src\Application\WiiController\WiiControllerManager.cpp" />
+    <ClCompile Include="src\FBX\fbx_model.cpp" />
     <ClCompile Include="src\Framework\Camera\camera.cpp" />
     <ClCompile Include="src\Framework\Camera\camera_manager.cpp" />
     <ClCompile Include="src\Framework\Camera\camera_steering_control.cpp" />
@@ -59,6 +62,7 @@
     <ClCompile Include="src\Framework\Object\object2d.cpp" />
     <ClCompile Include="src\Framework\Object\object3d.cpp" />
     <ClCompile Include="src\Framework\Object\object_base.cpp" />
+    <ClCompile Include="src\Framework\Object\object_fbx_model.cpp" />
     <ClCompile Include="src\Framework\Object\object_model.cpp" />
     <ClCompile Include="src\Framework\RenderTarget\RenderTargetManager.cpp" />
     <ClCompile Include="src\Framework\Scene\SceneManager.cpp" />
@@ -94,6 +98,8 @@
     <ClInclude Include="src\Application\Pin\StandardPin.h" />
     <ClInclude Include="src\Application\Pin\StandardPins.h" />
     <ClInclude Include="src\Application\Player\Player.h" />
+    <ClInclude Include="src\Application\test.h" />
+    <ClInclude Include="src\Application\test2.h" />
     <ClInclude Include="src\Application\Title\SceneTitle.h" />
     <ClInclude Include="src\Application\Title\SceneTitleFactory.h" />
     <ClInclude Include="src\Application\WiiController\CWiiController.h" />
@@ -102,6 +108,7 @@
     <ClInclude Include="src\Effekseer\Effekseer.h" />
     <ClInclude Include="src\Effekseer\EffekseerRendererDX9.h" />
     <ClInclude Include="src\Effekseer\EffekseerSoundXAudio2.h" />
+    <ClInclude Include="src\FBX\fbx_model.h" />
     <ClInclude Include="src\Framework\Camera\camera.h" />
     <ClInclude Include="src\Framework\Camera\camera_config.h" />
     <ClInclude Include="src\Framework\Camera\camera_manager.h" />
@@ -134,6 +141,7 @@
     <ClInclude Include="src\Framework\Object\object2d.h" />
     <ClInclude Include="src\Framework\Object\object3d.h" />
     <ClInclude Include="src\Framework\Object\object_base.h" />
+    <ClInclude Include="src\Framework\Object\object_fbx_model.h" />
     <ClInclude Include="src\Framework\Object\object_model.h" />
     <ClInclude Include="src\Framework\Object\root.h" />
     <ClInclude Include="src\Framework\RenderTarget\RenderTargetConfig.h" />
@@ -202,6 +210,18 @@
     <None Include="src\liza\utility\Utility\Utility.inl" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="hlsl\fade.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </FxCompile>
+    <FxCompile Include="hlsl\no_technique\SkinMeshPS.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </FxCompile>
+    <FxCompile Include="hlsl\no_technique\SkinMeshVS.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </FxCompile>
     <FxCompile Include="hlsl\object3d.hlsl">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -242,12 +262,14 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)\src\Effekseer\;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Program Files\Autodesk\FBX\FBX SDK\2016.1.2\include;$(SolutionDir)\src\Effekseer\;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files\Autodesk\FBX\FBX SDK\2016.1.2\lib\vs2013\x86\debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)</OutDir>
     <IncludePath>$(SolutionDir)\src\Effekseer\;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files\Autodesk\FBX\FBX SDK\2016.1.2\lib\vs2013\x86\release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

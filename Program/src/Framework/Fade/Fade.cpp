@@ -309,3 +309,7 @@ static bool UpdateFadeOut( void ) {
 
 	return done_fade_out;
 }
+
+float GetAlpha(void) {
+  return g_fade.alpha;
+}

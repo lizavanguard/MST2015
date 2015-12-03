@@ -53,7 +53,7 @@ void SceneManager::Update(const float elapsedTime) {
 void SceneManager::Draw(void) {
   pCurScene_->_Draw();
 
-  DrawFade();
+  //DrawFade();
 }
 
 

@@ -127,6 +127,9 @@
     <Filter Include="src\Framework\Effect">
       <UniqueIdentifier>{e1a17bee-cd1d-4739-a415-7bbe81fa5d35}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\FBX">
+      <UniqueIdentifier>{a787c412-be1d-4288-ba35-55a060cf483e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Framework\DebugProc\DebugProc.cpp">
@@ -311,6 +314,18 @@
     </ClCompile>
     <ClCompile Include="src\Framework\Effect\EffekSeerUtility.cpp">
       <Filter>src\Framework\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FBX\fbx_model.cpp">
+      <Filter>src\FBX</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Application\test.cpp">
+      <Filter>src\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Application\test2.cpp">
+      <Filter>src\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\Object\object_fbx_model.cpp">
+      <Filter>src\Framework\Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -641,6 +656,18 @@
     <ClInclude Include="src\Framework\Effect\EffekSeerUtility.h">
       <Filter>src\Framework\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="src\FBX\fbx_model.h">
+      <Filter>src\FBX</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Application\test.h">
+      <Filter>src\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Application\test2.h">
+      <Filter>src\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Object\object_fbx_model.h">
+      <Filter>src\Framework\Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\liza\math\Vector2.inl">
@@ -685,6 +712,15 @@
       <Filter>hlsl</Filter>
     </FxCompile>
     <FxCompile Include="hlsl\objectx.hlsl">
+      <Filter>hlsl</Filter>
+    </FxCompile>
+    <FxCompile Include="hlsl\no_technique\SkinMeshVS.hlsl">
+      <Filter>hlsl</Filter>
+    </FxCompile>
+    <FxCompile Include="hlsl\no_technique\SkinMeshPS.hlsl">
+      <Filter>hlsl</Filter>
+    </FxCompile>
+    <FxCompile Include="hlsl\fade.hlsl">
       <Filter>hlsl</Filter>
     </FxCompile>
   </ItemGroup>

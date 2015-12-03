@@ -12,12 +12,12 @@ uniform float4x4 u_wvp;
 texture texture_decale;
 sampler sampler_decale= sampler_state {
   Texture = <texture_decale>;
-  MinFilter = LINEAR;
-  MagFilter = LINEAR;
-  MipFilter = NONE;
+  //MinFilter = LINEAR;
+  //MagFilter = LINEAR;
+  //MipFilter = NONE;
 
-  AddressU = Wrap;
-  AddressV = Wrap;
+  //AddressU = Wrap;
+  //AddressV = Wrap;
 };
 
 //==============================================================================
