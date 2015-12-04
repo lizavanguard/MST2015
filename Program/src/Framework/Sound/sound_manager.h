@@ -45,6 +45,9 @@ public:
   // Stop sound all
   void StopSound(void);
 
+  // get
+  IXAudio2* GetXAudio2(void) const;
+
 private:
   ContainerType* p_container_;
   XAudioHolder* p_xaudio_;

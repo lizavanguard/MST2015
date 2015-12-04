@@ -160,12 +160,18 @@ void SceneGame::_Update(SceneManager* p_scene_manager, const float elapsed_time)
     return;
   }
 
-  if (keyboard.IsTrigger(DIK_0)) {
-    EffectManagerServiceLocator::Get()->Play("test2", 0, 0, 0);
+  if (keyboard.IsTrigger(DIK_8)) {
+    EffectManagerServiceLocator::Get()->Play3D("SE_test_off_x100", 0, 0, 0);
+  }
+  if (keyboard.IsTrigger(DIK_9)) {
+    auto h = EffectManagerServiceLocator::Get()->Play3D("SE_test_on", 0, 0, 0);
+    EffectManagerServiceLocator::Get()->SetScale(h, 2.0f, 2.0f, 2.0f);
   }
 
-  if (keyboard.IsTrigger(DIK_9)) {
-    EffectManagerServiceLocator::Get()->Play("SE_test_off_x50", 0, 0, 0);
+  if (keyboard.IsTrigger(DIK_0)) {
+    auto h = EffectManagerServiceLocator::Get()->Play2D("ScoreUP", 640, 360);
+    //EffectManagerServiceLocator::Get()->SetScreenPosition(h, 100, 500);
+    EffectManagerServiceLocator::Get()->SetScreenScale(h, 50.0f, 50.0f);
   }
 
   if (keyboard.IsTrigger(DIK_YEN)) {

@@ -77,3 +77,10 @@ void _SoundManager::StopSound(void) {
   //  data.second->Stop();
   //}
 }
+
+//------------------------------------------------
+// get
+//------------------------------------------------
+IXAudio2* _SoundManager::GetXAudio2(void) const {
+  return p_xaudio_->GetXAudio();
+}

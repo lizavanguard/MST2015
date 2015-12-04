@@ -75,10 +75,10 @@ GameManager::GameManager(HINSTANCE hInstance, HWND hWnd, LPDIRECT3DDEVICE9 pDevi
 
   RenderTargetManager::Instance();
 
-  Camera& camera = CameraManager::Instance().GetMainCamera();
   pEffectManager_ = new EffectManager(pDevice,
-                                      camera.GetProjectionMatrix(),
-                                      camera.GetViewMatrix());
+                                      SoundManager::Instance().GetXAudio2(),
+                                      kFov, kAspect, kNear, kFar,
+                                      kWindowWidthF, kWindowHeightF);
   EffectManagerServiceLocator::Provide(pEffectManager_);
 }
 
@@ -106,7 +106,7 @@ void GameManager::Update(const float elapsedTime) {
 
   pSceneManager_->Update(elapsedTime);
   auto& camera = CameraManager::Instance().GetMainCamera();
-  pEffectManager_->SetView(camera.GetViewMatrix());
+  pEffectManager_->ChangeView(camera._GetEye(), camera._GetAt(), D3DXVECTOR3(0.0f, 1.0f, 0.0f));
   pEffectManager_->Update();
 
   //DebugProc::Print("CONTROLLER1:‰Á‘¬“xX[%.3f]\n", WiiControllerManager::Instance().GetWiiController(0)->getAccelerationX());
@@ -135,6 +135,8 @@ void GameManager::Draw(void) {
   pDevice->BeginScene();
 
   // TODO: blend
+
+  // Fade
   pDevice->SetTexture(0, RenderTargetManager::Instance().GetTexture(0));
   auto p_shader = ShaderManager::Instance().FindShader("fade");
 
@@ -146,4 +148,5 @@ void GameManager::Draw(void) {
   pDevice->SetTexture(0, nullptr);
   p_shader->EndPass();
   p_shader->End();
+
 }
