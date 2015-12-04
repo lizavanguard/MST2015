@@ -18,7 +18,7 @@
 static const int kPolygonMax = 1;	// ŽlŠpŒ`‚Ìƒ|ƒŠƒSƒ“‚Ì”
 static const int kVertexMax = kPolygonMax * 4;
 
-static const float kAlphaMax = 255.0f;
+static const float kAlphaMax = 260.0f;
 static const float kFadeSpd = 8.0f;
 
 static const float kFadeWidth = kWindowWidth;
@@ -311,5 +311,9 @@ static bool UpdateFadeOut( void ) {
 }
 
 float GetAlpha(void) {
-  return g_fade.alpha;
+  static const float kTrueAlphaMax = 255.0f;
+  if (g_fade.alpha >= kTrueAlphaMax) {
+    return 1.0f;
+  }
+  return g_fade.alpha / kAlphaMax;
 }

@@ -55,12 +55,6 @@ SceneGame::SceneGame()
   // game state
   p_game_state_ = new GameStateReady(*this, 0);
 
-  // camera
-  static const D3DXVECTOR3 kInitialEyePosition = {0.0f, 75.0f, -101.0f};
-  //static const D3DXVECTOR3 kInitialEyePosition = {0.0f, 10.0f, -40.0f};
-  auto camera = CameraFactory::Create(kInitialEyePosition, D3DXVECTOR3(0, 0, 0));
-  CameraManager::Instance().Register("MAIN_CAMERA", camera);
-
   // object
   auto p_skybox = SkyBoxFactory::Create();
   p_skybox->OnAllDrawed();
@@ -89,7 +83,8 @@ SceneGame::SceneGame()
   // camera setting
   //camera->AssignCameraSteering(new CameraSteeringFixed(*p_player_));
   //camera->AssignCameraSteering(new CameraSteeringHoming(*p_player_));
-  camera->AssignCameraSteering(new CameraSteeringControl());
+  auto& camera = CameraManager::Instance().GetMainCamera();
+  camera.AssignCameraSteering(new CameraSteeringControl());
 
   g_p_test = new Test();
 }
@@ -170,7 +165,7 @@ void SceneGame::_Update(SceneManager* p_scene_manager, const float elapsed_time)
   }
 
   if (keyboard.IsTrigger(DIK_9)) {
-    EffectManagerServiceLocator::Get()->Play("test1", 0, 0, 0);
+    EffectManagerServiceLocator::Get()->Play("SE_test_off_x50", 0, 0, 0);
   }
 
   if (keyboard.IsTrigger(DIK_YEN)) {

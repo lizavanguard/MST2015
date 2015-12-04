@@ -216,7 +216,7 @@ void FbxModel::Draw()
 
   p_vertex_shader_constant->SetMatrixArray(device_, "worldArray", p_world, bone_count_);
 
-  const auto& p_camera = CameraManager::Instance().Find("MAIN_CAMERA");
+  const auto& p_camera = CameraManager::Instance().GetMainCamera();
   D3DXMATRIX viewProj = p_camera.GetViewMatrix() * p_camera.GetProjectionMatrix();
   p_vertex_shader_constant->SetMatrix(device_, "viewProj", &viewProj);
 

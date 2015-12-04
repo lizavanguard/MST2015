@@ -64,28 +64,28 @@ Test2::~Test2() {
 }
 
 void Test2::Update() {
-  auto& camera = CameraManager::Instance().Find("MAIN_CAMERA");
-  const auto& proj = camera.GetProjectionMatrix();
-  const auto& view = camera.GetViewMatrix();
-  Effekseer::Matrix44 efk_view;
-  Effekseer::Matrix44 efk_proj;
-  for(int i = 0; i < 4; ++i) {
-    for( int j = 0; j < 4; ++j ) {
-      efk_view.Values[i][j] = view.m[i][j];
-      efk_proj.Values[i][j] = proj.m[i][j];
-    }
-  }
+  //auto& camera = CameraManager::Instance().Find("MAIN_CAMERA");
+  //const auto& proj = camera.GetProjectionMatrix();
+  //const auto& view = camera.GetViewMatrix();
+  //Effekseer::Matrix44 efk_view;
+  //Effekseer::Matrix44 efk_proj;
+  //for(int i = 0; i < 4; ++i) {
+  //  for( int j = 0; j < 4; ++j ) {
+  //    efk_view.Values[i][j] = view.m[i][j];
+  //    efk_proj.Values[i][j] = proj.m[i][j];
+  //  }
+  //}
 
-  // 投影行列の更新
-  renderer->SetProjectionMatrix(efk_proj);
-  // カメラ行列の更新
-  renderer->SetCameraMatrix(efk_view);
-  // 3Dサウンド用リスナー設定の更新
-  //sound->SetListener(リスナー位置, 注目点, 上方向ベクトル);
-  // 再生中のエフェクトの移動等(::Effekseer::Manager経由で様々なパラメーターが設定できます。)
-  //manager->AddLocation(handle, ::Effekseer::Vector3D);
-  // 全てのエフェクトの更新
-  manager->Update();
+  //// 投影行列の更新
+  //renderer->SetProjectionMatrix(efk_proj);
+  //// カメラ行列の更新
+  //renderer->SetCameraMatrix(efk_view);
+  //// 3Dサウンド用リスナー設定の更新
+  ////sound->SetListener(リスナー位置, 注目点, 上方向ベクトル);
+  //// 再生中のエフェクトの移動等(::Effekseer::Manager経由で様々なパラメーターが設定できます。)
+  ////manager->AddLocation(handle, ::Effekseer::Vector3D);
+  //// 全てのエフェクトの更新
+  //manager->Update();
 }
 
 void Test2::Draw() {

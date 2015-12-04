@@ -54,10 +54,14 @@ public:
   // Get camera handle
   // ƒJƒƒ‰‚Ìƒnƒ“ƒhƒ‹‚ğæ“¾‚·‚é
   CameraHandle GetCameraHandle(const char* camera_name) const;
+  Camera& GetMainCamera(void) { return *p_main_camera_; }
 
 private:
+  void _Register(const char* camera_name, Camera* p_camera);
+
   ContainerType container_;
   HandleContainerType handle_container_;
+  Camera* p_main_camera_;
 };
 
 using CameraManager = liza::generic::SingletonHolder<_CameraManager>;

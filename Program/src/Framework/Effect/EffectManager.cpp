@@ -32,11 +32,15 @@ Effekseer::Handle handle;
 // ctor
 //------------------------------------------------
 EffectManager::EffectManager(LPDIRECT3DDEVICE9 p_device,
-                             const float fov, const float aspect, const float zn, const float zf)
+                             const D3DXMATRIX& perspective,
+                             const D3DXMATRIX& ortho)
     : p_finder_(nullptr)
     , p_manager_(nullptr)
     , p_sound_(nullptr)
     , p_renderer_(nullptr) {
+  view_matrix_.Indentity();
+  projection_matrix_.Indentity();
+
   p_renderer_ = EffekseerRendererDX9::Renderer::Create(p_device, kEffectMax);
   //p_sound_ = EffekseerSound::Sound::Create(IXAudio2*, モノラル再生用ボイス数, ステレオ再生用ボイス数);
   p_manager_ = Effekseer::Manager::Create(kEffectMax);
@@ -58,15 +62,10 @@ EffectManager::EffectManager(LPDIRECT3DDEVICE9 p_device,
     *pp_effect = Effekseer::Effect::Create(p_manager_, (const EFK_CHAR*)p_wfilename);
   });
 
-  ChangePerspective(fov, aspect, zn, zf);
+  SetPerspective(perspective);
+  SetOrtho(ortho);
 
-  // エフェクトの読込
-  //effect = Effekseer::Effect::Create(p_manager_, (const EFK_CHAR*)(L"data/Effect/b_square.efk"));
-  // エフェクトの再生
   p_manager_->Play(_Find("b_square"), 0, 0, 0);
-
-  //p_effect = Effekseer::Effect::Create(p_manager_, (const EFK_CHAR*)(L"./data/Effect/b_square.efk"));
-  //p_manager_->Play(p_effect, 0, 0, 0);
 }
 
 //------------------------------------------------
@@ -80,60 +79,23 @@ EffectManager::~EffectManager() {
   SafeDelete(p_finder_);
 }
 
-#include "Framework/Camera/camera.h"
 //------------------------------------------------
 // Update
 //------------------------------------------------
-void EffectManager::Update(const D3DXVECTOR3& eye, const D3DXVECTOR3& at, const D3DXVECTOR3& up) {
-  ChangeLookAt(eye, at, up);
-
-  //p_renderer_->SetCameraMatrix(view_matrix_);
-  //p_renderer_->SetProjectionMatrix(projection_matrix_);
-  auto& camera = CameraManager::Instance().Find("MAIN_CAMERA");
-  const auto& proj = camera.GetProjectionMatrix();
-  const auto& view = camera.GetViewMatrix();
-  Effekseer::Matrix44 efk_view;
-  Effekseer::Matrix44 efk_proj;
-  for (int i = 0; i < 4; ++i) {
-    for (int j = 0; j < 4; ++j) {
-      efk_view.Values[i][j] = view.m[i][j];
-      efk_proj.Values[i][j] = proj.m[i][j];
-    }
-  }
-  // 投影行列の更新
-  p_renderer_->SetProjectionMatrix(efk_proj);
-  // カメラ行列の更新
-  p_renderer_->SetCameraMatrix(efk_view);
-
+void EffectManager::Update(void) {
   // 3Dサウンド用リスナー設定の更新
   //p_sound_->SetListener(リスナー位置, 注目点, 上方向ベクトル);
 
   p_manager_->Update();
 }
-#include "Framework/Utility/DeviceHolder.h"
+
 //------------------------------------------------
 // Draw
 //------------------------------------------------
 void EffectManager::Draw(void) {
-  auto p_device = DeviceHolder::Instance().GetDevice();
-  //p_device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
   p_renderer_->BeginRendering();
   p_manager_->Draw();
   p_renderer_->EndRendering();
-  //p_device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
-}
-
-//------------------------------------------------
-// Change
-//------------------------------------------------
-void EffectManager::ChangeLookAt(const D3DXVECTOR3& eye, const D3DXVECTOR3& at, const D3DXVECTOR3& up) {
-  view_matrix_.LookAtLH(EffekSeerUtility::VectorToEffekSeer(eye),
-                        EffekSeerUtility::VectorToEffekSeer(at),
-                        EffekSeerUtility::VectorToEffekSeer(up));
-}
-
-void EffectManager::ChangePerspective(const float fov, const float aspect, const float zn, const float zf) {
-  projection_matrix_.PerspectiveFovLH(fov, aspect, zn, zf);
 }
 
 //------------------------------------------------
@@ -157,6 +119,18 @@ void EffectManager::SetPosition(const HandleType handle, const float x, const fl
 
 void EffectManager::SetRotation(const HandleType handle, const D3DXVECTOR3& axis, const float angle) {
   p_manager_->SetRotation(handle, Effekseer::Vector3D(axis.x, axis.y, axis.z), angle);
+}
+
+void EffectManager::SetView(const D3DXMATRIX& view) {
+  p_renderer_->SetCameraMatrix(EffekSeerUtility::MatrixToEffekSeer(view));
+}
+
+void EffectManager::SetOrtho(const D3DXMATRIX& ortho) {
+  // TODO:
+}
+
+void EffectManager::SetPerspective(const D3DXMATRIX& perspective) {
+  p_renderer_->SetProjectionMatrix(EffekSeerUtility::MatrixToEffekSeer(perspective));
 }
 
 //------------------------------------------------

@@ -145,7 +145,7 @@ void Player::_Update(const float elapsed_time) {
   speed_ *= 0.998f;
   position_ += speed_ * elapsed_time;
 
-  rotation_power_ += speed_.z * 0.005f;
+  rotation_power_ += speed_.z * 0.005f * elapsed_time;
 
   // ƒ{[ƒ‹‚Ì‰ñ“]
   D3DXQUATERNION q;

@@ -79,7 +79,7 @@ SkyBox::SkyBox() : p_camera_steering_(nullptr) {
   TextureManager::Instance().Load(kSkyboxname);
 
   // create a skybox camera
-  Camera& main_camera = CameraManager::Instance().FindUsingHandle(0);
+  Camera& main_camera = CameraManager::Instance().GetMainCamera();
   D3DXVECTOR3 at = main_camera.CalculateCameraDirection();
   D3DXVECTOR3 eye(-at);
   Camera* p_camera = new Camera(eye, at);
@@ -129,8 +129,8 @@ void SkyBox::_Draw(void) {
   p_device->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
   p_device->SetRenderState(D3DRS_LIGHTING, FALSE);
 
-  auto& camera = CameraManager::Instance().Find(kSkyboxCameraName);
-  Camera& main_camera = CameraManager::Instance().FindUsingHandle(0);
+  Camera& camera = CameraManager::Instance().Find(kSkyboxCameraName);
+  Camera& main_camera = CameraManager::Instance().GetMainCamera();
   D3DXVECTOR3 dir = main_camera.CalculateCameraDirection();
   D3DXVECTOR3 eye(-dir);
   p_camera_steering_->SetAtValue(dir);

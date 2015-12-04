@@ -662,11 +662,11 @@
     <ClInclude Include="src\Application\test.h">
       <Filter>src\Application</Filter>
     </ClInclude>
-    <ClInclude Include="src\Application\test2.h">
-      <Filter>src\Application</Filter>
-    </ClInclude>
     <ClInclude Include="src\Framework\Object\object_fbx_model.h">
       <Filter>src\Framework\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Application\test2.h">
+      <Filter>src\Application</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
