@@ -327,6 +327,9 @@
     <ClCompile Include="src\Framework\Object\object_fbx_model.cpp">
       <Filter>src\Framework\Object</Filter>
     </ClCompile>
+    <ClCompile Include="src\Framework\Object\object_sky_box_face.cpp">
+      <Filter>src\Framework\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Framework\DebugProc\DebugProc.h">
@@ -667,6 +670,9 @@
     </ClInclude>
     <ClInclude Include="src\Application\test2.h">
       <Filter>src\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Object\object_sky_box_face.h">
+      <Filter>src\Framework\Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

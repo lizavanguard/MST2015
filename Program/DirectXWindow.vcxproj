@@ -64,6 +64,7 @@
     <ClCompile Include="src\Framework\Object\object_base.cpp" />
     <ClCompile Include="src\Framework\Object\object_fbx_model.cpp" />
     <ClCompile Include="src\Framework\Object\object_model.cpp" />
+    <ClCompile Include="src\Framework\Object\object_sky_box_face.cpp" />
     <ClCompile Include="src\Framework\RenderTarget\RenderTargetManager.cpp" />
     <ClCompile Include="src\Framework\Scene\SceneManager.cpp" />
     <ClCompile Include="src\Framework\Shader\shader_manager.cpp" />
@@ -143,6 +144,7 @@
     <ClInclude Include="src\Framework\Object\object_base.h" />
     <ClInclude Include="src\Framework\Object\object_fbx_model.h" />
     <ClInclude Include="src\Framework\Object\object_model.h" />
+    <ClInclude Include="src\Framework\Object\object_sky_box_face.h" />
     <ClInclude Include="src\Framework\Object\root.h" />
     <ClInclude Include="src\Framework\RenderTarget\RenderTargetConfig.h" />
     <ClInclude Include="src\Framework\RenderTarget\RenderTargetManager.h" />

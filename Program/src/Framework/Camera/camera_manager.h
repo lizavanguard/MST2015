@@ -49,14 +49,21 @@ public:
 
   // UnRegister
   // カメラ名とカメラデータを抹消する
-  void UnRegister(void);
+  //void UnRegister(const char* camera_name);  そのうち実装？
+  void UnRegisterAll(void);
 
   // Get camera handle
   // カメラのハンドルを取得する
   CameraHandle GetCameraHandle(const char* camera_name) const;
   Camera& GetMainCamera(void) { return *p_main_camera_; }
 
+  // Set MainCamera
+  void SetMainCamera(const char* camera_name);
+  void SetMainCameraUsingHandle(CameraHandle camera_handle);
+
 private:
+  Camera* _Find(const char* camera_name);
+  Camera* _FindUsingHandle(CameraHandle camera_handle);
   void _Register(const char* camera_name, Camera* p_camera);
 
   ContainerType container_;

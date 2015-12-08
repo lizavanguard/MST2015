@@ -62,7 +62,7 @@ void ObjectModel::_Update(const float elapsed_time) {
 //------------------------------------------------
 void ObjectModel::_Draw(void) {
   auto p_device = DeviceHolder::Instance().GetDevice();
-  auto& camera = CameraManager::Instance().FindUsingHandle(camera_handle_);
+  auto& camera = CameraManager::Instance().GetMainCamera();
   D3DXMATRIX wvp = world_matrix_ * camera.GetViewMatrix() * camera.GetProjectionMatrix();
 
   p_shader_->SetMatrix("u_wvp", &wvp);

@@ -85,17 +85,12 @@ SceneGame::SceneGame()
   //camera->AssignCameraSteering(new CameraSteeringHoming(*p_player_));
   auto& camera = CameraManager::Instance().GetMainCamera();
   camera.AssignCameraSteering(new CameraSteeringControl());
-
-  g_p_test = new Test();
 }
 
 //------------------------------------------------
 // dtor
 //------------------------------------------------
 SceneGame::~SceneGame() {
-  delete g_p_test;
-
-  CameraManager::Instance().UnRegister();
   SafeDelete(p_game_master_);
   SafeDelete(p_collision_manager_);
   SafeDelete(p_next_game_state_);
@@ -160,6 +155,15 @@ void SceneGame::_Update(SceneManager* p_scene_manager, const float elapsed_time)
     return;
   }
 
+  if (keyboard.IsTrigger(DIK_1)) {
+    CameraManager::Instance().SetMainCamera("MAIN_1");
+  }
+  if (keyboard.IsTrigger(DIK_2)) {
+    CameraManager::Instance().SetMainCamera("MAIN_2");
+  }
+  if (keyboard.IsTrigger(DIK_3)) {
+    CameraManager::Instance().SetMainCamera("MAIN_3");
+  }
   if (keyboard.IsTrigger(DIK_8)) {
     EffectManagerServiceLocator::Get()->Play3D("SE_test_off_x100", 0, 0, 0);
   }

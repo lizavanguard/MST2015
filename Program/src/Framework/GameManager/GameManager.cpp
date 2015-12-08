@@ -56,7 +56,19 @@ GameManager::GameManager(HINSTANCE hInstance, HWND hWnd, LPDIRECT3DDEVICE9 pDevi
 {
   DeviceHolder::Instance().SetDevice(pDevice);
 
-  CameraManager::Instance(); // Initialize
+  auto& camera_manager = CameraManager::Instance(); // Initialize
+  for (int i = 0; i < 3; ++i) {
+    Camera* p_main_camera = CameraFactory::Create(kInitialEyePosition[i], kInitialAtPosition[i]);
+    p_main_camera->Update(0);
+    camera_manager.Register(kCameraName[i], p_main_camera);
+  }
+  camera_manager.SetMainCamera(kCameraName[0]);
+  // create a skybox camera
+  Camera& main_camera = camera_manager.GetMainCamera();
+  D3DXVECTOR3 at = main_camera.CalculateCameraDirection();
+  D3DXVECTOR3 eye(-at);
+  Camera* p_camera = new Camera(eye, at);
+  camera_manager.Register(kSkyboxCameraName, p_camera);
 
   ShaderManager::Instance();
   TextureManager::Instance().Load("General");

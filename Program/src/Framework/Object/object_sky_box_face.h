@@ -1,6 +1,6 @@
 //==============================================================================
 //
-// SkyBox
+// ObjectSkyBoxFace
 // Author: Shimizu Shoji
 //
 //==============================================================================
@@ -8,31 +8,28 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-#include "Framework/Object/object_base.h"
-
 #include "liza/generic/factory.hpp"
 
-//--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-// class declaration
-//--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-class CameraSteeringSet;
+#include "Framework/Camera/camera_manager.h"
+
+#include "object3d.h"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-class SkyBox : public ObjectBase {
+class ObjectSkyBoxFace : public Object3D {
 public:
   // ctor
-  SkyBox();
+  ObjectSkyBoxFace(const char* p_filename);
 
   // dtor
-  virtual ~SkyBox();
+  virtual ~ObjectSkyBoxFace();
 
 private:
-  virtual void _Update(float elapsed_time) override;
+  // virtual function
   virtual void _Draw(void) override;
 
-  CameraSteeringSet* p_camera_steering_;
+  _CameraManager::CameraHandle skybox_camera_handle_;
 };
 
-using SkyBoxFactory = liza::generic::Factory<SkyBox>;
+using ObjectSkyBoxFactory = liza::generic::Factory<ObjectSkyBoxFace>;

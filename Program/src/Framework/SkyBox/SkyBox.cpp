@@ -10,8 +10,9 @@
 #include "SkyBox.h"
 
 #include "Framework/Camera/camera_manager.h"
+#include "Framework/Camera/camera_config.h"
 #include "Framework/Utility/DeviceHolder.h"
-#include "Framework/Object/object3d.h"
+#include "Framework/Object/object_sky_box_face.h"
 #include "Framework/Texture/texture_manager.h"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
@@ -21,7 +22,6 @@ namespace {
   const float kSize = 100.0f;
   const float kSizeHalf = kSize / 2.0f;
   const float kSizeOffset = kSizeHalf - 0.5f;
-  const char* kSkyboxCameraName = "SKYBOX_CAMERA";
 
   const unsigned int kNumFaces = 6;
 
@@ -78,20 +78,14 @@ SkyBox::SkyBox() : p_camera_steering_(nullptr) {
   // Skybox
   TextureManager::Instance().Load(kSkyboxname);
 
-  // create a skybox camera
-  Camera& main_camera = CameraManager::Instance().GetMainCamera();
-  D3DXVECTOR3 at = main_camera.CalculateCameraDirection();
-  D3DXVECTOR3 eye(-at);
-  Camera* p_camera = new Camera(eye, at);
-  CameraManager::Instance().Register(kSkyboxCameraName, p_camera);
-
+  Camera& camera = CameraManager::Instance().Find(kSkyboxCameraName);
   p_camera_steering_ = new CameraSteeringSet();
-  p_camera->AssignCameraSteering(p_camera_steering_);
+  camera.AssignCameraSteering(p_camera_steering_);
 
   // create faces
   const _CameraManager::CameraHandle camera_handle = CameraManager::Instance().GetCameraHandle(kSkyboxCameraName);
   for (unsigned int face_count = 0; face_count < kNumFaces; ++face_count) {
-    auto object = Object3DFactory::Create(kTexturenames[face_count]);
+    auto object = ObjectSkyBoxFactory::Create(kTexturenames[face_count]);
     object->SetPosition(kPoses[face_count]);
     object->SetRotation(kRots[face_count]);
     static const float kOffset = 0.0005f;
@@ -99,7 +93,6 @@ SkyBox::SkyBox() : p_camera_steering_(nullptr) {
     const float max = 1 - kOffset;
     object->SetUVCorner(min, min, max, max);
     object->OffBottomCentered();
-    object->SetCameraHandle(camera_handle);
     AttachChild(object);
   }
   is_child_auto_drawed_ = false;

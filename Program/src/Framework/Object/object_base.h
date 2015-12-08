@@ -10,8 +10,6 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 #include <liza/generic/noncopyable.h>
 
-#include "Framework/Camera/camera_manager.h"
-
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
@@ -21,7 +19,6 @@ private:
   using ContainerType = std::list<ObjectBase*>;
   using Iterator = ContainerType::iterator;
   using ConstIterator = ContainerType::const_iterator;
-  using CameraHandle = _CameraManager::CameraHandle;
 
 protected:
   // ctor
@@ -64,7 +61,6 @@ public:
   void SetRotation(const D3DXVECTOR3& rotation) { rotation_ = rotation; }
   void SetScale(const D3DXVECTOR3& scale) { scale_ = scale; }
   void SetRotationMatrix(const D3DXMATRIX& rotation_matrix) { rotation_matrix_ = rotation_matrix; }
-  void SetCameraHandle(CameraHandle camera_handle) { camera_handle_ = camera_handle; }
   void OnAllDrawed(void) { is_all_drawed_ = true; }
   void OffAllDrawed(void) { is_all_drawed_ = false; }
 
@@ -91,7 +87,6 @@ protected:
   D3DXMATRIX rotation_matrix_;
 
   ObjectBase* p_parent_;
-  CameraHandle camera_handle_;
 
   bool is_all_updated_;
   bool is_all_drawed_;
