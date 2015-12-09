@@ -34,7 +34,7 @@ protected:
   virtual void _Update(float elapsed_time) override;
   virtual void _Draw(void) override;
 
-private:
+protected:
   // 必要に応じてアニメーション設定を行って下さい
   virtual void _SetupAnimation(void) {};
 

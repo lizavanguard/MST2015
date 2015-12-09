@@ -55,6 +55,7 @@ public:
   const D3DXVECTOR3& GetRotation(void) const { return rotation_; }
   const D3DXVECTOR3& GetScale(void) const { return scale_; }
   const D3DXVECTOR3& GetVelocity(void) const { return velocity_; }
+  D3DXVECTOR3 GetWorldPosition(void) const { return D3DXVECTOR3(world_matrix_._41, world_matrix_._42, world_matrix_._43); }
 
   // set
   void SetPosition(const D3DXVECTOR3& position) { position_ = position; }

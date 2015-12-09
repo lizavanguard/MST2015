@@ -28,6 +28,7 @@
     <ClCompile Include="src\Application\Pin\StandardPin.cpp" />
     <ClCompile Include="src\Application\Pin\StandardPins.cpp" />
     <ClCompile Include="src\Application\Player\Player.cpp" />
+    <ClCompile Include="src\Application\Player\PlayerBall.cpp" />
     <ClCompile Include="src\Application\test.cpp" />
     <ClCompile Include="src\Application\test2.cpp" />
     <ClCompile Include="src\Application\Title\SceneTitle.cpp" />
@@ -99,6 +100,7 @@
     <ClInclude Include="src\Application\Pin\StandardPin.h" />
     <ClInclude Include="src\Application\Pin\StandardPins.h" />
     <ClInclude Include="src\Application\Player\Player.h" />
+    <ClInclude Include="src\Application\Player\PlayerBall.h" />
     <ClInclude Include="src\Application\test.h" />
     <ClInclude Include="src\Application\test2.h" />
     <ClInclude Include="src\Application\Title\SceneTitle.h" />

@@ -142,7 +142,7 @@ void GameWindow::Run( void ) {
 				execLastTime = currentTime;
 
 				// Update
-				pGameImpl_->Update(diff * 0.0001f);
+				pGameImpl_->Update(diff * 0.001f);
 
 				// Draw
 				pGameImpl_->Draw();

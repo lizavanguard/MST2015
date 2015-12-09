@@ -18,6 +18,7 @@
 #include "Framework/Input/InputKeyboard.h"
 #include "Framework/Object/object_fbx_model.h"
 #include "Framework/Object/root.h"
+#include "Framework/Object/object_model.h"
 #include "Framework/Object/Hud/HudNumber/HudNumber.h"
 #include "Framework/Scene/SceneManager.h"
 #include "Framework/SkyBox/SkyBox.h"
@@ -62,7 +63,7 @@ SceneGame::SceneGame()
 
   p_pin_manager_ = PinManagerFactory::Create();
   p_3d_root_->AttachChild(p_pin_manager_);
-  auto p_field = ObjectFbxModelFactory::Create("stage_03_ketsugou.fbx");
+  auto p_field = ObjectModelFactory::Create("stage_05");
   p_3d_root_->AttachChild(p_field);
 
   // Player ‚ğ 3Dƒ‚ƒfƒ‹‚Ì’†‚Å‚Íˆê”ÔÅŒã‚É•`‰æ‚·‚é‚±‚Æ

@@ -330,6 +330,9 @@
     <ClCompile Include="src\Framework\Object\object_sky_box_face.cpp">
       <Filter>src\Framework\Object</Filter>
     </ClCompile>
+    <ClCompile Include="src\Application\Player\PlayerBall.cpp">
+      <Filter>src\Application\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Framework\DebugProc\DebugProc.h">
@@ -673,6 +676,9 @@
     </ClInclude>
     <ClInclude Include="src\Framework\Object\object_sky_box_face.h">
       <Filter>src\Framework\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Application\Player\PlayerBall.h">
+      <Filter>src\Application\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

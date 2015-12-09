@@ -8,20 +8,22 @@
 // include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 #include "Player.h"
+#include "PlayerBall.h"
+
+#include "Framework/Object/object_fbx_model.h"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // const
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 namespace {
-  const char* kModelname = "ball_02.fbx";
   const float kSize = 3.0f;
 
-  const float kMovingSpeed = 0.3f;
+  const float kMovingSpeed = 30.0f;
 
-  const float kAdjustedValueRotationToPower = 15.0f;
+  const float kAdjustedValueRotationToPower = 1000.0f;
+  //const float kCurveReaction = 0.025f;
   const float kCurveReaction = 0.025f;
-  //const float kCurveReaction = 0.1f;
-  const float kShotSpeed = 200.0f;
+  const float kShotSpeed = 5000.0f;
 
   const Vector3 kStartPosition(0.0f, 1.0f, -100.0f);
 }
@@ -33,16 +35,18 @@ namespace {
 // ctor
 //------------------------------------------------
 Player::Player()
-    : ObjectFBXModel(kModelname)
-    , CollisionObject(kSize)
+    : CollisionObject(kSize)
     , is_shot_(false)
     , speed_(0.0f, 0.0f, 0.0f)
     , adjusted_value_(kAdjustedValueRotationToPower)
     , curve_reaction_(kCurveReaction)
     , shot_speed_(kShotSpeed)
     , moving_speed_(kMovingSpeed)
-    , rotation_power_(0.0f)
-    , rotation_axis_(1.0f, 0.0f, 0.0f) {
+    , p_ball_(nullptr) {
+  AttachChild(new ObjectFBXModel("humanG_07.fbx"));
+  AttachChild(new ObjectModel("ballObj_03"));
+  p_ball_ = new PlayerBall();
+  AttachChild(p_ball_);
   Reset();
 }
 
@@ -77,12 +81,7 @@ void Player::Shoot(const float rotation) {
   speed_.x = true_power;
   velocity_.x -= true_power * curve_reaction_;
 
-  // ‰ñ“]—Ê‚Ì’²®
-  const float kMaxRotationPower = 4.0f;
-  const float kMaxRotation = D3DX_PI * 0.25f;
-  const float fixed_rotation = -(kMaxRotation * (rotation / kMaxRotationPower));
-  rotation_axis_.x = cosf(fixed_rotation);
-  rotation_axis_.y = sinf(fixed_rotation);
+  p_ball_->Shoot(rotation);
 
   is_shot_ = true;
 }
@@ -96,8 +95,7 @@ void Player::Reset(void) {
   position_ = kStartPosition;
   rotation_ = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
   velocity_ = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-  rotation_power_ = 0;
-  rotation_axis_ = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
+  p_ball_->Reset();
 }
 
 //------------------------------------------------
@@ -113,7 +111,7 @@ void Player::ReactCollision(const D3DXVECTOR3&) {
 void Player::_Update(const float elapsed_time) {
 #ifdef _DEBUG
   auto& keyboard = GameManager::Instance().GetInputManager().GetPrimaryKeyboard();
-  static const float kSpeed = 1.0f;
+  static const float kSpeed = 100.0f;
   const float true_speed = kSpeed /** elapsed_time*/;
 
   if (keyboard.IsPress(DIK_W)) {
@@ -145,13 +143,6 @@ void Player::_Update(const float elapsed_time) {
   speed_ *= 0.998f;
   position_ += speed_ * elapsed_time;
 
-  rotation_power_ += speed_.z * 0.005f * elapsed_time;
-
-  // ƒ{[ƒ‹‚Ì‰ñ“]
-  D3DXQUATERNION q;
-  D3DXQuaternionRotationAxis(&q, &rotation_axis_, rotation_power_);
-  D3DXMatrixRotationQuaternion(&rotation_matrix_, &q);
-
-  ObjectFBXModel::SetRotationMatrix(rotation_matrix_);
-  ObjectFBXModel::_Update(elapsed_time);
+  static const float kRotationFixedValue = 0.005f;
+  p_ball_->AddRotationPower(speed_.z * elapsed_time * kRotationFixedValue);
 }

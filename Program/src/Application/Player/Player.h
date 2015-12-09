@@ -10,14 +10,18 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 #include "liza/generic/factory.hpp"
 
-#include "Framework/Object/object_fbx_model.h"
-
+#include "Framework/Object/object_base.h"
 #include "Framework/Collision/collision_object.h"
+
+//--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
+// class declaration
+//--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
+class PlayerBall;
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-class Player : public ObjectFBXModel, public CollisionObject {
+class Player : public ObjectBase, public CollisionObject {
 public:
   // ctor
   Player();
@@ -42,6 +46,7 @@ public:
   const D3DXVECTOR3& GetPosition(void) const { return position_; }
 
 private:
+  virtual void _Draw(void) override {}
   virtual void _Update(float elapsed_time) override;
 
   D3DXVECTOR3 speed_;
@@ -52,8 +57,7 @@ private:
   float moving_speed_;
   float shot_speed_;
 
-  float rotation_power_;
-  D3DXVECTOR3 rotation_axis_;
+  PlayerBall* p_ball_;
 };
 
 using PlayerFactory = liza::generic::Factory<Player>;

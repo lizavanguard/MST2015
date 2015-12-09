@@ -141,7 +141,7 @@ void ObjectBase::_CalculateWorldMatrix(void) {
   own_world_matrix_ = scale_matrix * rotation_matrix * translation_matrix;
 
   if (p_parent_ && is_calculated_parent_matrix_) {
-    world_matrix_ = p_parent_->world_matrix_ * own_world_matrix_;
+    world_matrix_ = own_world_matrix_ * p_parent_->world_matrix_;
   }
   else {
     world_matrix_ = own_world_matrix_;
