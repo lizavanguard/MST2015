@@ -13,11 +13,11 @@
 
 #include "liza/generic/factory.hpp"
 
-
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class declaration
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 class GoalPin;
+class ObjectInstancingModel;
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
@@ -54,8 +54,11 @@ public:
   const DataType operator[](unsigned int index) const { return pins_[index]; }
 
 private:
-  DEFINITION_DEFAULT_UPDATE_AND_DRAW
+  virtual void _Update(float elapsed_time) override;
+  virtual void _Draw(void) override;
+
   ContainerType pins_;
+  ObjectInstancingModel* p_instancing_model_;
 };
 
 using GoalPinsFactory = liza::generic::Factory<GoalPins>;

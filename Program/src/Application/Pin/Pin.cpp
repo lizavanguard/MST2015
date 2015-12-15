@@ -8,13 +8,13 @@
 // include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 #include "Pin.h"
+#include "PinConfig.h"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // const
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 namespace {
-  const char* kModelname = "pin_05";
-  const float kSize = 1.5f;
+  const float kSize = 75.0f;
 }
 
 //==============================================================================
@@ -24,9 +24,8 @@ namespace {
 // ctor
 //------------------------------------------------
 Pin::Pin(const D3DXVECTOR3& position)
-    : ObjectModel(kModelname)
+    : ObjectModel(pin::kModelName)
     , CollisionObject(kSize)
-    , speed_(0.0f, 0.0f, 0.0f)
     , initial_position_(position) {
   position_ = position;
 }

@@ -11,12 +11,15 @@
 
 #include "liza/game/DirectXUtility/DirectXUtility.h"
 
+#include "Framework/AlphaObject/AlphaObjectManager.h"
 #include "Framework/Camera/camera.h"
 #include "Framework/Camera/camera_config.h"
 #include "Framework/Camera/camera_manager.h"
 #include "Framework/DebugProc/DebugProc.h"
 #include "Framework/Effect/EffectManager.h"
 #include "Framework/Fade/Fade.h"
+#include "Framework/Hud/HudManager.h"
+#include "Framework/Light/light.h"
 #include "Framework/Scene/SceneManager.h"
 #include "Framework/Shader/shader_manager.h"
 #include "Framework/Sound/sound_manager.h"
@@ -50,9 +53,12 @@ GameManager& GameManager::Instance(HINSTANCE hInstance, HWND hWnd, LPDIRECT3DDEV
 // ctor
 //------------------------------------------------
 GameManager::GameManager(HINSTANCE hInstance, HWND hWnd, LPDIRECT3DDEVICE9 pDevice)
-  : pDebugProc_(nullptr)
+  : pAlphaObjectManager_(nullptr)
+  , pDebugProc_(nullptr)
+  , pHudManager_(nullptr)
   , pInputManager_(nullptr)
   , pSceneManager_(nullptr)
+  , pLight_(nullptr)
 {
   DeviceHolder::Instance().SetDevice(pDevice);
 
@@ -73,7 +79,6 @@ GameManager::GameManager(HINSTANCE hInstance, HWND hWnd, LPDIRECT3DDEVICE9 pDevi
   ShaderManager::Instance();
   TextureManager::Instance().Load("General");
   TextureManager::Instance().Load("Model");
-  TextureManager::Instance().Load("Game"); // TODO: Game -> Title?
   ModelManager::Instance();
   SoundManager::Instance();
   WiiControllerManager::Instance();
@@ -82,8 +87,7 @@ GameManager::GameManager(HINSTANCE hInstance, HWND hWnd, LPDIRECT3DDEVICE9 pDevi
   pDebugProc_->Init(pDevice);
   pInputManager_ = new InputManager(hInstance, hWnd);
 
-  //pSceneManager_ = new SceneManager(new SceneTitle());
-  pSceneManager_ = new SceneManager(new SceneGame());
+  pSceneManager_ = new SceneManager(new SceneTitle());
 
   RenderTargetManager::Instance();
 
@@ -92,6 +96,15 @@ GameManager::GameManager(HINSTANCE hInstance, HWND hWnd, LPDIRECT3DDEVICE9 pDevi
                                       kFov, kAspect, kNear, kFar,
                                       kWindowWidthF, kWindowHeightF);
   EffectManagerServiceLocator::Provide(pEffectManager_);
+
+  pLight_ = new Light();
+  LightServiceLocator::Provide(pLight_);
+
+  pAlphaObjectManager_ = new AlphaObjectManager();
+  AlphaObjectServiceLocator::Provide(pAlphaObjectManager_);
+
+  pHudManager_ = new HudManager();
+  HudServiceLocator::Provide(pHudManager_);
 }
 
 
@@ -100,9 +113,12 @@ GameManager::GameManager(HINSTANCE hInstance, HWND hWnd, LPDIRECT3DDEVICE9 pDevi
 //------------------------------------------------
 GameManager::~GameManager() {
   //delete p_test;
-  delete pEffectManager_;
+  delete pLight_;
   delete pSceneManager_;
+  delete pHudManager_;
+  delete pAlphaObjectManager_;
   delete pInputManager_;
+  delete pEffectManager_;
   pDebugProc_->Uninit();
   delete pDebugProc_;
 }
@@ -117,11 +133,12 @@ void GameManager::Update(const float elapsedTime) {
   CameraManager::Instance().Update(elapsedTime);
 
   pSceneManager_->Update(elapsedTime);
+  pAlphaObjectManager_->Update(elapsedTime);
+  pHudManager_->Update(elapsedTime);
+
   auto& camera = CameraManager::Instance().GetMainCamera();
   pEffectManager_->ChangeView(camera._GetEye(), camera._GetAt(), D3DXVECTOR3(0.0f, 1.0f, 0.0f));
   pEffectManager_->Update();
-
-  //DebugProc::Print("CONTROLLER1:‰Á‘¬“xX[%.3f]\n", WiiControllerManager::Instance().GetWiiController(0)->getAccelerationX());
 }
 
 
@@ -138,15 +155,15 @@ void GameManager::Draw(void) {
   pDevice->BeginScene();
 
   pSceneManager_->Draw();
-  pDebugProc_->Draw();
   pEffectManager_->Draw();
+  pAlphaObjectManager_->Draw();
+  pHudManager_->Draw();
+  pDebugProc_->Draw();
 
   pDevice->EndScene();
   RenderTargetManager::Instance().UnAssign();
 
   pDevice->BeginScene();
-
-  // TODO: blend
 
   // Fade
   pDevice->SetTexture(0, RenderTargetManager::Instance().GetTexture(0));
@@ -160,5 +177,4 @@ void GameManager::Draw(void) {
   pDevice->SetTexture(0, nullptr);
   p_shader->EndPass();
   p_shader->End();
-
 }

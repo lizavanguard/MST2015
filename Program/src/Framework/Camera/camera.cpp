@@ -47,7 +47,9 @@ void Camera::Update(const float elapsed_time) {
   D3DXMatrixPerspectiveFovLH(&projection_, kFov, kAspect, kNear, kFar);
   p_device->SetTransform(D3DTS_PROJECTION, &projection_);
 
-  p_camera_steering_->Execute(*this, elapsed_time);
+  if (p_camera_steering_) {
+    p_camera_steering_->Execute(*this, elapsed_time);
+  }
 }
 
 //------------------------------------------------

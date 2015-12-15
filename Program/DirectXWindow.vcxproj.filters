@@ -130,6 +130,15 @@
     <Filter Include="src\FBX">
       <UniqueIdentifier>{a787c412-be1d-4288-ba35-55a060cf483e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Application\Stage">
+      <UniqueIdentifier>{b0a0cc2c-813a-4cb7-9916-5712e9698a7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Framework\AlphaObject">
+      <UniqueIdentifier>{3903e61e-2337-45da-a814-b52b4512b821}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Framework\Hud">
+      <UniqueIdentifier>{330cbd86-2fc0-42a5-83a0-a93e51eff479}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Framework\DebugProc\DebugProc.cpp">
@@ -332,6 +341,18 @@
     </ClCompile>
     <ClCompile Include="src\Application\Player\PlayerBall.cpp">
       <Filter>src\Application\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\Object\object_instancing_model.cpp">
+      <Filter>src\Framework\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Application\Stage\Stage.cpp">
+      <Filter>src\Application\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\AlphaObject\AlphaObjectManager.cpp">
+      <Filter>src\Framework\AlphaObject</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\Hud\HudManager.cpp">
+      <Filter>src\Framework\Hud</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -679,6 +700,21 @@
     </ClInclude>
     <ClInclude Include="src\Application\Player\PlayerBall.h">
       <Filter>src\Application\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Object\object_instancing_model.h">
+      <Filter>src\Framework\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Application\Pin\PinConfig.h">
+      <Filter>src\Application\Pin</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Application\Stage\Stage.h">
+      <Filter>src\Application\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\AlphaObject\AlphaObjectManager.h">
+      <Filter>src\Framework\AlphaObject</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Hud\HudManager.h">
+      <Filter>src\Framework\Hud</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

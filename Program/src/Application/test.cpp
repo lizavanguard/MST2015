@@ -8,10 +8,11 @@
 // include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 #include "Test.h"
-#include "FBX/fbx_model.h"
+
+#include "Framework/Object/object_instancing_model.h"
 #include "Framework/Utility/DeviceHolder.h"
 
-FbxModel* g_p_fbx = nullptr;
+ObjectInstancingModel* g_p_fbx = nullptr;
 
 //==============================================================================
 // class implementation
@@ -20,9 +21,7 @@ FbxModel* g_p_fbx = nullptr;
 // ctor
 //------------------------------------------------
 Test::Test() {
-  g_p_fbx = new FbxModel(DeviceHolder::Instance().GetDevice());
-  g_p_fbx->Load("data/Model/fbx/stage_03_ketsugou.fbx");
-  g_p_fbx->AnimationStop();
+  g_p_fbx = new ObjectInstancingModel("pin_05", 10);
 }
 
 //------------------------------------------------
@@ -34,9 +33,9 @@ Test::~Test() {
 
 
 void Test::Update(void) {
-  g_p_fbx->Update();
+  g_p_fbx->UpdateAll(0.016f);
 }
 
 void Test::Draw(void) {
-  g_p_fbx->Draw();
+  //g_p_fbx->DrawAll();
 }

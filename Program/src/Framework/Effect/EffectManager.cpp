@@ -3,6 +3,8 @@
 // EffectManager
 // Author: Shimizu Shoji
 //
+// 送られてくるハンドルとハンドル3D等をひも付けて、ポインタから参照する？
+//
 //==============================================================================
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // include
@@ -26,6 +28,11 @@ namespace {
 //==============================================================================
 // class implementation
 //==============================================================================
+//------------------------------------------------
+// instance
+//------------------------------------------------
+std::unordered_map<Effekseer::Handle, void(*)(void)> EffectManager::s_function_map_;
+
 //------------------------------------------------
 // ctor
 //------------------------------------------------
@@ -90,6 +97,7 @@ EffectManager::EffectManager(LPDIRECT3DDEVICE9 p_device,
 // dtor
 //------------------------------------------------
 EffectManager::~EffectManager() {
+  //s_function_map_.clear();
   SafeDelete(p_finder_3d_);
   SafeDelete(p_finder_2d_);
 
@@ -127,14 +135,29 @@ void EffectManager::Draw(void) {
 //------------------------------------------------
 // Play Effect
 //------------------------------------------------
-EffectManager::HandleType EffectManager::Play2D(const char* effect_name, const float x, const float y) {
+EffectManager::Handle2D EffectManager::Play2D(const char* effect_name, const float x, const float y) {
   Effekseer::Effect* p_effect = _Find2D(effect_name);
-  return p_manager_2d_->Play(p_effect, x - half_width_, half_height_ - y, 0.0f);
+  return Handle2D(p_manager_2d_->Play(p_effect, x - half_width_, half_height_ - y, 0.0f));
 }
 
-EffectManager::HandleType EffectManager::Play3D(const char* effect_name, const float x, const float y, const float z) {
+EffectManager::Handle3D EffectManager::Play3D(const char* effect_name, const float x, const float y, const float z) {
   Effekseer::Effect* p_effect = _Find3D(effect_name);
-  return p_manager_3d_->Play(p_effect, x, y, z);
+  return Handle3D(p_manager_3d_->Play(p_effect, x, y, z));
+}
+
+//------------------------------------------------
+// Stop
+//------------------------------------------------
+void EffectManager::Stop2D(const Handle2D handle) {
+  if (IsExits2D(handle)) {
+    p_manager_2d_->StopEffect(handle.handle_);
+  }
+}
+
+void EffectManager::Stop3D(const Handle3D handle) {
+  if (IsExits3D(handle)) {
+    p_manager_3d_->StopEffect(handle.handle_);
+  }
 }
 
 //------------------------------------------------
@@ -157,44 +180,77 @@ void EffectManager::ChangePerspective(const float fov, const float aspect, const
 }
 
 //------------------------------------------------
+// get
+//------------------------------------------------
+bool EffectManager::IsExits2D(Handle2D handle) const {
+  return (handle.handle_ == kNullHandle) ? false : p_manager_2d_->Exists(handle.handle_);
+}
+
+bool EffectManager::IsExits3D(Handle3D handle) const {
+  return (handle.handle_ == kNullHandle) ? false : p_manager_3d_->Exists(handle.handle_);
+}
+
+//------------------------------------------------
 // set
 //------------------------------------------------
 // for 2d
-void EffectManager::SetScreenPosition(const HandleType handle, const D3DXVECTOR2& position) {
+void EffectManager::SetScreenPosition(const Handle2D handle, const D3DXVECTOR2& position) {
   SetScreenPosition(handle, position.x, position.y);
 }
 
-void EffectManager::SetScreenPosition(const HandleType handle, const float x, const float y) {
-  p_manager_2d_->SetLocation(handle, x - half_width_, half_height_ - y, 0.0f);
+void EffectManager::SetScreenPosition(const Handle2D handle, const float x, const float y) {
+  if (IsExits2D(handle)) {
+    p_manager_2d_->SetLocation(handle.handle_, x - half_width_, half_height_ - y, 0.0f);
+  }
 }
 
-void EffectManager::SetScreenScale(const HandleType handle, const D3DXVECTOR2& scale) {
+void EffectManager::SetScreenScale(const Handle2D handle, const D3DXVECTOR2& scale) {
   SetScreenScale(handle, scale.x, scale.y);
 }
 
-void EffectManager::SetScreenScale(const HandleType handle, const float x, const float y) {
-  p_manager_2d_->SetScale(handle, x, y, 1.0f);
+void EffectManager::SetScreenScale(const Handle2D handle, const float x, const float y) {
+  if (IsExits2D(handle)) {
+    p_manager_2d_->SetScale(handle.handle_, x, y, 1.0f);
+  }
+}
+
+void EffectManager::SetRemovingCallbackFunction2D(const Handle2D handle, RemovingCallbackFunction callback) {
+  if (IsExits2D(handle)) {
+    _SetRemovingCallbackFunction(*p_manager_2d_, handle.handle_, callback);
+  }
 }
 
 // for 3d
-void EffectManager::SetPosition(const HandleType handle, const D3DXVECTOR3& position) {
+void EffectManager::SetPosition(const Handle3D handle, const D3DXVECTOR3& position) {
   SetPosition(handle, position.x, position.y, position.z);
 }
 
-void EffectManager::SetPosition(const HandleType handle, const float x, const float y, const float z) {
-  p_manager_3d_->SetLocation(handle, x, y, z);
+void EffectManager::SetPosition(const Handle3D handle, const float x, const float y, const float z) {
+  if (IsExits3D(handle)) {
+    p_manager_3d_->SetLocation(handle.handle_, x, y, z);
+  }
 }
 
-void EffectManager::SetRotation(const HandleType handle, const D3DXVECTOR3& axis, const float angle) {
-  p_manager_3d_->SetRotation(handle, Effekseer::Vector3D(axis.x, axis.y, axis.z), angle);
+void EffectManager::SetRotation(const Handle3D handle, const D3DXVECTOR3& axis, const float angle) {
+  if (IsExits3D(handle)) {
+    p_manager_3d_->SetRotation(handle.handle_, Effekseer::Vector3D(axis.x, axis.y, axis.z), angle);
+  }
 }
 
-void EffectManager::SetScale(const HandleType handle, const D3DXVECTOR3& scale) {
+void EffectManager::SetScale(const Handle3D handle, const D3DXVECTOR3& scale) {
   SetScale(handle, scale.x, scale.y, scale.z);
 }
 
-void EffectManager::SetScale(const HandleType handle, const float x, const float y, const float z) {
-  p_manager_3d_->SetScale(handle, x, y, z);
+void EffectManager::SetScale(const Handle3D handle, const float x, const float y, const float z) {
+  if (IsExits3D(handle)) {
+    p_manager_3d_->SetScale(handle.handle_, x, y, z);
+  }
+}
+
+void EffectManager::SetRemovingCallbackFunction3D(const Handle3D handle, RemovingCallbackFunction callback) {
+  if (IsExits3D(handle)) {
+    _SetRemovingCallbackFunction(*p_manager_3d_, handle.handle_, callback);
+  }
 }
 
 //------------------------------------------------
@@ -234,4 +290,21 @@ void EffectManager::_Create2DView(void) {
   view_matrix_2d_.LookAtLH(Effekseer::Vector3D(0.0f, 0.0f, -1.0f),
                            Effekseer::Vector3D(0.0f, 0.0f,  0.0f),
                            Effekseer::Vector3D(0.0f, 1.0f,  0.0f));
+}
+
+//------------------------------------------------
+// _Set removing callback
+//------------------------------------------------
+void EffectManager::_SetRemovingCallbackFunction(Effekseer::Manager& manager, const HandleType handle, RemovingCallbackFunction callback) {
+  MY_BREAK_ASSERTMSG(
+    (s_function_map_.find(handle) == s_function_map_.end()),
+    "一つのハンドルに対して複数のコールバック関数を登録することはできません");
+  s_function_map_.insert(std::make_pair(handle, callback));
+  manager.SetRemovingCallback(
+    handle,
+    [](Effekseer::Manager* p_manager, Effekseer::Handle handle, bool is_romoving_manager)
+    {
+      s_function_map_.find(handle)->second();
+      s_function_map_.erase(handle);
+    });
 }

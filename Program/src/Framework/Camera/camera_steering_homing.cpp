@@ -15,8 +15,15 @@
 //------------------------------------------------
 // ctor
 //------------------------------------------------
-CameraSteeringHoming::CameraSteeringHoming(ObjectBase& target)
-    : target_(target) {
+CameraSteeringHoming::CameraSteeringHoming(ObjectBase& target,
+                                           const float eye_distance,
+                                           const float eye_height,
+                                           const float at_distance)
+    : target_(target)
+    , eye_distance_(eye_distance)
+    , eye_height_(eye_height)
+    , at_distance_(at_distance)
+    , rotation_(0.0f) {
 }
 
 //------------------------------------------------
@@ -28,26 +35,22 @@ CameraSteeringHoming::~CameraSteeringHoming() {
 //------------------------------------------------
 // Execute
 //------------------------------------------------
-void CameraSteeringHoming::Execute(Camera& camera, const float) {
+void CameraSteeringHoming::Execute(Camera& camera, const float elapsed_time) {
   const D3DXVECTOR3 target_position = target_.GetPosition();
-  const D3DXVECTOR3 target_rotation = target_.GetRotation();
-  const D3DXVECTOR3 target_velocity = target_.GetVelocity();
+  const float target_rotation = target_.GetRotation().y + rotation_;
+  const D3DXVECTOR3 target_speed = target_.GetSpeed();
 
-  const float sin = sinf(target_rotation.y);
-  const float cos = cosf(target_rotation.y);
+  const float sin = sinf(target_rotation);
+  const float cos = cosf(target_rotation);
 
-  D3DXVECTOR3 camera_eye = target_position + target_velocity;
-  //static const float kEyeDistance = 15.0f;
-  static const float kEyeDistance = 15.0f;
-  static const float kEyeHeight = 5.0f;
-  camera_eye.x -=  sin * kEyeDistance;
-  camera_eye.z -=  cos * kEyeDistance;
-  camera_eye.y += kEyeHeight;
+  D3DXVECTOR3 camera_eye = target_position + target_speed * elapsed_time;
+  camera_eye.x -=  sin * eye_distance_;
+  camera_eye.z -=  cos * eye_distance_;
+  camera_eye.y += eye_height_;
   SetEye(camera, camera_eye);
 
   D3DXVECTOR3 camera_at = camera_eye;
-  static const float kAtDistance = 40.0f;
-  camera_at.x += sin * kAtDistance;
-  camera_at.z += cos * kAtDistance;
+  camera_at.x += sin * at_distance_;
+  camera_at.z += cos * at_distance_;
   SetAt(camera, camera_at);
 }

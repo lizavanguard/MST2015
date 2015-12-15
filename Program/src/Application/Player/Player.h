@@ -10,8 +10,9 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 #include "liza/generic/factory.hpp"
 
-#include "Framework/Object/object_base.h"
 #include "Framework/Collision/collision_object.h"
+#include "Framework/Effect/EffectManager.h"
+#include "Framework/Object/object_base.h"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class declaration
@@ -49,7 +50,6 @@ private:
   virtual void _Draw(void) override {}
   virtual void _Update(float elapsed_time) override;
 
-  D3DXVECTOR3 speed_;
   bool is_shot_;
 
   float adjusted_value_;
@@ -58,6 +58,7 @@ private:
   float shot_speed_;
 
   PlayerBall* p_ball_;
+  EffectManager::Handle3D h_wind_effect_;
 };
 
 using PlayerFactory = liza::generic::Factory<Player>;

@@ -4,6 +4,14 @@
 // Author: Shimizu Shoji
 //
 //==============================================================================
+//struct {
+//  handle;
+//  target;
+//
+//  if (is_valid_handle)
+//    location(target.position + offset);
+//
+
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
@@ -16,7 +24,7 @@
 // const
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 namespace {
-  const float kSize = 3.0f;
+  const float kSize = 200.0f;
 
   const float kMovingSpeed = 30.0f;
 
@@ -25,7 +33,7 @@ namespace {
   const float kCurveReaction = 0.025f;
   const float kShotSpeed = 5000.0f;
 
-  const Vector3 kStartPosition(0.0f, 1.0f, -100.0f);
+  const Vector3 kStartPosition(0.0f, 200.0f, -100.0f);
 }
 
 //==============================================================================
@@ -37,12 +45,12 @@ namespace {
 Player::Player()
     : CollisionObject(kSize)
     , is_shot_(false)
-    , speed_(0.0f, 0.0f, 0.0f)
     , adjusted_value_(kAdjustedValueRotationToPower)
     , curve_reaction_(kCurveReaction)
     , shot_speed_(kShotSpeed)
     , moving_speed_(kMovingSpeed)
-    , p_ball_(nullptr) {
+    , p_ball_(nullptr)
+    , h_wind_effect_(-1) {
   AttachChild(new ObjectFBXModel("humanG_07.fbx"));
   AttachChild(new ObjectModel("ballObj_03"));
   p_ball_ = new PlayerBall();
@@ -54,6 +62,7 @@ Player::Player()
 // dtor
 //------------------------------------------------
 Player::~Player() {
+  EffectManagerServiceLocator::Get()->Stop3D(h_wind_effect_);
 }
 
 //------------------------------------------------
@@ -84,16 +93,22 @@ void Player::Shoot(const float rotation) {
   p_ball_->Shoot(rotation);
 
   is_shot_ = true;
+
+  h_wind_effect_ = EffectManagerServiceLocator::Get()->Play3D("EF_Ball_Wind", position_.x, position_.y, position_.x + 100);
+  EffectManagerServiceLocator::Get()->SetRotation(h_wind_effect_, D3DXVECTOR3(0, 1, 0), D3DX_PI);
+  EffectManagerServiceLocator::Get()->SetScale(h_wind_effect_, 100, 100, 100);
 }
 
 //------------------------------------------------
 // Reset
 //------------------------------------------------
 void Player::Reset(void) {
+  EffectManagerServiceLocator::Get()->Stop3D(h_wind_effect_);
+
   is_shot_ = false;
-  speed_ = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
   position_ = kStartPosition;
   rotation_ = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+  speed_ = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
   velocity_ = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
   p_ball_->Reset();
 }
@@ -145,4 +160,6 @@ void Player::_Update(const float elapsed_time) {
 
   static const float kRotationFixedValue = 0.005f;
   p_ball_->AddRotationPower(speed_.z * elapsed_time * kRotationFixedValue);
+
+  EffectManagerServiceLocator::Get()->SetPosition(h_wind_effect_, position_.x, position_.y, position_.z);
 }

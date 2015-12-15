@@ -8,6 +8,7 @@
 // include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 #include "GoalPin.h"
+#include "PinConfig.h"
 
 //==============================================================================
 // class implementation
@@ -35,7 +36,7 @@ void GoalPin::ReactCollision(const D3DXVECTOR3& power) {
   D3DXVECTOR3 direction;
   D3DXVec3Normalize(&direction, &to_me);
 
-  float impact = 1000.0f / distance;
+  float impact = pin::goal_pin::kImpactPower / distance;
   speed_ = direction * impact;
 
   is_all_drawed_ = true;

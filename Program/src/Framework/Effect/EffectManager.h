@@ -41,9 +41,13 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 class EffectManager {
 public:
+  // alias
   using DataType = Effekseer::Effect*;
   using HandleType = Effekseer::Handle;
+  using RemovingCallbackFunction = void(*)(void);
+
 private:
+  // template struct
   template<typename T>
   struct _UsingEffekseerRelease {
     static void Destroy(T data) {
@@ -51,6 +55,23 @@ private:
     }
   };
   using ContainerType = DataLoader<DataType, _UsingEffekseerRelease>;
+
+public:
+  // const
+  static const HandleType kNullHandle = -1;
+
+  // struct
+  struct Handle2D {
+    Handle2D() : handle_(0) {}
+    explicit Handle2D(Effekseer::Handle handle) : handle_(handle) {}
+    HandleType handle_;
+  };
+  struct Handle3D {
+    Handle3D() : handle_(0) {}
+    explicit Handle3D(Effekseer::Handle handle) : handle_(handle) {}
+    HandleType handle_;
+  };
+
 public:
   // ctor
   // Perspective = fov, aspect, zn, zf
@@ -71,27 +92,38 @@ public:
   void Draw(void);
 
   // Play
-  HandleType Play2D(const char* p_effect_name, float x, float y);
-  HandleType Play3D(const char* p_effect_name, float x, float y, float z);
+  Handle2D Play2D(const char* p_effect_name, float x, float y);
+  Handle3D Play3D(const char* p_effect_name, float x, float y, float z);
+
+  // Stop
+  void Stop2D(Handle2D handle);
+  void Stop3D(Handle3D handle);
 
   // Change
   void ChangeView(const D3DXVECTOR3& eye, const D3DXVECTOR3& at, const D3DXVECTOR3& up);
   void ChangeOrtho(float width, float height);
   void ChangePerspective(float fov, float aspect, float zn, float zf);
 
+  // get
+  bool IsExits2D(Handle2D handle) const;
+  bool IsExits3D(Handle3D handle) const;
+
   // set
+  void SetRemovingCallbackFunction2D(Handle2D handle, RemovingCallbackFunction callback);
+  void SetRemovingCallbackFunction3D(Handle3D handle, RemovingCallbackFunction callback);
+
   // for 2d
-  void SetScreenPosition(HandleType handle, const D3DXVECTOR2& position);
-  void SetScreenPosition(HandleType handle, float x, float y);
-  void SetScreenScale(HandleType handle, const D3DXVECTOR2& scale);
-  void SetScreenScale(HandleType handle, float x, float y);
+  void SetScreenPosition(Handle2D handle, const D3DXVECTOR2& position);
+  void SetScreenPosition(Handle2D handle, float x, float y);
+  void SetScreenScale(Handle2D handle, const D3DXVECTOR2& scale);
+  void SetScreenScale(Handle2D handle, float x, float y);
 
   // for 3d
-  void SetPosition(HandleType handle, const D3DXVECTOR3& position);
-  void SetPosition(HandleType handle, float x, float y, float z);
-  void SetRotation(HandleType handle, const D3DXVECTOR3& axis, float angle);
-  void SetScale(HandleType handle, const D3DXVECTOR3& scale);
-  void SetScale(HandleType handle, float x, float y, float z);
+  void SetPosition(Handle3D handle, const D3DXVECTOR3& position);
+  void SetPosition(Handle3D handle, float x, float y, float z);
+  void SetRotation(Handle3D handle, const D3DXVECTOR3& axis, float angle);
+  void SetScale(Handle3D handle, const D3DXVECTOR3& scale);
+  void SetScale(Handle3D handle, float x, float y, float z);
 
 private:
   // _func
@@ -102,6 +134,7 @@ private:
   void _AssignOrtho(void);
   void _AssignPerspective(void);
   void _Create2DView(void);
+  void _SetRemovingCallbackFunction(Effekseer::Manager& manager, HandleType handle, RemovingCallbackFunction callback);
 
   // property
   ContainerType* p_finder_2d_;
@@ -116,6 +149,8 @@ private:
   Effekseer::Matrix44 ortho_matrix_;
   float half_width_;
   float half_height_;
+
+  static std::unordered_map<Effekseer::Handle, void(*)(void)> s_function_map_;
 };
 
 using EffectManagerServiceLocator = liza::generic::ServiceLocator<EffectManager>;

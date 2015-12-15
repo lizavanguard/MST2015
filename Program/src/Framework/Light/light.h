@@ -3,33 +3,29 @@
 // Light
 // Author: Shimizu Shoji
 //
-// virtualize only update
-//
 //==============================================================================
 #pragma once
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-// include
-//--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-#include "Framework/Object/object_base.h"
-
-//--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-class Light : public ObjectBase {
+class Light {
+  const D3DXVECTOR3 kDirection = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+
 public:
   // ctor
-  Light(int, int){}
+  Light() : direction_(kDirection) {
+    D3DXVec3Normalize(&direction_, &direction_);
+  }
 
   // dtor
-  virtual ~Light(){}
+  ~Light() {}
+
+  // get
+  const D3DXVECTOR3& GetDirection() const { return direction_; }
 
 private:
-  // TODO:
-  //virtual void _Update(float) {}
-  virtual void _Update(float elapsed_time) {}
-
-  // _Draw
-  virtual void _Draw(void) final {}
-
-  // property
+  D3DXVECTOR3 direction_;
 };
+
+#include "liza/generic/ServiceLocator.hpp"
+using LightServiceLocator = liza::generic::ServiceLocator<Light>;

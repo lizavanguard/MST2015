@@ -15,6 +15,18 @@
 #include "Framework/Input/InputKeyboard.h"
 #include "Framework/Object/object_base.h"
 
+//--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
+// const
+//--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
+namespace {
+  const float kMovingSpeed = 20.0f;
+  const float kRotationSpeed = 0.1f;
+
+  const float kEyeDistance = 100.0f;
+  const float kEyeHeight = 10.0f;
+  const float kAtDistance = 100.0f;
+}
+
 //==============================================================================
 // class implementation
 //==============================================================================
@@ -25,9 +37,6 @@ public:
 
 private:
   virtual void _Update(float) {
-    static const float kMovingSpeed = 10.0f;
-    static const float kRotationSpeed = 0.1f;
-
     auto& keyboard = GameManager::Instance().GetInputManager().GetPrimaryKeyboard();
     D3DXVECTOR3 speed(0.0f, 0.0f, 0.0f);
     if (keyboard.IsPress(DIK_W)) {
@@ -53,7 +62,6 @@ private:
       speed.y -= 1.0f;
     }
     speed *= kMovingSpeed;
-
     position_ += speed;
 
     float rotation = 0.0f;
@@ -76,7 +84,7 @@ CameraSteeringControl::CameraSteeringControl()
     : p_steering_(nullptr)
     , p_dummy_(nullptr) {
   p_dummy_ = new ControlableObject();
-  p_steering_ = new CameraSteeringHoming(*p_dummy_);
+  p_steering_ = new CameraSteeringHoming(*p_dummy_, kEyeDistance, kEyeHeight, kAtDistance);
 }
 
 //------------------------------------------------

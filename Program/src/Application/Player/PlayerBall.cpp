@@ -9,6 +9,9 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 #include "PlayerBall.h"
 
+#include "Framework/Camera/camera.h"
+#include "Framework/Camera/camera_manager.h"
+
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // const
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
@@ -68,4 +71,36 @@ void PlayerBall::_Update(const float elapsed_time) {
 
   //position_ = GetWorldPosition();
   rotation_matrix_ = rotation_matrix;
+}
+
+//------------------------------------------------
+// Draw
+//------------------------------------------------
+void PlayerBall::_Draw(void) {
+  auto p_device = DeviceHolder::Instance().GetDevice();
+  auto& camera = CameraManager::Instance().GetMainCamera();
+  D3DXMATRIX wvp = world_matrix_ * camera.GetViewMatrix() * camera.GetProjectionMatrix();
+
+  p_shader_->SetMatrix("u_wvp", &wvp);
+
+  p_shader_->Begin(nullptr, 0);
+  p_shader_->BeginPass(0);
+
+  p_device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CW);
+  D3DXMATERIAL* p_d3dx_material = (D3DXMATERIAL*)p_xmodel_data_->p_materials->GetBufferPointer();
+  for (unsigned int count_material = 0; count_material < p_xmodel_data_->num_materials; ++count_material) {
+    p_shader_->SetTexture("texture_decale", p_xmodel_data_->p_textures[count_material]);
+    p_shader_->CommitChanges();
+    p_xmodel_data_->p_mesh->DrawSubset(count_material);
+  }
+
+  p_device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+  for (unsigned int count_material = 0; count_material < p_xmodel_data_->num_materials; ++count_material) {
+    p_shader_->SetTexture("texture_decale", p_xmodel_data_->p_textures[count_material]);
+    p_shader_->CommitChanges();
+    p_xmodel_data_->p_mesh->DrawSubset(count_material);
+  }
+
+  p_shader_->EndPass();
+  p_shader_->End();
 }

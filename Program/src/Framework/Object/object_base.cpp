@@ -19,6 +19,7 @@ ObjectBase::ObjectBase()
   : position_(0.0f, 0.0f, 0.0f)
   , rotation_(0.0f, 0.0f, 0.0f)
   , scale_(1.0f, 1.0f, 1.0f)
+  , speed_(0.0f, 0.0f, 0.0f)
   , velocity_(0.0f, 0.0f, 0.0f)
   , p_parent_(nullptr)
   , is_all_updated_(true)
@@ -33,9 +34,7 @@ ObjectBase::ObjectBase()
 // dtor
 //------------------------------------------------
 ObjectBase::~ObjectBase() {
-  for (auto p_child : list_) {
-    Destroy(p_child);
-  }
+  DestroyChilds();
 }
 
 //------------------------------------------------
@@ -94,6 +93,16 @@ void ObjectBase::DrawAll(void) {
   if (is_child_auto_drawed_) {
     _DrawChildAll();
   }
+}
+
+//------------------------------------------------
+// Destroy childs
+//------------------------------------------------
+void ObjectBase::DestroyChilds(void) {
+  for (auto p_child : list_) {
+    Destroy(p_child);
+  }
+  list_.clear();
 }
 
 //------------------------------------------------

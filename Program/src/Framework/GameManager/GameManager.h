@@ -18,10 +18,13 @@
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // class declaration
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+class AlphaObjectManager;
 class DebugProc;
 class EffectManager;
+class HudManager;
 class InputManager;
 class SceneManager;
+class Light;
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // class definition
@@ -51,10 +54,13 @@ public:
 
 private:
 	// property
+  AlphaObjectManager* pAlphaObjectManager_;
 	DebugProc* pDebugProc_;
   EffectManager* pEffectManager_;
+  HudManager* pHudManager_;
 	InputManager* pInputManager_;
   SceneManager* pSceneManager_;
+  Light* pLight_;
 };
 
 

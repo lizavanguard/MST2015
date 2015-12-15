@@ -73,7 +73,6 @@ void Object3D::_Update(const float elapsed_time) {
 //------------------------------------------------
 void Object3D::_Draw(void) {
   auto p_device = DeviceHolder::Instance().GetDevice();
-
   struct Vertex3D {
     D3DXVECTOR3 vertex;
     D3DXVECTOR4 diffuse;

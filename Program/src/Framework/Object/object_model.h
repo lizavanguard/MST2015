@@ -28,6 +28,7 @@ private:
   virtual void _Update(float elapsed_time) override;
   virtual void _Draw(void) override;
 
+protected:
   // property
   XModelData* p_xmodel_data_;
   LPD3DXEFFECT p_shader_;

@@ -25,15 +25,13 @@ public:
   virtual ~Pin();
 
   // Reset
-  void Reset(void);
+  virtual void Reset(void);
 
 protected:
-  D3DXVECTOR3 speed_;
-
-private:
   // Update
   virtual void _Update(float elapsed_time) override;
 
+private:
   D3DXVECTOR3 initial_position_;
 };
 

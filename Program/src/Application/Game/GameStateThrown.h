@@ -33,6 +33,10 @@ public:
   virtual void Draw(void) override;
 
 private:
+  // _cotrol
+  void _Control(void);
+
+  // property
   Root* p_root_;
   float ready_time_;
 };

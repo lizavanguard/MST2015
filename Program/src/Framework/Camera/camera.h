@@ -43,6 +43,7 @@ public:
     const D3DXVECTOR3& GetEye(const Camera& camera) const { return camera.eye_; }
     const D3DXVECTOR3& GetTargetPosition(ObjectBase& target) const { return target.GetPosition(); }
     const D3DXVECTOR3& GetTargetRotation(ObjectBase& target) const { return target.GetRotation(); }
+    const D3DXVECTOR3& GetTargetSpeed(ObjectBase& target) const { return target.GetSpeed(); }
     const D3DXVECTOR3& GetTargetVelocity(ObjectBase& target) const { return target.GetVelocity(); }
 
     // set
@@ -79,8 +80,9 @@ public:
   virtual void Update(float elapsed_time);
 
   // get
-  const D3DXMATRIX& GetProjectionMatrix(void) const { return projection_; }
+  CameraSteering* GetCameraSteering(void) const { return p_camera_steering_; }
   const D3DXMATRIX& GetViewMatrix(void) const { return view_; }
+  const D3DXMATRIX& GetProjectionMatrix(void) const { return projection_; }
 
   const D3DXVECTOR3& _GetEye(void) const { return eye_; }
   const D3DXVECTOR3& _GetAt(void) const { return at_; }
@@ -89,10 +91,8 @@ private:
   // property
   D3DXMATRIX projection_;
   D3DXMATRIX view_;
-
   D3DXVECTOR3 eye_;
   D3DXVECTOR3 at_;
-
   CameraSteering* p_camera_steering_;
 };
 

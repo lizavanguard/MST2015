@@ -19,6 +19,7 @@
 // class
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 class LanePin;
+class ObjectInstancingModel;
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
@@ -46,8 +47,11 @@ public:
   ConstIterator end(void) const { return pins_.end(); }
 
 private:
-  DEFINITION_DEFAULT_UPDATE_AND_DRAW
+  virtual void _Update(float elapsed_time) override;
+  virtual void _Draw(void) override;
+
   ContainerType pins_;
+  ObjectInstancingModel* p_instancing_model_;
 };
 
 using LanePinsFactory = liza::generic::Factory<LanePins>;

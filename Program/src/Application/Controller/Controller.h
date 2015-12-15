@@ -37,6 +37,8 @@ public:
 private:
   bool _IsMovedToLeft(void);
   bool _IsMovedToRight(void);
+  bool _IsRotatedLeft(void);
+  bool _IsRotatedRight(void);
   bool _IsSetUp(void);
   bool _IsShot(void);
   float _GetControllerRotation(void);

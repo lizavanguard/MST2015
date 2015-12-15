@@ -29,6 +29,7 @@
     <ClCompile Include="src\Application\Pin\StandardPins.cpp" />
     <ClCompile Include="src\Application\Player\Player.cpp" />
     <ClCompile Include="src\Application\Player\PlayerBall.cpp" />
+    <ClCompile Include="src\Application\Stage\Stage.cpp" />
     <ClCompile Include="src\Application\test.cpp" />
     <ClCompile Include="src\Application\test2.cpp" />
     <ClCompile Include="src\Application\Title\SceneTitle.cpp" />
@@ -36,6 +37,7 @@
     <ClCompile Include="src\Application\WiiController\CWiiController.cpp" />
     <ClCompile Include="src\Application\WiiController\WiiControllerManager.cpp" />
     <ClCompile Include="src\FBX\fbx_model.cpp" />
+    <ClCompile Include="src\Framework\AlphaObject\AlphaObjectManager.cpp" />
     <ClCompile Include="src\Framework\Camera\camera.cpp" />
     <ClCompile Include="src\Framework\Camera\camera_manager.cpp" />
     <ClCompile Include="src\Framework\Camera\camera_steering_control.cpp" />
@@ -50,6 +52,7 @@
     <ClCompile Include="src\Framework\GameManager\GameManager.cpp" />
     <ClCompile Include="src\Framework\GameWindow\GameDirectX.cpp" />
     <ClCompile Include="src\Framework\GameWindow\GameWindow.cpp" />
+    <ClCompile Include="src\Framework\Hud\HudManager.cpp" />
     <ClCompile Include="src\Framework\Input\Input.cpp" />
     <ClCompile Include="src\Framework\Input\InputDirect.cpp" />
     <ClCompile Include="src\Framework\Input\InputKeyboard.cpp" />
@@ -64,6 +67,7 @@
     <ClCompile Include="src\Framework\Object\object3d.cpp" />
     <ClCompile Include="src\Framework\Object\object_base.cpp" />
     <ClCompile Include="src\Framework\Object\object_fbx_model.cpp" />
+    <ClCompile Include="src\Framework\Object\object_instancing_model.cpp" />
     <ClCompile Include="src\Framework\Object\object_model.cpp" />
     <ClCompile Include="src\Framework\Object\object_sky_box_face.cpp" />
     <ClCompile Include="src\Framework\RenderTarget\RenderTargetManager.cpp" />
@@ -96,11 +100,13 @@
     <ClInclude Include="src\Application\Pin\LanePin.h" />
     <ClInclude Include="src\Application\Pin\LanePins.h" />
     <ClInclude Include="src\Application\Pin\Pin.h" />
+    <ClInclude Include="src\Application\Pin\PinConfig.h" />
     <ClInclude Include="src\Application\Pin\PinManager.h" />
     <ClInclude Include="src\Application\Pin\StandardPin.h" />
     <ClInclude Include="src\Application\Pin\StandardPins.h" />
     <ClInclude Include="src\Application\Player\Player.h" />
     <ClInclude Include="src\Application\Player\PlayerBall.h" />
+    <ClInclude Include="src\Application\Stage\Stage.h" />
     <ClInclude Include="src\Application\test.h" />
     <ClInclude Include="src\Application\test2.h" />
     <ClInclude Include="src\Application\Title\SceneTitle.h" />
@@ -112,6 +118,7 @@
     <ClInclude Include="src\Effekseer\EffekseerRendererDX9.h" />
     <ClInclude Include="src\Effekseer\EffekseerSoundXAudio2.h" />
     <ClInclude Include="src\FBX\fbx_model.h" />
+    <ClInclude Include="src\Framework\AlphaObject\AlphaObjectManager.h" />
     <ClInclude Include="src\Framework\Camera\camera.h" />
     <ClInclude Include="src\Framework\Camera\camera_config.h" />
     <ClInclude Include="src\Framework\Camera\camera_manager.h" />
@@ -129,6 +136,7 @@
     <ClInclude Include="src\Framework\GameWindow\GameBase.h" />
     <ClInclude Include="src\Framework\GameWindow\GameDirectX.h" />
     <ClInclude Include="src\Framework\GameWindow\GameWindow.h" />
+    <ClInclude Include="src\Framework\Hud\HudManager.h" />
     <ClInclude Include="src\Framework\Input\Input.h" />
     <ClInclude Include="src\Framework\Input\InputDevice.h" />
     <ClInclude Include="src\Framework\Input\InputDirect.h" />
@@ -145,6 +153,7 @@
     <ClInclude Include="src\Framework\Object\object3d.h" />
     <ClInclude Include="src\Framework\Object\object_base.h" />
     <ClInclude Include="src\Framework\Object\object_fbx_model.h" />
+    <ClInclude Include="src\Framework\Object\object_instancing_model.h" />
     <ClInclude Include="src\Framework\Object\object_model.h" />
     <ClInclude Include="src\Framework\Object\object_sky_box_face.h" />
     <ClInclude Include="src\Framework\Object\root.h" />
@@ -272,7 +281,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)</OutDir>
-    <IncludePath>$(SolutionDir)\src\Effekseer\;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Program Files\Autodesk\FBX\FBX SDK\2016.1.2\include;$(SolutionDir)\src\Effekseer\;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Program Files\Autodesk\FBX\FBX SDK\2016.1.2\lib\vs2013\x86\release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

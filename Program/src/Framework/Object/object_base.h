@@ -49,11 +49,15 @@ public:
   // Draw All in list
   void DrawAll(void);
 
+  // Destroy childs
+  void DestroyChilds(void);
+
   // get
   const D3DXMATRIX& GetWorldMatrix(void) const { return world_matrix_; }
   const D3DXVECTOR3& GetPosition(void) const { return position_; }
   const D3DXVECTOR3& GetRotation(void) const { return rotation_; }
   const D3DXVECTOR3& GetScale(void) const { return scale_; }
+  const D3DXVECTOR3& GetSpeed(void) const { return speed_; }
   const D3DXVECTOR3& GetVelocity(void) const { return velocity_; }
   D3DXVECTOR3 GetWorldPosition(void) const { return D3DXVECTOR3(world_matrix_._41, world_matrix_._42, world_matrix_._43); }
 
@@ -80,6 +84,7 @@ protected:
   D3DXVECTOR3 position_;
   D3DXVECTOR3 rotation_;
   D3DXVECTOR3 scale_;
+  D3DXVECTOR3 speed_;
   D3DXVECTOR3 velocity_;
 
   D3DXMATRIX world_matrix_;  // ツリー構造の今まで全てのワールド行列が反映されたもの

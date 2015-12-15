@@ -12,14 +12,23 @@
 #include "Framework/GameManager/GameManager.h"
 #include "Framework/Input/InputKeyboard.h"
 #include "Framework/Object/object2d.h"
+#include "Framework/Object/object_model.h"
 #include "Framework/Object/root.h"
 #include "Framework/Scene/SceneManager.h"
 #include "Framework/Steering/Object2D/Object2DSteeringFlashing.h"
 #include "Framework/Texture/texture_manager.h"
+#include "Framework/Camera/camera.h"
+#include "Framework/Camera/camera_manager.h"
+#include "Framework/Camera/camera_steering_control.h"
+#include "Framework/Effect/EffectManager.h"
+#include "Framework/Effect/EffectManagerServiceLocator.h"
+#include "Framework/SkyBox/SkyBox.h"
 
 #include "window_config.h"
 
 #include "Application/Game/SceneGameFactory.h"
+#include "Application/Player/Player.h"
+#include "Application/Stage/Stage.h"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // const
@@ -27,6 +36,11 @@
 namespace {
   const char* kTextureGroupName = "Title";
 }
+
+static bool s_is_ready = false;
+static bool s_is_just_ready = false;
+static EffectManager::Handle2D s_logo_handle(-1);
+
 //==============================================================================
 // class implementation
 //==============================================================================
@@ -38,14 +52,30 @@ SceneTitle::SceneTitle() : p_root_(nullptr) {
 
   p_root_ = RootFactory::Create();
 
-  p_root_->AttachChild(Object2DFactory::Create("Title/logo", D3DXVECTOR3(kWindowWidth * 0.5f, 200.0f, 0.0f), D3DXVECTOR2(800.0f, 300.0f)));
-  p_root_->AttachChild(Object2DFactory::Create("Title/push_start", D3DXVECTOR3(640.0f, 450.0f, 0.0f), D3DXVECTOR2(600.0f, 200.0f), new Object2DSteeringFlashing()));
+  SkyBox* p_skybox = new SkyBox();
+  p_root_->AttachChild(p_skybox);
+
+  Stage* p_field = new Stage();
+  p_root_->AttachChild(p_field);
+
+  Player* p_player = new Player();
+  p_root_->AttachChild(p_player);
+
+  Camera& camera = CameraManager::Instance().Find("MAIN_1");
+  camera.AssignCameraSteering(new CameraSteeringControl());
+
+  s_is_ready = false;
+  s_is_just_ready = false;
 }
 
 //------------------------------------------------
 // dtor
 //------------------------------------------------
 SceneTitle::~SceneTitle() {
+  EffectManagerServiceLocator::Get()->Stop2D(s_logo_handle);
+  Camera& camera = CameraManager::Instance().Find("MAIN_1");
+  camera.AssignCameraSteering(nullptr);
+
   Root::Destroy(p_root_);
 
   TextureManager::Instance().Unload(kTextureGroupName);
@@ -58,6 +88,35 @@ void SceneTitle::_Update(SceneManager* p_scene_manager, const float elapsed_time
   const auto& keyboard = GameManager::Instance().GetInputManager().GetPrimaryKeyboard();
   if (keyboard.IsTrigger(DIK_RETURN)) {
     p_scene_manager->PushNextSceneFactory(new SceneGameFactory());
+  }
+
+  if (keyboard.IsTrigger(DIK_1)) {
+    auto handle = EffectManagerServiceLocator::Get()->Play2D("EF_Title_fadeWhite", 640, 360);
+    EffectManagerServiceLocator::Get()->SetScreenScale(handle, 50.0f, 50.0f);
+    EffectManagerServiceLocator::Get()->SetRemovingCallbackFunction2D(handle, [](void) {
+      s_is_just_ready = true;
+    });
+  }
+
+  if (keyboard.IsTrigger(DIK_A)) {
+    s_is_just_ready = true;
+  }
+
+  if (s_is_just_ready) {
+    s_logo_handle = EffectManagerServiceLocator::Get()->Play2D("EF_Title_logoFadeIn", 640, 360);
+    EffectManagerServiceLocator::Get()->SetScreenScale(s_logo_handle, 50.0f, 50.0f);
+    s_is_just_ready = false;
+    s_is_ready = true;
+  }
+
+  if (s_is_ready) {
+    if (keyboard.IsTrigger(DIK_SPACE)) {
+      p_scene_manager->PushNextSceneFactory(new SceneGameFactory());
+    }
+  }
+
+  if (keyboard.IsTrigger(DIK_2)) {
+    auto h = EffectManagerServiceLocator::Get()->Play2D("EF_Title_logoSlideIn", 640, 360);
   }
 
   p_root_->UpdateAll(elapsed_time);

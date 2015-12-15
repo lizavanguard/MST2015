@@ -33,6 +33,7 @@ public:
 
 private:
   virtual void _Update(float elapsed_time) override;
+  virtual void _Draw(void) override;
 
   float rotation_power_;
   D3DXVECTOR3 rotation_axis_;
