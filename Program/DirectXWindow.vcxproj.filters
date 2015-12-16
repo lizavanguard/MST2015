@@ -354,6 +354,9 @@
     <ClCompile Include="src\Framework\Hud\HudManager.cpp">
       <Filter>src\Framework\Hud</Filter>
     </ClCompile>
+    <ClCompile Include="src\Application\Pin\BiggestPin.cpp">
+      <Filter>src\Application\Pin</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Framework\DebugProc\DebugProc.h">
@@ -715,6 +718,9 @@
     </ClInclude>
     <ClInclude Include="src\Framework\Hud\HudManager.h">
       <Filter>src\Framework\Hud</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Application\Pin\BiggestPin.h">
+      <Filter>src\Application\Pin</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

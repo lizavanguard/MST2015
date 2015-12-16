@@ -84,8 +84,13 @@ public:
   const D3DXMATRIX& GetViewMatrix(void) const { return view_; }
   const D3DXMATRIX& GetProjectionMatrix(void) const { return projection_; }
 
+  // get
   const D3DXVECTOR3& _GetEye(void) const { return eye_; }
   const D3DXVECTOR3& _GetAt(void) const { return at_; }
+
+  // set
+  void _SetEye(const D3DXVECTOR3& eye) { eye_ = eye; }
+  void _SetAt(const D3DXVECTOR3& at) { at_ = at; }
 
 private:
   // property

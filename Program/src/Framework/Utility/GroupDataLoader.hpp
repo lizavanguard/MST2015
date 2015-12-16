@@ -31,7 +31,8 @@ class GroupDataLoader {
 public:
   using DataFinderType = DataLoader<T, DestroyPolicy>;
   using KeyType = typename DataFinderType::KeyType;
-  using ContainerType = std::unordered_map<KeyType, DataFinderType*, std::hash<KeyType>, IgnoreCaseStringEqualTo>;
+  using HashType = std::hash<KeyType>;
+  using ContainerType = std::unordered_map<KeyType, DataFinderType*, HashType, IgnoreCaseStringEqualTo>;
 
 public:
   // ctor
@@ -70,6 +71,10 @@ public:
   // SubDirectoryとファイル名を分けたやつ
   // ファイル名を加工せずそのまま渡す
   T FindWithPureKey(const KeyType& p_sub_directory_name, const KeyType& p_file_name) const;
+
+  // get
+  DataFinderType* GetContainer(unsigned int index);
+  unsigned int size(void) const;
 
 private:
   ContainerType container_;

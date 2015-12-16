@@ -32,4 +32,10 @@ namespace pin {
     static const float kMovingDistance = 1000.0f;
     static const float kMovingSpeed = 1.0f;
   }
+
+  // biggest pin
+  namespace biggest_pin {
+    static const float kScale = 5.0f;
+    static const D3DXVECTOR3 kPosition(0.0f, 0.0f, 10000.0f);
+  }
 }

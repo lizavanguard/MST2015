@@ -14,6 +14,7 @@
 #include "Framework/Object/object2d.h"
 #include "Framework/Object/root.h"
 #include "Framework/Object/Hud/HudNumber/HudNumber.h"
+#include "Framework/Sound/sound_manager.h"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // const

@@ -38,7 +38,8 @@ public:
   void Load(void);
 
   // Play sound
-  bool PlaySound(const ContainerType::KeyType& sound_file_name);
+  bool PlayBGM(const ContainerType::KeyType& sound_file_name);
+  bool PlaySE(const ContainerType::KeyType& sound_file_name);
 
   // Stop sound
   void StopSound(const ContainerType::KeyType& sound_file_name);
@@ -48,9 +49,18 @@ public:
   // get
   IXAudio2* GetXAudio2(void) const;
 
+  // Set
+  void Activate(void) { is_active_ = true; }
+  void Deactivate(void) { is_active_ = false; }
+
 private:
+  // _function
+  bool _PlaySound(const ContainerType::KeyType& sound_file_name);
+
+  // property
   ContainerType* p_container_;
   XAudioHolder* p_xaudio_;
+  bool is_active_;
 };
 
 using SoundManager = liza::generic::SingletonHolder<_SoundManager>;

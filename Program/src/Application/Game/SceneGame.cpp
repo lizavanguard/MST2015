@@ -24,6 +24,7 @@
 #include "Framework/Object/object_model.h"
 #include "Framework/Object/Hud/HudNumber/HudNumber.h"
 #include "Framework/Scene/SceneManager.h"
+#include "Framework/Sound/sound_manager.h"
 #include "Framework/SkyBox/SkyBox.h"
 
 #include "Application/Collision/CollisionManager.h"
@@ -35,6 +36,15 @@
 #include "Application/Title/SceneTitleFactory.h"
 
 #include "Framework/Effect/EffectManager.h"
+
+//--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
+// const
+//--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
+namespace {
+  const char* kTextureGroupName = "Game";
+  const char* kBgmName = "BGM_Game_Main";
+}
+
 
 //==============================================================================
 // class implementation
@@ -52,7 +62,7 @@ SceneGame::SceneGame()
     , p_player_(nullptr)
     , p_pin_manager_(nullptr)
     , p_hud_number_(nullptr) {
-  TextureManager::Instance().Load("Game");
+  TextureManager::Instance().Load(kTextureGroupName);
 
   p_2d_root_ = RootFactory::Create();
   p_3d_root_ = RootFactory::Create();
@@ -96,13 +106,16 @@ SceneGame::SceneGame()
   camera2.AssignCameraSteering(new CameraSteeringHoming(*p_player_, kEyeDistance, kEyeHeight, kAtDistance));
   auto& camera3 = camera_manager.Find("MAIN_3");
   camera3.AssignCameraSteering(new CameraSteeringFixed(*p_player_));
+
+  SoundManager::Instance().PlayBGM(kBgmName);
 }
 
 //------------------------------------------------
 // dtor
 //------------------------------------------------
 SceneGame::~SceneGame() {
-  TextureManager::Instance().Unload("Game");
+  SoundManager::Instance().StopSound();
+  TextureManager::Instance().Unload(kTextureGroupName);
 
   HudServiceLocator::Get()->Clear();
   AlphaObjectServiceLocator::Get()->Clear();
@@ -226,5 +239,4 @@ void SceneGame::_Update(SceneManager* p_scene_manager, const float elapsed_time)
 void SceneGame::_Draw(void) {
   p_game_state_->Draw();
   p_3d_root_->DrawAll();
- // p_2d_root_->DrawAll();
 }

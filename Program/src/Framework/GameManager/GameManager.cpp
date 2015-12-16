@@ -155,9 +155,10 @@ void GameManager::Draw(void) {
   pDevice->BeginScene();
 
   pSceneManager_->Draw();
-  pEffectManager_->Draw();
+  pEffectManager_->Draw3D();
   pAlphaObjectManager_->Draw();
   pHudManager_->Draw();
+  pEffectManager_->Draw2D();
   pDebugProc_->Draw();
 
   pDevice->EndScene();

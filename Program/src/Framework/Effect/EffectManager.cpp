@@ -118,17 +118,19 @@ void EffectManager::Update(void) {
 //------------------------------------------------
 // Draw
 //------------------------------------------------
-void EffectManager::Draw(void) {
-  _Assign3DView();
-  _AssignPerspective();
-  p_renderer_->BeginRendering();
-  p_manager_3d_->Draw();
-  p_renderer_->EndRendering();
-
+void EffectManager::Draw2D(void) {
   _Assign2DView();
   _AssignOrtho();
   p_renderer_->BeginRendering();
   p_manager_2d_->Draw();
+  p_renderer_->EndRendering();
+}
+
+void EffectManager::Draw3D(void) {
+  _Assign3DView();
+  _AssignPerspective();
+  p_renderer_->BeginRendering();
+  p_manager_3d_->Draw();
   p_renderer_->EndRendering();
 }
 

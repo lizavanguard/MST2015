@@ -89,7 +89,8 @@ public:
   void Update(void);
 
   // Draw
-  void Draw(void);
+  void Draw2D(void);
+  void Draw3D(void);
 
   // Play
   Handle2D Play2D(const char* p_effect_name, float x, float y);

@@ -36,6 +36,7 @@ GroupDataLoader<T, DestroyPolicy>::~GroupDataLoader() {
     SafeDelete(it->second);
     it = container_.erase(it);
   }
+  container_.begin();
 }
 
 //------------------------------------------------
@@ -144,4 +145,33 @@ T GroupDataLoader<T, DestroyPolicy>::FindWithPureKey(const KeyType& p_sub_direct
   }
 
   return it->second->Find(p_file_name);
+}
+
+//------------------------------------------------
+// get
+//------------------------------------------------
+template<
+  typename T,
+  template<class> class DestroyPolicy
+>
+typename GroupDataLoader<T, DestroyPolicy>::DataFinderType* GroupDataLoader<T, DestroyPolicy>::GetContainer(const unsigned int index) {
+  if (index >= container_.size()) {
+    MY_BREAK_ASSERTMSG(false, "不正なインデックス");
+    return nullptr;
+  }
+
+  auto it = container_.begin();
+  std::advance(it, index);
+  return it->second;
+}
+
+//------------------------------------------------
+// size
+//------------------------------------------------
+template<
+  typename T,
+  template<class> class DestroyPolicy
+>
+unsigned int GroupDataLoader<T, DestroyPolicy>::size(void) const {
+  return container_.size();
 }
