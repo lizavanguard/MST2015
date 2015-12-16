@@ -19,8 +19,9 @@
 // const
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 namespace {
-  const float kMovingSpeed = 20.0f;
+  const float kMovingSpeed = 100.0f;
   const float kRotationSpeed = 0.1f;
+  const float kDashRate = 10.0f;
 
   const float kEyeDistance = 100.0f;
   const float kEyeHeight = 10.0f;
@@ -30,15 +31,18 @@ namespace {
 //==============================================================================
 // class implementation
 //==============================================================================
+namespace {
+
 class ControlableObject : public ObjectBase {
 public:
   ControlableObject() {}
   virtual ~ControlableObject() {}
 
 private:
-  virtual void _Update(float) {
+  virtual void _Update(float) override {
     auto& keyboard = GameManager::Instance().GetInputManager().GetPrimaryKeyboard();
     D3DXVECTOR3 speed(0.0f, 0.0f, 0.0f);
+
     if (keyboard.IsPress(DIK_W)) {
       speed.x += sinf(rotation_.y);
       speed.z += cosf(rotation_.y);
@@ -61,6 +65,10 @@ private:
     if (keyboard.IsPress(DIK_K)) {
       speed.y -= 1.0f;
     }
+    if (keyboard.IsPress(DIK_LSHIFT)) {
+      speed *= kDashRate;
+    }
+
     speed *= kMovingSpeed;
     position_ += speed;
 
@@ -74,8 +82,10 @@ private:
     rotation_.y += rotation;
   }
 
-  virtual void _Draw(void) {}
+  virtual void _Draw(void) override {}
 };
+
+}
 
 //------------------------------------------------
 // ctor

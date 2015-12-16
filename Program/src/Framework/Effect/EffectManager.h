@@ -99,6 +99,7 @@ public:
   // Stop
   void Stop2D(Handle2D handle);
   void Stop3D(Handle3D handle);
+  void Stop();
 
   // Change
   void ChangeView(const D3DXVECTOR3& eye, const D3DXVECTOR3& at, const D3DXVECTOR3& up);

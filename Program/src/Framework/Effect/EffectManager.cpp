@@ -162,6 +162,11 @@ void EffectManager::Stop3D(const Handle3D handle) {
   }
 }
 
+void EffectManager::Stop() {
+  p_manager_2d_->StopAllEffects();
+  p_manager_3d_->StopAllEffects();
+}
+
 //------------------------------------------------
 // Change
 //------------------------------------------------

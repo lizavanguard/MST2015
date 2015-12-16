@@ -16,9 +16,9 @@
 class Object2DSteeringFlashing : public Object2DSteering {
 public:
   // ctor
-  Object2DSteeringFlashing()
+  Object2DSteeringFlashing(float speed_rate = 1.0f)
       : time_(0.0f)
-      , speed_rate_(1.0f) {
+      , speed_rate_(speed_rate) {
   }
 
   // dtor

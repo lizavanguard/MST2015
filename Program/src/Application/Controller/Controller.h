@@ -55,8 +55,13 @@ private:
   bool is_set_up_;
 
 #ifdef _DEBUG
+  bool _IsResetted(void);
+  bool _IsMoveToForward(void);
+  bool _IsMoveToBackward(void);
+  bool _IsMoveToUp(void);
+  bool _IsMoveToDown(void);
+
   float debug_rotation_;
   float thrown_rotation_;
-  bool _IsResetted(void);
 #endif
 };

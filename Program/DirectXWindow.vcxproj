@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Application\Alarm\Alarm.cpp" />
     <ClCompile Include="src\Application\Collision\CollisionManager.cpp" />
     <ClCompile Include="src\Application\Controller\Controller.cpp" />
     <ClCompile Include="src\Application\Game\GameMaster\GameMaster.cpp" />
@@ -35,6 +36,7 @@
     <ClCompile Include="src\Application\test2.cpp" />
     <ClCompile Include="src\Application\Title\SceneTitle.cpp" />
     <ClCompile Include="src\Application\Title\SceneTitleFactory.cpp" />
+    <ClCompile Include="src\Application\Title\TitleListeners.cpp" />
     <ClCompile Include="src\Application\WiiController\CWiiController.cpp" />
     <ClCompile Include="src\Application\WiiController\WiiControllerManager.cpp" />
     <ClCompile Include="src\FBX\fbx_model.cpp" />
@@ -44,6 +46,7 @@
     <ClCompile Include="src\Framework\Camera\camera_steering_control.cpp" />
     <ClCompile Include="src\Framework\Camera\camera_steering_fixed.cpp" />
     <ClCompile Include="src\Framework\Camera\camera_steering_homing.cpp" />
+    <ClCompile Include="src\Framework\Camera\camera_steering_moving.cpp" />
     <ClCompile Include="src\Framework\Camera\camera_steering_set.cpp" />
     <ClCompile Include="src\Framework\Collision\collision.cpp" />
     <ClCompile Include="src\Framework\DebugProc\DebugProc.cpp" />
@@ -88,6 +91,7 @@
     <ClCompile Include="src\WiiYourself\wiimote.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Application\Alarm\Alarm.h" />
     <ClInclude Include="src\Application\Collision\CollisionManager.h" />
     <ClInclude Include="src\Application\Controller\Controller.h" />
     <ClInclude Include="src\Application\Game\GameMaster\GameMaster.h" />
@@ -96,6 +100,7 @@
     <ClInclude Include="src\Application\Game\GameStateThrown.h" />
     <ClInclude Include="src\Application\Game\SceneGame.h" />
     <ClInclude Include="src\Application\Game\SceneGameFactory.h" />
+    <ClInclude Include="src\Application\game_config.h" />
     <ClInclude Include="src\Application\Pin\BiggestPin.h" />
     <ClInclude Include="src\Application\Pin\GoalPin.h" />
     <ClInclude Include="src\Application\Pin\GoalPins.h" />
@@ -113,6 +118,7 @@
     <ClInclude Include="src\Application\test2.h" />
     <ClInclude Include="src\Application\Title\SceneTitle.h" />
     <ClInclude Include="src\Application\Title\SceneTitleFactory.h" />
+    <ClInclude Include="src\Application\Title\TitleListeners.h" />
     <ClInclude Include="src\Application\WiiController\CWiiController.h" />
     <ClInclude Include="src\Application\WiiController\WiiControllerManager.h" />
     <ClInclude Include="src\common.h" />
@@ -127,6 +133,7 @@
     <ClInclude Include="src\Framework\Camera\camera_steering_control.h" />
     <ClInclude Include="src\Framework\Camera\camera_steering_fixed.h" />
     <ClInclude Include="src\Framework\Camera\camera_steering_homing.h" />
+    <ClInclude Include="src\Framework\Camera\camera_steering_moving.h" />
     <ClInclude Include="src\Framework\Camera\camera_steering_set.h" />
     <ClInclude Include="src\Framework\Collision\collision.h" />
     <ClInclude Include="src\Framework\Collision\collision_object.h" />

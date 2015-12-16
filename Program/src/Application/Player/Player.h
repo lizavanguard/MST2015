@@ -31,8 +31,13 @@ public:
   virtual ~Player();
 
   // Move
+  void MoveForward(void);
+  void MoveForward(float speed);
+  void MoveBackward(void);
   void MoveLeft(void);
   void MoveRight(void);
+  void MoveUp(void);
+  void MoveDown(void);
 
   // Shoot
   void Shoot(float rotation);
@@ -42,9 +47,6 @@ public:
 
   // React collision
   virtual void ReactCollision(const D3DXVECTOR3& power) override;
-
-  // get
-  const D3DXVECTOR3& GetPosition(void) const { return position_; }
 
 private:
   virtual void _Draw(void) override {}

@@ -13,6 +13,8 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class declaration
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
+class Alarm;
+class Player;
 class Root;
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
@@ -29,9 +31,14 @@ public:
 private:
   // Update
   virtual void _Update(SceneManager* p_scene_manager, float elapsed_time) override;
-
   // Draw
   virtual void _Draw(void) override;
 
+  // _function
+  void _SetupAlarm(void);
+
   Root* p_root_;
+  Player* p_player_;
+  Alarm* p_alarm_;
+  float sum_time_;
 };

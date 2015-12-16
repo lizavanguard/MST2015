@@ -47,7 +47,7 @@ void CollisionManager::Update(void) {
 
   PlayerXBiggestPin();
   PlayerXLanePins();
-  PlayerXGoalPins();
+  //PlayerXGoalPins();
 }
 
 //------------------------------------------------

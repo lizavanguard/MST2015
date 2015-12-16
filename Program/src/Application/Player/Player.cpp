@@ -26,12 +26,14 @@
 namespace {
   const float kSize = 200.0f;
 
-  const float kMovingSpeed = 30.0f;
+  const float kMovingSpeed = 60.0f;
 
   const float kAdjustedValueRotationToPower = 1000.0f;
   //const float kCurveReaction = 0.025f;
   const float kCurveReaction = 0.025f;
   const float kShotSpeed = 5000.0f;
+
+  const float kSpeedMax = 15000.0f;
 
   const Vector3 kStartPosition(0.0f, 200.0f, -100.0f);
 }
@@ -68,12 +70,32 @@ Player::~Player() {
 //------------------------------------------------
 // Move
 //------------------------------------------------
+void Player::MoveForward(void) {
+  speed_.z += moving_speed_;
+}
+
+void Player::MoveForward(const float speed) {
+  speed_.z += speed;
+}
+
+void Player::MoveBackward(void) {
+  speed_.z -= moving_speed_;
+}
+
 void Player::MoveLeft(void) {
   speed_.x -= moving_speed_;
 }
 
 void Player::MoveRight(void) {
   speed_.x += moving_speed_;
+}
+
+void Player::MoveUp(void) {
+  speed_.y += moving_speed_;
+}
+
+void Player::MoveDown(void) {
+  speed_.y -= moving_speed_;
 }
 
 //------------------------------------------------
@@ -129,19 +151,6 @@ void Player::_Update(const float elapsed_time) {
   static const float kSpeed = 100.0f;
   const float true_speed = kSpeed /** elapsed_time*/;
 
-  if (keyboard.IsPress(DIK_W)) {
-    speed_.z += true_speed;
-  }
-  if (keyboard.IsPress(DIK_S)) {
-    speed_.z -= true_speed;
-  }
-  if (keyboard.IsPress(DIK_I)) {
-    speed_.y += true_speed;
-  }
-  if (keyboard.IsPress(DIK_K)) {
-    speed_.y -= true_speed;
-  }
-
   if (keyboard.IsPress(DIK_3)) { curve_reaction_+= 0.0003f; }
   if (keyboard.IsPress(DIK_4)) { curve_reaction_ -= 0.0003f; }
   if (keyboard.IsPress(DIK_5)) { shot_speed_ += 0.1f; }
@@ -155,10 +164,13 @@ void Player::_Update(const float elapsed_time) {
 
   velocity_ *= 0.998f;
   speed_ += velocity_;
+  if (speed_.z > kSpeedMax) {
+    speed_.z = kSpeedMax;
+  }
   speed_ *= 0.998f;
   position_ += speed_ * elapsed_time;
 
-  static const float kRotationFixedValue = 0.005f;
+  static const float kRotationFixedValue = 0.001f;
   p_ball_->AddRotationPower(speed_.z * elapsed_time * kRotationFixedValue);
 
   EffectManagerServiceLocator::Get()->SetPosition(h_wind_effect_, position_.x, position_.y, position_.z);

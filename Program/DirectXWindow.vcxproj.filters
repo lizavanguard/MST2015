@@ -85,9 +85,6 @@
     <Filter Include="src\Framework\Fade">
       <UniqueIdentifier>{c44538ae-982c-48a2-8ef9-b5a8c3ab60ba}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Application\Title">
-      <UniqueIdentifier>{bf97a5d4-e573-4f54-88d0-a221712e7cb1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Application\Game">
       <UniqueIdentifier>{3ae120bd-b7e7-442a-8cb0-c4415d4248ed}</UniqueIdentifier>
     </Filter>
@@ -138,6 +135,12 @@
     </Filter>
     <Filter Include="src\Framework\Hud">
       <UniqueIdentifier>{330cbd86-2fc0-42a5-83a0-a93e51eff479}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Application\Title">
+      <UniqueIdentifier>{bf97a5d4-e573-4f54-88d0-a221712e7cb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Application\Alarm">
+      <UniqueIdentifier>{356b6e89-4676-4d5b-ad3e-f6fb1e41057e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -356,6 +359,15 @@
     </ClCompile>
     <ClCompile Include="src\Application\Pin\BiggestPin.cpp">
       <Filter>src\Application\Pin</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\Camera\camera_steering_moving.cpp">
+      <Filter>src\Framework\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Application\Alarm\Alarm.cpp">
+      <Filter>src\Application\Alarm</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Application\Title\TitleListeners.cpp">
+      <Filter>src\Application\Title</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -721,6 +733,18 @@
     </ClInclude>
     <ClInclude Include="src\Application\Pin\BiggestPin.h">
       <Filter>src\Application\Pin</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Camera\camera_steering_moving.h">
+      <Filter>src\Framework\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Application\game_config.h">
+      <Filter>src\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Application\Alarm\Alarm.h">
+      <Filter>src\Application\Alarm</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Application\Title\TitleListeners.h">
+      <Filter>src\Application\Title</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

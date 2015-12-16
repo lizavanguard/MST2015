@@ -81,6 +81,19 @@ bool Controller::Update(void) {
     debug_rotation_ += kDebugRotationSpeed;
   }
 
+  if (_IsMoveToForward()) {
+    player_.MoveForward();
+  }
+  if (_IsMoveToBackward()) {
+    player_.MoveBackward();
+  }
+  if (_IsMoveToUp()) {
+    player_.MoveUp();
+  }
+  if (_IsMoveToDown()) {
+    player_.MoveDown();
+  }
+
   DebugProc::Print("“Š‚°‚½Žž‚Ì‰ñ“]—Ê[%.4f]\n", thrown_rotation_);
   DebugProc::Print("ƒfƒoƒbƒOŽž‚Ì‰ñ“]—Ê[%.4f]\n", debug_rotation_);
 
@@ -143,5 +156,21 @@ float Controller::_CalcRotation(void) {
 #ifdef _DEBUG
 bool Controller::_IsResetted(void) {
   return keyboard_.IsTrigger(DIK_SPACE) || (p_wii_controller_ ? p_wii_controller_->getTrigger(WC_B) : false);
+}
+
+bool Controller::_IsMoveToForward(void) {
+  return keyboard_.IsPress(DIK_W);
+}
+
+bool Controller::_IsMoveToBackward(void) {
+  return keyboard_.IsPress(DIK_S);
+}
+
+bool Controller::_IsMoveToUp(void) {
+  return keyboard_.IsPress(DIK_I);
+}
+
+bool Controller::_IsMoveToDown(void) {
+  return keyboard_.IsPress(DIK_K);
 }
 #endif

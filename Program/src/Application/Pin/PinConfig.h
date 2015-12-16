@@ -37,5 +37,6 @@ namespace pin {
   namespace biggest_pin {
     static const float kScale = 5.0f;
     static const D3DXVECTOR3 kPosition(0.0f, 0.0f, 10000.0f);
+    static const D3DXVECTOR3 kTitlePosition(0.0f, 0.0f, 100000.0f);
   }
 }
