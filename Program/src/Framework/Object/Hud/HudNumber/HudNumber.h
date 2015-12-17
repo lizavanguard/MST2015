@@ -59,8 +59,11 @@ public:
   unsigned int GetPlaceMax(void) const { return placeMax_; }
   unsigned int GetSubPlaceMax(void) const;
 
+  // AddPos
+  void UpdatePos(const D3DXVECTOR2& pos);
+
 private:
-  virtual void _Update(float elapsed_time) override {}
+  virtual void _Update(float elapsed_time) override;
   virtual void _Draw(void) override;
 
   // UV値などの更新
@@ -74,6 +77,7 @@ private:
   liza::utility::Counter* pCounter_;
   unsigned int placeMax_;	// メインの最大桁
   bool isFixed_;
+  D3DXVECTOR2 size_;
 };
 
 

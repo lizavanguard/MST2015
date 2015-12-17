@@ -16,8 +16,8 @@
 // const
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 namespace {
-  const char* kBoostEffectName = "ef_pin_sita";
-  const float kEffectScale = 2.5f;
+  const char* kBoostEffectName = "EF_Game_floatingPin";
+  const float kEffectScale = 50.0f;
 }
 
 //==============================================================================
@@ -58,8 +58,8 @@ void LanePin::ReactCollision(const D3DXVECTOR3& power) {
   velocity_.y -= 9.8f * 3.0f;
   is_all_drawed_ = true;
   is_collided_ = true;
-  auto h = EffectManagerServiceLocator::Get()->Play3D("EF_Game_hit", position_.x, position_.y + 100, position_.z - 10);
-  EffectManagerServiceLocator::Get()->SetScale(h, 100, 100, 100);
+  auto h = EffectManagerServiceLocator::Get()->Play3D("EF_Game_hit", position_.x, position_.y + 100, position_.z + 300);
+  EffectManagerServiceLocator::Get()->SetScale(h, 50, 50, 50);
 };
 
 //------------------------------------------------
@@ -78,7 +78,7 @@ void LanePin::Reset(void) {
 // _Update
 //------------------------------------------------
 void LanePin::_Update(const float elapsed_time) {
-  position_.x = base_position_.x + sinf(theta_) * pin::lane_pin::kMovingDistance;
+  //position_.x = base_position_.x + sinf(theta_) * pin::lane_pin::kMovingDistance;
 
   Pin::_Update(elapsed_time);
 

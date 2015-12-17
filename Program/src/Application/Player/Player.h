@@ -61,6 +61,7 @@ private:
 
   PlayerBall* p_ball_;
   EffectManager::Handle3D h_wind_effect_;
+  EffectManager::Handle3D h_fire_effect_;
 };
 
 using PlayerFactory = liza::generic::Factory<Player>;

@@ -27,7 +27,6 @@
 #include "Framework/Camera/camera_steering_homing.h"
 #include "Framework/Camera/camera_steering_moving.h"
 #include "Framework/Effect/EffectManager.h"
-#include "Framework/Effect/EffectManagerServiceLocator.h"
 #include "Framework/SkyBox/SkyBox.h"
 #include "Framework/Hud/HudManager.h"
 
@@ -150,27 +149,6 @@ void SceneTitle::_Update(SceneManager* p_scene_manager, const float elapsed_time
       p_scene_manager->PushNextSceneFactory(new SceneGameFactory());
     }
   }
-
-  //if (keyboard.IsTrigger(DIK_A)) {
-  //  s_is_just_ready = true;
-  //}
-
-  //if (s_is_just_ready) {
-  //  s_logo_handle = EffectManagerServiceLocator::Get()->Play2D("EF_Title_logoFadeIn", 640, 360);
-  //  EffectManagerServiceLocator::Get()->SetScreenScale(s_logo_handle, 50.0f, 50.0f);
-  //  s_is_just_ready = false;
-  //  s_is_ready = true;
-  //}
-
-  //oif (s_is_ready) {
-  //  if (keyboard.IsTrigger(DIK_SPACE)) {
-  //    p_scene_manager->PushNextSceneFactory(new SceneGameFactory());
-  //  }
-  //}
-
-  //if (keyboard.IsTrigger(DIK_2)) {
-  //  auto h = EffectManagerServiceLocator::Get()->Play2D("EF_Title_logoSlideIn", 640, 360);
-  //}
 
   p_root_->UpdateAll(elapsed_time);
   sum_time_ += elapsed_time;

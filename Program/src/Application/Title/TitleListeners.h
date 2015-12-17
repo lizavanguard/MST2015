@@ -14,7 +14,6 @@
 #include "Framework/Camera/camera_manager.h"
 #include "Framework/Camera/camera_steering_fixed.h"
 #include "Framework/Camera/camera_steering_homing.h"
-#include "Framework/Effect/EffectManagerServiceLocator.h"
 #include "Framework/Hud/HudManager.h"
 #include "Framework/Object/object2d.h"
 #include "Framework/Steering/Object2D/Object2DSteeringFlashing.h"

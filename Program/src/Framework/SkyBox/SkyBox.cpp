@@ -26,7 +26,7 @@ namespace {
   const unsigned int kNumFaces = 6;
 
 // Skybox name
-#define SKYBOX_NAME "spires"
+#define SKYBOX_NAME "tropical"
 
 #define _SKYBOX_TEXTURE_NAMES(x) "SkyBox_" SKYBOX_NAME "/" SKYBOX_NAME "_" #x
 #define SKYBOX_TEXTURE_NAMES \

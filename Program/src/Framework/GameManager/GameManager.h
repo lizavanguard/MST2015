@@ -24,6 +24,7 @@ class EffectManager;
 class HudManager;
 class InputManager;
 class SceneManager;
+class ScoreHolder;
 class Light;
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -60,6 +61,7 @@ private:
   HudManager* pHudManager_;
 	InputManager* pInputManager_;
   SceneManager* pSceneManager_;
+  ScoreHolder* pScoreHolder_;
   Light* pLight_;
 };
 

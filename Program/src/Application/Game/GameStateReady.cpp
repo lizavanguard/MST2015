@@ -15,15 +15,15 @@
 #include "Framework/Object/root.h"
 #include "Framework/Object/Hud/HudNumber/HudNumber.h"
 #include "Framework/Sound/sound_manager.h"
+#include "Framework/Effect/EffectManager.h"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // const
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 namespace {
-  const float kReadyTime = 3.0f;
-  const char* kThrowCountTexturename[] = {
-    //"General/particle02", "Game/count_two"
-    "Game/count_one", "Game/count_two"
+  const float kReadyTime = 4.0f;
+  const char* kThrowCountEffectName[] = {
+    "EF_Game_firstThrowSign", "EF_Game_secondThrowSign"
   };
 }
 
@@ -37,22 +37,24 @@ GameStateReady::GameStateReady(SceneGame& scene_game, const unsigned int throw_c
     : GameState(scene_game)
     , p_root_(nullptr)
     , ready_time_(kReadyTime) {
-  p_root_ = RootFactory::Create();
-  p_root_->AttachChild(Object2DFactory::Create("Game/ready", D3DXVECTOR3(200 + 500, 200, 0), D3DXVECTOR2(300, 300)));
+  auto h = EffectManagerServiceLocator::Get()->Play2D(kThrowCountEffectName[throw_count], 640, 300);
+  EffectManagerServiceLocator::Get()->SetScreenScale(h, 100, 100);
+  //p_root_ = RootFactory::Create();
+  //p_root_->AttachChild(Object2DFactory::Create("Game/ready", D3DXVECTOR3(200 + 500, 200, 0), D3DXVECTOR2(300, 300)));
 
-  scene_game_.Attach2D(Object2DFactory::Create(
-    kThrowCountTexturename[throw_count],
-    D3DXVECTOR3(100, 150, 0),
-    D3DXVECTOR2(50, 50)));
-  scene_game_.Attach2D(p_root_);
+  //scene_game_.Attach2D(Object2DFactory::Create(
+  //  kThrowCountTexturename[throw_count],
+  //  D3DXVECTOR3(100, 150, 0),
+  //  D3DXVECTOR2(50, 50)));
+  //scene_game_.Attach2D(p_root_);
 }
 
 //------------------------------------------------
 // dtor
 //------------------------------------------------
 GameStateReady::~GameStateReady() {
-  scene_game_.Detatch2D(p_root_);
-  Root::Destroy(p_root_);
+  //scene_game_.Detatch2D(p_root_);
+  //Root::Destroy(p_root_);
 }
 
 //------------------------------------------------

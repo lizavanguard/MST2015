@@ -28,7 +28,7 @@ class GameMaster {
 
 public:
   // ctor
-  GameMaster(HudNumber& hud_pin_number, PinManager& pin_manager, CollisionManager& collision_master);
+  GameMaster(HudNumber** pp_hud_pin_number, PinManager& pin_manager, CollisionManager& collision_master);
 
   // dtor
   ~GameMaster();
@@ -51,7 +51,7 @@ private:
   unsigned int threw_count_;
   bool is_end_game_;
 
-  HudNumber& hud_pin_number_;
+  HudNumber** pp_hud_pin_number_;
   CollisionManager& collision_manager_;
   PinManager& pin_manager_;
 };

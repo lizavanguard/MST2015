@@ -142,6 +142,12 @@
     <Filter Include="src\Application\Alarm">
       <UniqueIdentifier>{356b6e89-4676-4d5b-ad3e-f6fb1e41057e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Application\Result">
+      <UniqueIdentifier>{f02381ea-e1db-4925-885f-1b1083c05341}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Application\ScoreHolder">
+      <UniqueIdentifier>{91ce2cfa-2240-4755-bf6a-7ab55432ca53}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Framework\DebugProc\DebugProc.cpp">
@@ -368,6 +374,18 @@
     </ClCompile>
     <ClCompile Include="src\Application\Title\TitleListeners.cpp">
       <Filter>src\Application\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Application\Result\SceneResult.cpp">
+      <Filter>src\Application\Result</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Application\Result\SceneResultFactory.cpp">
+      <Filter>src\Application\Result</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Application\ScoreHolder\ScoreHolder.cpp">
+      <Filter>src\Application\ScoreHolder</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\Steering\Object2D\Object2DSteeringMoving.cpp">
+      <Filter>src\Framework\Steering\Object2D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -745,6 +763,18 @@
     </ClInclude>
     <ClInclude Include="src\Application\Title\TitleListeners.h">
       <Filter>src\Application\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Application\Result\SceneResult.h">
+      <Filter>src\Application\Result</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Application\Result\SceneResultFactory.h">
+      <Filter>src\Application\Result</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Application\ScoreHolder\ScoreHolder.h">
+      <Filter>src\Application\ScoreHolder</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Steering\Object2D\Object2DSteeringMoving.h">
+      <Filter>src\Framework\Steering\Object2D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

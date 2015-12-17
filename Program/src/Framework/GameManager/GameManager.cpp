@@ -33,6 +33,8 @@
 // HACK:
 #include "Application/Title/SceneTitle.h"
 #include "Application/Game/SceneGame.h"
+#include "Application/Result/SceneResult.h"
+#include "Application/ScoreHolder/ScoreHolder.h"
 #include "Application/WiiController/CWiiController.h"
 #include "Application/WiiController/WiiControllerManager.h"
 
@@ -58,6 +60,7 @@ GameManager::GameManager(HINSTANCE hInstance, HWND hWnd, LPDIRECT3DDEVICE9 pDevi
   , pHudManager_(nullptr)
   , pInputManager_(nullptr)
   , pSceneManager_(nullptr)
+  , pScoreHolder_(nullptr)
   , pLight_(nullptr)
 {
   DeviceHolder::Instance().SetDevice(pDevice);
@@ -104,7 +107,10 @@ GameManager::GameManager(HINSTANCE hInstance, HWND hWnd, LPDIRECT3DDEVICE9 pDevi
   pHudManager_ = new HudManager();
   HudServiceLocator::Provide(pHudManager_);
 
-  pSceneManager_ = new SceneManager(new SceneTitle());
+  pScoreHolder_ = new ScoreHolder();
+  ScoreHolderServiceLocator::Provide(pScoreHolder_);
+
+  pSceneManager_ = new SceneManager(new SceneGame());
 }
 
 
@@ -113,6 +119,7 @@ GameManager::GameManager(HINSTANCE hInstance, HWND hWnd, LPDIRECT3DDEVICE9 pDevi
 //------------------------------------------------
 GameManager::~GameManager() {
   //delete p_test;
+  delete pScoreHolder_;
   delete pLight_;
   delete pSceneManager_;
   delete pHudManager_;
@@ -158,10 +165,21 @@ void GameManager::Draw(void) {
   pEffectManager_->Draw3D();
   pAlphaObjectManager_->Draw();
   pHudManager_->Draw();
+  pDevice->EndScene();
+
+  pDevice->Clear(
+    0,
+    nullptr,
+    (D3DCLEAR_ZBUFFER),	// ƒ‚[ƒh
+    D3DCOLOR_RGBA(0, 128, 128, 0),	// ”wŒiF
+    1.0f,		// Z[“x
+    0
+    );
+
+  pDevice->BeginScene();
   pEffectManager_->Draw2D();
   pHudManager_->DrawAlphaHud();
   pDebugProc_->Draw();
-
   pDevice->EndScene();
   RenderTargetManager::Instance().UnAssign();
 

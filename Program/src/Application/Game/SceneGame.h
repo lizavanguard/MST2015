@@ -76,5 +76,5 @@ private:
   Root* p_3d_root_;
   Player* p_player_;
   PinManager* p_pin_manager_;
-  HudNumber* p_hud_number_;
+  HudNumber** pp_hud_numbers_;
 };

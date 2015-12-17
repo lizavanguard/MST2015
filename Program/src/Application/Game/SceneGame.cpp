@@ -19,6 +19,7 @@
 #include "Framework/GameManager/GameManager.h"
 #include "Framework/Hud/HudManager.h"
 #include "Framework/Input/InputKeyboard.h"
+#include "Framework/Object/object2d.h"
 #include "Framework/Object/object_fbx_model.h"
 #include "Framework/Object/root.h"
 #include "Framework/Object/object_model.h"
@@ -27,13 +28,14 @@
 #include "Framework/Sound/sound_manager.h"
 #include "Framework/SkyBox/SkyBox.h"
 
+#include "Application/game_config.h"
 #include "Application/Collision/CollisionManager.h"
 #include "Application/Game/GameStateReady.h"
 #include "Application/Game/GameMaster/GameMaster.h"
 #include "Application/Player/Player.h"
 #include "Application/Pin/PinManager.h"
 #include "Application/Stage/Stage.h"
-#include "Application/Title/SceneTitleFactory.h"
+#include "Application/Result/SceneResultFactory.h"
 
 #include "Framework/Effect/EffectManager.h"
 
@@ -61,7 +63,12 @@ SceneGame::SceneGame()
     , p_3d_root_(nullptr)
     , p_player_(nullptr)
     , p_pin_manager_(nullptr)
-    , p_hud_number_(nullptr) {
+    , pp_hud_numbers_(nullptr) {
+  pp_hud_numbers_ = new HudNumber*[kThrowingMax];
+  for (unsigned int i = 0; i < kThrowingMax; ++i) {
+    pp_hud_numbers_[i] = nullptr;
+  }
+
   TextureManager::Instance().Load(kTextureGroupName);
 
   p_2d_root_ = RootFactory::Create();
@@ -80,28 +87,47 @@ SceneGame::SceneGame()
   auto p_field = new Stage();
   p_3d_root_->AttachChild(p_field);
 
-  // Player ‚ð 3Dƒ‚ƒfƒ‹‚Ì’†‚Å‚Íˆê”ÔÅŒã‚É•`‰æ‚·‚é‚±‚Æ
+  //auto p_field1 = new Stage();
+  //p_3d_root_->AttachChild(p_field1);
+  //auto p_field2 = new Stage();
+  //p_3d_root_->AttachChild(p_field2);
+  //auto p_field3 = new Stage();
+  //p_3d_root_->AttachChild(p_field3);
+  //auto p_field4 = new Stage();
+  //p_3d_root_->AttachChild(p_field4);
+  //auto p_field5 = new Stage();
+  //p_3d_root_->AttachChild(p_field5);
+  //auto p_field6 = new Stage();
+  //p_3d_root_->AttachChild(p_field6);
+
   p_player_ = PlayerFactory::Create();
   AlphaObjectServiceLocator::Get()->Push(p_player_);
 
-  p_hud_number_ = new HudNumber(3, Vector2(100, 100), Vector2(50, 50));
-  p_2d_root_->AttachChild(p_hud_number_);
+  // UI
+  auto p_ui_score_board = new Object2D("Game/Score_UI_991x150", kScoreBoardPosition, kScoreBoardSize);
+  HudServiceLocator::Get()->Push(p_ui_score_board);
+
+  for (unsigned int i = 0; i < kThrowingMax; ++i) {
+    pp_hud_numbers_[i] = new HudNumber(3, kScorePositions[i], kScoreSize);
+    HudServiceLocator::Get()->PushAlphaHud(pp_hud_numbers_[i]);
+  }
   HudServiceLocator::Get()->Push(p_2d_root_);
 
   // collision
   p_collision_manager_ = new CollisionManager(*p_player_, *p_pin_manager_);
 
   // game master
-  p_game_master_ = new GameMaster(*p_hud_number_, *p_pin_manager_, *p_collision_manager_);
+  p_game_master_ = new GameMaster(pp_hud_numbers_, *p_pin_manager_, *p_collision_manager_);
 
   // camera setting
   // HACK:
   auto& camera_manager = CameraManager::Instance();
   auto& camera1 = camera_manager.Find("MAIN_1");
-  camera1.AssignCameraSteering(new CameraSteeringControl());
+  camera1.AssignCameraSteering(new CameraSteeringHoming(*p_player_, 500, 300, 500));
+  //camera1.AssignCameraSteering(new CameraSteeringControl());
   auto& camera2 = camera_manager.Find("MAIN_2");
-  static const float kEyeDistance = 10.0f;
-  static const float kEyeHeight = 75.0f;
+  static const float kEyeDistance = 200.0f;
+  static const float kEyeHeight = 100.0f;
   static const float kAtDistance = 450.0f;
   camera2.AssignCameraSteering(new CameraSteeringHoming(*p_player_, kEyeDistance, kEyeHeight, kAtDistance));
   auto& camera3 = camera_manager.Find("MAIN_3");
@@ -127,6 +153,8 @@ SceneGame::~SceneGame() {
     camera.AssignCameraSteering(nullptr);
   }
   camera_manager.SetMainCameraUsingHandle(0);
+
+  SafeDeleteArray(pp_hud_numbers_);
 
   SafeDelete(p_game_master_);
   SafeDelete(p_collision_manager_);
@@ -166,7 +194,7 @@ void SceneGame::_Update(SceneManager* p_scene_manager, const float elapsed_time)
 
   p_game_state_->Update(elapsed_time);
   if (p_game_master_->IsEndGame()) {
-    p_scene_manager->PushNextSceneFactory(new SceneTitleFactory());
+    p_scene_manager->PushNextSceneFactory(new SceneResultFactory());
     return;
   }
 
@@ -186,7 +214,7 @@ void SceneGame::_Update(SceneManager* p_scene_manager, const float elapsed_time)
 #ifdef _DEBUG
   const auto& keyboard = GameManager::Instance().GetInputManager().GetPrimaryKeyboard();
   if (keyboard.IsTrigger(DIK_RETURN)) {
-    p_scene_manager->PushNextSceneFactory(new SceneTitleFactory());
+    p_scene_manager->PushNextSceneFactory(new SceneResultFactory());
     return;
   }
 
@@ -209,6 +237,10 @@ void SceneGame::_Update(SceneManager* p_scene_manager, const float elapsed_time)
   if (keyboard.IsTrigger(DIK_9)) {
     auto h = EffectManagerServiceLocator::Get()->Play3D("ef_pin_sita", 0, 10, 0);
     EffectManagerServiceLocator::Get()->SetScale(h, 2.0f, 2.0f, 2.0f);
+  }
+  if (keyboard.IsTrigger(DIK_5)) {
+    auto h = EffectManagerServiceLocator::Get()->Play2D("EF_Game_scoreUP", 100, 100);
+    EffectManagerServiceLocator::Get()->SetScreenScale(h, 10.0f, 10.0f);
   }
 
   static EffectManager::Handle2D h;

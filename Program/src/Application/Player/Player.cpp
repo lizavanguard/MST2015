@@ -52,8 +52,9 @@ Player::Player()
     , shot_speed_(kShotSpeed)
     , moving_speed_(kMovingSpeed)
     , p_ball_(nullptr)
-    , h_wind_effect_(-1) {
-  AttachChild(new ObjectFBXModel("humanG_07.fbx"));
+    , h_wind_effect_(-1)
+    , h_fire_effect_(-1) {
+  //AttachChild(new ObjectFBXModel("humanG_07.fbx"));
   AttachChild(new ObjectModel("ballObj_03"));
   p_ball_ = new PlayerBall();
   AttachChild(p_ball_);
@@ -64,6 +65,7 @@ Player::Player()
 // dtor
 //------------------------------------------------
 Player::~Player() {
+  EffectManagerServiceLocator::Get()->Stop3D(h_fire_effect_);
   EffectManagerServiceLocator::Get()->Stop3D(h_wind_effect_);
 }
 
@@ -116,15 +118,20 @@ void Player::Shoot(const float rotation) {
 
   is_shot_ = true;
 
-  h_wind_effect_ = EffectManagerServiceLocator::Get()->Play3D("EF_Ball_Wind", position_.x, position_.y, position_.x + 100);
+  h_wind_effect_ = EffectManagerServiceLocator::Get()->Play3D("EF_Game_ballWind", position_.x, position_.y, position_.z + 100);
   EffectManagerServiceLocator::Get()->SetRotation(h_wind_effect_, D3DXVECTOR3(0, 1, 0), D3DX_PI);
   EffectManagerServiceLocator::Get()->SetScale(h_wind_effect_, 100, 100, 100);
+
+  h_fire_effect_ = EffectManagerServiceLocator::Get()->Play3D("EF_Game_ballFire", position_.x, position_.y, position_.z + 0);
+  EffectManagerServiceLocator::Get()->SetRotation(h_fire_effect_, D3DXVECTOR3(0, 1, 0), D3DX_PI);
+  EffectManagerServiceLocator::Get()->SetScale(h_fire_effect_, 100, 100, 100);
 }
 
 //------------------------------------------------
 // Reset
 //------------------------------------------------
 void Player::Reset(void) {
+  EffectManagerServiceLocator::Get()->Stop3D(h_fire_effect_);
   EffectManagerServiceLocator::Get()->Stop3D(h_wind_effect_);
 
   is_shot_ = false;
@@ -173,5 +180,6 @@ void Player::_Update(const float elapsed_time) {
   static const float kRotationFixedValue = 0.001f;
   p_ball_->AddRotationPower(speed_.z * elapsed_time * kRotationFixedValue);
 
-  EffectManagerServiceLocator::Get()->SetPosition(h_wind_effect_, position_.x, position_.y, position_.z);
+  EffectManagerServiceLocator::Get()->SetPosition(h_wind_effect_, position_.x, position_.y, position_.z + 300);
+  EffectManagerServiceLocator::Get()->SetPosition(h_fire_effect_, position_.x, position_.y - 175, position_.z + 30);
 }

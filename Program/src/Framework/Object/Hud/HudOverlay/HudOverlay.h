@@ -26,6 +26,8 @@ public:
   void UpdateRot(float rot) { rot_ = rot; _UpdateAll(); }
   void UpdateSize(const Vector2& size) { size_ = size; _UpdateAll(); }
 
+  void AddPos(const Vector2& pos) { pos_ += pos; _UpdateAll(); }
+
   // Change
   void ChangeAlpha(float a);
   void ChangeColor(const D3DXVECTOR4& color);
