@@ -91,6 +91,10 @@ public:
   // set
   void _SetEye(const D3DXVECTOR3& eye) { eye_ = eye; }
   void _SetAt(const D3DXVECTOR3& at) { at_ = at; }
+  void _SetViewMatrix(const D3DXMATRIX& view) { view_ = view; }
+  void _SetProjectionMatrix(const D3DXMATRIX& projection) { projection_ = projection; }
+  void OnMatrixAutoUpdate(void) { is_auto_update_ = true; }
+  void OffMatrixAutoUpdate(void) { is_auto_update_ = false; }
 
 private:
   // property
@@ -99,6 +103,8 @@ private:
   D3DXVECTOR3 eye_;
   D3DXVECTOR3 at_;
   CameraSteering* p_camera_steering_;
+
+  bool is_auto_update_;
 };
 
 using CameraFactory = liza::generic::Factory<Camera>;

@@ -81,3 +81,10 @@ void ObjectSkyBoxFace::_Draw(void) {
   p_shader_->EndPass();
   p_shader_->End();
 }
+
+//------------------------------------------------
+// reset
+//------------------------------------------------
+void ObjectSkyBoxFace::ResetCameraHandle(void) {
+  skybox_camera_handle_ = CameraManager::Instance().GetCameraHandle(kSkyboxCameraName);
+}

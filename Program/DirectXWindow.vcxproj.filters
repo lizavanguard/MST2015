@@ -148,6 +148,12 @@
     <Filter Include="src\Application\ScoreHolder">
       <UniqueIdentifier>{91ce2cfa-2240-4755-bf6a-7ab55432ca53}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Framework\CubeTextureForEnvironmentMapping">
+      <UniqueIdentifier>{90afac99-fe9d-475b-9968-9a62a032f644}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Application\BallEnvironmentMapping">
+      <UniqueIdentifier>{cd60e247-bfd6-4445-abe5-18a053a079df}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Framework\DebugProc\DebugProc.cpp">
@@ -386,6 +392,9 @@
     </ClCompile>
     <ClCompile Include="src\Framework\Steering\Object2D\Object2DSteeringMoving.cpp">
       <Filter>src\Framework\Steering\Object2D</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\CubeTextureForEnvironmentMapping\CubeTextureForEnvironmentMapping.cpp">
+      <Filter>src\Framework\CubeTextureForEnvironmentMapping</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -775,6 +784,12 @@
     </ClInclude>
     <ClInclude Include="src\Framework\Steering\Object2D\Object2DSteeringMoving.h">
       <Filter>src\Framework\Steering\Object2D</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\CubeTextureForEnvironmentMapping\CubeTextureForEnvironmentMapping.h">
+      <Filter>src\Framework\CubeTextureForEnvironmentMapping</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Application\BallEnvironmentMapping\BallEnvironmentMapping.h">
+      <Filter>src\Application\BallEnvironmentMapping</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

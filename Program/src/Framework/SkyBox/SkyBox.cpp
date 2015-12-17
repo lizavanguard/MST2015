@@ -122,7 +122,7 @@ void SkyBox::_Draw(void) {
   p_device->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
   p_device->SetRenderState(D3DRS_LIGHTING, FALSE);
 
-  Camera& camera = CameraManager::Instance().Find(kSkyboxCameraName);
+  //Camera& camera = CameraManager::Instance().Find(kSkyboxCameraName);
   Camera& main_camera = CameraManager::Instance().GetMainCamera();
   D3DXVECTOR3 dir = main_camera.CalculateCameraDirection();
   D3DXVECTOR3 eye(-dir);
@@ -134,4 +134,26 @@ void SkyBox::_Draw(void) {
   p_device->SetRenderState(D3DRS_LIGHTING, TRUE);
   p_device->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
   p_device->SetTransform(D3DTS_VIEW, &view_old);
+}
+
+//------------------------------------------------
+// Reset
+//------------------------------------------------
+void SkyBox::ResetCameraHandle(void) {
+  for (unsigned int face_count = 0; face_count < kNumFaces; ++face_count) {
+    auto& child = this->GetChild(face_count);
+    auto& skybox_face = static_cast<ObjectSkyBoxFace&>(child);
+    skybox_face.ResetCameraHandle();
+  }
+}
+
+//------------------------------------------------
+// set
+//------------------------------------------------
+void SkyBox::SetCameraHandle(_CameraManager::CameraHandle camera_handle) {
+  for (unsigned int face_count = 0; face_count < kNumFaces; ++face_count) {
+    auto& child = this->GetChild(face_count);
+    auto& skybox_face = static_cast<ObjectSkyBoxFace&>(child);
+    skybox_face.SetCameraHandle(camera_handle);
+  }
 }

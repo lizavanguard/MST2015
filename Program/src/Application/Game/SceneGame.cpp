@@ -16,6 +16,7 @@
 #include "Framework/Camera/camera_steering_fixed.h"
 #include "Framework/Camera/camera_steering_homing.h"
 #include "Framework/Camera/camera_steering_control.h"
+#include "Framework/CubeTextureForEnvironmentMapping/CubeTextureForEnvironmentMapping.h"
 #include "Framework/GameManager/GameManager.h"
 #include "Framework/Hud/HudManager.h"
 #include "Framework/Input/InputKeyboard.h"
@@ -28,6 +29,7 @@
 #include "Framework/Sound/sound_manager.h"
 #include "Framework/SkyBox/SkyBox.h"
 
+#include "Application/BallEnvironmentMapping/BallEnvironmentMapping.h"
 #include "Application/game_config.h"
 #include "Application/Collision/CollisionManager.h"
 #include "Application/Game/GameStateReady.h"
@@ -36,7 +38,6 @@
 #include "Application/Pin/PinManager.h"
 #include "Application/Stage/Stage.h"
 #include "Application/Result/SceneResultFactory.h"
-
 #include "Framework/Effect/EffectManager.h"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
@@ -62,6 +63,7 @@ SceneGame::SceneGame()
     , p_2d_root_(nullptr)
     , p_3d_root_(nullptr)
     , p_player_(nullptr)
+    , p_environment_mapping_(nullptr)
     , p_pin_manager_(nullptr)
     , pp_hud_numbers_(nullptr) {
   pp_hud_numbers_ = new HudNumber*[kThrowingMax];
@@ -102,6 +104,9 @@ SceneGame::SceneGame()
 
   p_player_ = PlayerFactory::Create();
   AlphaObjectServiceLocator::Get()->Push(p_player_);
+
+  p_environment_mapping_ = new CubeTextureForEnvironmentMapping(
+    new GameEnvirontMappingDrawer(*p_skybox, *p_field));
 
   // UI
   auto p_ui_score_board = new Object2D("Game/Score_UI_991x150", kScoreBoardPosition, kScoreBoardSize);
@@ -156,6 +161,7 @@ SceneGame::~SceneGame() {
 
   SafeDeleteArray(pp_hud_numbers_);
 
+  SafeDelete(p_environment_mapping_);
   SafeDelete(p_game_master_);
   SafeDelete(p_collision_manager_);
   SafeDelete(p_next_game_state_);
@@ -265,10 +271,18 @@ void SceneGame::_Update(SceneManager* p_scene_manager, const float elapsed_time)
 
 }
 
+#include <liza/game/DirectXUtility/DirectXUtility.h>
+
 //------------------------------------------------
 // Draw
 //------------------------------------------------
 void SceneGame::_Draw(void) {
+  p_environment_mapping_->Draw(p_player_->GetPosition());
+
   p_game_state_->Draw();
+
   p_3d_root_->DrawAll();
+
+  //DeviceHolder::Instance().GetDevice()->SetTexture(0, p_environment_mapping_->GetCubeTexture());
+  //DrawFullScreenQuad(DeviceHolder::Instance().GetDevice(), 0, 0, 1, 1);
 }

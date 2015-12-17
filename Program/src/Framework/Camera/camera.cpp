@@ -39,13 +39,15 @@ Camera::~Camera() {
 // Update
 //------------------------------------------------
 void Camera::Update(const float elapsed_time) {
-  // HACK:
-  auto p_device = DeviceHolder::Instance().GetDevice();
-  D3DXMatrixLookAtLH(&view_, &eye_, &at_, &D3DXVECTOR3(0.0f, 1.0f, 0.0f));
-  p_device->SetTransform(D3DTS_VIEW, &view_);
+  if (is_auto_update_) {
+    // HACK:
+    auto p_device = DeviceHolder::Instance().GetDevice();
+    D3DXMatrixLookAtLH(&view_, &eye_, &at_, &D3DXVECTOR3(0.0f, 1.0f, 0.0f));
+    p_device->SetTransform(D3DTS_VIEW, &view_);
 
-  D3DXMatrixPerspectiveFovLH(&projection_, kFov, kAspect, kNear, kFar);
-  p_device->SetTransform(D3DTS_PROJECTION, &projection_);
+    D3DXMatrixPerspectiveFovLH(&projection_, kFov, kAspect, kNear, kFar);
+    p_device->SetTransform(D3DTS_PROJECTION, &projection_);
+  }
 
   if (p_camera_steering_) {
     p_camera_steering_->Execute(*this, elapsed_time);

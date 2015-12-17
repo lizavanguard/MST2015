@@ -52,6 +52,7 @@
     <ClCompile Include="src\Framework\Camera\camera_steering_moving.cpp" />
     <ClCompile Include="src\Framework\Camera\camera_steering_set.cpp" />
     <ClCompile Include="src\Framework\Collision\collision.cpp" />
+    <ClCompile Include="src\Framework\CubeTextureForEnvironmentMapping\CubeTextureForEnvironmentMapping.cpp" />
     <ClCompile Include="src\Framework\DebugProc\DebugProc.cpp" />
     <ClCompile Include="src\Framework\Effect\EffectManager.cpp" />
     <ClCompile Include="src\Framework\Effect\EffekSeerUtility.cpp" />
@@ -96,6 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application\Alarm\Alarm.h" />
+    <ClInclude Include="src\Application\BallEnvironmentMapping\BallEnvironmentMapping.h" />
     <ClInclude Include="src\Application\Collision\CollisionManager.h" />
     <ClInclude Include="src\Application\Controller\Controller.h" />
     <ClInclude Include="src\Application\Game\GameMaster\GameMaster.h" />
@@ -144,6 +146,7 @@
     <ClInclude Include="src\Framework\Camera\camera_steering_set.h" />
     <ClInclude Include="src\Framework\Collision\collision.h" />
     <ClInclude Include="src\Framework\Collision\collision_object.h" />
+    <ClInclude Include="src\Framework\CubeTextureForEnvironmentMapping\CubeTextureForEnvironmentMapping.h" />
     <ClInclude Include="src\Framework\DebugProc\DebugProc.h" />
     <ClInclude Include="src\Framework\Effect\EffectManager.h" />
     <ClInclude Include="src\Framework\Effect\EffekSeerUtility.h" />

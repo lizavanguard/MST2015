@@ -1,6 +1,6 @@
 //==============================================================================
 //
-// SkyBox
+// CubeTextureForEnvironmentMapping
 // Author: Shimizu Shoji
 //
 //==============================================================================
@@ -8,39 +8,43 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-#include "Framework/Object/object_base.h"
-
-#include "Framework/Camera/camera_manager.h"
-
-#include "liza/generic/factory.hpp"
+#include "liza/game/directx/render_target_holder.h"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-// class declaration
+// const
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-class CameraSteeringSet;
+namespace cube_mapping {
+  static const char* kCubeCamera = "CUBE_CAMERA";
+}
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-class SkyBox : public ObjectBase {
+class CubeTextureForEnvironmentMapping {
+public:
+
+  // inner class
+  class ObjectDrawer {
+  public:
+    virtual ~ObjectDrawer() {}
+    virtual void _DrawObject(void) = 0;
+  };
+
 public:
   // ctor
-  SkyBox();
+  CubeTextureForEnvironmentMapping(ObjectDrawer* p_object_drawer);
 
   // dtor
-  virtual ~SkyBox();
+  ~CubeTextureForEnvironmentMapping();
 
-  // Reset
-  void ResetCameraHandle(void);
+  // Draw
+  void Draw(const D3DXVECTOR3& position);
 
-  // set
-  void SetCameraHandle(_CameraManager::CameraHandle camera_handle);
+  // get
+  LPDIRECT3DTEXTURE9 GetCubeTexture(void) const { return reinterpret_cast<LPDIRECT3DTEXTURE9>(pp_dynamic_cube_texture_); }
 
-private:
-  virtual void _Update(float elapsed_time) override;
-  virtual void _Draw(void) override;
-
-  CameraSteeringSet* p_camera_steering_;
+//private:
+  // property
+  IDirect3DCubeTexture9* pp_dynamic_cube_texture_;
+  ObjectDrawer* p_object_drawer_;
 };
-
-using SkyBoxFactory = liza::generic::Factory<SkyBox>;

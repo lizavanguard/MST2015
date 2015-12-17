@@ -16,7 +16,7 @@
 //------------------------------------------------
 // ctor
 //------------------------------------------------
-_CameraManager::_CameraManager() : p_main_camera_(nullptr) {
+_CameraManager::_CameraManager() : p_main_camera_(nullptr), handle_main_camera_(0) {
 }
 
 //------------------------------------------------
@@ -90,10 +90,12 @@ _CameraManager::CameraHandle _CameraManager::GetCameraHandle(const char* camera_
 // Set MainCamera
 //------------------------------------------------
 void _CameraManager::SetMainCamera(const char* camera_name) {
-  p_main_camera_ = _Find(camera_name);
+  handle_main_camera_ = _FindHandle(camera_name);
+  p_main_camera_ = _FindUsingHandle(handle_main_camera_);
 }
 
 void _CameraManager::SetMainCameraUsingHandle(const CameraHandle camera_handle) {
+  handle_main_camera_ = camera_handle;
   p_main_camera_ = _FindUsingHandle(camera_handle);
 }
 
@@ -101,9 +103,13 @@ void _CameraManager::SetMainCameraUsingHandle(const CameraHandle camera_handle) 
 // _Find
 //------------------------------------------------
 Camera* _CameraManager::_Find(const char* camera_name) {
+  return container_[_FindHandle(camera_name)];
+}
+
+_CameraManager::CameraHandle _CameraManager::_FindHandle(const char* camera_name) {
   auto it = handle_container_.find(camera_name);
   MY_BREAK_ASSERT(it != handle_container_.end());
-  return container_[it->second];
+  return it->second;
 }
 
 Camera* _CameraManager::_FindUsingHandle(const CameraHandle camera_handle) {

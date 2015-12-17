@@ -25,6 +25,12 @@ public:
   // dtor
   virtual ~ObjectSkyBoxFace();
 
+  // reset
+  void ResetCameraHandle(void);
+
+  // set
+  void SetCameraHandle(_CameraManager::CameraHandle camera_handle) { skybox_camera_handle_ = camera_handle; }
+
 private:
   // virtual function
   virtual void _Draw(void) override;
