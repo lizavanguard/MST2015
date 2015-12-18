@@ -16,8 +16,8 @@
 // const
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 namespace {
-  const char* kBoostEffectName = "EF_Game_floatingPin";
-  const float kEffectScale = 50.0f;
+  const char* kBoostEffectName = "EF_Game_floatingPinEX";
+  const float kEffectScale = 5.0f;
 }
 
 //==============================================================================
@@ -82,7 +82,9 @@ void LanePin::_Update(const float elapsed_time) {
 
   Pin::_Update(elapsed_time);
 
-  EffectManagerServiceLocator::Get()->SetPosition(handle_, position_);
+  D3DXVECTOR3 effect_position = position_;
+  effect_position.y -= 50.0f;
+  EffectManagerServiceLocator::Get()->SetPosition(handle_, effect_position);
 
   rotation_.x += rotation_speed_;
   theta_ += elapsed_time * pin::lane_pin::kMovingSpeed;

@@ -17,6 +17,9 @@ float4x4 uniform_matrix_world;                    // 座標変換行列
 float3 uniform_camera_position;                   // ライト方向
 float4 uniform_diffuse;                           // マテリアル色
 
+int uniform_reflect_sign;
+float uniform_cube_mapping_depth;
+
 //*****************************************************************************
 // エントリポイント
 //*****************************************************************************
@@ -45,8 +48,9 @@ float4 PS(float2 texcoord : TEXCOORD0, float3 world_normal : TEXCOORD1, float3 w
 {
   float3 normal = normalize(world_normal);
   float3 toEye = normalize(world_view_vector);
-  float3 vReflect = reflect(toEye, normal);
-  float4 color = 0.6f * tex2D(uniform_texture_sampler, texcoord) + 0.4f * texCUBE(uniform_cube_sampler, vReflect);
+  float3 vReflect = reflect(toEye, normal) * uniform_reflect_sign;
+  float4 color = (1 - uniform_cube_mapping_depth) * tex2D(uniform_texture_sampler, texcoord)
+                    + uniform_cube_mapping_depth  * texCUBE(uniform_cube_sampler, vReflect);
 
   float distToEye = length(toEye);
   toEye /= distToEye;

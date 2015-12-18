@@ -183,3 +183,10 @@ void Player::_Update(const float elapsed_time) {
   EffectManagerServiceLocator::Get()->SetPosition(h_wind_effect_, position_.x, position_.y, position_.z + 300);
   EffectManagerServiceLocator::Get()->SetPosition(h_fire_effect_, position_.x, position_.y - 175, position_.z + 30);
 }
+
+//------------------------------------------------
+// set
+//------------------------------------------------
+void Player::ChangeDrawingOuterFace(const bool is_drawn_outer_face) {
+  p_ball_->ChangeDrawingOuterFace(is_drawn_outer_face);
+}

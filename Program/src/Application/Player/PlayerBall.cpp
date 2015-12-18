@@ -104,3 +104,15 @@ void PlayerBall::_Update(const float elapsed_time) {
 //  p_shader_->EndPass();
 //  p_shader_->End();
 //}
+
+//------------------------------------------------
+// Change
+//------------------------------------------------
+void PlayerBall::ChangeDrawingOuterFace(const bool is_drawn_outer_face) {
+  if (is_drawn_outer_face) {
+    this->ObjectCubeMapping::OnDrawingCCW();
+  }
+  else {
+    this->ObjectCubeMapping::OffDrawingCCW();
+  }
+}

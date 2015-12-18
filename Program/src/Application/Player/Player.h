@@ -48,6 +48,9 @@ public:
   // React collision
   virtual void ReactCollision(const D3DXVECTOR3& power) override;
 
+  // Change
+  void ChangeDrawingOuterFace(bool is_drawn_outer_face);
+
 private:
   virtual void _Draw(void) override {}
   virtual void _Update(float elapsed_time) override;

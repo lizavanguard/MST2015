@@ -28,6 +28,9 @@ public:
   // set
   void Shoot(float rotation);
 
+  // Change
+  void ChangeDrawingOuterFace(bool is_drawn_outer_face);
+
   // set
   void SetRotationPower(float rotation_power) { rotation_power_ = rotation_power; }
   void AddRotationPower(float rotation_power) { rotation_power_ += rotation_power; }

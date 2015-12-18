@@ -130,8 +130,8 @@ SceneGame::SceneGame()
   // HACK:
   auto& camera_manager = CameraManager::Instance();
   auto& camera1 = camera_manager.Find("MAIN_1");
-  camera1.AssignCameraSteering(new CameraSteeringHoming(*p_player_, 500, 300, 500));
-  //camera1.AssignCameraSteering(new CameraSteeringControl());
+  //camera1.AssignCameraSteering(new CameraSteeringHoming(*p_player_, 500, 300, 500));
+  camera1.AssignCameraSteering(new CameraSteeringControl());
   auto& camera2 = camera_manager.Find("MAIN_2");
   static const float kEyeDistance = 200.0f;
   static const float kEyeHeight = 100.0f;
@@ -228,12 +228,15 @@ void SceneGame::_Update(SceneManager* p_scene_manager, const float elapsed_time)
 
   if (keyboard.IsTrigger(DIK_1)) {
     CameraManager::Instance().SetMainCamera("MAIN_1");
+    p_player_->ChangeDrawingOuterFace(true);
   }
   if (keyboard.IsTrigger(DIK_2)) {
     CameraManager::Instance().SetMainCamera("MAIN_2");
+    p_player_->ChangeDrawingOuterFace(false);
   }
   if (keyboard.IsTrigger(DIK_3)) {
     CameraManager::Instance().SetMainCamera("MAIN_3");
+    p_player_->ChangeDrawingOuterFace(true);
   }
   if (keyboard.IsTrigger(DIK_7)) {
     auto h = EffectManagerServiceLocator::Get()->Play3D("EF_Game_ballWind", 0, 0, 0);

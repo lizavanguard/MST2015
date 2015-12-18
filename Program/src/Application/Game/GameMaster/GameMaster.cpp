@@ -46,6 +46,6 @@ void GameMaster::Update(float elapsed_time) {
       "EF_GAME_Score_Count",
       kScorePositions[threw_count_].x + 10,
       kScorePositions[threw_count_].y + 10);
-    EffectManagerServiceLocator::Get()->SetScreenScale(h, 100.0f, 100.0f);
+    EffectManagerServiceLocator::Get()->SetScreenScale(h, 200.0f, 200.0f);
   }
 }

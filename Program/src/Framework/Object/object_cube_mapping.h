@@ -27,6 +27,12 @@ public:
   // dtor
   virtual ~ObjectCubeMapping();
 
+  // set
+  void OnDrawingCCW(void) { is_drawn_ccw_ = true; }
+  void OnDrawingCW(void) { is_drawn_cw_ = true; }
+  void OffDrawingCCW(void) { is_drawn_ccw_ = false; }
+  void OffDrawingCW(void) { is_drawn_cw_ = false; }
+
 private:
   virtual void _Update(float elapsed_time) override;
   virtual void _Draw(void) override;
@@ -36,4 +42,6 @@ protected:
   XModelData* p_xmodel_data_;
   LPD3DXEFFECT p_shader_;
   CubeTextureForEnvironmentMapping* p_cube_mapping_;
+  bool is_drawn_ccw_;
+  bool is_drawn_cw_;
 };
