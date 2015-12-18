@@ -294,6 +294,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <ForcedIncludeFiles>stdafx.h;common.h</ForcedIncludeFiles>
+      <AdditionalIncludeDirectories>$(SolutionDir)\src</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
