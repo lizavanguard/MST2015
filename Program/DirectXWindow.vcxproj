@@ -74,6 +74,7 @@
     <ClCompile Include="src\Framework\Object\object2d.cpp" />
     <ClCompile Include="src\Framework\Object\object3d.cpp" />
     <ClCompile Include="src\Framework\Object\object_base.cpp" />
+    <ClCompile Include="src\Framework\Object\object_cube_mapping.cpp" />
     <ClCompile Include="src\Framework\Object\object_fbx_model.cpp" />
     <ClCompile Include="src\Framework\Object\object_instancing_model.cpp" />
     <ClCompile Include="src\Framework\Object\object_model.cpp" />
@@ -171,6 +172,7 @@
     <ClInclude Include="src\Framework\Object\object2d.h" />
     <ClInclude Include="src\Framework\Object\object3d.h" />
     <ClInclude Include="src\Framework\Object\object_base.h" />
+    <ClInclude Include="src\Framework\Object\object_cube_mapping.h" />
     <ClInclude Include="src\Framework\Object\object_fbx_model.h" />
     <ClInclude Include="src\Framework\Object\object_instancing_model.h" />
     <ClInclude Include="src\Framework\Object\object_model.h" />

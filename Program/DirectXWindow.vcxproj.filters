@@ -396,6 +396,9 @@
     <ClCompile Include="src\Framework\CubeTextureForEnvironmentMapping\CubeTextureForEnvironmentMapping.cpp">
       <Filter>src\Framework\CubeTextureForEnvironmentMapping</Filter>
     </ClCompile>
+    <ClCompile Include="src\Framework\Object\object_cube_mapping.cpp">
+      <Filter>src\Framework\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Framework\DebugProc\DebugProc.h">
@@ -790,6 +793,9 @@
     </ClInclude>
     <ClInclude Include="src\Application\BallEnvironmentMapping\BallEnvironmentMapping.h">
       <Filter>src\Application\BallEnvironmentMapping</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Object\object_cube_mapping.h">
+      <Filter>src\Framework\Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

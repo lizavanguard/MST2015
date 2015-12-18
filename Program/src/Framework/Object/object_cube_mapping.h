@@ -1,6 +1,6 @@
 //==============================================================================
 //
-// PlayerBall
+// ObjectCubeMapping
 // Author: Shimizu Shoji
 //
 //==============================================================================
@@ -8,34 +8,32 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-#include "Framework/Object/object_model.h"
-#include "Framework/Object/object_cube_mapping.h"
+#include "object_base.h"
+#include "Framework/Model/model_manager.h"
+
+//--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
+// class declaration
+//--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
+class CubeTextureForEnvironmentMapping;
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-class PlayerBall : public ObjectCubeMapping {
+class ObjectCubeMapping : public ObjectBase {
 public:
   // ctor
-  PlayerBall();
+  ObjectCubeMapping(const char* p_filename);
 
   // dtor
-  virtual ~PlayerBall();
-
-  // Reset
-  void Reset(void);
-
-  // set
-  void Shoot(float rotation);
-
-  // set
-  void SetRotationPower(float rotation_power) { rotation_power_ = rotation_power; }
-  void AddRotationPower(float rotation_power) { rotation_power_ += rotation_power; }
+  virtual ~ObjectCubeMapping();
 
 private:
   virtual void _Update(float elapsed_time) override;
-  //virtual void _Draw(void) override;
+  virtual void _Draw(void) override;
 
-  float rotation_power_;
-  D3DXVECTOR3 rotation_axis_;
+protected:
+  // property
+  XModelData* p_xmodel_data_;
+  LPD3DXEFFECT p_shader_;
+  CubeTextureForEnvironmentMapping* p_cube_mapping_;
 };

@@ -48,7 +48,7 @@ namespace {
   const char* kBgmName = "BGM_Game_Main";
 }
 
-
+CubeTextureForEnvironmentMapping* g_p_cube_;
 //==============================================================================
 // class implementation
 //==============================================================================
@@ -107,6 +107,8 @@ SceneGame::SceneGame()
 
   p_environment_mapping_ = new CubeTextureForEnvironmentMapping(
     new GameEnvirontMappingDrawer(*p_skybox, *p_field));
+
+  g_p_cube_ = p_environment_mapping_;
 
   // UI
   auto p_ui_score_board = new Object2D("Game/Score_UI_991x150", kScoreBoardPosition, kScoreBoardSize);
