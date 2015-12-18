@@ -282,7 +282,4 @@ void SceneGame::_Draw(void) {
   p_game_state_->Draw();
 
   p_3d_root_->DrawAll();
-
-  //DeviceHolder::Instance().GetDevice()->SetTexture(0, p_environment_mapping_->GetCubeTexture());
-  //DrawFullScreenQuad(DeviceHolder::Instance().GetDevice(), 0, 0, 1, 1);
 }
