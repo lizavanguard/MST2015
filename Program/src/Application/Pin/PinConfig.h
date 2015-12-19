@@ -11,6 +11,7 @@
 namespace pin {
   // general
   static const char* kModelName = "pin_05";
+  static const char* kBigModelName = "pin_scale18";
 
   // goal pin
   namespace goal_pin {
@@ -22,21 +23,22 @@ namespace pin {
 
   // lane pin
   namespace lane_pin {
-    static const float kNums = 100;
-    static const float kDistanceBetweenPins = 1000.0f;
+    static const float kNums = 75;
+    static const float kDistanceBetweenPins = 500.0f;
     static const float kCurveValue = 0.1f;
-    static const float kImpactPower = 5000.0f;
+    static const float kImpactPower = 1000.0f;
     static const float kImpactHeight = 2000.0f;
-    static const float kImpactSide = 3000.0f;
-    static const float kY = 100.0f;
+    static const float kImpactSide = 500.0f;
+    static const float kHalfSizeY = 267.802216f;
+    static const float kY = 100.0f + kHalfSizeY;
     static const float kMovingDistance = 1000.0f;
-    static const float kMovingSpeed = 1.0f;
+    static const float kMovingSpeed = 0.3f;
   }
 
   // biggest pin
   namespace biggest_pin {
     static const float kScale = 5.0f;
-    static const D3DXVECTOR3 kPosition(0.0f, 0.0f, 10000.0f);
+    static const D3DXVECTOR3 kPosition(0.0f, 0.0f, 40000.0f);
     static const D3DXVECTOR3 kTitlePosition(0.0f, 0.0f, 100000.0f);
   }
 }

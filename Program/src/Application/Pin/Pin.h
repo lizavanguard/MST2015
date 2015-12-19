@@ -12,6 +12,7 @@
 
 #include "Framework/Object/object_model.h"
 #include "Framework/Collision/collision_object.h"
+#include "PinConfig.h"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
@@ -19,7 +20,7 @@
 class Pin : public ObjectModel, public CollisionObject {
 public:
   // ctor
-  Pin(const D3DXVECTOR3& position);
+  Pin(const D3DXVECTOR3& position, const char *p_filename = pin::kModelName);
 
   // dtor
   virtual ~Pin();

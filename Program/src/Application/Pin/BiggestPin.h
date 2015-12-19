@@ -34,5 +34,10 @@ private:
 
   // property
   EffectManager::Handle3D handle_;
+  EffectManager::Handle3D handle_fall_;
+  EffectManager::Handle3D handle_hit_;
   D3DXVECTOR3 rotation_speed_;
+  D3DXVECTOR3 position_speed_;
+  int animation_count_;
+  int animation_num_;
 };

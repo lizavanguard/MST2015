@@ -27,7 +27,7 @@
 // const
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 namespace {
-  const float kReadyTime = 3.0f;
+  const float kReadyTime = 15.0f;
 }
 
 //==============================================================================
@@ -52,7 +52,7 @@ GameStateThrown::~GameStateThrown() {
   SafeDelete(p_root_);
 }
 
-bool is_debug_throw_mode = true;
+bool is_debug_throw_mode = false;
 //------------------------------------------------
 // Update
 //------------------------------------------------

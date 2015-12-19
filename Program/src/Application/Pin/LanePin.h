@@ -37,6 +37,7 @@ private:
   D3DXVECTOR3 base_position_;
   float rotation_speed_;
   float theta_;
+  float initial_theta_;
 };
 
 using LanePinFactory = liza::generic::Factory<LanePin>;

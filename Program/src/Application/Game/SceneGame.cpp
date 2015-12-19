@@ -114,11 +114,12 @@ SceneGame::SceneGame()
   camera1.AssignCameraSteering(new CameraSteeringControl());
   auto& camera2 = camera_manager.Find("MAIN_2");
   static const float kEyeDistance = 200.0f;
-  static const float kEyeHeight = 100.0f;
+  static const float kEyeHeight = 120.0f;
   static const float kAtDistance = 450.0f;
   camera2.AssignCameraSteering(new CameraSteeringHoming(*p_player_, kEyeDistance, kEyeHeight, kAtDistance));
   auto& camera3 = camera_manager.Find("MAIN_3");
-  camera3.AssignCameraSteering(new CameraSteeringFixed(*p_player_));
+  //camera3.AssignCameraSteering(new CameraSteeringFixed(*p_player_));
+  camera3.AssignCameraSteering(new CameraSteeringHoming(*p_player_, 1000, 300, 500));
 
   SoundManager::Instance().PlayBGM(kBgmName);
 }
@@ -129,6 +130,7 @@ SceneGame::SceneGame()
 SceneGame::~SceneGame() {
   SoundManager::Instance().StopSound();
   TextureManager::Instance().Unload(kTextureGroupName);
+  EffectManagerServiceLocator::Get()->Stop();
 
   HudServiceLocator::Get()->Clear();
   AlphaObjectServiceLocator::Get()->Clear();

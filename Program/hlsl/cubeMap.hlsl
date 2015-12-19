@@ -56,10 +56,10 @@ float4 PS(float2 texcoord : TEXCOORD0, float3 world_normal : TEXCOORD1, float3 w
   toEye /= distToEye;
   // スペキュラーライト
   float3 r = reflect(normalize(uniform_light_direction), normal);
-  float s = pow(max(dot(r, toEye), 0.0f), 10.0f);
+  float s = pow(max(dot(r, toEye), 0.0f), 50.0f);
   float light = dot(normalize(uniform_light_direction), normal);
   light = light * 0.5f + 0.5f;
-  color *= light;
+  //color *= light;
   color += s;
   return color;
 }

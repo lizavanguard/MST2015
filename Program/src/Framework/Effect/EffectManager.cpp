@@ -11,6 +11,7 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 #include "EffectManager.h"
 #include "EffekseerUtility.h"
+#include "Framework/Utility/DeviceHolder.h"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // const
@@ -124,6 +125,38 @@ void EffectManager::Draw2D(void) {
   p_renderer_->BeginRendering();
   p_manager_2d_->Draw();
   p_renderer_->EndRendering();
+  p_renderer_->ResetRenderState();
+  auto pDevice = DeviceHolder::Instance().GetDevice();
+  // 背面カリング
+  pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+
+  // Zバッファ使用
+  pDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
+
+  // アルファブレンド使用
+  pDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+  // ソースと対象のアルファブレンド比率設定
+  pDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+  // ソースのアルファをそのまま使用し、対象はそれの補数？をとる
+  pDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+
+  // サンプラーステートパラメータの設定
+  // テクスチャアドレッシング方式(U値)を設定
+  pDevice->SetSamplerState(0, D3DSAMP_ADDRESSU, D3DTADDRESS_WRAP);
+  // テクスチャアドレッシング方式(V値)を設定
+  pDevice->SetSamplerState(0, D3DSAMP_ADDRESSV, D3DTADDRESS_WRAP);
+  // テクスチャ縮小フィルタモードを設定
+  pDevice->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR);
+  // テクスチャ拡大フィルタモードを設定
+  pDevice->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
+
+  // テクスチャステージステートの設定
+  // アルファブレンディング処理
+  pDevice->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
+  // 最初のアルファ引数
+  pDevice->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
+  // 2番目のアルファ引数
+  pDevice->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_CURRENT);
 }
 
 void EffectManager::Draw3D(void) {
@@ -132,6 +165,38 @@ void EffectManager::Draw3D(void) {
   p_renderer_->BeginRendering();
   p_manager_3d_->Draw();
   p_renderer_->EndRendering();
+  p_renderer_->ResetRenderState();
+  auto pDevice = DeviceHolder::Instance().GetDevice();
+
+  // 背面カリング
+  pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+
+  // Zバッファ使用
+  pDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
+
+  // アルファブレンド使用
+  pDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+  // ソースと対象のアルファブレンド比率設定
+  pDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+  // ソースのアルファをそのまま使用し、対象はそれの補数？をとる
+  pDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+  // サンプラーステートパラメータの設定
+  // テクスチャアドレッシング方式(U値)を設定
+  pDevice->SetSamplerState(0, D3DSAMP_ADDRESSU, D3DTADDRESS_WRAP);
+  // テクスチャアドレッシング方式(V値)を設定
+  pDevice->SetSamplerState(0, D3DSAMP_ADDRESSV, D3DTADDRESS_WRAP);
+  // テクスチャ縮小フィルタモードを設定
+  pDevice->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR);
+  // テクスチャ拡大フィルタモードを設定
+  pDevice->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
+
+  // テクスチャステージステートの設定
+  // アルファブレンディング処理
+  pDevice->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
+  // 最初のアルファ引数
+  pDevice->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
+  // 2番目のアルファ引数
+  pDevice->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_CURRENT);
 }
 
 //------------------------------------------------

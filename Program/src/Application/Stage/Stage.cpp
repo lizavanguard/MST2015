@@ -15,8 +15,8 @@
 // const
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 namespace {
-  const char* kModelName = "stage_06";
-  const int kConnectionMax = 4;
+  const char* kModelName = "stage_08";
+  const int kConnectionMax = 1;
 }
 
 //==============================================================================
