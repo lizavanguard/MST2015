@@ -97,9 +97,6 @@
     <Filter Include="src\Application\WiiController">
       <UniqueIdentifier>{214d5fb6-6e5c-4351-9824-02e1231e8468}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Application\Contoller">
-      <UniqueIdentifier>{a89dbace-32d8-4859-99b9-41c763e6ad5e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Framework\Steering">
       <UniqueIdentifier>{5d4cb1b4-de47-439b-8f06-1b4771c5611e}</UniqueIdentifier>
     </Filter>
@@ -153,6 +150,9 @@
     </Filter>
     <Filter Include="src\Application\BallEnvironmentMapping">
       <UniqueIdentifier>{cd60e247-bfd6-4445-abe5-18a053a079df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Application\Contoller">
+      <UniqueIdentifier>{a89dbace-32d8-4859-99b9-41c763e6ad5e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

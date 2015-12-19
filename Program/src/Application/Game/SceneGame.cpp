@@ -48,7 +48,6 @@ namespace {
   const char* kBgmName = "BGM_Game_Main";
 }
 
-CubeTextureForEnvironmentMapping* g_p_cube_;
 //==============================================================================
 // class implementation
 //==============================================================================
@@ -63,7 +62,6 @@ SceneGame::SceneGame()
     , p_2d_root_(nullptr)
     , p_3d_root_(nullptr)
     , p_player_(nullptr)
-    , p_environment_mapping_(nullptr)
     , p_pin_manager_(nullptr)
     , pp_hud_numbers_(nullptr) {
   pp_hud_numbers_ = new HudNumber*[kThrowingMax];
@@ -89,26 +87,8 @@ SceneGame::SceneGame()
   auto p_field = new Stage();
   p_3d_root_->AttachChild(p_field);
 
-  //auto p_field1 = new Stage();
-  //p_3d_root_->AttachChild(p_field1);
-  //auto p_field2 = new Stage();
-  //p_3d_root_->AttachChild(p_field2);
-  //auto p_field3 = new Stage();
-  //p_3d_root_->AttachChild(p_field3);
-  //auto p_field4 = new Stage();
-  //p_3d_root_->AttachChild(p_field4);
-  //auto p_field5 = new Stage();
-  //p_3d_root_->AttachChild(p_field5);
-  //auto p_field6 = new Stage();
-  //p_3d_root_->AttachChild(p_field6);
-
-  p_player_ = PlayerFactory::Create();
+  p_player_ = PlayerFactory::Create(new GameEnvirontMappingDrawer(*p_skybox, *p_field));
   AlphaObjectServiceLocator::Get()->Push(p_player_);
-
-  p_environment_mapping_ = new CubeTextureForEnvironmentMapping(
-    new GameEnvirontMappingDrawer(*p_skybox, *p_field));
-
-  g_p_cube_ = p_environment_mapping_;
 
   // UI
   auto p_ui_score_board = new Object2D("Game/Score_UI_991x150", kScoreBoardPosition, kScoreBoardSize);
@@ -163,7 +143,6 @@ SceneGame::~SceneGame() {
 
   SafeDeleteArray(pp_hud_numbers_);
 
-  SafeDelete(p_environment_mapping_);
   SafeDelete(p_game_master_);
   SafeDelete(p_collision_manager_);
   SafeDelete(p_next_game_state_);
@@ -282,8 +261,7 @@ void SceneGame::_Update(SceneManager* p_scene_manager, const float elapsed_time)
 // Draw
 //------------------------------------------------
 void SceneGame::_Draw(void) {
-  p_environment_mapping_->Draw(p_player_->GetPosition());
-
+  p_player_->UpdateCubeMapping();
   p_game_state_->Draw();
 
   p_3d_root_->DrawAll();

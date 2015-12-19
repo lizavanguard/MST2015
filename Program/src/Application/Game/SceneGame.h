@@ -20,7 +20,6 @@ class ObjectBase;
 class Player;
 class PinManager;
 class Root;
-class CubeTextureForEnvironmentMapping;
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
@@ -76,8 +75,6 @@ private:
   Root* p_2d_root_;
   Root* p_3d_root_;
   Player* p_player_;
-
-  CubeTextureForEnvironmentMapping* p_environment_mapping_;
 
   PinManager* p_pin_manager_;
   HudNumber** pp_hud_numbers_;

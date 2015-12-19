@@ -11,6 +11,7 @@
 #include "TitleListeners.h"
 
 #include "Framework/AlphaObject/AlphaObjectManager.h"
+#include "Framework/CubeTextureForEnvironmentMapping/CubeTextureForEnvironmentMapping.h"
 #include "Framework/GameManager/GameManager.h"
 #include "Framework/Input/InputKeyboard.h"
 #include "Framework/Object/object2d.h"
@@ -34,6 +35,7 @@
 
 #include "Application/game_config.h"
 #include "Application/Alarm/Alarm.h"
+#include "Application/BallEnvironmentMapping/BallEnvironmentMapping.h"
 #include "Application/Game/SceneGameFactory.h"
 #include "Application/Pin/BiggestPin.h"
 #include "Application/Pin/PinConfig.h"
@@ -76,7 +78,7 @@ SceneTitle::SceneTitle()
   Stage* p_field = new Stage();
   p_root_->AttachChild(p_field);
 
-  p_player_ = new Player();
+  p_player_ = new Player(new GameEnvirontMappingDrawer(*p_skybox, *p_field));
   p_player_->SetPosition(kGameStartPosition);
   AlphaObjectServiceLocator::Get()->Push(p_player_);
 
@@ -158,6 +160,7 @@ void SceneTitle::_Update(SceneManager* p_scene_manager, const float elapsed_time
 // Draw
 //------------------------------------------------
 void SceneTitle::_Draw(void) {
+  p_player_->UpdateCubeMapping();
   p_root_->DrawAll();
 }
 
