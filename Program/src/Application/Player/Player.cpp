@@ -80,7 +80,7 @@ void Player::MoveForward(void) {
 }
 
 void Player::MoveForward(const float speed) {
-  speed_.z += speed;
+  speed_.z = speed;
 }
 
 void Player::MoveBackward(void) {

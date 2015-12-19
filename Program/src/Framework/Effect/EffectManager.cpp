@@ -132,6 +132,7 @@ void EffectManager::Draw2D(void) {
 
   // Zバッファ使用
   pDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
+  pDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
 
   // アルファブレンド使用
   pDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
@@ -173,6 +174,7 @@ void EffectManager::Draw3D(void) {
 
   // Zバッファ使用
   pDevice->SetRenderState(D3DRS_ZENABLE, TRUE);
+  pDevice->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
 
   // アルファブレンド使用
   pDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);

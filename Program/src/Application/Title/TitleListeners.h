@@ -62,7 +62,7 @@ public:
   // Notify
   virtual void Notify(void) override {
     auto& camera = CameraManager::Instance().Find("MAIN_2");
-    camera._SetEye(D3DXVECTOR3(1000, 1000, 40000));
+    camera._SetEye(D3DXVECTOR3(1000, 1000, 10000));
     camera.AssignCameraSteering(new CameraSteeringFixed(player_));
     CameraManager::Instance().SetMainCameraUsingHandle(1);
   }
@@ -80,7 +80,7 @@ public:
   // Notify
   virtual void Notify(void) override {
     auto& camera = CameraManager::Instance().Find("MAIN_3");
-    camera.AssignCameraSteering(new CameraSteeringHoming(player_, 500.0f, 300.0f, 500.0f));
+    camera.AssignCameraSteering(new CameraSteeringHoming(player_, 500.0f, 0.0f, 500.0f));
     CameraManager::Instance().SetMainCameraUsingHandle(2);
   }
 
@@ -109,16 +109,16 @@ public:
 
   // Notify
   virtual void Notify(void) override {
-    auto h = EffectManagerServiceLocator::Get()->Play2D("EF_Title_logoSlideIn", 640, 200);
+    auto h = EffectManagerServiceLocator::Get()->Play2D("EF_Title_logoSlideIn", 640, 250);
     EffectManagerServiceLocator::Get()->SetScreenScale(h, 75, 60);
 
     auto& camera = CameraManager::Instance().FindUsingHandle(1);
-    camera._SetEye(D3DXVECTOR3(3000, 3000, 3000));
+    camera._SetEye(D3DXVECTOR3(2000, 2000, 2000));
     camera._SetAt(D3DXVECTOR3(0, 0, 0));
     camera.AssignCameraSteering(nullptr);
     CameraManager::Instance().SetMainCameraUsingHandle(1);
 
-    auto push_start = new Object2D("Title/EF_title_pushSign", D3DXVECTOR3(640, 550, 0), D3DXVECTOR2(500, 150), new Object2DSteeringFlashing(2.0f));
+    auto push_start = new Object2D("Title/EF_title_pushSign", D3DXVECTOR3(640, 600, 0), D3DXVECTOR2(500, 150), new Object2DSteeringFlashing(2.0f));
     HudServiceLocator::Get()->PushAlphaHud(push_start);
   }
 };

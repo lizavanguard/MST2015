@@ -19,7 +19,8 @@ void VS(in float3 inPos : POSITION0,
 
   float4 tempPos = mul(float4( inPos, 1.0f ), worldArray[index]);
   outPos = mul(tempPos, viewProj);
-  float3 wNor = normalize(mul(float4( inNor, 0.0f ), worldArray[index])).xyz;
+  float3 normal = normalize(inNor);
+  float3 wNor = normalize(mul(float4( normal, 0.0f ), worldArray[index])).xyz;
   float light = dot(wNor, -lightVec);
   light = light * 0.5f + 0.5f;
   outlight = light;

@@ -10,7 +10,7 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 class Light {
   const D3DXVECTOR3 kDirection = D3DXVECTOR3(1.0f, -1.0f, 1.0f);
-  const float kAmbient = 0.2f;
+  const float kAmbient = 0.1f;
 
 public:
   // ctor
