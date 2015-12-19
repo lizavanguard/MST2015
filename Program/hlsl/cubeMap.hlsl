@@ -37,7 +37,7 @@ void VS(in float3 in_position   : POSITION0
   out_texcoord = in_texcoord;
   float3 world_position = mul(float4(in_position, 1.0f), uniform_matrix_world).xyz;
 
-    out_world_view_vector = world_position - uniform_camera_position;
+  out_world_view_vector = world_position - uniform_camera_position;
 }
 // EOF
 

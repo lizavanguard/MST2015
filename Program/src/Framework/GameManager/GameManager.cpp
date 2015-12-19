@@ -138,11 +138,11 @@ void GameManager::Update(const float elapsedTime) {
   WiiControllerManager::Instance().Update();
   pInputManager_->Update();
 
+  CameraManager::Instance().Update(elapsedTime);
+
   pSceneManager_->Update(elapsedTime);
   pAlphaObjectManager_->Update(elapsedTime);
   pHudManager_->Update(elapsedTime);
-
-  CameraManager::Instance().Update(elapsedTime);
 
   auto& camera = CameraManager::Instance().GetMainCamera();
   pEffectManager_->ChangeView(camera._GetEye(), camera._GetAt(), D3DXVECTOR3(0.0f, 1.0f, 0.0f));

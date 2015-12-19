@@ -51,16 +51,6 @@ ObjectCubeMapping::ObjectCubeMapping(
   p_xmodel_data_ = ModelManager::Instance().Find(p_filename);
   liza::game::directx::AttachVertexDeclarationToMesh(DeviceHolder::Instance().GetDevice(), &p_xmodel_data_->p_mesh, elements);
 
-  ID3DXMesh* pTempMesh = NULL;
-  auto p_device = DeviceHolder::Instance().GetDevice();
-
-  p_xmodel_data_->p_mesh->CloneMeshFVF(p_xmodel_data_->p_mesh->GetOptions(),
-                                       p_xmodel_data_->p_mesh->GetFVF() | D3DFVF_NORMAL, p_device, &pTempMesh);
-
-  D3DXComputeNormals(pTempMesh, NULL);
-  p_xmodel_data_->p_mesh->Release();
-  p_xmodel_data_->p_mesh = pTempMesh;
-
   p_shader_ = ShaderManager::Instance().FindShader(kShadername);
 
   p_cube_mapping_ = new CubeTextureForEnvironmentMapping(p_object_drawer);
@@ -117,7 +107,7 @@ void ObjectCubeMapping::_Draw(void) {
   D3DXVECTOR4 camera_position4(camera._GetEye().x, camera._GetEye().y, camera._GetEye().z, 1.0f);
   p_shader_->SetVector("uniform_camera_position", &camera_position4);
 
-  p_shader_->SetFloat("uniform_cube_mapping_depth", 0.4f);
+  p_shader_->SetFloat("uniform_cube_mapping_depth", 0.6f);
 
   p_device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CW);
   if (is_drawn_cw_) {
