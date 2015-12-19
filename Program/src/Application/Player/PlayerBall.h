@@ -34,6 +34,7 @@ public:
   // set
   void SetRotationPower(float rotation_power) { rotation_power_ = rotation_power; }
   void AddRotationPower(float rotation_power) { rotation_power_ += rotation_power; }
+  void ZRotationPower(float z_rotation_power) { z_rotation_power = z_rotation_power; }
 
 private:
   virtual void _Update(float elapsed_time) override;
@@ -41,4 +42,5 @@ private:
 
   float rotation_power_;
   D3DXVECTOR3 rotation_axis_;
+  float z_rotation_power_;
 };

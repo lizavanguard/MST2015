@@ -257,8 +257,6 @@ void SceneGame::_Update(SceneManager* p_scene_manager, const float elapsed_time)
 
 }
 
-#include <liza/game/DirectXUtility/DirectXUtility.h>
-
 //------------------------------------------------
 // Draw
 //------------------------------------------------

@@ -27,6 +27,7 @@ namespace {
   const float kSize = 200.0f;
 
   const float kMovingSpeed = 60.0f;
+  const float kMovingControlSpeed = 40.0f;
 
   const float kAdjustedValueRotationToPower = 200.0f;
   //const float kCurveReaction = 0.025f;
@@ -87,19 +88,19 @@ void Player::MoveBackward(void) {
 }
 
 void Player::MoveLeft(void) {
-  speed_.x -= moving_speed_;
+  position_.x -= kMovingControlSpeed;
 }
 
 void Player::MoveRight(void) {
-  speed_.x += moving_speed_;
+  position_.x += kMovingControlSpeed;
 }
 
 void Player::MoveUp(void) {
-  speed_.y += moving_speed_;
+  position_.y += kMovingControlSpeed;
 }
 
 void Player::MoveDown(void) {
-  speed_.y -= moving_speed_;
+  position_.y -= kMovingControlSpeed;
 }
 
 //------------------------------------------------

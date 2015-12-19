@@ -73,6 +73,13 @@ ObjectCubeMapping::~ObjectCubeMapping() {
   SafeDelete(p_cube_mapping_);
 }
 
+//------------------------------------------------
+// Draw
+// BeginScene‚ÆEndScene‚ÌŠÔ‚ÅŒÄ‚Ño‚µ‚Ä
+//------------------------------------------------
+void ObjectCubeMapping::UpdateCubeMapping(void) {
+   p_cube_mapping_->Draw(this->GetWorldPosition());
+ }
 
 //------------------------------------------------
 // _Update
@@ -89,6 +96,7 @@ void ObjectCubeMapping::_Draw(void) {
   auto p_device = DeviceHolder::Instance().GetDevice();
   auto& camera = CameraManager::Instance().GetMainCamera();
   const D3DXVECTOR3 light_direction = LightServiceLocator::Get()->GetDirection();
+  const float light_ambient = LightServiceLocator::Get()->GetAmbient();
 
   D3DXMATRIX View = camera.GetViewMatrix();
   D3DXMATRIX Projection = camera.GetProjectionMatrix();
@@ -104,7 +112,7 @@ void ObjectCubeMapping::_Draw(void) {
 
   p_shader_->SetMatrix("uniform_matrix_world_view_projection", &WVP);
   p_shader_->SetMatrix("uniform_matrix_world", &world_matrix_);
-  D3DXVECTOR4 light_direction4(light_direction.x, light_direction.y, light_direction.z, 1.0f);
+  D3DXVECTOR4 light_direction4(light_direction.x, light_direction.y, light_direction.z, light_ambient);
   p_shader_->SetVector("uniform_light_direction", &light_direction4);
   D3DXVECTOR4 camera_position4(camera._GetEye().x, camera._GetEye().y, camera._GetEye().z, 1.0f);
   p_shader_->SetVector("uniform_camera_position", &camera_position4);

@@ -37,7 +37,7 @@ public:
 
   // Draw
   // BeginScene‚ÆEndScene‚ÌŠÔ‚ÅŒÄ‚Ño‚µ‚Ä
-  void UpdateCubeMapping(void) { p_cube_mapping_->Draw(position_); }
+  void UpdateCubeMapping(void);
 
 private:
   virtual void _Update(float elapsed_time) override;

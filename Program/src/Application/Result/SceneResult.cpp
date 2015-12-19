@@ -73,8 +73,8 @@ SceneResult::SceneResult()
   p_hud_your_score_->AssignNumber(ScoreHolderServiceLocator::Get()->GetLatestScore());
   HudServiceLocator::Get()->PushAlphaHud(p_hud_your_score_);
 
-  //auto h = EffectManagerServiceLocator::Get()->Play2D("EF_Result_grandfatherSlideIn", 640, 360);
-  //EffectManagerServiceLocator::Get()->SetScreenScale(h, 50, 50);
+  auto h = EffectManagerServiceLocator::Get()->Play2D("EF_Result_grandfatherSlideIn", 640, 360);
+  EffectManagerServiceLocator::Get()->SetScreenScale(h, 150, 100);
 
   SoundManager::Instance().PlayBGM(kBgmName);
 }

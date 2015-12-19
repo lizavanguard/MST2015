@@ -33,7 +33,7 @@ void VS(in float3 in_position : POSITION0,
   out_texcoord = in_texcoord;
 
   // TODO: light
-  out_light_power = dot(in_normal, float3(-u_light_information.xyz)) * 0.5f + 0.5f;
+  out_light_power = dot(normalize(in_normal), normalize(float3(-u_light_information.xyz))) * 0.5f + 0.5f;
 }
 
 //------------------------------------------------
