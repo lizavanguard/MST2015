@@ -15,6 +15,8 @@
 #include "Framework/Texture/texture_manager.h"
 #include "Framework/Utility/DeviceHolder.h"
 
+#include "Framework/Light/light.h"
+
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // const
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
@@ -66,6 +68,11 @@ void ObjectModel::_Draw(void) {
   D3DXMATRIX wvp = world_matrix_ * camera.GetViewMatrix() * camera.GetProjectionMatrix();
 
   p_shader_->SetMatrix("u_wvp", &wvp);
+
+  const D3DXVECTOR3 light_direction = LightServiceLocator::Get()->GetDirection();
+  const float light_ambient = LightServiceLocator::Get()->GetAmbient();
+  D3DXVECTOR4 light_direction4(light_direction.x, light_direction.y, light_direction.z, light_ambient);
+  p_shader_->SetVector("u_light_information", &light_direction4);
 
   p_shader_->Begin(nullptr, 0);
   p_shader_->BeginPass(0);

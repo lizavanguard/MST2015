@@ -67,7 +67,6 @@
     <ClCompile Include="src\Framework\Input\InputManager.cpp" />
     <ClCompile Include="src\Framework\Input\InputMouse.cpp" />
     <ClCompile Include="src\Framework\Input\InputXInput.cpp" />
-    <ClCompile Include="src\Framework\Light\light.cpp" />
     <ClCompile Include="src\Framework\Model\model_manager.cpp" />
     <ClCompile Include="src\Framework\Object\Hud\HudNumber\HudNumber.cpp" />
     <ClCompile Include="src\Framework\Object\Hud\HudOverlay\HudOverlay.cpp" />

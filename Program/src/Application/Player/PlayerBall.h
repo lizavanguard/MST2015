@@ -17,7 +17,7 @@
 class PlayerBall : public ObjectCubeMapping {
 public:
   // ctor
-  PlayerBall();
+  PlayerBall(CubeTextureForEnvironmentMapping::ObjectDrawer* p_object_drawer);
 
   // dtor
   virtual ~PlayerBall();

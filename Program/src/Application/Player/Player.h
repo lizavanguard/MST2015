@@ -11,8 +11,10 @@
 #include "liza/generic/factory.hpp"
 
 #include "Framework/Collision/collision_object.h"
+#include "Framework/CubeTextureForEnvironmentMapping/CubeTextureForEnvironmentMapping.h"
 #include "Framework/Effect/EffectManager.h"
 #include "Framework/Object/object_base.h"
+
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class declaration
@@ -25,7 +27,7 @@ class PlayerBall;
 class Player : public ObjectBase, public CollisionObject {
 public:
   // ctor
-  Player();
+  Player(CubeTextureForEnvironmentMapping::ObjectDrawer* p_object_drawer);
 
   // dtor
   virtual ~Player();
@@ -50,6 +52,11 @@ public:
 
   // Change
   void ChangeDrawingOuterFace(bool is_drawn_outer_face);
+
+  // Draw
+  // BeginSceneÇ∆EndSceneÇÃä‘Ç≈åƒÇ—èoÇµÇƒ
+  void UpdateCubeMapping(void);
+
 
 private:
   virtual void _Draw(void) override {}

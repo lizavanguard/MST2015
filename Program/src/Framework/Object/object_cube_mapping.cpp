@@ -33,7 +33,9 @@ namespace {
 //------------------------------------------------
 // ctor
 //------------------------------------------------
-ObjectCubeMapping::ObjectCubeMapping(const char* p_filename)
+ObjectCubeMapping::ObjectCubeMapping(
+  const char* p_filename,
+  CubeTextureForEnvironmentMapping::ObjectDrawer* p_object_drawer)
     : p_xmodel_data_(nullptr)
     , p_shader_(nullptr)
     , p_cube_mapping_(nullptr)
@@ -50,12 +52,15 @@ ObjectCubeMapping::ObjectCubeMapping(const char* p_filename)
   liza::game::directx::AttachVertexDeclarationToMesh(DeviceHolder::Instance().GetDevice(), &p_xmodel_data_->p_mesh, elements);
 
   p_shader_ = ShaderManager::Instance().FindShader(kShadername);
+
+  p_cube_mapping_ = new CubeTextureForEnvironmentMapping(p_object_drawer);
 }
 
 //------------------------------------------------
 // dtor
 //------------------------------------------------
 ObjectCubeMapping::~ObjectCubeMapping() {
+  SafeDelete(p_cube_mapping_);
 }
 
 
@@ -108,7 +113,7 @@ void ObjectCubeMapping::_Draw(void) {
         p_d3dx_material[count_material].MatD3D.Diffuse.a);
       p_shader_->SetVector("uniform_diffuse", &color);
       p_shader_->SetTexture("texture_decale", p_xmodel_data_->p_textures[count_material]);
-      p_shader_->SetTexture("cube_decale", g_p_cube_->GetCubeTexture());
+      p_shader_->SetTexture("cube_decale", p_cube_mapping_->GetCubeTexture());
       p_shader_->CommitChanges();
       p_xmodel_data_->p_mesh->DrawSubset(count_material);
     }
@@ -126,7 +131,7 @@ void ObjectCubeMapping::_Draw(void) {
         p_d3dx_material[count_material].MatD3D.Diffuse.a);
       p_shader_->SetVector("uniform_diffuse", &color);
       p_shader_->SetTexture("texture_decale", p_xmodel_data_->p_textures[count_material]);
-      p_shader_->SetTexture("cube_decale", g_p_cube_->GetCubeTexture());
+      p_shader_->SetTexture("cube_decale", p_cube_mapping_->GetCubeTexture());
       p_shader_->CommitChanges();
       p_xmodel_data_->p_mesh->DrawSubset(count_material);
     }

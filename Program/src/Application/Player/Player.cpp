@@ -44,7 +44,7 @@ namespace {
 //------------------------------------------------
 // ctor
 //------------------------------------------------
-Player::Player()
+Player::Player(CubeTextureForEnvironmentMapping::ObjectDrawer* p_object_drawer)
     : CollisionObject(kSize)
     , is_shot_(false)
     , adjusted_value_(kAdjustedValueRotationToPower)
@@ -56,7 +56,7 @@ Player::Player()
     , h_fire_effect_(-1) {
   //AttachChild(new ObjectFBXModel("humanG_07.fbx"));
   AttachChild(new ObjectModel("ballObj_03"));
-  p_ball_ = new PlayerBall();
+  p_ball_ = new PlayerBall(p_object_drawer);
   AttachChild(p_ball_);
   Reset();
 }
@@ -189,4 +189,12 @@ void Player::_Update(const float elapsed_time) {
 //------------------------------------------------
 void Player::ChangeDrawingOuterFace(const bool is_drawn_outer_face) {
   p_ball_->ChangeDrawingOuterFace(is_drawn_outer_face);
+}
+
+//------------------------------------------------
+// Draw
+// BeginScene‚ÆEndScene‚ÌŠÔ‚ÅŒÄ‚Ño‚µ‚Ä
+//------------------------------------------------
+void Player::UpdateCubeMapping(void) {
+  p_ball_->UpdateCubeMapping();
 }

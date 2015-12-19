@@ -25,8 +25,8 @@ namespace {
 //------------------------------------------------
 // ctor
 //------------------------------------------------
-PlayerBall::PlayerBall()
-  : ObjectCubeMapping(kModelname)
+PlayerBall::PlayerBall(CubeTextureForEnvironmentMapping::ObjectDrawer* p_object_drawer)
+  : ObjectCubeMapping(kModelname, p_object_drawer)
   , rotation_power_(0.0f)
   , rotation_axis_(0.0f, 0.0f, 0.0f) {
   Reset();
