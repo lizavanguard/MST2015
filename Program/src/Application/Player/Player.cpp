@@ -28,14 +28,14 @@ namespace {
 
   const float kMovingSpeed = 60.0f;
 
-  const float kAdjustedValueRotationToPower = 1000.0f;
+  const float kAdjustedValueRotationToPower = 200.0f;
   //const float kCurveReaction = 0.025f;
-  const float kCurveReaction = 0.025f;
+  const float kCurveReaction = 0.011f;
   const float kShotSpeed = 5000.0f;
 
-  const float kSpeedMax = 15000.0f;
+  const float kSpeedMax = 5000.0f;
 
-  const Vector3 kStartPosition(0.0f, 200.0f, -100.0f);
+  const Vector3 kStartPosition(0.0f, 200.0f, -14000.0f);
 }
 
 //==============================================================================
@@ -55,7 +55,9 @@ Player::Player()
     , h_wind_effect_(-1)
     , h_fire_effect_(-1) {
   //AttachChild(new ObjectFBXModel("humanG_07.fbx"));
-  AttachChild(new ObjectModel("ballObj_03"));
+  auto ball_obj = new ObjectModel("ballObj_03");
+  ball_obj->SetRotation(D3DXVECTOR3(0.0f, D3DX_PI, 0.0f));
+  AttachChild(ball_obj);
   p_ball_ = new PlayerBall();
   AttachChild(p_ball_);
   Reset();
@@ -118,11 +120,11 @@ void Player::Shoot(const float rotation) {
 
   is_shot_ = true;
 
-  h_wind_effect_ = EffectManagerServiceLocator::Get()->Play3D("EF_Game_ballWind", position_.x, position_.y, position_.z + 100);
+  h_wind_effect_ = EffectManagerServiceLocator::Get()->Play3D("EF_Game_ballWind", position_.x, position_.y, position_.z + 300);
   EffectManagerServiceLocator::Get()->SetRotation(h_wind_effect_, D3DXVECTOR3(0, 1, 0), D3DX_PI);
   EffectManagerServiceLocator::Get()->SetScale(h_wind_effect_, 100, 100, 100);
 
-  h_fire_effect_ = EffectManagerServiceLocator::Get()->Play3D("EF_Game_ballFire", position_.x, position_.y, position_.z + 0);
+  h_fire_effect_ = EffectManagerServiceLocator::Get()->Play3D("EF_Game_ballFire", position_.x, position_.y - 175, position_.z + 200);
   EffectManagerServiceLocator::Get()->SetRotation(h_fire_effect_, D3DXVECTOR3(0, 1, 0), D3DX_PI);
   EffectManagerServiceLocator::Get()->SetScale(h_fire_effect_, 100, 100, 100);
 }
@@ -146,6 +148,12 @@ void Player::Reset(void) {
 // React collision
 //------------------------------------------------
 void Player::ReactCollision(const D3DXVECTOR3&) {
+  // •ÏX“_
+  velocity_ = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+  speed_ = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+  EffectManagerServiceLocator::Get()->Stop3D(h_wind_effect_);
+  EffectManagerServiceLocator::Get()->Stop3D(h_fire_effect_);
+  // end
   return;
 }
 
@@ -169,19 +177,19 @@ void Player::_Update(const float elapsed_time) {
 
 #endif
 
-  velocity_ *= 0.998f;
+  velocity_.x *= 0.99f;
   speed_ += velocity_;
   if (speed_.z > kSpeedMax) {
     speed_.z = kSpeedMax;
   }
-  speed_ *= 0.998f;
+  //speed_ *= 0.998f;
   position_ += speed_ * elapsed_time;
 
   static const float kRotationFixedValue = 0.001f;
   p_ball_->AddRotationPower(speed_.z * elapsed_time * kRotationFixedValue);
 
   EffectManagerServiceLocator::Get()->SetPosition(h_wind_effect_, position_.x, position_.y, position_.z + 300);
-  EffectManagerServiceLocator::Get()->SetPosition(h_fire_effect_, position_.x, position_.y - 175, position_.z + 30);
+  EffectManagerServiceLocator::Get()->SetPosition(h_fire_effect_, position_.x, position_.y - 175, position_.z + 200);
 }
 
 //------------------------------------------------

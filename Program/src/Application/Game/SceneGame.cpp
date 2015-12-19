@@ -89,19 +89,6 @@ SceneGame::SceneGame()
   auto p_field = new Stage();
   p_3d_root_->AttachChild(p_field);
 
-  //auto p_field1 = new Stage();
-  //p_3d_root_->AttachChild(p_field1);
-  //auto p_field2 = new Stage();
-  //p_3d_root_->AttachChild(p_field2);
-  //auto p_field3 = new Stage();
-  //p_3d_root_->AttachChild(p_field3);
-  //auto p_field4 = new Stage();
-  //p_3d_root_->AttachChild(p_field4);
-  //auto p_field5 = new Stage();
-  //p_3d_root_->AttachChild(p_field5);
-  //auto p_field6 = new Stage();
-  //p_3d_root_->AttachChild(p_field6);
-
   p_player_ = PlayerFactory::Create();
   AlphaObjectServiceLocator::Get()->Push(p_player_);
 
@@ -134,11 +121,12 @@ SceneGame::SceneGame()
   camera1.AssignCameraSteering(new CameraSteeringControl());
   auto& camera2 = camera_manager.Find("MAIN_2");
   static const float kEyeDistance = 200.0f;
-  static const float kEyeHeight = 100.0f;
+  static const float kEyeHeight = 120.0f;
   static const float kAtDistance = 450.0f;
   camera2.AssignCameraSteering(new CameraSteeringHoming(*p_player_, kEyeDistance, kEyeHeight, kAtDistance));
   auto& camera3 = camera_manager.Find("MAIN_3");
-  camera3.AssignCameraSteering(new CameraSteeringFixed(*p_player_));
+  //camera3.AssignCameraSteering(new CameraSteeringFixed(*p_player_));
+  camera3.AssignCameraSteering(new CameraSteeringHoming(*p_player_, 1000, 300, 500));
 
   SoundManager::Instance().PlayBGM(kBgmName);
 }

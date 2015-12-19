@@ -94,7 +94,7 @@ void ObjectCubeMapping::_Draw(void) {
   D3DXVECTOR4 camera_position4(camera._GetEye().x, camera._GetEye().y, camera._GetEye().z, 1.0f);
   p_shader_->SetVector("uniform_camera_position", &camera_position4);
 
-  p_shader_->SetFloat("uniform_cube_mapping_depth", 0.8f);
+  p_shader_->SetFloat("uniform_cube_mapping_depth", 0.4f);
 
   p_device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CW);
   if (is_drawn_cw_) {

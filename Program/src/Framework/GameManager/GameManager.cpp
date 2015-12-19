@@ -160,7 +160,6 @@ void GameManager::Draw(void) {
   RenderTargetManager::Instance().Assign();
   RenderTargetManager::Instance().Clear();
   pDevice->BeginScene();
-
   pSceneManager_->Draw();
   pEffectManager_->Draw3D();
   pAlphaObjectManager_->Draw();
