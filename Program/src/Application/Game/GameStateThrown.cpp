@@ -8,6 +8,7 @@
 // include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 #include "GameStateThrown.h"
+#include "GameStatePlayerInput.h"
 #include "GameStateReady.h"
 #include "GameMaster/GameMaster.h"
 
@@ -51,17 +52,20 @@ GameStateThrown::~GameStateThrown() {
   SafeDelete(p_root_);
 }
 
+bool is_debug_throw_mode = true;
 //------------------------------------------------
 // Update
 //------------------------------------------------
 void GameStateThrown::Update(const float elapsed_time) {
   if (ready_time_ <= 0.0f) {
     auto& game_master = scene_game_.GetGameMaster();
-    if (game_master.IsLastThrow()) {
-      game_master.EndGame();
-      return;
+    if (!is_debug_throw_mode) {
+      if (game_master.IsLastThrow()) {
+        game_master.EndGame();
+        return;
+      }
+      game_master.GoToNextThrowing();
     }
-    game_master.GoToNextThrowing();
     scene_game_.ChangeGameState(new GameStateReady(scene_game_, game_master.GetThrowCount()));
     scene_game_.Reset();
   }
@@ -102,4 +106,12 @@ void GameStateThrown::_Control(void) {
     auto camera_steering = static_cast<CameraSteeringHoming*>(CameraManager::Instance().Find("MAIN_2").GetCameraSteering());
     camera_steering->RotateRight();
   }
+
+#ifdef _DEBUG
+  if (keyboard.IsTrigger(DIK_SPACE)) {
+    auto& game_master = scene_game_.GetGameMaster();
+    scene_game_.Reset();
+    scene_game_.ChangeGameState(new GameStatePlayerInput(scene_game_));
+  }
+#endif
 }

@@ -9,11 +9,12 @@
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 class Light {
-  const D3DXVECTOR3 kDirection = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+  const D3DXVECTOR3 kDirection = D3DXVECTOR3(1.0f, -1.0f, 1.0f);
+  const float kAmbient = 0.2f;
 
 public:
   // ctor
-  Light() : direction_(kDirection) {
+  Light() : direction_(kDirection), ambient_(kAmbient) {
     D3DXVec3Normalize(&direction_, &direction_);
   }
 
@@ -22,9 +23,11 @@ public:
 
   // get
   const D3DXVECTOR3& GetDirection() const { return direction_; }
+  float GetAmbient(void) const { return ambient_; }
 
 private:
   D3DXVECTOR3 direction_;
+  float ambient_;
 };
 
 #include "liza/generic/ServiceLocator.hpp"

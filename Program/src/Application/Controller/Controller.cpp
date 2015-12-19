@@ -14,6 +14,8 @@
 #include "Application/WiiController/CWiiController.h"
 #include "Application/WiiController/WiiControllerManager.h"
 
+extern bool is_debug_throw_mode;
+
 //==============================================================================
 // class implementation
 //==============================================================================
@@ -101,6 +103,14 @@ bool Controller::Update(void) {
     player_.Reset();
     pin_manager_.Reset();
   }
+
+  if (keyboard_.IsTrigger(DIK_B)) {
+    is_debug_throw_mode = !is_debug_throw_mode;
+  }
+  std::string temp = "デバッグスローモード[B] : ";
+  temp += is_debug_throw_mode ? "ON\n" : "OFF\n";
+  DebugProc::Print(temp.c_str());
+
 #endif
   return false;
 }

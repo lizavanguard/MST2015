@@ -192,9 +192,6 @@
     <ClCompile Include="src\Framework\Camera\camera.cpp">
       <Filter>src\Framework\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="src\Framework\Light\light.cpp">
-      <Filter>src\Framework\Light</Filter>
-    </ClCompile>
     <ClCompile Include="src\Framework\Object\object_base.cpp">
       <Filter>src\Framework\Object</Filter>
     </ClCompile>
