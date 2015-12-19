@@ -51,6 +51,16 @@ ObjectCubeMapping::ObjectCubeMapping(
   p_xmodel_data_ = ModelManager::Instance().Find(p_filename);
   liza::game::directx::AttachVertexDeclarationToMesh(DeviceHolder::Instance().GetDevice(), &p_xmodel_data_->p_mesh, elements);
 
+  ID3DXMesh* pTempMesh = NULL;
+  auto p_device = DeviceHolder::Instance().GetDevice();
+
+  p_xmodel_data_->p_mesh->CloneMeshFVF(p_xmodel_data_->p_mesh->GetOptions(),
+                                       p_xmodel_data_->p_mesh->GetFVF() | D3DFVF_NORMAL, p_device, &pTempMesh);
+
+  D3DXComputeNormals(pTempMesh, NULL);
+  p_xmodel_data_->p_mesh->Release();
+  p_xmodel_data_->p_mesh = pTempMesh;
+
   p_shader_ = ShaderManager::Instance().FindShader(kShadername);
 
   p_cube_mapping_ = new CubeTextureForEnvironmentMapping(p_object_drawer);

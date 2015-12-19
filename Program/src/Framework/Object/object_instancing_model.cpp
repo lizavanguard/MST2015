@@ -14,6 +14,7 @@
 #include "Framework/Shader/shader_manager.h"
 #include "Framework/Texture/texture_manager.h"
 #include "Framework/Utility/DeviceHolder.h"
+#include "Framework/Light/light.h"
 
 //==============================================================================
 // class implementation
@@ -43,6 +44,16 @@ ObjectInstancingModel::ObjectInstancingModel(const char* p_filename, const unsig
   p_xmodel_data_ = ModelManager::Instance().Find(p_filename);
   liza::game::directx::AttachVertexDeclarationToMesh(DeviceHolder::Instance().GetDevice(), &p_xmodel_data_->p_mesh, elements);
 
+  ID3DXMesh* pTempMesh = NULL;
+  auto p_device = DeviceHolder::Instance().GetDevice();
+
+  p_xmodel_data_->p_mesh->CloneMeshFVF(p_xmodel_data_->p_mesh->GetOptions(),
+                                       p_xmodel_data_->p_mesh->GetFVF() | D3DFVF_NORMAL, p_device, &pTempMesh);
+
+  D3DXComputeNormals(pTempMesh, NULL);
+  p_xmodel_data_->p_mesh->Release();
+  p_xmodel_data_->p_mesh = pTempMesh;
+
   // インスタンシング
   D3DVERTEXELEMENT9 InstancingVertexElement[] = {
     {0/*パイプライン番号*/, 0/*オフセット*/, D3DDECLTYPE_FLOAT3/*デクラレーションタイプ（型）*/, D3DDECLMETHOD_DEFAULT/*？*/, D3DDECLUSAGE_POSITION/*用途//D3DDECLUSAGE_POSITIONTは座標変換済み*/, 0/*用途番号*/},
@@ -53,7 +64,6 @@ ObjectInstancingModel::ObjectInstancingModel(const char* p_filename, const unsig
   };
 
   p_declaration_ = nullptr;
-  auto p_device = DeviceHolder::Instance().GetDevice();
   p_device->CreateVertexDeclaration(InstancingVertexElement, &p_declaration_);
 
   if (FAILED(p_device->CreateVertexBuffer(sizeof(float) * num_instancing_, D3DUSAGE_WRITEONLY, 0, D3DPOOL_MANAGED, &p_instancing_vertex_buffer_, nullptr))) {
@@ -164,9 +174,8 @@ void ObjectInstancingModel::_Draw(void) {
   D3DXMATRIX viewProj = camera.GetViewMatrix() * camera.GetProjectionMatrix();
   p_vertex_shader_constant->SetMatrix(p_device, "viewProj", &viewProj);
 
-  D3DXVECTOR3 lightVec(0.0f, -1.0f, -1.0f);
-  D3DXVec3Normalize(&lightVec, &lightVec);
-  p_vertex_shader_constant->SetFloatArray(p_device, "lightVec", (float*)&lightVec, 3);
+  const D3DXVECTOR3 light_direction = LightServiceLocator::Get()->GetDirection();
+  p_vertex_shader_constant->SetFloatArray(p_device, "lightVec", (float*)&light_direction, 3);
 
   const int instancingMaxNum = 52;
   // 頂点宣言を設定

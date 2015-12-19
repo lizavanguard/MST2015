@@ -59,8 +59,8 @@ float4 PS(float2 texcoord : TEXCOORD0, float3 world_normal : TEXCOORD1, float3 w
   float s = pow(max(dot(r, toEye), 0.0f), 50.0f);
   float light = dot(normalize(uniform_light_direction), normal);
   light = light * 0.5f + 0.5f;
-  //color *= light;
-  color += s;
+  color *= light;
+  color += s * ( 1 - uniform_reflect_sign) * 0.5f;
   return color;
 }
 
