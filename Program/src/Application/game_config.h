@@ -18,4 +18,6 @@ namespace {
     D3DXVECTOR2(kScoreBoardPosition.x + 200.0f, kScoreBoardPosition.y)
   };
   static const D3DXVECTOR2 kScoreSize(50.0f, 50.0f);
+
+  static const float kGarterDistance = 2000;
 }

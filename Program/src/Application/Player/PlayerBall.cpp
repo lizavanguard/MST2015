@@ -26,9 +26,10 @@ namespace {
 // ctor
 //------------------------------------------------
 PlayerBall::PlayerBall(CubeTextureForEnvironmentMapping::ObjectDrawer* p_object_drawer)
-  : ObjectCubeMapping(kModelname, p_object_drawer)
-  , rotation_power_(0.0f)
-  , rotation_axis_(0.0f, 0.0f, 0.0f) {
+    : ObjectCubeMapping(kModelname, p_object_drawer)
+    , rotation_power_(0.0f)
+    , rotation_axis_(0.0f, 0.0f, 0.0f)
+    , z_rotation_power_(0.0f) {
   Reset();
 }
 
@@ -63,8 +64,11 @@ void PlayerBall::Shoot(const float rotation) {
 //------------------------------------------------
 void PlayerBall::_Update(const float elapsed_time) {
   // É{Å[ÉãÇÃâÒì]
-  D3DXQUATERNION q;
-  D3DXQuaternionRotationAxis(&q, &rotation_axis_, rotation_power_);
+  D3DXQUATERNION q_throwing_rotation;
+  D3DXQuaternionRotationAxis(&q_throwing_rotation, &rotation_axis_, rotation_power_);
+  D3DXQUATERNION q_z_rotation;
+  D3DXQuaternionRotationAxis(&q_z_rotation, &D3DXVECTOR3(0, 0, 1), z_rotation_power_);
+  D3DXQUATERNION q = q_z_rotation * q_throwing_rotation;
 
   D3DXMATRIX rotation_matrix;
   D3DXMatrixRotationQuaternion(&rotation_matrix, &q);
