@@ -393,6 +393,9 @@
     <ClCompile Include="src\Framework\Object\object_cube_mapping.cpp">
       <Filter>src\Framework\Object</Filter>
     </ClCompile>
+    <ClCompile Include="src\Application\Game\GameStateEndZ.cpp">
+      <Filter>src\Application\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Framework\DebugProc\DebugProc.h">
@@ -790,6 +793,9 @@
     </ClInclude>
     <ClInclude Include="src\Framework\Object\object_cube_mapping.h">
       <Filter>src\Framework\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Application\Game\GameStateEndZ.h">
+      <Filter>src\Application\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

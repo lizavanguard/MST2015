@@ -22,6 +22,7 @@
 #include <functional>
 #include <list>
 #include <map>
+#include <numeric>
 #include <set>
 #include <string>
 #include <unordered_map>

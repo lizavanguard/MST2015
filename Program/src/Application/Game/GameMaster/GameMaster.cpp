@@ -27,6 +27,9 @@ GameMaster::GameMaster(HudNumber** pp_hud_pin_number, PinManager& pin_manager, C
     , pp_hud_pin_number_(pp_hud_pin_number)
     , collision_manager_(collision_manager)
     , pin_manager_(pin_manager) {
+  for (int throw_count = 0; throw_count < kThrowingMax; ++throw_count) {
+    scores_[throw_count] = 0;
+  }
 }
 
 //------------------------------------------------
@@ -41,6 +44,8 @@ GameMaster::~GameMaster() {
 void GameMaster::Update(float elapsed_time) {
   const unsigned int num_pins = collision_manager_.GetNumKilledPinsAtCurrentLoop();
   pp_hud_pin_number_[threw_count_]->AddNumber(num_pins);
+  scores_[threw_count_] += num_pins;
+
   if (num_pins != 0) {
     auto h = EffectManagerServiceLocator::Get()->Play2D(
       "EF_GAME_Score_Count",

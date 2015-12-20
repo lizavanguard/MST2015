@@ -1,6 +1,6 @@
 //==============================================================================
 //
-// GameStateThrown
+// GameStateEndZ
 // Author: Shimizu Shoji
 //
 //==============================================================================
@@ -18,13 +18,13 @@ class Root;
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-class GameStateThrown : public SceneGame::GameState {
+class GameStateEndZ : public SceneGame::GameState {
 public:
   // ctor
-  GameStateThrown(SceneGame& scene_game);
+  GameStateEndZ(SceneGame& scene_game);
 
   // dtor
-  virtual ~GameStateThrown();
+  virtual ~GameStateEndZ();
 
   // Update
   virtual void Update(float elapsed_time) override;
@@ -39,6 +39,4 @@ private:
   // property
   Root* p_root_;
   float ready_time_;
-  bool is_garter_;
-  bool is_end_z_;
 };

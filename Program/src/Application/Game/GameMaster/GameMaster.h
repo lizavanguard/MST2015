@@ -44,12 +44,15 @@ public:
 
   // get
   unsigned int GetThrowCount(void) const { return threw_count_; }
+  unsigned int GetScore(unsigned int throw_count) const { return scores_[throw_count]; }
+  unsigned int GetScoreSum(void) const { return std::accumulate(scores_.begin(), scores_.end(), 0); }
   bool IsLastThrow(void) const { return threw_count_ == kThrowCountMax - 1; }
   bool IsEndGame(void) const { return is_end_game_; }
 
 private:
   unsigned int threw_count_;
   bool is_end_game_;
+  std::array<unsigned int, kThrowCountMax> scores_;
 
   HudNumber** pp_hud_pin_number_;
   CollisionManager& collision_manager_;

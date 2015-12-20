@@ -20,4 +20,5 @@ namespace {
   static const D3DXVECTOR2 kScoreSize(50.0f, 50.0f);
 
   static const float kGarterDistance = 1300.0f;
+  static const float kGameEndZ = 50000.0f;
 }

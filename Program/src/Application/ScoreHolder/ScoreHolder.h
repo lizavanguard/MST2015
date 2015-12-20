@@ -38,7 +38,7 @@ public:
   bool IsHighScore(void) const { return latest_score_ == high_score_; }
 
   // set
-  void SetLatestScore(unsigned int latest_score) { latest_score_ = latest_score; }
+  //void SetLatestScore(unsigned int latest_score) { latest_score_ = latest_score; }
   void SetHighScore(unsigned int high_score) { high_score_ = high_score; }
 
 private:
