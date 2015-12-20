@@ -89,14 +89,17 @@ public:
   const D3DXVECTOR3& _GetAt(void) const { return at_; }
 
   // set
-  void _SetEye(const D3DXVECTOR3& eye) { eye_ = eye; }
-  void _SetAt(const D3DXVECTOR3& at) { at_ = at; }
+  void _SetEye(const D3DXVECTOR3& eye) { eye_ = eye; _UpdateViewMatrix(); }
+  void _SetAt(const D3DXVECTOR3& at) { at_ = at; _UpdateViewMatrix(); }
   void _SetViewMatrix(const D3DXMATRIX& view) { view_ = view; }
   void _SetProjectionMatrix(const D3DXMATRIX& projection) { projection_ = projection; }
   void OnMatrixAutoUpdate(void) { is_auto_update_ = true; }
   void OffMatrixAutoUpdate(void) { is_auto_update_ = false; }
 
 private:
+  void _UpdateViewMatrix(void);
+  void _UpdateProjectionMatrix(void);
+
   // property
   D3DXMATRIX projection_;
   D3DXMATRIX view_;

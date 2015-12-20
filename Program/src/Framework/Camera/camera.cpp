@@ -40,18 +40,15 @@ Camera::~Camera() {
 //------------------------------------------------
 void Camera::Update(const float elapsed_time) {
   if (is_auto_update_) {
-    // HACK:
-    auto p_device = DeviceHolder::Instance().GetDevice();
-    D3DXMatrixLookAtLH(&view_, &eye_, &at_, &D3DXVECTOR3(0.0f, 1.0f, 0.0f));
-    p_device->SetTransform(D3DTS_VIEW, &view_);
+    _UpdateViewMatrix();
+    _UpdateProjectionMatrix();
 
-    D3DXMatrixPerspectiveFovLH(&projection_, kFov, kAspect, kNear, kFar);
+    auto p_device = DeviceHolder::Instance().GetDevice();
+    p_device->SetTransform(D3DTS_VIEW, &view_);
     p_device->SetTransform(D3DTS_PROJECTION, &projection_);
   }
 
-  if (p_camera_steering_) {
-    p_camera_steering_->Execute(*this, elapsed_time);
-  }
+  p_camera_steering_->Execute(*this, elapsed_time);
 }
 
 //------------------------------------------------
@@ -59,5 +56,23 @@ void Camera::Update(const float elapsed_time) {
 //------------------------------------------------
 void Camera::AssignCameraSteering(CameraSteering* p_camera_steering) {
   SafeDelete(p_camera_steering_);
-  p_camera_steering_ = p_camera_steering;
+  if (p_camera_steering) {
+    p_camera_steering_ = p_camera_steering;
+  }
+  else {
+    p_camera_steering_ = new NullCameraSteeringObject();
+  }
+  p_camera_steering_->Execute(*this, 0.0f);
+  _UpdateViewMatrix();
+}
+
+//------------------------------------------------
+// _Update view matrix
+//------------------------------------------------
+void Camera::_UpdateViewMatrix(void) {
+  D3DXMatrixLookAtLH(&view_, &eye_, &at_, &D3DXVECTOR3(0.0f, 1.0f, 0.0f));
+}
+
+void Camera::_UpdateProjectionMatrix(void) {
+  D3DXMatrixPerspectiveFovLH(&projection_, kFov, kAspect, kNear, kFar);
 }
