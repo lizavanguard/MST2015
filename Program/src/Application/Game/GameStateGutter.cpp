@@ -1,15 +1,12 @@
 //==============================================================================
 //
-// GameStateThrown
+// GameStateGutter
 // Author: Shimizu Shoji
 //
 //==============================================================================
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-#include "GameStateThrown.h"
-
-#include "GameStateEndZ.h"
 #include "GameStateGutter.h"
 #include "GameStatePlayerInput.h"
 #include "GameStateReady.h"
@@ -33,7 +30,8 @@
 // const
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 namespace {
-  const float kReadyTime = 15.0f;
+  const float kReadyTime = 4.0f;
+  const float kFadeStartTime = 2.0f;
 }
 
 //==============================================================================
@@ -42,30 +40,35 @@ namespace {
 //------------------------------------------------
 // ctor
 //------------------------------------------------
-GameStateThrown::GameStateThrown(SceneGame& scene_game)
+GameStateGutter::GameStateGutter(SceneGame& scene_game)
     : GameState(scene_game)
     , p_root_(nullptr)
     , ready_time_(kReadyTime)
-    , is_garter_(false)
-    , is_end_z_(false) {
+    , is_fading_out_(false)
+    , h_gutter_(EffectManager::kNullHandle) {
   p_root_ = new Root();
-  //auto h = EffectManagerServiceLocator::Get()->Play2D("EF_Title_fadeWhite", 640, 360);
+
+  scene_game_.GetPlayer().MoveStop();
+
+  h_gutter_ = EffectManagerServiceLocator::Get()->Play2D("EF_Game_gutter", 640, 360);
+  EffectManagerServiceLocator::Get()->SetScreenScale(h_gutter_, 100, 100);
+
+  ready_time_ = kReadyTime;
 }
 
 //------------------------------------------------
 // dtor
 //------------------------------------------------
-GameStateThrown::~GameStateThrown() {
-  auto camera_steering = static_cast<CameraSteeringHoming*>(CameraManager::Instance().Find("MAIN_2").GetCameraSteering());
-  camera_steering->SetRotationY(0.0f);
+GameStateGutter::~GameStateGutter() {
+  EffectManagerServiceLocator::Get()->Stop2D(h_gutter_);
   SafeDelete(p_root_);
 }
 
-bool is_debug_throw_mode = false;
+extern bool is_debug_throw_mode;
 //------------------------------------------------
 // Update
 //------------------------------------------------
-void GameStateThrown::Update(const float elapsed_time) {
+void GameStateGutter::Update(const float elapsed_time) {
   if (ready_time_ <= 0.0f) {
     auto& game_master = scene_game_.GetGameMaster();
     if (!is_debug_throw_mode) {
@@ -78,21 +81,16 @@ void GameStateThrown::Update(const float elapsed_time) {
     }
     scene_game_.ChangeGameState(new GameStateReady(scene_game_, game_master.GetThrowCount()));
     scene_game_.Reset();
-    return;
   }
 
   _Control();
 
   p_root_->UpdateAll(elapsed_time);
 
-  auto& player = scene_game_.GetPlayer();
-  if (player.GetPosition().z >= kGameEndZ) {
-    scene_game_.ChangeGameState(new GameStateEndZ(scene_game_));
-    return;
-  }
-  if (std::abs(player.GetPosition().x) >= kGarterLimit) {
-    scene_game_.ChangeGameState(new GameStateGutter(scene_game_));
-    return;
+  if ((ready_time_ <= kFadeStartTime) && !is_fading_out_) {
+    auto h = EffectManagerServiceLocator::Get()->Play2D("EF_Game_blackOut", 640, 360);
+    EffectManagerServiceLocator::Get()->SetScreenScale(h, 100, 100);
+    is_fading_out_ = true;
   }
 
   ready_time_ -= elapsed_time;
@@ -101,32 +99,16 @@ void GameStateThrown::Update(const float elapsed_time) {
 //------------------------------------------------
 // Draw
 //------------------------------------------------
-void GameStateThrown::Draw(void) {
+void GameStateGutter::Draw(void) {
   p_root_->DrawAll();
 }
 
 //------------------------------------------------
 // _cotrol
 //------------------------------------------------
-void GameStateThrown::_Control(void) {
+void GameStateGutter::_Control(void) {
   auto& keyboard = GameManager::Instance().GetInputManager().GetPrimaryKeyboard();
   auto p_wii_controller = WiiControllerManager::Instance().GetWiiController(0);
-
-  const bool is_key_rotated_left = keyboard.IsPress(DIK_LEFT);
-  const bool is_wii_rotated_left = p_wii_controller ? p_wii_controller->getPress(WC_LEFT) : false;
-  const bool is_rotated_left = is_key_rotated_left || is_wii_rotated_left;
-  if (is_rotated_left) {
-    auto camera_steering = static_cast<CameraSteeringHoming*>(CameraManager::Instance().Find("MAIN_2").GetCameraSteering());
-    camera_steering->RotateLeft();
-  }
-
-  const bool is_key_rotated_right = keyboard.IsPress(DIK_RIGHT);
-  const bool is_wii_rotated_right = p_wii_controller ? p_wii_controller->getPress(WC_RIGHT) : false;
-  const bool is_rotated_right = is_key_rotated_right || is_wii_rotated_right;
-  if (is_rotated_right) {
-    auto camera_steering = static_cast<CameraSteeringHoming*>(CameraManager::Instance().Find("MAIN_2").GetCameraSteering());
-    camera_steering->RotateRight();
-  }
 
 #ifdef _DEBUG
   if (keyboard.IsTrigger(DIK_SPACE)) {

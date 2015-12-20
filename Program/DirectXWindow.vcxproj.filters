@@ -396,6 +396,9 @@
     <ClCompile Include="src\Application\Game\GameStateEndZ.cpp">
       <Filter>src\Application\Game</Filter>
     </ClCompile>
+    <ClCompile Include="src\Application\Game\GameStateGutter.cpp">
+      <Filter>src\Application\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Framework\DebugProc\DebugProc.h">
@@ -795,6 +798,9 @@
       <Filter>src\Framework\Object</Filter>
     </ClInclude>
     <ClInclude Include="src\Application\Game\GameStateEndZ.h">
+      <Filter>src\Application\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Application\Game\GameStateGutter.h">
       <Filter>src\Application\Game</Filter>
     </ClInclude>
   </ItemGroup>

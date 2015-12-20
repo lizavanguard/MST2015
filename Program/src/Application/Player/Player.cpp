@@ -97,6 +97,13 @@ void Player::MoveDown(void) {
   speed_.y -= kMovingControlSpeed;
 }
 
+void Player::MoveStop(void) {
+  velocity_ = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+  speed_ = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+  EffectManagerServiceLocator::Get()->Stop3D(h_fire_effect_);
+  EffectManagerServiceLocator::Get()->Stop3D(h_wind_effect_);
+}
+
 //------------------------------------------------
 // Shoot
 //------------------------------------------------

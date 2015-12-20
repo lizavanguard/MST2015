@@ -16,6 +16,7 @@
     <ClCompile Include="src\Application\Controller\Controller.cpp" />
     <ClCompile Include="src\Application\Game\GameMaster\GameMaster.cpp" />
     <ClCompile Include="src\Application\Game\GameStateEndZ.cpp" />
+    <ClCompile Include="src\Application\Game\GameStateGutter.cpp" />
     <ClCompile Include="src\Application\Game\GameStatePlayerInput.cpp" />
     <ClCompile Include="src\Application\Game\GameStateReady.cpp" />
     <ClCompile Include="src\Application\Game\GameStateThrown.cpp" />
@@ -102,6 +103,7 @@
     <ClInclude Include="src\Application\Controller\Controller.h" />
     <ClInclude Include="src\Application\Game\GameMaster\GameMaster.h" />
     <ClInclude Include="src\Application\Game\GameStateEndZ.h" />
+    <ClInclude Include="src\Application\Game\GameStateGutter.h" />
     <ClInclude Include="src\Application\Game\GameStatePlayerInput.h" />
     <ClInclude Include="src\Application\Game\GameStateReady.h" />
     <ClInclude Include="src\Application\Game\GameStateThrown.h" />

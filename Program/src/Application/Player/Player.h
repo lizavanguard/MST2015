@@ -40,6 +40,7 @@ public:
   void MoveRight(void);
   void MoveUp(void);
   void MoveDown(void);
+  void MoveStop(void);
 
   // Shoot
   void Shoot(float rotation);

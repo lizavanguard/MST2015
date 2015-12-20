@@ -30,7 +30,7 @@
 // const
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 namespace {
-  const float kReadyTime = 15.0f;
+  const float kReadyTime = 1.3f;
 }
 
 //==============================================================================
@@ -48,7 +48,7 @@ GameStateEndZ::GameStateEndZ(SceneGame& scene_game)
   auto h = EffectManagerServiceLocator::Get()->Play2D("EF_Game_blackOut", 640, 360);
   EffectManagerServiceLocator::Get()->SetScreenScale(h, 100, 100);
 
-  ready_time_ = 1.3f;
+  ready_time_ = kReadyTime;
 }
 
 //------------------------------------------------

@@ -59,7 +59,7 @@ void GameStatePlayerInput::Update(const float elapsed_time) {
 
   auto& player = scene_game_.GetPlayer();
   auto player_position = player.GetPosition();
-  player_position.x = liza::math::Clamp(player_position.x, kGarterDistance);
+  player_position.x = liza::math::Clamp(player_position.x, kControlLimit);
   player.SetPosition(player_position);
 //  p_root_->UpdateAll(elapsed_time);
 }
