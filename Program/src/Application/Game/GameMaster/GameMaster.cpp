@@ -51,7 +51,10 @@ void GameMaster::Update(float elapsed_time) {
   const unsigned int num_pins = collision_manager_.GetNumKilledPinsAtCurrentLoop();
   pp_hud_pin_number_[threw_count_]->AddNumber(num_pins);
   scores_[threw_count_] += num_pins;
-
+  if( num_pins == 125 && scores_[threw_count_] >= 200 ) {
+    auto handle_ = EffectManagerServiceLocator::Get()->Play2D("EF_Game_perfect", 640.0f, 360.0f);
+    EffectManagerServiceLocator::Get()->SetScreenScale(handle_, 50.0f, 50.0f);
+  }
   if (num_pins != 0) {
     auto h = EffectManagerServiceLocator::Get()->Play2D(
       "EF_GAME_Score_Count",

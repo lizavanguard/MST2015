@@ -60,7 +60,7 @@ void LanePin::ReactCollision(const D3DXVECTOR3& power) {
   velocity_.y -= 9.8f * 3.0f;
   is_all_drawed_ = true;
   is_collided_ = true;
-  auto h = EffectManagerServiceLocator::Get()->Play3D("EF_Game_hit", position_.x, position_.y + 100 - pin::lane_pin::kHalfSizeY, position_.z + 500);
+  auto h = EffectManagerServiceLocator::Get()->Play3D("EF_Game_hit", position_.x, position_.y + 175 - pin::lane_pin::kHalfSizeY, position_.z + 500);
   EffectManagerServiceLocator::Get()->SetScale(h, 100, 100, 100);
 };
 

@@ -24,10 +24,10 @@ namespace {
 
 namespace {
   const char* kAualaEffectName = "EF_Game_bigPinAura";
-  const float kAualaEffectScale = 60.0f;
-  const char* kFallEffectName = "EF_Game_bigPinBreak";
-  const float kFallEffectScale = 100.0f;
-  const char* kHitEffectName = "BigHit";
+  const float kAualaEffectScale = 180.0f;
+  const char* kFallEffectName = "EF_Game_BigPinBreak";
+  const float kFallEffectScale = 300.0f;
+  const char* kHitEffectName = "EF_Game_Pin_Gold_Crash";
   const float kHitEffectScale = 60.0f;
 }
 
@@ -62,6 +62,7 @@ void BiggestPin::ReactCollision(const D3DXVECTOR3& power) {
   is_collided_ = true;
   handle_hit_ = EffectManagerServiceLocator::Get()->Play3D(kHitEffectName, power.x, power.y + 100.0f, power.z);
   EffectManagerServiceLocator::Get()->SetScale(handle_hit_, kHitEffectScale, kHitEffectScale, kHitEffectScale);
+  EffectManagerServiceLocator::Get()->Stop3D(handle_);
 };
 
 void BiggestPin::FallCollision(void) {
@@ -102,7 +103,7 @@ void BiggestPin::_Update(const float elapsed_time) {
       position_.y += kFallingPositionY;
       if( rotation_.x >= D3DX_PI * 0.5f ) {
         EffectManagerServiceLocator::Get()->Stop3D(handle_);
-        handle_fall_ = EffectManagerServiceLocator::Get()->Play3D(kFallEffectName, position_.x, position_.y, position_.z);
+        handle_fall_ = EffectManagerServiceLocator::Get()->Play3D(kFallEffectName, position_.x, position_.y - 1500.0f, position_.z + 1000.0f);
         EffectManagerServiceLocator::Get()->SetScale(handle_fall_, kFallEffectScale, kFallEffectScale, kFallEffectScale);
       }
     }

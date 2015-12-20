@@ -22,6 +22,8 @@
 #include "Application/Pin/StandardPin.h"
 #include "Application/Pin/StandardPins.h"
 #include "Application/Player/Player.h"
+#include "Framework/Effect/EffectManager.h"
+#include "Application\Game\SceneGame.h"
 
 //==============================================================================
 // class implementation

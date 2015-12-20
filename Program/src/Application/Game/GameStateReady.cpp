@@ -61,6 +61,8 @@ GameStateReady::GameStateReady(SceneGame& scene_game, const unsigned int throw_c
   auto& camera3 = camera_manager.Find("MAIN_3");
   //camera3.AssignCameraSteering(new CameraSteeringFixed(scene_game_.GetPlayer()));
   camera3.AssignCameraSteering(new CameraSteeringHoming(scene_game_.GetPlayer(), 1000, 300, 500));
+
+  camera_manager.SetMainCamera("MAIN_3");
 }
 
 //------------------------------------------------

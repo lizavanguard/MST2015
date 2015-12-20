@@ -154,14 +154,14 @@ void GameStateReplay::_SetupAlarm(void) {
 
   // 3
   Alarm::Data shoot;
-  shoot.time = 15.0f;
+  shoot.time = 18.0f;
   shoot.listener_list.push_back(
       new ShootListener(scene_game_.GetPlayer(), scene_game_.GetPinManager(), scene_game_.GetGameMaster()));
   data_container.push_back(shoot);
 
   // 4
   Alarm::Data fade_out;
-  fade_out.time = 1.3f;
+  fade_out.time = 2.0f;
   fade_out.listener_list.push_back(new FadeOutListener());
   data_container.push_back(fade_out);
 
