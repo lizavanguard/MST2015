@@ -67,9 +67,6 @@ public:
   // dtor
   ~Camera();
 
-  // Assign
-  void AssignCameraSteering(CameraSteering* p_camera_steering);
-
   // Calculate camera-direction
   D3DXVECTOR3 CalculateCameraDirection(void) const {
     D3DXVECTOR3 direction = at_ - eye_;
@@ -78,6 +75,16 @@ public:
 
   // Update
   virtual void Update(float elapsed_time);
+
+  // Assign
+  void AssignCameraSteering(CameraSteering* p_camera_steering);
+
+  // Start shaking
+  // time = —h‚ê‚éŠÔ
+  // speed = —h‚ê‚é‘¬“x(—h‚ê‚ÌU•‘¬“x)
+  // power = —h‚ê•û‚Ì‘å‚«‚³(—h‚ê‚é‹——£)
+  void StartShaking(float time, float speed, float power);
+  void StopShaking(void);
 
   // get
   CameraSteering* GetCameraSteering(void) const { return p_camera_steering_; }
@@ -99,6 +106,7 @@ public:
 private:
   void _UpdateViewMatrix(void);
   void _UpdateProjectionMatrix(void);
+  void _UpdateShaking(float elapsed_time);
 
   // property
   D3DXMATRIX projection_;
@@ -106,6 +114,12 @@ private:
   D3DXVECTOR3 eye_;
   D3DXVECTOR3 at_;
   CameraSteering* p_camera_steering_;
+
+  float shaking_power_;
+  float shaking_speed_;
+  float shaking_end_time_;
+  float shaking_sum_time_;
+  float shaking_amount_;
 
   bool is_auto_update_;
 };

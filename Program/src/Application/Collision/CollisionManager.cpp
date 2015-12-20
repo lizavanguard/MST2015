@@ -9,6 +9,8 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 #include "CollisionManager.h"
 
+#include "Framework/Camera/camera.h"
+#include "Framework/Camera/camera_manager.h"
 #include "Framework/Collision/collision.h"
 
 #include "Application/Pin/BiggestPin.h"
@@ -77,6 +79,12 @@ void CollisionManager::PlayerXBiggestPin(void) {
 
   biggest_pin.ReactCollision(player_position);
   player_.ReactCollision(player_position);
+
+  auto& main_camera = CameraManager::Instance().GetMainCamera();
+  static const float kShakingTime = 3.0f;
+  static const float kShakingSpeed = 100.0f;
+  static const float kShakingPower = 10.0f;
+  main_camera.StartShaking(kShakingTime, kShakingSpeed, kShakingPower);
 }
 
 //------------------------------------------------
