@@ -18,6 +18,7 @@
 #include "Framework/DebugProc/DebugProc.h"
 #include "Framework/Effect/EffectManager.h"
 #include "Framework/Fade/Fade.h"
+#include "Framework/GameSpeedManager/GameSpeedManager.h"
 #include "Framework/Hud/HudManager.h"
 #include "Framework/Light/light.h"
 #include "Framework/Scene/SceneManager.h"
@@ -57,6 +58,7 @@ GameManager& GameManager::Instance(HINSTANCE hInstance, HWND hWnd, LPDIRECT3DDEV
 GameManager::GameManager(HINSTANCE hInstance, HWND hWnd, LPDIRECT3DDEVICE9 pDevice)
   : pAlphaObjectManager_(nullptr)
   , pDebugProc_(nullptr)
+  , pGameSpeedManager_(nullptr)
   , pHudManager_(nullptr)
   , pInputManager_(nullptr)
   , pSceneManager_(nullptr)
@@ -111,6 +113,9 @@ GameManager::GameManager(HINSTANCE hInstance, HWND hWnd, LPDIRECT3DDEVICE9 pDevi
   ScoreHolderServiceLocator::Provide(pScoreHolder_);
 
   pSceneManager_ = new SceneManager(new SceneGame());
+
+  pGameSpeedManager_ = new GameSpeedManager();
+  GameSpeedManagerServiceLocator::Provide(pGameSpeedManager_);
 }
 
 
@@ -118,7 +123,7 @@ GameManager::GameManager(HINSTANCE hInstance, HWND hWnd, LPDIRECT3DDEVICE9 pDevi
 // dtor
 //------------------------------------------------
 GameManager::~GameManager() {
-  //delete p_test;
+  delete pGameSpeedManager_;
   delete pScoreHolder_;
   delete pLight_;
   delete pSceneManager_;
@@ -134,7 +139,9 @@ GameManager::~GameManager() {
 //------------------------------------------------
 // update
 //------------------------------------------------
-void GameManager::Update(const float elapsedTime) {
+void GameManager::Update(const float _elapsedTime) {
+  const float elapsedTime = pGameSpeedManager_->Update(_elapsedTime);
+
   WiiControllerManager::Instance().Update();
   pInputManager_->Update();
 

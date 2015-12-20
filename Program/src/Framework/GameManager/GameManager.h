@@ -21,6 +21,7 @@
 class AlphaObjectManager;
 class DebugProc;
 class EffectManager;
+class GameSpeedManager;
 class HudManager;
 class InputManager;
 class SceneManager;
@@ -58,6 +59,7 @@ private:
   AlphaObjectManager* pAlphaObjectManager_;
 	DebugProc* pDebugProc_;
   EffectManager* pEffectManager_;
+  GameSpeedManager* pGameSpeedManager_;
   HudManager* pHudManager_;
 	InputManager* pInputManager_;
   SceneManager* pSceneManager_;

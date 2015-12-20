@@ -154,6 +154,9 @@
     <Filter Include="src\Application\Contoller">
       <UniqueIdentifier>{a89dbace-32d8-4859-99b9-41c763e6ad5e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Framework\GameSpeedManager">
+      <UniqueIdentifier>{e3ba0fc2-3517-46f3-92e0-3b00779ee1a0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Framework\DebugProc\DebugProc.cpp">
@@ -401,6 +404,9 @@
     </ClCompile>
     <ClCompile Include="src\Application\Game\GameStateReplay.cpp">
       <Filter>src\Application\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\GameSpeedManager\GameSpeedManager.cpp">
+      <Filter>src\Framework\GameSpeedManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -811,6 +817,9 @@
     </ClInclude>
     <ClInclude Include="src\Application\Game\ReplayListeners.h">
       <Filter>src\Application\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\GameSpeedManager\GameSpeedManager.h">
+      <Filter>src\Framework\GameSpeedManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

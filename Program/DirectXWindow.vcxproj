@@ -60,6 +60,7 @@
     <ClCompile Include="src\Framework\Effect\EffekSeerUtility.cpp" />
     <ClCompile Include="src\Framework\Fade\Fade.cpp" />
     <ClCompile Include="src\Framework\GameManager\GameManager.cpp" />
+    <ClCompile Include="src\Framework\GameSpeedManager\GameSpeedManager.cpp" />
     <ClCompile Include="src\Framework\GameWindow\GameDirectX.cpp" />
     <ClCompile Include="src\Framework\GameWindow\GameWindow.cpp" />
     <ClCompile Include="src\Framework\Hud\HudManager.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="src\Framework\Effect\EffekSeerUtility.h" />
     <ClInclude Include="src\Framework\Fade\Fade.h" />
     <ClInclude Include="src\Framework\GameManager\GameManager.h" />
+    <ClInclude Include="src\Framework\GameSpeedManager\GameSpeedManager.h" />
     <ClInclude Include="src\Framework\GameWindow\GameBase.h" />
     <ClInclude Include="src\Framework\GameWindow\GameDirectX.h" />
     <ClInclude Include="src\Framework\GameWindow\GameWindow.h" />
