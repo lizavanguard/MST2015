@@ -81,6 +81,10 @@
     <ClCompile Include="src\Framework\Object\object_instancing_model.cpp" />
     <ClCompile Include="src\Framework\Object\object_model.cpp" />
     <ClCompile Include="src\Framework\Object\object_sky_box_face.cpp" />
+    <ClCompile Include="src\Framework\PostEffect\ColorGrading\ColorGrading.cpp" />
+    <ClCompile Include="src\Framework\PostEffect\Fade\FadeEffect.cpp" />
+    <ClCompile Include="src\Framework\PostEffect\PostEffect.cpp" />
+    <ClCompile Include="src\Framework\PostEffect\PostEffectManager.cpp" />
     <ClCompile Include="src\Framework\RenderTarget\RenderTargetManager.cpp" />
     <ClCompile Include="src\Framework\Scene\SceneManager.cpp" />
     <ClCompile Include="src\Framework\Shader\shader_manager.cpp" />
@@ -185,6 +189,10 @@
     <ClInclude Include="src\Framework\Object\object_model.h" />
     <ClInclude Include="src\Framework\Object\object_sky_box_face.h" />
     <ClInclude Include="src\Framework\Object\root.h" />
+    <ClInclude Include="src\Framework\PostEffect\ColorGrading\ColorGrading.h" />
+    <ClInclude Include="src\Framework\PostEffect\Fade\FadeEffect.h" />
+    <ClInclude Include="src\Framework\PostEffect\PostEffect.h" />
+    <ClInclude Include="src\Framework\PostEffect\PostEffectManager.h" />
     <ClInclude Include="src\Framework\RenderTarget\RenderTargetConfig.h" />
     <ClInclude Include="src\Framework\RenderTarget\RenderTargetManager.h" />
     <ClInclude Include="src\Framework\Scene\Scene.h" />
@@ -252,6 +260,14 @@
     <None Include="src\liza\utility\Utility\Utility.inl" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="hlsl\color_grading.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </FxCompile>
+    <FxCompile Include="hlsl\draw2d.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </FxCompile>
     <FxCompile Include="hlsl\fade.hlsl">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>

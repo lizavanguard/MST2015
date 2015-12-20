@@ -28,6 +28,10 @@ class SceneManager;
 class ScoreHolder;
 class Light;
 
+namespace post_effect {
+  class PostEffectManager;
+}
+
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // class definition
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -65,6 +69,8 @@ private:
   SceneManager* pSceneManager_;
   ScoreHolder* pScoreHolder_;
   Light* pLight_;
+
+  post_effect::PostEffectManager* pPostEffectManager_;
 };
 
 

@@ -21,6 +21,7 @@
 #include "Framework/GameSpeedManager/GameSpeedManager.h"
 #include "Framework/Hud/HudManager.h"
 #include "Framework/Light/light.h"
+#include "Framework/PostEffect/PostEffectManager.h"
 #include "Framework/Scene/SceneManager.h"
 #include "Framework/Shader/shader_manager.h"
 #include "Framework/Sound/sound_manager.h"
@@ -116,6 +117,8 @@ GameManager::GameManager(HINSTANCE hInstance, HWND hWnd, LPDIRECT3DDEVICE9 pDevi
 
   pGameSpeedManager_ = new GameSpeedManager();
   GameSpeedManagerServiceLocator::Provide(pGameSpeedManager_);
+
+  pPostEffectManager_ = new post_effect::PostEffectManager();
 }
 
 
@@ -123,6 +126,7 @@ GameManager::GameManager(HINSTANCE hInstance, HWND hWnd, LPDIRECT3DDEVICE9 pDevi
 // dtor
 //------------------------------------------------
 GameManager::~GameManager() {
+  delete pPostEffectManager_;
   delete pGameSpeedManager_;
   delete pScoreHolder_;
   delete pLight_;
@@ -190,9 +194,9 @@ void GameManager::Draw(void) {
   pDevice->EndScene();
   RenderTargetManager::Instance().UnAssign();
 
+  // Fade
   pDevice->BeginScene();
 
-  // Fade
   pDevice->SetTexture(0, RenderTargetManager::Instance().GetTexture(0));
   auto p_shader = ShaderManager::Instance().FindShader("fade");
 
@@ -204,4 +208,10 @@ void GameManager::Draw(void) {
   pDevice->SetTexture(0, nullptr);
   p_shader->EndPass();
   p_shader->End();
+
+  pDevice->EndScene();
+
+  pPostEffectManager_->Process();
+
+  pDevice->BeginScene();
 }
