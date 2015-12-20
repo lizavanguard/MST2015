@@ -29,15 +29,18 @@ public:
 
 private:
   virtual void _DrawObject(void) override {
-    _CameraManager::CameraHandle cube_camera_handle = CameraManager::Instance().GetCameraHandle(cube_mapping::kCubeCamera);
-    auto main_camera_handle = CameraManager::Instance().GetMainCameraHandle();
-    CameraManager::Instance().SetMainCameraUsingHandle(cube_camera_handle);
+    _CameraManager::CameraHandle cube_camera_handle
+      = CameraManager::Instance().GetCameraHandle(cube_mapping::kCubeCamera);
+    _CameraManager::CameraHandle cube_skybox_camera_handle
+      = CameraManager::Instance().GetCameraHandle(cube_mapping::kCubeSkyBoxCamera);
 
-    skybox_.SetCameraHandle(cube_camera_handle);
+    skybox_.SetCameraHandle(cube_skybox_camera_handle);
     skybox_.DrawAll();
-    stage_.DrawAll();
     skybox_.ResetCameraHandle();
 
+    auto main_camera_handle = CameraManager::Instance().GetMainCameraHandle();
+    CameraManager::Instance().SetMainCameraUsingHandle(cube_camera_handle);
+    stage_.DrawAll();
     CameraManager::Instance().SetMainCameraUsingHandle(main_camera_handle);
   }
 

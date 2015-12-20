@@ -14,6 +14,7 @@
 #include "Framework/Utility/DeviceHolder.h"
 
 using cube_mapping::kCubeCamera;
+using cube_mapping::kCubeSkyBoxCamera;
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // const
@@ -44,6 +45,11 @@ namespace {
 // class implementation
 //==============================================================================
 //------------------------------------------------
+// instance
+//------------------------------------------------
+unsigned int CubeTextureForEnvironmentMapping::num_ = 0;
+
+//------------------------------------------------
 // ctor
 //------------------------------------------------
 CubeTextureForEnvironmentMapping::CubeTextureForEnvironmentMapping(ObjectDrawer* p_object_drawer)
@@ -52,15 +58,27 @@ CubeTextureForEnvironmentMapping::CubeTextureForEnvironmentMapping(ObjectDrawer*
   auto p_device = DeviceHolder::Instance().GetDevice();
   p_device->CreateCubeTexture(kSurfaceSize, 1, D3DUSAGE_RENDERTARGET, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, &pp_dynamic_cube_texture_, nullptr);
 
-  Camera* p_camera = new Camera(D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(0, 0, 0));
-  p_camera->OffMatrixAutoUpdate();
-  CameraManager::Instance().Register(kCubeCamera, p_camera);
+  if (num_ == 0) {
+    {  // standard camera
+      Camera* p_camera = new Camera(D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(0, 0, 0));
+      p_camera->OffMatrixAutoUpdate();
+      CameraManager::Instance().Register(kCubeCamera, p_camera);
+    }
+
+    {  // skybox camera
+      Camera* p_camera = new Camera(D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(0, 0, 0));
+      p_camera->OffMatrixAutoUpdate();
+      CameraManager::Instance().Register(kCubeSkyBoxCamera, p_camera);
+    }
+  }
+  ++num_;
 }
 
 //------------------------------------------------
 // dtor
 //------------------------------------------------
 CubeTextureForEnvironmentMapping::~CubeTextureForEnvironmentMapping() {
+  //--num_;
   SafeDelete(p_object_drawer_);
   SafeRelease(pp_dynamic_cube_texture_);
 }
@@ -86,6 +104,7 @@ void CubeTextureForEnvironmentMapping::Draw(const D3DXVECTOR3& position) {
   p_device->SetViewport(&Viewport);
 
   auto& camera = CameraManager::Instance().Find(kCubeCamera);
+  auto& skybox_camera = CameraManager::Instance().Find(kCubeSkyBoxCamera);
 
   for (unsigned i = 0; i < kNumFaces; i++) {
     // サーフェイス指定
@@ -107,10 +126,15 @@ void CubeTextureForEnvironmentMapping::Draw(const D3DXVECTOR3& position) {
     D3DXMatrixLookAtLH(&view, &position, &lookAtPos, &kUpTables[i]);
     camera._SetViewMatrix(view);
 
+    D3DXMATRIX skybox_view;
+    D3DXMatrixLookAtLH(&skybox_view, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), &kLookAtTables[i], &kUpTables[i]);
+    skybox_camera._SetViewMatrix(skybox_view);
+
     // パースペクティブは90度で
     D3DXMATRIX proj;
     D3DXMatrixPerspectiveFovLH(&proj, D3DXToRadian(90.0f), 1.0f, 1.0f, 10000.0f);
     camera._SetProjectionMatrix(proj);
+    skybox_camera._SetProjectionMatrix(proj);
 
     // オブジェクト描画
     if (p_object_drawer_) {

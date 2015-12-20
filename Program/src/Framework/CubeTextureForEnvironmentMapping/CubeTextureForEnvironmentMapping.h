@@ -15,6 +15,7 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 namespace cube_mapping {
   static const char* kCubeCamera = "CUBE_CAMERA";
+  static const char* kCubeSkyBoxCamera = "CUBE_SKYBOX_CAMERA";
 }
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
@@ -47,4 +48,6 @@ public:
   // property
   IDirect3DCubeTexture9* pp_dynamic_cube_texture_;
   ObjectDrawer* p_object_drawer_;
+
+  static unsigned int num_;
 };

@@ -120,6 +120,8 @@ Camera* _CameraManager::_FindUsingHandle(const CameraHandle camera_handle) {
 // _register
 //------------------------------------------------
 void _CameraManager::_Register(const char* camera_name, Camera* p_camera) {
+  auto it = handle_container_.find(camera_name);
+  MY_BREAK_ASSERTMSG(it == handle_container_.end(), "既にそのカメラネームは使われています");
   unsigned int num = container_.size();
   container_.push_back(p_camera);
   handle_container_.insert(std::make_pair(camera_name, num));

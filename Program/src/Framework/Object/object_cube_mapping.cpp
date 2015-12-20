@@ -18,8 +18,6 @@
 #include "Framework/Texture/texture_manager.h"
 #include "Framework/Utility/DeviceHolder.h"
 
-extern CubeTextureForEnvironmentMapping* g_p_cube_;
-
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // const
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
@@ -68,8 +66,8 @@ ObjectCubeMapping::~ObjectCubeMapping() {
 // BeginScene‚ÆEndScene‚ÌŠÔ‚ÅŒÄ‚Ño‚µ‚Ä
 //------------------------------------------------
 void ObjectCubeMapping::UpdateCubeMapping(void) {
-   p_cube_mapping_->Draw(this->GetWorldPosition());
- }
+  p_cube_mapping_->Draw(this->GetWorldPosition());
+}
 
 //------------------------------------------------
 // _Update
