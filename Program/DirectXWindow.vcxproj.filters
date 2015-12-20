@@ -375,9 +375,6 @@
     <ClCompile Include="src\Application\Alarm\Alarm.cpp">
       <Filter>src\Application\Alarm</Filter>
     </ClCompile>
-    <ClCompile Include="src\Application\Title\TitleListeners.cpp">
-      <Filter>src\Application\Title</Filter>
-    </ClCompile>
     <ClCompile Include="src\Application\Result\SceneResult.cpp">
       <Filter>src\Application\Result</Filter>
     </ClCompile>

@@ -14,7 +14,9 @@
 #include "Framework/Object/object2d.h"
 #include "Framework/Object/root.h"
 
+#include "Application/game_config.h"
 #include "Application/Controller/Controller.h"
+#include "Application/Player/Player.h"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // const
@@ -55,6 +57,10 @@ void GameStatePlayerInput::Update(const float elapsed_time) {
     scene_game_.ChangeGameState(new GameStateThrown(scene_game_));
   }
 
+  auto& player = scene_game_.GetPlayer();
+  auto player_position = player.GetPosition();
+  player_position.x = liza::math::Clamp(player_position.x, kGarterDistance);
+  player.SetPosition(player_position);
 //  p_root_->UpdateAll(elapsed_time);
 }
 

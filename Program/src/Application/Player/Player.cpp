@@ -4,14 +4,6 @@
 // Author: Shimizu Shoji
 //
 //==============================================================================
-//struct {
-//  handle;
-//  target;
-//
-//  if (is_valid_handle)
-//    location(target.position + offset);
-//
-
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
@@ -27,7 +19,7 @@ namespace {
   const float kSize = 200.0f;
 
   const float kMovingSpeed = 60.0f;
-  const float kMovingControlSpeed = 40.0f;
+  const float kMovingControlSpeed = 20.0f;
 
   const float kAdjustedValueRotationToPower = 200.0f;
   //const float kCurveReaction = 0.025f;
@@ -35,6 +27,7 @@ namespace {
   const float kShotSpeed = 5000.0f;
 
   const float kSpeedMax = 5000.0f;
+  const float kSpeedMaxX = 1000.0f;
 
   const Vector3 kStartPosition(0.0f, 200.0f, -14000.0f);
 }
@@ -52,6 +45,7 @@ Player::Player(CubeTextureForEnvironmentMapping::ObjectDrawer* p_object_drawer)
     , curve_reaction_(kCurveReaction)
     , shot_speed_(kShotSpeed)
     , moving_speed_(kMovingSpeed)
+    , control_speed_(0.0f)
     , p_ball_(nullptr)
     , h_wind_effect_(-1)
     , h_fire_effect_(-1) {
@@ -88,19 +82,19 @@ void Player::MoveBackward(void) {
 }
 
 void Player::MoveLeft(void) {
-  position_.x -= kMovingControlSpeed;
+  control_speed_ -= kMovingControlSpeed;
 }
 
 void Player::MoveRight(void) {
-  position_.x += kMovingControlSpeed;
+  control_speed_ += kMovingControlSpeed;
 }
 
 void Player::MoveUp(void) {
-  position_.y += kMovingControlSpeed;
+  speed_.y += kMovingControlSpeed;
 }
 
 void Player::MoveDown(void) {
-  position_.y -= kMovingControlSpeed;
+  speed_.y -= kMovingControlSpeed;
 }
 
 //------------------------------------------------
@@ -183,6 +177,11 @@ void Player::_Update(const float elapsed_time) {
   if (speed_.z > kSpeedMax) {
     speed_.z = kSpeedMax;
   }
+
+  control_speed_ = liza::math::Clamp(control_speed_, kSpeedMaxX);
+  control_speed_ *= 0.7f;
+  position_.x += control_speed_;
+
   //speed_ *= 0.998f;
   position_ += speed_ * elapsed_time;
 

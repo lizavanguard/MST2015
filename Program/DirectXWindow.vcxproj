@@ -39,7 +39,6 @@
     <ClCompile Include="src\Application\test2.cpp" />
     <ClCompile Include="src\Application\Title\SceneTitle.cpp" />
     <ClCompile Include="src\Application\Title\SceneTitleFactory.cpp" />
-    <ClCompile Include="src\Application\Title\TitleListeners.cpp" />
     <ClCompile Include="src\Application\WiiController\CWiiController.cpp" />
     <ClCompile Include="src\Application\WiiController\WiiControllerManager.cpp" />
     <ClCompile Include="src\FBX\fbx_model.cpp" />

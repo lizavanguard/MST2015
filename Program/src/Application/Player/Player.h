@@ -68,6 +68,7 @@ private:
   float curve_reaction_;
   float moving_speed_;
   float shot_speed_;
+  float control_speed_;
 
   PlayerBall* p_ball_;
   EffectManager::Handle3D h_wind_effect_;
