@@ -24,6 +24,8 @@
 GameMaster::GameMaster(HudNumber** pp_hud_pin_number, PinManager& pin_manager, CollisionManager& collision_manager)
     : threw_count_(0)
     , is_end_game_(false)
+    , is_replay_mode_(false)
+    , shoot_time_(0.0f)
     , pp_hud_pin_number_(pp_hud_pin_number)
     , collision_manager_(collision_manager)
     , pin_manager_(pin_manager) {
@@ -42,6 +44,10 @@ GameMaster::~GameMaster() {
 // Update
 //------------------------------------------------
 void GameMaster::Update(float elapsed_time) {
+  if (is_replay_mode_) {
+    return;
+  }
+
   const unsigned int num_pins = collision_manager_.GetNumKilledPinsAtCurrentLoop();
   pp_hud_pin_number_[threw_count_]->AddNumber(num_pins);
   scores_[threw_count_] += num_pins;

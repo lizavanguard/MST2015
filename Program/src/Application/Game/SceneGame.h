@@ -59,6 +59,7 @@ public:
   GameMaster& GetGameMaster(void) const { return *p_game_master_; }
   Player& GetPlayer(void) const { return *p_player_; }
   PinManager& GetPinManager(void) const { return *p_pin_manager_; }
+  float GetSumTime(void) const { return sum_time_; }
 
 private:
   // Update
@@ -78,4 +79,5 @@ private:
 
   PinManager* p_pin_manager_;
   HudNumber** pp_hud_numbers_;
+  float sum_time_;
 };

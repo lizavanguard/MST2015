@@ -63,7 +63,8 @@ SceneGame::SceneGame()
     , p_3d_root_(nullptr)
     , p_player_(nullptr)
     , p_pin_manager_(nullptr)
-    , pp_hud_numbers_(nullptr) {
+    , pp_hud_numbers_(nullptr)
+    , sum_time_(0.0f) {
   pp_hud_numbers_ = new HudNumber*[kThrowingMax];
   for (unsigned int i = 0; i < kThrowingMax; ++i) {
     pp_hud_numbers_[i] = nullptr;
@@ -73,9 +74,6 @@ SceneGame::SceneGame()
 
   p_2d_root_ = RootFactory::Create();
   p_3d_root_ = RootFactory::Create();
-
-  // game state
-  p_game_state_ = new GameStateReady(*this, 0);
 
   // object
   auto p_skybox = SkyBoxFactory::Create();
@@ -100,26 +98,14 @@ SceneGame::SceneGame()
   }
   HudServiceLocator::Get()->Push(p_2d_root_);
 
+  // game state
+  p_game_state_ = new GameStateReady(*this, 0);
+
   // collision
   p_collision_manager_ = new CollisionManager(*p_player_, *p_pin_manager_);
 
   // game master
   p_game_master_ = new GameMaster(pp_hud_numbers_, *p_pin_manager_, *p_collision_manager_);
-
-  // camera setting
-  // HACK:
-  auto& camera_manager = CameraManager::Instance();
-  auto& camera1 = camera_manager.Find("MAIN_1");
-  //camera1.AssignCameraSteering(new CameraSteeringHoming(*p_player_, 500, 300, 500));
-  camera1.AssignCameraSteering(new CameraSteeringControl());
-  auto& camera2 = camera_manager.Find("MAIN_2");
-  static const float kEyeDistance = 200.0f;
-  static const float kEyeHeight = 120.0f;
-  static const float kAtDistance = 450.0f;
-  camera2.AssignCameraSteering(new CameraSteeringHoming(*p_player_, kEyeDistance, kEyeHeight, kAtDistance));
-  auto& camera3 = camera_manager.Find("MAIN_3");
-  //camera3.AssignCameraSteering(new CameraSteeringFixed(*p_player_));
-  camera3.AssignCameraSteering(new CameraSteeringHoming(*p_player_, 1000, 300, 500));
 
   SoundManager::Instance().PlayBGM(kBgmName);
 }
@@ -164,6 +150,7 @@ void SceneGame::ChangeGameState(GameState* p_game_state) {
 void SceneGame::Reset(void) {
   p_player_->Reset();
   p_pin_manager_->Reset();
+  sum_time_ = 0;
 }
 
 //------------------------------------------------
@@ -180,6 +167,7 @@ void SceneGame::_Update(SceneManager* p_scene_manager, const float elapsed_time)
   if (p_game_master_->IsEndGame()) {
     return;
   }
+
 
   p_game_state_->Update(elapsed_time);
   if (p_game_master_->IsEndGame()) {
@@ -254,7 +242,7 @@ void SceneGame::_Update(SceneManager* p_scene_manager, const float elapsed_time)
     is_wireframe = !is_wireframe;
   }
 #endif
-
+  sum_time_ += elapsed_time;
 }
 
 //------------------------------------------------

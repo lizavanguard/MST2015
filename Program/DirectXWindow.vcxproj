@@ -19,6 +19,7 @@
     <ClCompile Include="src\Application\Game\GameStateGutter.cpp" />
     <ClCompile Include="src\Application\Game\GameStatePlayerInput.cpp" />
     <ClCompile Include="src\Application\Game\GameStateReady.cpp" />
+    <ClCompile Include="src\Application\Game\GameStateReplay.cpp" />
     <ClCompile Include="src\Application\Game\GameStateThrown.cpp" />
     <ClCompile Include="src\Application\Game\SceneGame.cpp" />
     <ClCompile Include="src\Application\Game\SceneGameFactory.cpp" />
@@ -106,7 +107,9 @@
     <ClInclude Include="src\Application\Game\GameStateGutter.h" />
     <ClInclude Include="src\Application\Game\GameStatePlayerInput.h" />
     <ClInclude Include="src\Application\Game\GameStateReady.h" />
+    <ClInclude Include="src\Application\Game\GameStateReplay.h" />
     <ClInclude Include="src\Application\Game\GameStateThrown.h" />
+    <ClInclude Include="src\Application\Game\ReplayListeners.h" />
     <ClInclude Include="src\Application\Game\SceneGame.h" />
     <ClInclude Include="src\Application\Game\SceneGameFactory.h" />
     <ClInclude Include="src\Application\game_config.h" />

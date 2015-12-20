@@ -12,7 +12,7 @@
 #include "GameStateEndZ.h"
 #include "GameStateGutter.h"
 #include "GameStatePlayerInput.h"
-#include "GameStateReady.h"
+#include "GameStateReplay.h"
 #include "GameMaster/GameMaster.h"
 
 #include "Framework/Camera/camera.h"
@@ -68,16 +68,7 @@ bool is_debug_throw_mode = false;
 void GameStateThrown::Update(const float elapsed_time) {
   if (ready_time_ <= 0.0f) {
     auto& game_master = scene_game_.GetGameMaster();
-    if (!is_debug_throw_mode) {
-      if (game_master.IsLastThrow()) {
-        game_master.EndGame();
-        ScoreHolderServiceLocator::Get()->AssignLatestScore(game_master.GetScoreSum());
-        return;
-      }
-      game_master.GoToNextThrowing();
-    }
-    scene_game_.ChangeGameState(new GameStateReady(scene_game_, game_master.GetThrowCount()));
-    scene_game_.Reset();
+    scene_game_.ChangeGameState(new GameStateReplay(scene_game_));
     return;
   }
 

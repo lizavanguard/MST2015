@@ -29,6 +29,7 @@ namespace {
 LanePin::LanePin(const D3DXVECTOR3& position, const float theta) : Pin(position), base_position_(position), rotation_speed_(0.0f), theta_(theta), initial_theta_(theta){
   handle_ = EffectManagerServiceLocator::Get()->Play3D(kBoostEffectName, position_.x, position_.y - pin::lane_pin::kHalfSizeY, position_.z);
   EffectManagerServiceLocator::Get()->SetScale(handle_, kEffectScale, kEffectScale, kEffectScale);
+  sum_time_ = 0;
 }
 
 //------------------------------------------------
@@ -73,18 +74,21 @@ void LanePin::Reset(void) {
   EffectManagerServiceLocator::Get()->Stop3D(handle_);
   handle_ = EffectManagerServiceLocator::Get()->Play3D(kBoostEffectName, position_.x, position_.y - pin::lane_pin::kHalfSizeY, position_.z);
   EffectManagerServiceLocator::Get()->SetScale(handle_, kEffectScale, kEffectScale, kEffectScale);
+  sum_time_ = 0;
 }
 
 //------------------------------------------------
 // _Update
 //------------------------------------------------
 void LanePin::_Update(const float elapsed_time) {
+  sum_time_ += elapsed_time;
   if( !is_collided_ ) {
+    theta_ = sum_time_ * pin::lane_pin::kMovingSpeed + initial_theta_;
     position_.x = base_position_.x + sinf(theta_) * pin::lane_pin::kMovingDistance;
-    theta_ += elapsed_time * pin::lane_pin::kMovingSpeed;
+    //theta_ += elapsed_time * pin::lane_pin::kMovingSpeed;
   }
 
-  if( position_.x > 2200.0f || position_.x < -2200.0f ) {
+  if (position_.x > 2200.0f || position_.x < -2200.0f) {
     return;
   }
   Pin::_Update(elapsed_time);

@@ -68,7 +68,8 @@ public:
   void SetRotationMatrix(const D3DXMATRIX& rotation_matrix) { rotation_matrix_ = rotation_matrix; }
   void OnAllDrawed(void) { is_all_drawed_ = true; }
   void OffAllDrawed(void) { is_all_drawed_ = false; }
-
+  void OnAllUpdated(void) { is_all_updated_ = true; }
+  void OffAllUpdated(void) { is_all_updated_ = false; }
 
 protected:
   // ’¼‰º‚ÌŽq‹Ÿ‚ð•Ô‚·‚æ

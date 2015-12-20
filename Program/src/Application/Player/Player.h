@@ -58,6 +58,9 @@ public:
   // BeginScene‚ÆEndScene‚ÌŠÔ‚ÅŒÄ‚Ño‚µ‚Ä
   void UpdateCubeMapping(void);
 
+  // get
+  const D3DXVECTOR3& GetShootPosition(void) const { return shoot_position_; }
+  float GetShootRotation(void) const { return shoot_rotation_; }
 
 private:
   virtual void _Draw(void) override {}
@@ -70,6 +73,9 @@ private:
   float moving_speed_;
   float shot_speed_;
   float control_speed_;
+
+  D3DXVECTOR3 shoot_position_;
+  float shoot_rotation_;
 
   PlayerBall* p_ball_;
   EffectManager::Handle3D h_wind_effect_;

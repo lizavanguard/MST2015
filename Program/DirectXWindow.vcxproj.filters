@@ -399,6 +399,9 @@
     <ClCompile Include="src\Application\Game\GameStateGutter.cpp">
       <Filter>src\Application\Game</Filter>
     </ClCompile>
+    <ClCompile Include="src\Application\Game\GameStateReplay.cpp">
+      <Filter>src\Application\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Framework\DebugProc\DebugProc.h">
@@ -801,6 +804,12 @@
       <Filter>src\Application\Game</Filter>
     </ClInclude>
     <ClInclude Include="src\Application\Game\GameStateGutter.h">
+      <Filter>src\Application\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Application\Game\GameStateReplay.h">
+      <Filter>src\Application\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Application\Game\ReplayListeners.h">
       <Filter>src\Application\Game</Filter>
     </ClInclude>
   </ItemGroup>

@@ -25,7 +25,7 @@ namespace pin {
   namespace lane_pin {
     static const float kNums = 75;
     static const float kDistanceBetweenPins = 500.0f;
-    static const float kCurveValue = 0.1f;
+    static const float kCurveValue = 0.5;// 1f;
     static const float kImpactPower = 1000.0f;
     static const float kImpactHeight = 2000.0f;
     static const float kImpactSide = 500.0f;

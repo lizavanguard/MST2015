@@ -9,6 +9,7 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 #include "GameStatePlayerInput.h"
 #include "GameStateThrown.h"
+#include "GameMaster/GameMaster.h"
 
 #include "Framework/Effect/EffectManager.h"
 #include "Framework/Object/object2d.h"
@@ -54,6 +55,7 @@ GameStatePlayerInput::~GameStatePlayerInput() {
 //------------------------------------------------
 void GameStatePlayerInput::Update(const float elapsed_time) {
   if (p_controller_->Update()) {
+    scene_game_.GetGameMaster().SetShootTime(scene_game_.GetSumTime());
     scene_game_.ChangeGameState(new GameStateThrown(scene_game_));
   }
 

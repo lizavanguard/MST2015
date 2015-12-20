@@ -46,6 +46,8 @@ Player::Player(CubeTextureForEnvironmentMapping::ObjectDrawer* p_object_drawer)
     , shot_speed_(kShotSpeed)
     , moving_speed_(kMovingSpeed)
     , control_speed_(0.0f)
+    , shoot_position_(0.0f, 0.0f, 0.0f)
+    , shoot_rotation_(0.0f)
     , p_ball_(nullptr)
     , h_wind_effect_(-1)
     , h_fire_effect_(-1) {
@@ -129,6 +131,9 @@ void Player::Shoot(const float rotation) {
   h_fire_effect_ = EffectManagerServiceLocator::Get()->Play3D("EF_Game_ballFire", position_.x, position_.y - 175, position_.z + 200);
   EffectManagerServiceLocator::Get()->SetRotation(h_fire_effect_, D3DXVECTOR3(0, 1, 0), D3DX_PI);
   EffectManagerServiceLocator::Get()->SetScale(h_fire_effect_, 100, 100, 100);
+
+  shoot_position_ = position_;
+  shoot_rotation_ = rotation;
 }
 
 //------------------------------------------------

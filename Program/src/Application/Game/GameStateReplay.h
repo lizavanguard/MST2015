@@ -1,6 +1,6 @@
 //==============================================================================
 //
-// LanePin
+// GameStateReplay
 // Author: Shimizu Shoji
 //
 //==============================================================================
@@ -8,37 +8,40 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // include
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-#include "Pin.h"
+#include "Application/Game/SceneGame.h"
 #include "Framework/Effect/EffectManager.h"
+
+//--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
+// class delcaration
+//--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
+class Alarm;
+class Root;
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
-class LanePin : public Pin {
+class GameStateReplay : public SceneGame::GameState {
 public:
   // ctor
-  LanePin(const D3DXVECTOR3& position, float theta);
+  GameStateReplay(SceneGame& scene_game);
 
   // dtor
-  ~LanePin();
+  virtual ~GameStateReplay();
 
-  // React collision
-  virtual void ReactCollision(const D3DXVECTOR3& power) override;
+  // Update
+  virtual void Update(float elapsed_time) override;
 
-  // Reset
-  virtual void Reset(void) override;
+  // Draw
+  virtual void Draw(void) override;
 
 private:
-  // _function
-  virtual void _Update(float elapsed_time) override;
+  // _cotrol
+  void _Control(void);
+  void _SetupAlarm(void);
 
   // property
-  EffectManager::Handle3D handle_;
-  D3DXVECTOR3 base_position_;
-  float rotation_speed_;
-  float theta_;
-  float initial_theta_;
-  float sum_time_;
+  Root* p_root_;
+  float ready_time_;
+  Alarm* p_alarm_;
+  bool is_skip_;
 };
-
-using LanePinFactory = liza::generic::Factory<LanePin>;
