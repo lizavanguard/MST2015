@@ -49,20 +49,22 @@ float4 PS(float2 texcoord : TEXCOORD0, float3 world_normal : TEXCOORD1, float3 w
   float3 normal = normalize(world_normal);
   float3 toEye = normalize(world_view_vector);
   float3 vReflect = reflect(toEye, normal) * uniform_reflect_sign;
-  float4 color = (1 - uniform_cube_mapping_depth) * tex2D(uniform_texture_sampler, texcoord)
-                    + uniform_cube_mapping_depth  * texCUBE(uniform_cube_sampler, vReflect);
+  float4 color = ( 1 - uniform_cube_mapping_depth ) * tex2D(uniform_texture_sampler, texcoord)
+  + uniform_cube_mapping_depth  * texCUBE(uniform_cube_sampler, vReflect);
 
   float distToEye = length(toEye);
   toEye /= distToEye;
   // スペキュラーライト
   float3 light_direction = normalize(uniform_light_direction.xyz);
-  float3 r = reflect(light_direction, normal);
-  float s = pow(max(dot(r, toEye), 0.0f), 50.0f);
+    float3 r = reflect(light_direction, normal);
+    float s = pow(max(dot(r, toEye), 0.0f), 50.0f);
   float light = dot(light_direction, normal);
   light = light * 0.5f + 0.5f;
-  //color += uniform_light_direction.w;
-  color *= light;
-  color += s * ( 1 - uniform_reflect_sign) * 0.5f;
+  //color += ( 1 - uniform_reflect_sign ) * 0.5f * uniform_light_direction.w;
+  if( uniform_reflect_sign > 0 ) {
+    color.rgb *= light;
+  }
+  color.rgb += s * ( 1 - uniform_reflect_sign) * 0.5f;
   return color;
 }
 

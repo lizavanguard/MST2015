@@ -108,10 +108,9 @@ void ObjectCubeMapping::_Draw(void) {
   D3DXVECTOR4 camera_position4(camera._GetEye().x, camera._GetEye().y, camera._GetEye().z, 1.0f);
   p_shader_->SetVector("uniform_camera_position", &camera_position4);
 
-  p_shader_->SetFloat("uniform_cube_mapping_depth", 0.6f);
-
   p_device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CW);
   if (is_drawn_cw_) {
+    p_shader_->SetFloat("uniform_cube_mapping_depth", 0.3f);
     p_shader_->SetInt("uniform_reflect_sign", -1);
     D3DXMATERIAL* p_d3dx_material = (D3DXMATERIAL*)p_xmodel_data_->p_materials->GetBufferPointer();
     for (unsigned int count_material = 0; count_material < p_xmodel_data_->num_materials; ++count_material) {
@@ -127,6 +126,8 @@ void ObjectCubeMapping::_Draw(void) {
       p_xmodel_data_->p_mesh->DrawSubset(count_material);
     }
   }
+
+  p_shader_->SetFloat("uniform_cube_mapping_depth", 0.2f);
 
   p_device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
   if (is_drawn_ccw_) {
