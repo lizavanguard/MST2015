@@ -79,13 +79,13 @@ SceneTitle::SceneTitle()
   Stage* p_field = new Stage();
   p_root_->AttachChild(p_field);
 
-  p_player_ = new Player(new GameEnvirontMappingDrawer(*p_skybox, *p_field));
+  BiggestPin* p_biggest_pin = new BiggestPin(pin::biggest_pin::kTitlePosition);
+  p_root_->AttachChild(p_biggest_pin);
+
+  p_player_ = new Player(new GameEnvirontMappingDrawer(*p_skybox, *p_field, *p_biggest_pin));
   p_player_->SetPosition(kGameStartPosition);
   p_player_->MoveForward(0.0f);
   AlphaObjectServiceLocator::Get()->Push(p_player_);
-
-  BiggestPin* p_biggest_pin = new BiggestPin(pin::biggest_pin::kTitlePosition);
-  p_root_->AttachChild(p_biggest_pin);
 
   Camera& camera = CameraManager::Instance().Find("MAIN_1");
   camera.AssignCameraSteering(new CameraSteeringControl());

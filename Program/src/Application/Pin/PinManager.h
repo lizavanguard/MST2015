@@ -35,7 +35,7 @@ public:
   GoalPins& GetGoalPins(void) { return *p_goal_pins_; }
   const GoalPins& GetGoalPins(void) const { return *p_goal_pins_; }
   const StandardPins& GetStandardPins(void) const { return *p_standard_pins_; }
-  const LanePins& GetLanePins(void) const { return *p_lane_pins_; }
+  LanePins& GetLanePins(void) const { return *p_lane_pins_; }
   BiggestPin& GetBiggestPin(void) { return *p_biggest_pin_; }
 
   // Reset

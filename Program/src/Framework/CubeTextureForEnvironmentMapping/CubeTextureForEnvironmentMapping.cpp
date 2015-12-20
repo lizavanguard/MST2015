@@ -132,7 +132,7 @@ void CubeTextureForEnvironmentMapping::Draw(const D3DXVECTOR3& position) {
 
     // パースペクティブは90度で
     D3DXMATRIX proj;
-    D3DXMatrixPerspectiveFovLH(&proj, D3DXToRadian(90.0f), 1.0f, 1.0f, 10000.0f);
+    D3DXMatrixPerspectiveFovLH(&proj, D3DXToRadian(90.0f), 1.0f, 5.0f, 70000.0f);
     camera._SetProjectionMatrix(proj);
     skybox_camera._SetProjectionMatrix(proj);
 

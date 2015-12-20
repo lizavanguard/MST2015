@@ -68,13 +68,15 @@ void CollisionManager::PlayerXBiggestPin(void) {
   const float pin_size = biggest_pin.GetSize();
 
   const bool is_fall = IsSphereHit2(player_position.x, player_position.z, player_size, pin_position.x, pin_position.z - 1000.0f, pin_size * 2.0f);
-  if( is_fall ) {
+  if( !is_fall ) {
+    const bool is_intersected = IsSphereHit2(player_position.x, player_position.z, player_size, pin_position.x, pin_position.z - 300.0f, pin_size * 8.0f);
+    if( !is_intersected ) {
+      return;
+    }
+  }
+  else {
     biggest_pin.FallCollision();
     num_killed_pins_at_current_loop_ += 125;
-  }
-  const bool is_intersected = IsSphereHit2(player_position.x, player_position.z, player_size, pin_position.x, pin_position.z - 300.0f, pin_size * 8.0f);
-  if (!is_intersected) {
-    return;
   }
 
   biggest_pin.ReactCollision(player_position);
