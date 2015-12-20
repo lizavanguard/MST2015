@@ -21,7 +21,7 @@
 namespace {
   const float kSize = 100.0f;
   const float kSizeHalf = kSize / 2.0f;
-  const float kSizeOffset = kSizeHalf - 0.5f;
+  const float kSizeOffset = kSizeHalf;// -0.5f;
 
   const unsigned int kNumFaces = 6;
 
@@ -60,8 +60,8 @@ namespace {
     D3DXVECTOR3(0, -liza::math::kPIHalff, 0),
     D3DXVECTOR3(0, liza::math::kPIHalff, 0),
 
-    D3DXVECTOR3(-liza::math::kPIHalff, liza::math::kPIf, +liza::math::kPIHalff),
-    D3DXVECTOR3( liza::math::kPIHalff, liza::math::kPIf, -liza::math::kPIHalff),
+    D3DXVECTOR3( -liza::math::kPIHalff,-liza::math::kPIf, +liza::math::kPIf),
+    D3DXVECTOR3(  liza::math::kPIHalff, liza::math::kPIf, -liza::math::kPIf),
   };
 }
 
