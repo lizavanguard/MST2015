@@ -43,10 +43,13 @@ void PS(in float4 in_color : COLOR0,
         in float2 in_texcoord : TEXCOORD0,
         in float  in_light_power : TEXCOORD1,
         out float4 out_color : COLOR0) {
-  out_color = tex2D(sampler_decale, in_texcoord) * in_color * in_light_power;
-  out_color += u_light_information.w;
-  out_color = min(out_color, 1.0f);
-  out_color.a = 1.0f;
+  out_color = tex2D(sampler_decale, in_texcoord);
+  out_color.r *= in_light_power;
+  out_color.g *= in_light_power;
+  out_color.b *= in_light_power;
+  //out_color += u_light_information.w;
+  //out_color = min(out_color, 1.0f);
+  //out_color.a = 1.0f;
 }
 
 //==============================================================================

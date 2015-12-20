@@ -9,8 +9,8 @@
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 class Light {
-  const D3DXVECTOR3 kDirection = D3DXVECTOR3(1.0f, -1.0f, 1.0f);
-  const float kAmbient = 0.1f;
+  const D3DXVECTOR3 kDirection = D3DXVECTOR3(0.0f, -0.5f, 1.0f);
+  const float kAmbient = 0.3f;
 
 public:
   // ctor

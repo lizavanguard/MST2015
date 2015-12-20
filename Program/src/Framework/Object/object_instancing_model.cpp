@@ -44,16 +44,18 @@ ObjectInstancingModel::ObjectInstancingModel(const char* p_filename, const unsig
   auto p_device = DeviceHolder::Instance().GetDevice();
   p_xmodel_data_ = ModelManager::Instance().Find(p_filename);
 
-  p_xmodel_data_->p_mesh->OptimizeInplace(D3DXMESHOPT_COMPACT | D3DXMESHOPT_ATTRSORT | D3DXMESHOPT_VERTEXCACHE, nullptr, nullptr, nullptr, nullptr);
+  //p_xmodel_data_->p_mesh->OptimizeInplace(D3DXMESHOPT_COMPACT | D3DXMESHOPT_ATTRSORT | D3DXMESHOPT_VERTEXCACHE, nullptr, nullptr, nullptr, nullptr);
 
   ID3DXMesh* pTempMesh = NULL;
-
+  /*
   p_xmodel_data_->p_mesh->CloneMeshFVF(p_xmodel_data_->p_mesh->GetOptions(),
                                        p_xmodel_data_->p_mesh->GetFVF() | D3DFVF_NORMAL, p_device, &pTempMesh);
-
+  
   D3DXComputeNormals(pTempMesh, NULL);
   p_xmodel_data_->p_mesh->Release();
   p_xmodel_data_->p_mesh = pTempMesh;
+  */
+  //D3DXComputeNormals(p_xmodel_data_->p_mesh, NULL);
 
   liza::game::directx::AttachVertexDeclarationToMesh(DeviceHolder::Instance().GetDevice(), &p_xmodel_data_->p_mesh, elements);
   

@@ -10,7 +10,7 @@ samplerCUBE uniform_cube_sampler = sampler_state {
   Texture = <cube_decale>;
 };
 
-float3 uniform_light_direction;                   // ワールドライト方向
+float4 uniform_light_direction;                   // ワールドライト方向
 
 float4x4 uniform_matrix_world_view_projection;    // 座標変換行列
 float4x4 uniform_matrix_world;                    // 座標変換行列
@@ -55,10 +55,12 @@ float4 PS(float2 texcoord : TEXCOORD0, float3 world_normal : TEXCOORD1, float3 w
   float distToEye = length(toEye);
   toEye /= distToEye;
   // スペキュラーライト
-  float3 r = reflect(normalize(uniform_light_direction), normal);
+  float3 light_direction = normalize(uniform_light_direction.xyz);
+  float3 r = reflect(light_direction, normal);
   float s = pow(max(dot(r, toEye), 0.0f), 50.0f);
-  float light = dot(normalize(uniform_light_direction), normal);
+  float light = dot(light_direction, normal);
   light = light * 0.5f + 0.5f;
+  //color += uniform_light_direction.w;
   color *= light;
   color += s * ( 1 - uniform_reflect_sign) * 0.5f;
   return color;
