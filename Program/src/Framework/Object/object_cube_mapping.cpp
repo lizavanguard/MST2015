@@ -47,6 +47,9 @@ ObjectCubeMapping::ObjectCubeMapping(
   };
 
   p_xmodel_data_ = ModelManager::Instance().Find(p_filename);
+
+  p_xmodel_data_->p_mesh->OptimizeInplace(D3DXMESHOPT_COMPACT | D3DXMESHOPT_ATTRSORT | D3DXMESHOPT_VERTEXCACHE, nullptr, nullptr, nullptr, nullptr);
+
   liza::game::directx::AttachVertexDeclarationToMesh(DeviceHolder::Instance().GetDevice(), &p_xmodel_data_->p_mesh, elements);
 
   p_shader_ = ShaderManager::Instance().FindShader(kShadername);

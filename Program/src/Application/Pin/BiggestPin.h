@@ -25,6 +25,8 @@ public:
   // React collision
   virtual void ReactCollision(const D3DXVECTOR3& power) override;
 
+  void FallCollision(void);
+
   // Reset
   virtual void Reset(void) override;
 
@@ -40,4 +42,5 @@ private:
   D3DXVECTOR3 position_speed_;
   int animation_count_;
   int animation_num_;
+  bool fall_flg_;
 };

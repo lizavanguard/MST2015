@@ -15,8 +15,8 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 const float kFov = D3DXToRadian(50.0f);
 const float kAspect = kWindowWidth / (float)(kWindowHeight);
-const float kNear = 10.0f;
-const float kFar = 250000.0f;
+const float kNear = 5.0f;
+const float kFar = 70000.0f;
 
 const unsigned int kCameraMax = 3;
 const D3DXVECTOR3 kInitialEyePosition[kCameraMax] = {

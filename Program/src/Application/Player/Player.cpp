@@ -51,7 +51,9 @@ Player::Player(CubeTextureForEnvironmentMapping::ObjectDrawer* p_object_drawer)
     , p_ball_(nullptr)
     , h_wind_effect_(-1)
     , h_fire_effect_(-1) {
-  //AttachChild(new ObjectFBXModel("humanG_07.fbx"));
+  auto human = new ObjectFBXModel("humanG_07.fbx");
+  human->SetPosition(D3DXVECTOR3(0.0f, -75.0f, -125.0f));
+  AttachChild(human);
   auto ball_obj = new ObjectModel("ballObj_03");
   ball_obj->SetRotation(D3DXVECTOR3(0.0f, D3DX_PI, 0.0f));
   AttachChild(ball_obj);
@@ -76,7 +78,7 @@ void Player::MoveForward(void) {
 }
 
 void Player::MoveForward(const float speed) {
-  speed_.z += speed;
+  speed_.z = speed;
 }
 
 void Player::MoveBackward(void) {

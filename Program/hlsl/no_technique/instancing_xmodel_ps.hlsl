@@ -9,7 +9,6 @@ sampler DiffuseSampler;
 float4 PS(in float2 inUv : TEXCOORD0,
           in float inlight : TEXCOORD1) : COLOR0
 {
-  //return float4( 1.0f, 1.0f, 1.0f, 1.0f );
   float4 color = tex2D(DiffuseSampler, inUv);
   return float4( ( color * inlight ).rgb, color.a );
 }

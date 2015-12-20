@@ -39,7 +39,8 @@ namespace {
 //------------------------------------------------
 BiggestPin::BiggestPin(const D3DXVECTOR3& position) : Pin(position, pin::kBigModelName), rotation_speed_(0.0f, 0.0f, 0.0f)
 , animation_count_(0)
-, animation_num_(0) {
+, animation_num_(0)
+, fall_flg_(false) {
   handle_ = EffectManagerServiceLocator::Get()->Play3D(kAualaEffectName, position_.x, position_.y, position_.z);
   EffectManagerServiceLocator::Get()->SetScale(handle_, kAualaEffectScale, kAualaEffectScale, kAualaEffectScale);
 }
@@ -54,16 +55,18 @@ BiggestPin::~BiggestPin() {
 // React collision
 //------------------------------------------------
 void BiggestPin::ReactCollision(const D3DXVECTOR3& power) {
-  //D3DXVECTOR3 direction;
-  //D3DXVec3Normalize(&direction, &power);
   rotation_speed_.x = kFallingSpeed;
   animation_count_++;
   animation_num_ = 0;
   is_all_drawed_ = true;
   is_collided_ = true;
-  handle_hit_ = EffectManagerServiceLocator::Get()->Play3D(kHitEffectName, position_.x, position_.y + 300.0f, position_.z - 1000.0f);
+  handle_hit_ = EffectManagerServiceLocator::Get()->Play3D(kHitEffectName, power.x, power.y + 100.0f, power.z);
   EffectManagerServiceLocator::Get()->SetScale(handle_hit_, kHitEffectScale, kHitEffectScale, kHitEffectScale);
 };
+
+void BiggestPin::FallCollision(void) {
+  fall_flg_ = true;
+}
 
 //------------------------------------------------
 // Reset
@@ -73,6 +76,7 @@ void BiggestPin::Reset(void) {
   rotation_speed_ = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
   animation_count_ = 0;
   animation_num_ = 0;
+  fall_flg_ = false;
 }
 
 //------------------------------------------------
@@ -82,7 +86,7 @@ void BiggestPin::_Update(const float elapsed_time) {
   Pin::_Update(elapsed_time);
   if( !is_collided_ ) return;
   animation_count_++;
-  if( animation_count_ > 0 && animation_count_ < 120 ) {
+  if( animation_count_ > 0 && animation_count_ < 124 ) {
     if( animation_count_ < 5 ) {
       animation_num_++;
       animation_num_ %= 2;
@@ -92,7 +96,7 @@ void BiggestPin::_Update(const float elapsed_time) {
     }
     rotation_.x += kFallingRotation[animation_num_] * 0.025f;
     position_.z += kFallingPositionY;
-  } else {
+  } else if( fall_flg_ ) {
     if( rotation_.x < D3DX_PI * 0.5f ) {
       rotation_ += rotation_speed_;
       position_.y += kFallingPositionY;

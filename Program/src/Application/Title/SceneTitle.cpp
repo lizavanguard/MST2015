@@ -37,6 +37,7 @@
 #include "Application/Alarm/Alarm.h"
 #include "Application/BallEnvironmentMapping/BallEnvironmentMapping.h"
 #include "Application/Game/SceneGameFactory.h"
+#include "Application/Title/SceneTitleFactory.h"
 #include "Application/Pin/BiggestPin.h"
 #include "Application/Pin/PinConfig.h"
 #include "Application/Pin/PinManager.h"
@@ -50,7 +51,7 @@ namespace {
   const char* kTextureGroupName = "Title";
   const char* kBgmName = "BGM_Title";
 
-  const D3DXVECTOR3 kGameStartPosition(0.0f, 200.0f, -800.0f);
+  const D3DXVECTOR3 kGameStartPosition(0.0f, 200.0f, -14000.0f);
   const float kPinToStartTime = 5.0f;
   const float kStartWaitTime = 1.0f;
   const float kPlayerStartTime = 2.0f;
@@ -80,6 +81,7 @@ SceneTitle::SceneTitle()
 
   p_player_ = new Player(new GameEnvirontMappingDrawer(*p_skybox, *p_field));
   p_player_->SetPosition(kGameStartPosition);
+  p_player_->MoveForward(0.0f);
   AlphaObjectServiceLocator::Get()->Push(p_player_);
 
   BiggestPin* p_biggest_pin = new BiggestPin(pin::biggest_pin::kTitlePosition);
@@ -93,7 +95,7 @@ SceneTitle::SceneTitle()
   CameraManager::Instance().SetMainCameraUsingHandle(1);
 
   Camera& camera3 = CameraManager::Instance().Find("MAIN_3");
-  auto p_homing = new CameraSteeringHoming(*p_player_, 5000.0f, 300.0f, 0.1f);
+  auto p_homing = new CameraSteeringHoming(*p_player_, 2000.0f, 300.0f, 0.1f);
   p_homing->SetRotationY(D3DX_PI / 2);
   camera3.AssignCameraSteering(p_homing);
 
@@ -154,6 +156,10 @@ void SceneTitle::_Update(SceneManager* p_scene_manager, const float elapsed_time
 
   p_root_->UpdateAll(elapsed_time);
   sum_time_ += elapsed_time;
+
+  if( sum_time_ > 30.0f ) {
+    p_scene_manager->PushNextSceneFactory(new SceneTitleFactory());
+  }
 }
 
 //------------------------------------------------
@@ -200,7 +206,7 @@ void SceneTitle::_SetupAlarm(void) {
 
   // 6
   Alarm::Data homing_view;
-  homing_view.time = 1.5f;
+  homing_view.time = 3.5f;
   homing_view.listener_list.push_back(new HomingViewListener(*p_player_));
   data_container.push_back(homing_view);
 

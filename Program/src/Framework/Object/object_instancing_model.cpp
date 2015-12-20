@@ -41,19 +41,24 @@ ObjectInstancingModel::ObjectInstancingModel(const char* p_filename, const unsig
     D3DDECL_END()
   };
 
+  auto p_device = DeviceHolder::Instance().GetDevice();
   p_xmodel_data_ = ModelManager::Instance().Find(p_filename);
-  liza::game::directx::AttachVertexDeclarationToMesh(DeviceHolder::Instance().GetDevice(), &p_xmodel_data_->p_mesh, elements);
+
+  //p_xmodel_data_->p_mesh->OptimizeInplace(D3DXMESHOPT_COMPACT | D3DXMESHOPT_ATTRSORT | D3DXMESHOPT_VERTEXCACHE, nullptr, nullptr, nullptr, nullptr);
 
   ID3DXMesh* pTempMesh = NULL;
-  auto p_device = DeviceHolder::Instance().GetDevice();
-
+  /*
   p_xmodel_data_->p_mesh->CloneMeshFVF(p_xmodel_data_->p_mesh->GetOptions(),
                                        p_xmodel_data_->p_mesh->GetFVF() | D3DFVF_NORMAL, p_device, &pTempMesh);
-
+  
   D3DXComputeNormals(pTempMesh, NULL);
   p_xmodel_data_->p_mesh->Release();
   p_xmodel_data_->p_mesh = pTempMesh;
+  */
+  //D3DXComputeNormals(p_xmodel_data_->p_mesh, NULL);
 
+  liza::game::directx::AttachVertexDeclarationToMesh(DeviceHolder::Instance().GetDevice(), &p_xmodel_data_->p_mesh, elements);
+  
   // インスタンシング
   D3DVERTEXELEMENT9 InstancingVertexElement[] = {
     {0/*パイプライン番号*/, 0/*オフセット*/, D3DDECLTYPE_FLOAT3/*デクラレーションタイプ（型）*/, D3DDECLMETHOD_DEFAULT/*？*/, D3DDECLUSAGE_POSITION/*用途//D3DDECLUSAGE_POSITIONTは座標変換済み*/, 0/*用途番号*/},

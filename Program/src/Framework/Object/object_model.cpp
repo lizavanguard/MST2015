@@ -51,6 +51,8 @@ ObjectModel::ObjectModel(const char* p_filename) : p_xmodel_data_(nullptr), p_sh
   p_xmodel_data_->p_mesh->Release();
   p_xmodel_data_->p_mesh = pTempMesh;
 
+  p_xmodel_data_->p_mesh->OptimizeInplace(D3DXMESHOPT_COMPACT | D3DXMESHOPT_ATTRSORT | D3DXMESHOPT_VERTEXCACHE, nullptr, nullptr, nullptr, nullptr);
+
   p_shader_ = ShaderManager::Instance().FindShader(kShadername);
 }
 
@@ -74,6 +76,12 @@ void ObjectModel::_Update(const float elapsed_time) {
 //------------------------------------------------
 void ObjectModel::_Draw(void) {
   auto p_device = DeviceHolder::Instance().GetDevice();
+  // アルファテスト使用
+  p_device->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
+  p_device->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
+  // 不透明にする値の設定
+  p_device->SetRenderState(D3DRS_ALPHAREF, 32);
+ 
   auto& camera = CameraManager::Instance().GetMainCamera();
   D3DXMATRIX wvp = world_matrix_ * camera.GetViewMatrix() * camera.GetProjectionMatrix();
 
@@ -93,6 +101,8 @@ void ObjectModel::_Draw(void) {
     p_shader_->CommitChanges();
     p_xmodel_data_->p_mesh->DrawSubset(count_material);
   }
+
+  p_device->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
 
   p_shader_->EndPass();
   p_shader_->End();
