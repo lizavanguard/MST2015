@@ -13,6 +13,7 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class delcaration
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
+class BulletManager;
 class CollisionManager;
 class GameMaster;
 class HudNumber;
@@ -61,6 +62,8 @@ public:
   PinManager& GetPinManager(void) const { return *p_pin_manager_; }
   float GetSumTime(void) const { return sum_time_; }
 
+  BulletManager& GetBulletManager(void) const { return *p_bullet_manager_; }
+
 private:
   // Update
   virtual void _Update(SceneManager* p_scene_manager, float elapsed_time) override;
@@ -80,4 +83,6 @@ private:
   PinManager* p_pin_manager_;
   HudNumber** pp_hud_numbers_;
   float sum_time_;
+
+  BulletManager* p_bullet_manager_;
 };

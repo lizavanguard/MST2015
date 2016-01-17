@@ -12,12 +12,17 @@
 #include "Framework/Effect/EffectManager.h"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
+// class declaration
+//--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
+class SceneGame;
+
+//--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 class LanePin : public Pin {
 public:
   // ctor
-  LanePin(const D3DXVECTOR3& position, float theta);
+  LanePin(const D3DXVECTOR3& position, float theta, SceneGame* p_scene_game);
 
   // dtor
   ~LanePin();

@@ -20,6 +20,7 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 class LanePin;
 class ObjectInstancingModel;
+class SceneGame;
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
@@ -32,7 +33,7 @@ class LanePins : public ObjectBase {
 
 public:
   // ctor
-  LanePins();
+  LanePins(SceneGame* p_scene_game);
 
   // dtor
   ~LanePins();

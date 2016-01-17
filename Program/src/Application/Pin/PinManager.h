@@ -17,6 +17,7 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 class BiggestPin;
 class GoalPins;
+class SceneGame;
 class StandardPins;
 class LanePins;
 
@@ -26,7 +27,7 @@ class LanePins;
 class PinManager : public ObjectBase {
 public:
   // ctor
-  PinManager();
+  PinManager(SceneGame* p_scene_game);
 
   // dtor
   ~PinManager();

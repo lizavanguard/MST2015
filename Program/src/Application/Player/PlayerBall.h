@@ -35,6 +35,8 @@ public:
   void SetRotationPower(float rotation_power) { rotation_power_ = rotation_power; }
   void AddRotationPower(float rotation_power) { rotation_power_ += rotation_power; }
   void ZRotationPower(float z_rotation_power) { z_rotation_power = z_rotation_power; }
+  void OnSetRotationMatrix(void) { is_set_rotation_matrix_ = true; }
+  void OffSetRotationMatrix(void) { is_set_rotation_matrix_ = false; }
 
 private:
   virtual void _Update(float elapsed_time) override;
@@ -43,4 +45,6 @@ private:
   float rotation_power_;
   D3DXVECTOR3 rotation_axis_;
   float z_rotation_power_;
+
+  bool is_set_rotation_matrix_;
 };

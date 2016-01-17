@@ -21,7 +21,7 @@
 //------------------------------------------------
 // ctor
 //------------------------------------------------
-PinManager::PinManager()
+PinManager::PinManager(SceneGame* p_scene_game)
     : p_biggest_pin_(nullptr)
     , p_goal_pins_(nullptr)
     , p_standard_pins_(nullptr)
@@ -29,7 +29,7 @@ PinManager::PinManager()
   AttachChild(p_biggest_pin_ = new BiggestPin(pin::biggest_pin::kPosition));
   //AttachChild(p_goal_pins_ = GoalPinsFactory::Create(pin::goal_pin::kPosition, pin::goal_pin::kR));
   //AttachChild(p_standard_pins_ = StandardPinsFactory::Create(D3DXVECTOR3(0, 0, kZ), D3DXVECTOR3(0, 0, 0)));
-  AttachChild(p_lane_pins_ =  LanePinsFactory::Create());
+  AttachChild(p_lane_pins_ =  LanePinsFactory::Create(p_scene_game));
 }
 
 //------------------------------------------------

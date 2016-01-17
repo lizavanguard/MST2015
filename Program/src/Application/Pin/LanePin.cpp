@@ -26,7 +26,8 @@ namespace {
 //------------------------------------------------
 // ctor
 //------------------------------------------------
-LanePin::LanePin(const D3DXVECTOR3& position, const float theta) : Pin(position), base_position_(position), rotation_speed_(0.0f), theta_(theta), initial_theta_(theta){
+LanePin::LanePin(const D3DXVECTOR3& position, const float theta, SceneGame* p_scene_game)
+      : Pin(position, p_scene_game), base_position_(position), rotation_speed_(0.0f), theta_(theta), initial_theta_(theta){
   handle_ = EffectManagerServiceLocator::Get()->Play3D(kBoostEffectName, position_.x, position_.y - pin::lane_pin::kHalfSizeY, position_.z);
   EffectManagerServiceLocator::Get()->SetScale(handle_, kEffectScale, kEffectScale, kEffectScale);
   sum_time_ = 0;

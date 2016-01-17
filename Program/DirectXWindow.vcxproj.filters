@@ -166,6 +166,12 @@
     <Filter Include="src\Framework\PostEffect\ColorGrading">
       <UniqueIdentifier>{c33db274-7528-433c-b974-98f2ae365e2a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Application\Bullet">
+      <UniqueIdentifier>{cbfe2c78-d848-4639-b373-2784d49575c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Framework\Bullet">
+      <UniqueIdentifier>{074412a0-4baf-43e2-8141-7ee1f93b6c92}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Framework\DebugProc\DebugProc.cpp">
@@ -428,6 +434,12 @@
     </ClCompile>
     <ClCompile Include="src\Framework\PostEffect\ColorGrading\ColorGrading.cpp">
       <Filter>src\Framework\PostEffect\ColorGrading</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Application\Bullet\CGame.cpp">
+      <Filter>src\Application\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\Bullet\BulletManager.cpp">
+      <Filter>src\Framework\Bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -853,6 +865,18 @@
     </ClInclude>
     <ClInclude Include="src\Framework\PostEffect\ColorGrading\ColorGrading.h">
       <Filter>src\Framework\PostEffect\ColorGrading</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Application\Bullet\CGame.h">
+      <Filter>src\Application\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Bullet\BulletManager.h">
+      <Filter>src\Framework\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Bullet\BulletUtility.h">
+      <Filter>src\Framework\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Bullet\BulletFactory.h">
+      <Filter>src\Framework\Bullet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

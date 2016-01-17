@@ -14,13 +14,20 @@
 #include "Framework/Collision/collision_object.h"
 #include "PinConfig.h"
 
+#include "Framework/Bullet/BulletManager.h"
+
+//--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
+// class declaration
+//--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
+class SceneGame;
+
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 class Pin : public ObjectModel, public CollisionObject {
 public:
   // ctor
-  Pin(const D3DXVECTOR3& position, const char *p_filename = pin::kModelName);
+  Pin(const D3DXVECTOR3& position, SceneGame* p_scene_game = nullptr, const char *p_filename = pin::kModelName);
 
   // dtor
   virtual ~Pin();
@@ -34,6 +41,8 @@ protected:
 
 private:
   D3DXVECTOR3 initial_position_;
+  BulletManager::Handle handle_;
+  SceneGame* p_scene_game_;
 };
 
 using PinFactory = liza::generic::Factory<Pin>;

@@ -23,12 +23,12 @@
 //------------------------------------------------
 // ctor
 //------------------------------------------------
-LanePins::LanePins() : p_instancing_model_(nullptr) {
+LanePins::LanePins(SceneGame* p_scene_game) : p_instancing_model_(nullptr) {
   for (int pin_count = 0; pin_count < pin::lane_pin::kNums; ++pin_count) {
     const D3DXVECTOR3 position = {0.0f, pin::lane_pin::kY, -10000.0f + pin::lane_pin::kDistanceBetweenPins * pin_count};
     //const float theta = sinf(pin::lane_pin::kCurveValue * pin_count);
     const float theta = cosf((D3DX_PI / pin::lane_pin::kNums) * pin_count);
-    auto p_pin = LanePinFactory::Create(position, theta);
+    auto p_pin = LanePinFactory::Create(position, theta, p_scene_game);
     pins_.push_back(p_pin);
     AttachChild(p_pin);
   }

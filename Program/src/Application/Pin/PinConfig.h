@@ -30,7 +30,7 @@ namespace pin {
     static const float kImpactHeight = 2000.0f;
     static const float kImpactSide = 500.0f;
     static const float kHalfSizeY = 267.802216f;
-    static const float kY = 100.0f + kHalfSizeY;
+    static const float kY = kHalfSizeY;
     static const float kMovingDistance = 1000.0f;
     static const float kMovingSpeed = 0.3f;
   }

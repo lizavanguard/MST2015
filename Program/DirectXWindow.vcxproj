@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application\Alarm\Alarm.cpp" />
+    <ClCompile Include="src\Application\Bullet\CGame.cpp" />
     <ClCompile Include="src\Application\Collision\CollisionManager.cpp" />
     <ClCompile Include="src\Application\Controller\Controller.cpp" />
     <ClCompile Include="src\Application\Game\GameMaster\GameMaster.cpp" />
@@ -46,6 +47,7 @@
     <ClCompile Include="src\Application\WiiController\WiiControllerManager.cpp" />
     <ClCompile Include="src\FBX\fbx_model.cpp" />
     <ClCompile Include="src\Framework\AlphaObject\AlphaObjectManager.cpp" />
+    <ClCompile Include="src\Framework\Bullet\BulletManager.cpp" />
     <ClCompile Include="src\Framework\Camera\camera.cpp" />
     <ClCompile Include="src\Framework\Camera\camera_manager.cpp" />
     <ClCompile Include="src\Framework\Camera\camera_steering_control.cpp" />
@@ -105,6 +107,7 @@
   <ItemGroup>
     <ClInclude Include="src\Application\Alarm\Alarm.h" />
     <ClInclude Include="src\Application\BallEnvironmentMapping\BallEnvironmentMapping.h" />
+    <ClInclude Include="src\Application\Bullet\CGame.h" />
     <ClInclude Include="src\Application\Collision\CollisionManager.h" />
     <ClInclude Include="src\Application\Controller\Controller.h" />
     <ClInclude Include="src\Application\Game\GameMaster\GameMaster.h" />
@@ -147,6 +150,9 @@
     <ClInclude Include="src\Effekseer\EffekseerSoundXAudio2.h" />
     <ClInclude Include="src\FBX\fbx_model.h" />
     <ClInclude Include="src\Framework\AlphaObject\AlphaObjectManager.h" />
+    <ClInclude Include="src\Framework\Bullet\BulletFactory.h" />
+    <ClInclude Include="src\Framework\Bullet\BulletManager.h" />
+    <ClInclude Include="src\Framework\Bullet\BulletUtility.h" />
     <ClInclude Include="src\Framework\Camera\camera.h" />
     <ClInclude Include="src\Framework\Camera\camera_config.h" />
     <ClInclude Include="src\Framework\Camera\camera_manager.h" />
@@ -320,13 +326,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Program Files\Autodesk\FBX\FBX SDK\2016.1.2\include;$(SolutionDir)\src\Effekseer\;$(IncludePath)</IncludePath>
+    <IncludePath>C:\WorkSpace\MiraiSouzouten\Program\Program\src\Bullet;C:\Program Files\Autodesk\FBX\FBX SDK\2016.1.2\include;$(SolutionDir)\src\Effekseer\;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Program Files\Autodesk\FBX\FBX SDK\2016.1.2\lib\vs2013\x86\debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)</OutDir>
-    <IncludePath>C:\Program Files\Autodesk\FBX\FBX SDK\2016.1.2\include;$(SolutionDir)\src\Effekseer\;$(IncludePath)</IncludePath>
+    <IncludePath>C:\WorkSpace\MiraiSouzouten\Program\Program\src\Bullet;C:\Program Files\Autodesk\FBX\FBX SDK\2016.1.2\include;$(SolutionDir)\src\Effekseer\;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Program Files\Autodesk\FBX\FBX SDK\2016.1.2\lib\vs2013\x86\release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

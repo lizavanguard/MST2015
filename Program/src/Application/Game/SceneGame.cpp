@@ -40,6 +40,8 @@
 #include "Application/Result/SceneResultFactory.h"
 #include "Framework/Effect/EffectManager.h"
 
+#include "Framework/Bullet/BulletManager.h"
+
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // const
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
@@ -64,7 +66,10 @@ SceneGame::SceneGame()
     , p_player_(nullptr)
     , p_pin_manager_(nullptr)
     , pp_hud_numbers_(nullptr)
-    , sum_time_(0.0f) {
+    , sum_time_(0.0f)
+    , p_bullet_manager_(nullptr) {
+  p_bullet_manager_ = new BulletManager();
+
   pp_hud_numbers_ = new HudNumber*[kThrowingMax];
   for (unsigned int i = 0; i < kThrowingMax; ++i) {
     pp_hud_numbers_[i] = nullptr;
@@ -80,11 +85,11 @@ SceneGame::SceneGame()
   p_skybox->OnAllDrawed();
   p_3d_root_->AttachChild(p_skybox);
 
-  p_pin_manager_ = PinManagerFactory::Create();
+  p_pin_manager_ = PinManagerFactory::Create(this);
   p_3d_root_->AttachChild(p_pin_manager_);
-  auto p_field = new Stage();
+  auto p_field = new Stage(this);
   p_3d_root_->AttachChild(p_field);
-  p_player_ = PlayerFactory::Create(new GameEnvirontMappingDrawer(*p_skybox, *p_field, p_pin_manager_->GetBiggestPin(), &p_pin_manager_->GetLanePins()));
+  p_player_ = PlayerFactory::Create(new GameEnvirontMappingDrawer(*p_skybox, *p_field, p_pin_manager_->GetBiggestPin(), &p_pin_manager_->GetLanePins()), this);
   AlphaObjectServiceLocator::Get()->Push(p_player_);
 
   // UI
@@ -113,6 +118,8 @@ SceneGame::SceneGame()
 // dtor
 //------------------------------------------------
 SceneGame::~SceneGame() {
+  SafeDelete(p_bullet_manager_);
+
   SoundManager::Instance().StopSound();
   TextureManager::Instance().Unload(kTextureGroupName);
   EffectManagerServiceLocator::Get()->Stop();
@@ -186,6 +193,8 @@ void SceneGame::_Update(SceneManager* p_scene_manager, const float elapsed_time)
   p_collision_manager_->Update();
 
   p_game_master_->Update(elapsed_time);
+
+  p_bullet_manager_->Update(elapsed_time);
 
 #ifdef _DEBUG
   const auto& keyboard = GameManager::Instance().GetInputManager().GetPrimaryKeyboard();

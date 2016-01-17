@@ -29,7 +29,8 @@ PlayerBall::PlayerBall(CubeTextureForEnvironmentMapping::ObjectDrawer* p_object_
     : ObjectCubeMapping(kModelname, p_object_drawer)
     , rotation_power_(0.0f)
     , rotation_axis_(0.0f, 0.0f, 0.0f)
-    , z_rotation_power_(0.0f) {
+    , z_rotation_power_(0.0f)
+    , is_set_rotation_matrix_(false) {
   Reset();
 }
 
@@ -63,6 +64,7 @@ void PlayerBall::Shoot(const float rotation) {
 // Update
 //------------------------------------------------
 void PlayerBall::_Update(const float elapsed_time) {
+  if (!is_set_rotation_matrix_) {
   // É{Å[ÉãÇÃâÒì]
   D3DXQUATERNION q_throwing_rotation;
   D3DXQuaternionRotationAxis(&q_throwing_rotation, &rotation_axis_, rotation_power_);
@@ -75,6 +77,7 @@ void PlayerBall::_Update(const float elapsed_time) {
 
   //position_ = GetWorldPosition();
   rotation_matrix_ = rotation_matrix;
+  }
 }
 
 ////------------------------------------------------

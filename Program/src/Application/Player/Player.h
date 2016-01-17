@@ -10,6 +10,7 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 #include "liza/generic/factory.hpp"
 
+#include "Framework/Bullet/BulletManager.h"
 #include "Framework/Collision/collision_object.h"
 #include "Framework/CubeTextureForEnvironmentMapping/CubeTextureForEnvironmentMapping.h"
 #include "Framework/Effect/EffectManager.h"
@@ -20,6 +21,7 @@
 // class declaration
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 class PlayerBall;
+class SceneGame;
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
@@ -27,7 +29,7 @@ class PlayerBall;
 class Player : public ObjectBase, public CollisionObject {
 public:
   // ctor
-  Player(CubeTextureForEnvironmentMapping::ObjectDrawer* p_object_drawer);
+  Player(CubeTextureForEnvironmentMapping::ObjectDrawer* p_object_drawer, SceneGame* p_scene_game = nullptr);
 
   // dtor
   virtual ~Player();
@@ -80,6 +82,9 @@ private:
   PlayerBall* p_ball_;
   EffectManager::Handle3D h_wind_effect_;
   EffectManager::Handle3D h_fire_effect_;
+
+  SceneGame* p_scene_game_;
+  BulletManager::Handle handle_;
 };
 
 using PlayerFactory = liza::generic::Factory<Player>;

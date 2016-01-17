@@ -37,7 +37,7 @@ namespace {
 //------------------------------------------------
 // ctor
 //------------------------------------------------
-BiggestPin::BiggestPin(const D3DXVECTOR3& position) : Pin(position, pin::kBigModelName), rotation_speed_(0.0f, 0.0f, 0.0f)
+BiggestPin::BiggestPin(const D3DXVECTOR3& position) : Pin(position, nullptr, pin::kBigModelName), rotation_speed_(0.0f, 0.0f, 0.0f)
 , animation_count_(0)
 , animation_num_(0)
 , fall_flg_(false) {
