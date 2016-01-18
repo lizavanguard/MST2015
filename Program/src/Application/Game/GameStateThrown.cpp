@@ -81,7 +81,7 @@ void GameStateThrown::Update(const float elapsed_time) {
     scene_game_.ChangeGameState(new GameStateEndZ(scene_game_));
     return;
   }
-  if (std::abs(player.GetPosition().x) >= kGarterLimit) {
+  else if (std::abs(player.GetPosition().x) >= kGarterLimit) {
     scene_game_.ChangeGameState(new GameStateGutter(scene_game_));
     return;
   }

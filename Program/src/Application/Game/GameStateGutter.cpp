@@ -49,6 +49,7 @@ GameStateGutter::GameStateGutter(SceneGame& scene_game)
   p_root_ = new Root();
 
   scene_game_.GetPlayer().MoveStop();
+  scene_game_.OffBulletUpdate();
 
   h_gutter_ = EffectManagerServiceLocator::Get()->Play2D("EF_Game_gutter", 640, 360);
   EffectManagerServiceLocator::Get()->SetScreenScale(h_gutter_, 100, 100);

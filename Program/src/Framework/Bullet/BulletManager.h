@@ -66,8 +66,8 @@ public:
                float restitution,
                float friction);
   int Generate(bullet::ShapeFactory* p_shape_factory,
-                    const D3DXVECTOR3& position,
-                    const ObjectGenerationDesc& desc);
+               const D3DXVECTOR3& position,
+               const ObjectGenerationDesc& desc);
 
   // ApplyImpluse
   void ApplyImpulse(Handle handle, const D3DXVECTOR3& impulse);

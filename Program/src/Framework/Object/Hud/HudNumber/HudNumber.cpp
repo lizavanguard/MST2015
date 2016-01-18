@@ -80,7 +80,7 @@ void HudNumber::_Update(const float elapsed_time) {
   if (flash_interval_ != 0.0f) {
     temp_alpha_ = sin(time_) * 0.5f + 0.5f;
   }
-  time_ += elapsed_time;
+  time_ += elapsed_time * 2.f;
   UpdateAlpha(1);
 }
 void HudNumber::UpdatePos(const D3DXVECTOR2& pos) {

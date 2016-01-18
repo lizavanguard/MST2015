@@ -39,6 +39,9 @@ public:
   // add threw count
   void GoToNextThrowing(void) { ++threw_count_; }
 
+  // 
+  void CalculateScore(void);
+
   // end game
   void EndGame(void) { is_end_game_ = true; }
   void OnReplayMode(void) { is_replay_mode_ = true; }
@@ -56,6 +59,8 @@ public:
   void SetShootTime(float shoot_time) { shoot_time_ = shoot_time; }
 
 private:
+  bool _IsFallen(const D3DXVECTOR3& rotation) const;
+
   unsigned int threw_count_;
   bool is_end_game_;
   bool is_replay_mode_;

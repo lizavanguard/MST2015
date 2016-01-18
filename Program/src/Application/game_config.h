@@ -21,5 +21,5 @@ namespace {
 
   static const float kControlLimit = 1300.0f;
   static const float kGarterLimit = 1500.0f;
-  static const float kGameEndZ = 41000.0f;
+  static const float kGameEndZ = 43000.0f/2.f;
 }

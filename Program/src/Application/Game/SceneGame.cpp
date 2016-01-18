@@ -67,7 +67,8 @@ SceneGame::SceneGame()
     , p_pin_manager_(nullptr)
     , pp_hud_numbers_(nullptr)
     , sum_time_(0.0f)
-    , p_bullet_manager_(nullptr) {
+    , p_bullet_manager_(nullptr)
+    , is_bullet_update_(true) {
   p_bullet_manager_ = new BulletManager();
 
   pp_hud_numbers_ = new HudNumber*[kThrowingMax];
@@ -194,7 +195,9 @@ void SceneGame::_Update(SceneManager* p_scene_manager, const float elapsed_time)
 
   p_game_master_->Update(elapsed_time);
 
-  p_bullet_manager_->Update(elapsed_time);
+  if (is_bullet_update_) {
+    p_bullet_manager_->Update(elapsed_time);
+  }
 
 #ifdef _DEBUG
   const auto& keyboard = GameManager::Instance().GetInputManager().GetPrimaryKeyboard();

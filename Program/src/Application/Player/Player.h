@@ -46,6 +46,7 @@ public:
 
   // Shoot
   void Shoot(float rotation);
+  void Brake(void);
 
   // Reset
   void Reset(void);
@@ -85,6 +86,7 @@ private:
 
   SceneGame* p_scene_game_;
   BulletManager::Handle handle_;
+  float shot_impulse_;
 };
 
 using PlayerFactory = liza::generic::Factory<Player>;

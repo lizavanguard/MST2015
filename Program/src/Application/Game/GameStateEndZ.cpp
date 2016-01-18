@@ -30,7 +30,7 @@
 // const
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 namespace {
-  const float kReadyTime = 0.001f;
+  const float kReadyTime = 0.8f;
 }
 
 //==============================================================================
@@ -62,10 +62,12 @@ extern bool is_debug_throw_mode;
 void GameStateEndZ::Update(const float elapsed_time) {
   if (ready_time_ <= 0.0f) {
     auto& game_master = scene_game_.GetGameMaster();
+    game_master.CalculateScore();
     scene_game_.ChangeGameState(new GameStateReplay(scene_game_));
   }
 
   _Control();
+  scene_game_.GetPlayer().Brake();
 
   p_root_->UpdateAll(elapsed_time);
 

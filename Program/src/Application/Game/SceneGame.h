@@ -64,6 +64,9 @@ public:
 
   BulletManager& GetBulletManager(void) const { return *p_bullet_manager_; }
 
+  void OnBulletUpdate(void) { is_bullet_update_ = true; }
+  void OffBulletUpdate(void) { is_bullet_update_ = false; }
+
 private:
   // Update
   virtual void _Update(SceneManager* p_scene_manager, float elapsed_time) override;
@@ -85,4 +88,5 @@ private:
   float sum_time_;
 
   BulletManager* p_bullet_manager_;
+  bool is_bullet_update_;
 };

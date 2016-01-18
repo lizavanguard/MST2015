@@ -43,6 +43,8 @@ GameStateReady::GameStateReady(SceneGame& scene_game, const unsigned int throw_c
     : GameState(scene_game)
     , p_root_(nullptr)
     , ready_time_(kReadyTime) {
+  scene_game.OnBulletUpdate();
+
   auto h = EffectManagerServiceLocator::Get()->Play2D(kThrowCountEffectName[throw_count], 640, 300);
   EffectManagerServiceLocator::Get()->SetScreenScale(h, 100, 100);
 
@@ -61,6 +63,7 @@ GameStateReady::GameStateReady(SceneGame& scene_game, const unsigned int throw_c
   auto& camera3 = camera_manager.Find("MAIN_3");
   //camera3.AssignCameraSteering(new CameraSteeringFixed(scene_game_.GetPlayer()));
   camera3.AssignCameraSteering(new CameraSteeringHoming(scene_game_.GetPlayer(), 1000, 300, 500));
+
 }
 
 //------------------------------------------------

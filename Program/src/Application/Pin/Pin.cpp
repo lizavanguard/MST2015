@@ -82,5 +82,6 @@ void Pin::_Update(const float elapsed_time) {
     position_ = p_scene_game_->GetBulletManager().GetPosition(handle_);
     position_.y += 490.803040f / 2;
     rotation_matrix_ = p_scene_game_->GetBulletManager().GetRotationMatrix(handle_);
+    rotation_.y = rotation_matrix_._22;
   }
 }
