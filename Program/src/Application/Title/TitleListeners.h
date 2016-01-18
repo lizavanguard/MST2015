@@ -75,7 +75,7 @@ public:
   // Notify
   virtual void Notify(void) override {
     auto& camera = CameraManager::Instance().Find("MAIN_3");
-    camera.AssignCameraSteering(new CameraSteeringHoming(player_, 500.0f, 0.0f, 500.0f));
+    camera.AssignCameraSteering(new CameraSteeringHoming(player_, 500.0f, 300.0f, 500.0f));
     CameraManager::Instance().SetMainCameraUsingHandle(2);
   }
 

@@ -38,8 +38,8 @@ Pin::Pin(const D3DXVECTOR3& position, SceneGame* p_scene_game, const char *p_fil
     handle_ = p_scene_game_->GetBulletManager().Generate(
       new bullet::PillarFactory(D3DXVECTOR3(kSize, pin::lane_pin::kHalfSizeY, kSize)),
       position_,
-      0.001f,
-      0.75f,
+      0.005f,
+      0.25f,
       1.0f);
   }
 }

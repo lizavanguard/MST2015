@@ -121,7 +121,7 @@ void GameStateReplay::_Control(void) {
   auto& keyboard = GameManager::Instance().GetInputManager().GetPrimaryKeyboard();
   auto p_wii_controller = WiiControllerManager::Instance().GetWiiController(0);
 
-  if (keyboard.IsTrigger(DIK_A)) {
+  if ((p_wii_controller?p_wii_controller->getTrigger(WC_A):false) || keyboard.IsTrigger(DIK_A)) {
     is_skip_ = true;
   }
 

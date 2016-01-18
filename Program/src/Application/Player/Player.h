@@ -22,6 +22,7 @@
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 class PlayerBall;
 class SceneGame;
+class ObjectFBXModel;
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
@@ -65,6 +66,8 @@ public:
   const D3DXVECTOR3& GetShootPosition(void) const { return shoot_position_; }
   float GetShootRotation(void) const { return shoot_rotation_; }
 
+  void SetAnimation(int index);
+
 private:
   virtual void _Draw(void) override {}
   virtual void _Update(float elapsed_time) override;
@@ -81,6 +84,7 @@ private:
   float shoot_rotation_;
 
   PlayerBall* p_ball_;
+  ObjectFBXModel* p_human_;
   EffectManager::Handle3D h_wind_effect_;
   EffectManager::Handle3D h_fire_effect_;
 

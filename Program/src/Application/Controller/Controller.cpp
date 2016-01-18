@@ -60,6 +60,7 @@ bool Controller::Update(void) {
   if (_IsSetUp() && !is_set_up_) {
     old_rotation_ = _GetControllerRotation();
     is_set_up_ = true;
+    player_.SetAnimation(0);
   }
   else if (is_set_up_ && _IsShot() ) {
     const float rotation = _CalcRotation();

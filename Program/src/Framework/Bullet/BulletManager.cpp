@@ -30,7 +30,7 @@ BulletManager::BulletManager()
   // Bullet‚Ìƒ[ƒ‹ƒhì¬
   p_world_ = new btDiscreteDynamicsWorld(p_dispatcher, p_broadphase, p_solver, p_config_);
   // d—Í‚ÌÝ’è
-  p_world_->setGravity(btVector3(0, -9.8f * 800, 0));
+  p_world_->setGravity(btVector3(0, -9.8f * 1000, 0));
 
   //delete p_config;
 }

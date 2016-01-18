@@ -47,7 +47,7 @@ public:
     if( anim_playing_num_ > 0 ) {
       cur_time_ = p_anim_flame_[anim_playing_num_ - 1];
     } else {
-      cur_time_ = 0.0f;
+      cur_time_ = 1.0f;
     }
   }
 

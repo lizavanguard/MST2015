@@ -87,6 +87,7 @@ SceneTitle::SceneTitle()
   p_player_ = new Player(new GameEnvirontMappingDrawer(*p_skybox, *p_field, *p_standard_pin));
   p_player_->SetPosition(kGameStartPosition);
   p_player_->MoveForward(0.0f);
+  p_player_->SetAnimation(1);
   AlphaObjectServiceLocator::Get()->Push(p_player_);
 
   Camera& camera = CameraManager::Instance().Find("MAIN_1");

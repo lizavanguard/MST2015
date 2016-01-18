@@ -65,10 +65,10 @@ Player::Player(CubeTextureForEnvironmentMapping::ObjectDrawer* p_object_drawer, 
     , handle_(BulletManager::NullHandle)
     , shot_impulse_(0.0f) {
   this->SetScale(D3DXVECTOR3(kScale, kScale, kScale));
-  auto human = new ObjectFBXModel("humanG_07.fbx");
-  human->SetPosition(D3DXVECTOR3(0.0f, -75.0f, -125.0f));
-  human->SetScale(D3DXVECTOR3(kScale, kScale, kScale));
-  AttachChild(human);
+  p_human_ = new ObjectFBXModel("humanG_08.fbx");
+  p_human_->SetPosition(D3DXVECTOR3(0.0f, -75.0f, -125.0f));
+  p_human_->SetScale(D3DXVECTOR3(kScale, kScale, kScale));
+  AttachChild(p_human_);
   auto ball_obj = new ObjectModel("ballObj_03");
   ball_obj->SetRotation(D3DXVECTOR3(0.0f, D3DX_PI, 0.0f));
   //ball_obj->SetScale(D3DXVECTOR3(0.5f, 0.5f, 0.5f));
@@ -131,6 +131,13 @@ void Player::MoveStop(void) {
   EffectManagerServiceLocator::Get()->Stop3D(h_wind_effect_);
 }
 
+void Player::SetAnimation(int index) {
+  p_human_->SetupAnimation(index);
+  if( index > 0 ) {
+    p_human_->SetupAnimationLoop(true);
+  }
+}
+
 //------------------------------------------------
 // Shoot
 //------------------------------------------------
@@ -162,7 +169,8 @@ void Player::Shoot(const float rotation) {
 
   if (handle_ != BulletManager::NullHandle) {
     // ŒÀŠE‰ñ“]’l‚ÉƒNƒ‰ƒ“ƒv / ŒÀŠE‰ñ“]’l => -1 ~ 1
-    const float calc_rotation = liza::math::Clamp(rotation, kLimitRotation) / kLimitRotation;
+    //if( rotation.)
+    const float calc_rotation = liza::math::Clamp(-rotation, kLimitRotation) / kLimitRotation;
 
     D3DXVECTOR3 forward(
       sinf(calc_rotation * kCurveMax) * kCurvePower,
