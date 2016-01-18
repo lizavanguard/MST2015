@@ -34,10 +34,11 @@
 #include "window_config.h"
 
 #include "Application/game_config.h"
+#include "Application/Alarm/Alarm.h"
 #include "Application/Title/SceneTitleFactory.h"
 #include "Application/ScoreHolder/ScoreHolder.h"
-
-#include "Application/Alarm/Alarm.h"
+#include "Application/WiiController/WiiControllerManager.h"
+#include "Application/WiiController/CWiiController.h"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // const
@@ -75,13 +76,6 @@ SceneResult::SceneResult()
 
   p_root_ = RootFactory::Create();
 
-  //p_hud_high_score_ = new HudNumber(kScorePlaceMax, kHighScoreStartPosition, kHighScoreSize);
-  //p_hud_high_score_->AssignNumber(ScoreHolderServiceLocator::Get()->GetHighScore());
-  //HudServiceLocator::Get()->PushAlphaHud(p_hud_high_score_);
-  //p_hud_your_score_ = new HudNumber(kScorePlaceMax, kYourScoreStartPosition, kYourScoreSize);
-  //p_hud_your_score_->AssignNumber(ScoreHolderServiceLocator::Get()->GetLatestScore());
-  //HudServiceLocator::Get()->PushAlphaHud(p_hud_your_score_);
-
   auto p_moving = new Object2DSteeringMoving(
     D3DXVECTOR3(kWindowWidthF * 0.5f, kWindowHeightF + 1280.0f, 0.0f),
     D3DXVECTOR3(kWindowWidthF * 0.5f, kWindowHeightF * 0.5f - 1.0f, 0.0f), kJijiSlideTime);
@@ -114,26 +108,13 @@ SceneResult::~SceneResult() {
 //------------------------------------------------
 void SceneResult::_Update(SceneManager* p_scene_manager, const float elapsed_time) {
   const auto& keyboard = GameManager::Instance().GetInputManager().GetPrimaryKeyboard();
-  if (keyboard.IsTrigger(DIK_RETURN)) {
+  const auto& remocon = WiiControllerManager::Instance().GetWiiController(0);
+  if (keyboard.IsTrigger(DIK_RETURN) || (remocon?remocon->getTrigger(WC_A):false)) {
     p_scene_manager->PushNextSceneFactory(new SceneTitleFactory());
   }
 
-  //if (sum_time_ >= kJijiSlideTime) {
-  //  auto h = EffectManagerServiceLocator::Get()->Play2D("EF_Result_scoreSlideIn", 640, 450);
-  //  EffectManagerServiceLocator::Get()->SetScreenScale(h, 75, 60);
-
-  //  //const float t = std::min<float>(((sum_time_ - kJijiSlideTime) / kMovingTime), 1.0f);
-  //  //D3DXVECTOR2 high_score_position = liza::math::InterpolateQuadraticEaseOut(t, kHighScoreStartPosition, kHighScoreEndPosition);
-  //  //p_hud_high_score_->UpdatePos(high_score_position);
-
-  //  //D3DXVECTOR2 your_score_position = liza::math::InterpolateQuadraticEaseOut(t, kYourScoreStartPosition, kYourScoreEndPosition);
-  //  //p_hud_your_score_->UpdatePos(your_score_position);
-  //}
   p_alarm_->Update(elapsed_time);
 
-  //if (p_hud_high_score_) {
-  //  p_hud_high_score_->AddTime(elapsed_time);
-  //}
   p_root_->UpdateAll(elapsed_time);
   sum_time_ += elapsed_time;
 }

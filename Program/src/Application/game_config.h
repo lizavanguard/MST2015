@@ -9,7 +9,7 @@
 // const
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 namespace {
-  static const unsigned int kScorePlaceMax = 3;
+  static const unsigned int kScorePlaceMax = 2;
   static const unsigned int kThrowingMax = 2;
   static const D3DXVECTOR3 kScoreBoardPosition(400, 100, 0);
   static const D3DXVECTOR2 kScoreBoardSize(991 * 0.5f, 150 * 0.5f);

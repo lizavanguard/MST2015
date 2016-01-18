@@ -180,7 +180,7 @@ void Player::Shoot(const float rotation) {
 //------------------------------------------------
 void Player::Brake(void) {
   if (handle_ != BulletManager::NullHandle) {
-    p_scene_game_->GetBulletManager().ApplyImpulse(handle_, D3DXVECTOR3(0, 0, -0.3f));
+    p_scene_game_->GetBulletManager().ApplyImpulse(handle_, D3DXVECTOR3(0, 0, -0.2f));
   }
 }
 

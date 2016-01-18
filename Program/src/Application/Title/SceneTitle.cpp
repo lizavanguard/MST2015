@@ -43,6 +43,8 @@
 #include "Application/Pin/PinManager.h"
 #include "Application/Player/Player.h"
 #include "Application/Stage/Stage.h"
+#include "Application/WiiController/WiiControllerManager.h"
+#include "Application/WiiController/CWiiController.h"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // const
@@ -78,9 +80,6 @@ SceneTitle::SceneTitle()
 
   Stage* p_field = new Stage();
   p_root_->AttachChild(p_field);
-
-  //BiggestPin* p_biggest_pin = new BiggestPin(pin::biggest_pin::kTitlePosition);
-  //p_root_->AttachChild(p_biggest_pin);
 
   StandardPins* p_standard_pin = new StandardPins(pin::standard_pin::kTitlePosition, D3DXVECTOR3(0, 0, 0));
   p_root_->AttachChild(p_standard_pin);
@@ -133,6 +132,8 @@ SceneTitle::~SceneTitle() {
 //------------------------------------------------
 void SceneTitle::_Update(SceneManager* p_scene_manager, const float elapsed_time) {
   const auto& keyboard = GameManager::Instance().GetInputManager().GetPrimaryKeyboard();
+  const auto& remocon = WiiControllerManager::Instance().GetWiiController(0);
+
   if (keyboard.IsTrigger(DIK_RETURN)) {
     p_scene_manager->PushNextSceneFactory(new SceneGameFactory());
   }
@@ -145,14 +146,14 @@ void SceneTitle::_Update(SceneManager* p_scene_manager, const float elapsed_time
     }
 
     if (p_alarm_->GetCurrentDataIndex() < 6) {
-      if (keyboard.IsTrigger(DIK_1)) {
+      if (keyboard.IsTrigger(DIK_1) || (remocon?remocon->getTrigger(WC_A):false)) {
         p_alarm_->Jump(7);
       }
     }
   }
 
   else {
-    if (keyboard.IsTrigger(DIK_1)) {
+    if (keyboard.IsTrigger(DIK_1) || (remocon?remocon->getTrigger(WC_A):false)) {
       p_scene_manager->PushNextSceneFactory(new SceneGameFactory());
     }
   }

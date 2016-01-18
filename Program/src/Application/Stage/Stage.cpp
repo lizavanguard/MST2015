@@ -62,20 +62,20 @@ Stage::Stage(SceneGame* p_scene_game) : p_scene_game_(p_scene_game), handle_(Bul
     // Zƒ][ƒ“
     // 10000
     handle_ = p_scene_game_->GetBulletManager().Generate(
-      new bullet::BoxFactory(D3DXVECTOR3(10000.0f, 100.0f, 20000.0f)),
-      D3DXVECTOR3(0.0f, -60.0f, (43000.0f/2)+(20000/2)),
+      new bullet::BoxFactory(D3DXVECTOR3(10000.0f, 100.0f, 40000.0f)),
+      D3DXVECTOR3(0.0f, -60.0f, (43000.0f/2)+(40000/2)),
       0.0f, 0.8f, 10000000.0f);
 
     // Z‰E•Ç
     p_scene_game_->GetBulletManager().Generate(
-      new bullet::BoxFactory(D3DXVECTOR3(100.0f, 1500.0f, 20000.0f)),
-      D3DXVECTOR3(2000.0f, -100.0f, (43000.0f / 2) + (20000 / 2)),
+      new bullet::BoxFactory(D3DXVECTOR3(100.0f, 1500.0f, 40000.0f)),
+      D3DXVECTOR3(2000.0f, -100.0f, (43000.0f / 2) + (40000 / 2)),
       desc);
 
     // Z¶•Ç
     p_scene_game_->GetBulletManager().Generate(
-      new bullet::BoxFactory(D3DXVECTOR3(100.0f, 1500.0f, 20000.0f)),
-      D3DXVECTOR3(-2000.0f, -100.0f, (43000.0f / 2) + (20000 / 2)),
+      new bullet::BoxFactory(D3DXVECTOR3(100.0f, 1500.0f, 40000.0f)),
+      D3DXVECTOR3(-2000.0f, -100.0f, (43000.0f / 2) + (40000 / 2)),
       desc);
   }
 }
