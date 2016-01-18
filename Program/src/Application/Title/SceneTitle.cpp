@@ -43,6 +43,9 @@
 #include "Application/Pin/PinManager.h"
 #include "Application/Player/Player.h"
 #include "Application/Stage/Stage.h"
+#include "Application/WiiController/WiiControllerManager.h"
+#include "Application/WiiController/CWiiController.h"
+
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // const
@@ -88,6 +91,7 @@ SceneTitle::SceneTitle()
   p_player_ = new Player(new GameEnvirontMappingDrawer(*p_skybox, *p_field, *p_standard_pin));
   p_player_->SetPosition(kGameStartPosition);
   p_player_->MoveForward(0.0f);
+  p_player_->SetAnimation(1);
   AlphaObjectServiceLocator::Get()->Push(p_player_);
 
   Camera& camera = CameraManager::Instance().Find("MAIN_1");
@@ -133,6 +137,8 @@ SceneTitle::~SceneTitle() {
 //------------------------------------------------
 void SceneTitle::_Update(SceneManager* p_scene_manager, const float elapsed_time) {
   const auto& keyboard = GameManager::Instance().GetInputManager().GetPrimaryKeyboard();
+  const auto& p_wii_controller = WiiControllerManager::Instance().GetWiiController(0);
+  
   if (keyboard.IsTrigger(DIK_RETURN)) {
     p_scene_manager->PushNextSceneFactory(new SceneGameFactory());
   }
@@ -145,14 +151,14 @@ void SceneTitle::_Update(SceneManager* p_scene_manager, const float elapsed_time
     }
 
     if (p_alarm_->GetCurrentDataIndex() < 6) {
-      if (keyboard.IsTrigger(DIK_1)) {
+      if( p_wii_controller->getTrigger(WC_A) || keyboard.IsTrigger(DIK_1) ) {
         p_alarm_->Jump(7);
       }
     }
   }
 
   else {
-    if (keyboard.IsTrigger(DIK_1)) {
+    if( p_wii_controller->getTrigger(WC_A) || keyboard.IsTrigger(DIK_1) ) {
       p_scene_manager->PushNextSceneFactory(new SceneGameFactory());
     }
   }

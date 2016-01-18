@@ -327,8 +327,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\WorkSpace\MiraiSouzouten\Program\Program\src\Bullet;C:\Program Files\Autodesk\FBX\FBX SDK\2016.1.2\include;$(SolutionDir)\src\Effekseer\;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Program Files\Autodesk\FBX\FBX SDK\2016.1.2\lib\vs2013\x86\debug;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\kai\Documents\MST2015\Program\src\Bullet;C:\Program Files\Autodesk\FBX\FBX SDK\2016.1.2\include;$(SolutionDir)\src\Effekseer\;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\kai\Documents\MST2015\Program\lib\Debug;C:\Program Files\Autodesk\FBX\FBX SDK\2016.1.2\lib\vs2013\x86\debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>

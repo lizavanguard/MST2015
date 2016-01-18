@@ -67,16 +67,36 @@ GameWindow::GameWindow(
 	// ウィンドウクラスの登録
 	RegisterClassEx( &wcex );
 
+  RECT rc;
+  rc.top = 0;
+  rc.left = 0;
+  rc.bottom = windowHeight;		// ゲーム画面の高さ
+  rc.right = windowWidth;		// ゲーム画面の幅
+
+  // ウィンドウサイズの調査
+  AdjustWindowRect(&rc, WS_POPUP | WS_VISIBLE, FALSE);
+
+  // ウィンドウの設定込みの高さと幅設定
+  const int window_width = rc.right - rc.left;
+  const int window_height = rc.bottom - rc.top;
+
+  // 起動ＰＣの解像度調査
+  int dispWidth = GetSystemMetrics(SM_CXSCREEN);
+  int dispHeight = GetSystemMetrics(SM_CYSCREEN);
+  // ウィンドウ表示場所を画面の中央に配置する設定
+  int setWindowX = static_cast<int>( dispWidth * 0.5f - window_width * 0.5f );
+  int setWindowY = static_cast<int>( dispHeight * 0.5f - window_height * 0.5f );
+
 	// ウィンドウの生成
 	hWnd_ = CreateWindowEx(
 		0,
 		kWindowClassName,
 		pWindowCaption,
-		WS_OVERLAPPEDWINDOW,
-		CW_USEDEFAULT,
-		CW_USEDEFAULT,
-		windowWidth,
-		windowHeight,
+    WS_POPUP | WS_VISIBLE,
+    setWindowX,
+    setWindowY,
+    windowWidth,
+    windowHeight,
 		nullptr,
 		nullptr,
 		hInstance,

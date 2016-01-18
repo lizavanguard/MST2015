@@ -30,13 +30,16 @@ public:
   // dtor
   virtual ~ObjectFBXModel();
 
+  void SetupAnimation(int index);
+  void SetupAnimationLoop(bool loop_flg);
+
 protected:
   virtual void _Update(float elapsed_time) override;
   virtual void _Draw(void) override;
 
 protected:
   // 必要に応じてアニメーション設定を行って下さい
-  virtual void _SetupAnimation(void) {};
+  //virtual void _SetupAnimation(void) {};
 
   // property
   FbxModel* p_fbx_model_;

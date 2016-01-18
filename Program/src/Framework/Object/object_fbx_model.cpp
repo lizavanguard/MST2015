@@ -29,9 +29,15 @@ ObjectFBXModel::ObjectFBXModel(const char* p_filename) : p_fbx_model_(nullptr) {
   std::string path = "data/Model/fbx/";
   path += p_filename;
   p_fbx_model_->Load(path);
-
+  // ‚¶‚¢‚³‚ñ‚Ì‚Ý‚È‚ñ‚Å‘‚­
+  p_fbx_model_->SetAnimationCount(2);
+  p_fbx_model_->SetAnimationFlame(0, 70.0f);
+  p_fbx_model_->SetAnimationFlame(1, 110.0f);
+  p_fbx_model_->SetAnimationSpeed(0.8f);
+  p_fbx_model_->AnimationLoopOff();
+  p_fbx_model_->SetAnimation(0);
   p_fbx_model_->AnimationStop();
-  _SetupAnimation();
+  //_SetupAnimation();
 }
 
 //------------------------------------------------
@@ -58,4 +64,18 @@ void ObjectFBXModel::_Update(const float elapsed_time) {
 //------------------------------------------------
 void ObjectFBXModel::_Draw(void) {
   p_fbx_model_->Draw();
+}
+
+void ObjectFBXModel::SetupAnimation(int index) {
+  p_fbx_model_->SetAnimation(index);
+  p_fbx_model_->AnimationPlay();
+}
+
+void ObjectFBXModel::SetupAnimationLoop(bool loop_flg) {
+  if( loop_flg ) {
+    p_fbx_model_->AnimationLoopOn();
+  }
+  else {
+    p_fbx_model_->AnimationLoopOff();
+  }
 }
