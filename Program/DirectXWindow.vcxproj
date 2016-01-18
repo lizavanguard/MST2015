@@ -96,6 +96,7 @@
     <ClCompile Include="src\Framework\Sound\xaudio_holder.cpp" />
     <ClCompile Include="src\Framework\Steering\Object2D\Object2DSteeringFlashing.cpp" />
     <ClCompile Include="src\Framework\Steering\Object2D\Object2DSteeringMoving.cpp" />
+    <ClCompile Include="src\Framework\Steering\Object2D\Object2DSteeringUVUpdating.cpp" />
     <ClCompile Include="src\Framework\Texture\texture_manager.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\stdafx.cpp">
@@ -213,6 +214,7 @@
     <ClInclude Include="src\Framework\Steering\Object2D\Object2DSteering.h" />
     <ClInclude Include="src\Framework\Steering\Object2D\Object2DSteeringFlashing.h" />
     <ClInclude Include="src\Framework\Steering\Object2D\Object2DSteeringMoving.h" />
+    <ClInclude Include="src\Framework\Steering\Object2D\Object2DSteeringUVUpdating.h" />
     <ClInclude Include="src\Framework\Texture\texture_manager.h" />
     <ClInclude Include="src\Framework\Utility\DataLoader.hpp" />
     <ClInclude Include="src\Framework\Utility\DeviceHolder.h" />

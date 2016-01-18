@@ -21,7 +21,7 @@
 class ScoreHolder {
 public:
   // ctor
-  ScoreHolder() : high_score_(0), latest_score_(0) {}
+  ScoreHolder() : high_score_(11), latest_score_(0) {}
 
   // dtor
   ~ScoreHolder() {}

@@ -29,8 +29,9 @@
 // const
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 namespace {
-  const D3DXVECTOR2 kYourScoreSize(350.0f, 180.0f);
-  const D3DXVECTOR2 kHighScoreSize(kYourScoreSize * 0.7f);
+  const D3DXVECTOR2 kYourScoreSize(200.0f, 150.0f);
+  const D3DXVECTOR2 kHighScoreSizeBoard(kYourScoreSize * 0.96f);
+  const D3DXVECTOR2 kHighScoreSize(kYourScoreSize * 0.50f);
 }
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
@@ -57,7 +58,7 @@ public:
 
   // Notify
   virtual void Notify(void) override {
-    auto* p = new HudNumber(kScorePlaceMax, D3DXVECTOR2(kWindowWidthF * 0.5f, 450.0f), kYourScoreSize);
+    auto* p = new HudNumber(kScorePlaceMax, D3DXVECTOR2(kWindowWidthF * 0.5f -40.0f, 465.0f), kYourScoreSize);
     p->AssignNumber(ScoreHolderServiceLocator::Get()->GetLatestScore());
     HudServiceLocator::Get()->PushAlphaHud(p);
     p_result_->SetYourScore(p);
@@ -77,7 +78,7 @@ public:
   virtual void Notify(void) override {
     p_result_->Push_(
       new Object2D("Result/EF_result_scoreFlash",
-      D3DXVECTOR3(640.0f, 240.0f, 0.0f), kHighScoreSize,
+      D3DXVECTOR3(640.0f, 240.0f, 0.0f), kHighScoreSizeBoard,
       new Object2DSteeringFlashing(2.0f)));
     //auto h = EffectManagerServiceLocator::Get()->Play2D("EF_Result_scoreFlash", 640, 200);
     //EffectManagerServiceLocator::Get()->SetScreenScale(h, 80, 45);
@@ -95,7 +96,7 @@ public:
 
   // Notify
   virtual void Notify(void) override {
-    auto* p = new HudNumber(kScorePlaceMax, D3DXVECTOR2(kWindowWidthF * 0.5f, 200.0f), kHighScoreSize);
+    auto* p = new HudNumber(kScorePlaceMax, D3DXVECTOR2(kWindowWidthF * 0.5f - 45.0f, 260.0f), kHighScoreSize);
     p->AssignNumber(ScoreHolderServiceLocator::Get()->GetHighScore());
     p->SetInterval(1.0f);
     HudServiceLocator::Get()->PushAlphaHud(p);

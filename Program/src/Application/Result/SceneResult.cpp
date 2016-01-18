@@ -28,6 +28,7 @@
 #include "Framework/SkyBox/SkyBox.h"
 #include "Framework/Steering/Object2D/Object2DSteeringFlashing.h"
 #include "Framework/Steering/Object2D/Object2DSteeringMoving.h"
+#include "Framework/Steering/Object2D/Object2DSteeringUVUpdating.h"
 #include "Framework/Sound/sound_manager.h"
 #include "Framework/Texture/texture_manager.h"
 
@@ -75,6 +76,12 @@ SceneResult::SceneResult()
   TextureManager::Instance().Load(kTextureGroupName);
 
   p_root_ = RootFactory::Create();
+
+  //auto p_uv_updating = new Object2DSteeringUVUpdating(0.1f, .0f);
+  auto p_uv_updating = new Object2DSteeringUVUpdating(0.25f, -0.2f);
+  auto p_bg = new Object2D("Result/EF_result_fanfare", D3DXVECTOR3(kWindowWidthF * 0.5f, kWindowHeightF *0.5f, 0.0f),
+    D3DXVECTOR2(kWindowWidthF, kWindowHeightF), p_uv_updating);
+  p_root_->AttachChild(p_bg);
 
   auto p_moving = new Object2DSteeringMoving(
     D3DXVECTOR3(kWindowWidthF * 0.5f, kWindowHeightF + 1280.0f, 0.0f),
@@ -138,7 +145,7 @@ void SceneResult::_SetupAlarm(void) {
   data_container.push_back(jiji_slide_in);
 
   Alarm::Data score_slide_in;
-  score_slide_in.time = 2.0f;
+  score_slide_in.time = 2.2f;
   score_slide_in.listener_list.push_back(new ScoreSlideListener());
   data_container.push_back(score_slide_in);
 

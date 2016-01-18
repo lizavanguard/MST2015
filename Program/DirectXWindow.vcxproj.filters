@@ -441,6 +441,9 @@
     <ClCompile Include="src\Framework\Bullet\BulletManager.cpp">
       <Filter>src\Framework\Bullet</Filter>
     </ClCompile>
+    <ClCompile Include="src\Framework\Steering\Object2D\Object2DSteeringUVUpdating.cpp">
+      <Filter>src\Framework\Steering\Object2D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Framework\DebugProc\DebugProc.h">
@@ -880,6 +883,9 @@
     </ClInclude>
     <ClInclude Include="src\Application\Result\ResultListeners.h">
       <Filter>src\Application\Result</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Steering\Object2D\Object2DSteeringUVUpdating.h">
+      <Filter>src\Framework\Steering\Object2D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
