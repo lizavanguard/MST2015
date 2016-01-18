@@ -26,6 +26,7 @@ FbxModel::FbxModel(LPDIRECT3DDEVICE9	device) :
 device_(device),
 position_(0.0f, 0.0f, 0.0f),
 rotation_(0.0f, 0.0f, 0.0f),
+scale_(1.0f, 1.0f, 1.0f),
 h_toon_sampler_(0),
 h_diffuse_sampler_(0),
 p_toon_texture_(nullptr)
@@ -145,6 +146,10 @@ void FbxModel::Update()
 	float anim_length = 0.0f;
 
 	D3DXMatrixIdentity(&element);
+
+  D3DXMATRIX scl;
+  D3DXMatrixScaling(&scl, scale_.x, scale_.y, scale_.z);
+  D3DXMatrixMultiply(&element, &element, &scl);
 
   D3DXMATRIX rot;
   if (D3DXMatrixIsIdentity(&rotation_matrix_)) {

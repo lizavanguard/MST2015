@@ -114,6 +114,7 @@ GameManager::GameManager(HINSTANCE hInstance, HWND hWnd, LPDIRECT3DDEVICE9 pDevi
   ScoreHolderServiceLocator::Provide(pScoreHolder_);
 
   pSceneManager_ = new SceneManager(new SceneGame());
+  //pSceneManager_ = new SceneManager(new SceneResult());
 
   pGameSpeedManager_ = new GameSpeedManager();
   GameSpeedManagerServiceLocator::Provide(pGameSpeedManager_);

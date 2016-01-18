@@ -38,8 +38,8 @@ Pin::Pin(const D3DXVECTOR3& position, SceneGame* p_scene_game, const char *p_fil
     handle_ = p_scene_game_->GetBulletManager().Generate(
       new bullet::PillarFactory(D3DXVECTOR3(kSize, pin::lane_pin::kHalfSizeY, kSize)),
       position_,
-      0.005f,
-      0.5f,
+      0.001f,
+      0.75f,
       1.0f);
   }
 }
@@ -80,6 +80,7 @@ void Pin::_Update(const float elapsed_time) {
   }
   else {
     position_ = p_scene_game_->GetBulletManager().GetPosition(handle_);
+    position_.y += 490.803040f / 2;
     rotation_matrix_ = p_scene_game_->GetBulletManager().GetRotationMatrix(handle_);
   }
 }

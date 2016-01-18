@@ -79,10 +79,13 @@ SceneTitle::SceneTitle()
   Stage* p_field = new Stage();
   p_root_->AttachChild(p_field);
 
-  BiggestPin* p_biggest_pin = new BiggestPin(pin::biggest_pin::kTitlePosition);
-  p_root_->AttachChild(p_biggest_pin);
+  //BiggestPin* p_biggest_pin = new BiggestPin(pin::biggest_pin::kTitlePosition);
+  //p_root_->AttachChild(p_biggest_pin);
 
-  p_player_ = new Player(new GameEnvirontMappingDrawer(*p_skybox, *p_field, *p_biggest_pin));
+  StandardPins* p_standard_pin = new StandardPins(pin::standard_pin::kTitlePosition, D3DXVECTOR3(0, 0, 0));
+  p_root_->AttachChild(p_standard_pin);
+
+  p_player_ = new Player(new GameEnvirontMappingDrawer(*p_skybox, *p_field, *p_standard_pin));
   p_player_->SetPosition(kGameStartPosition);
   p_player_->MoveForward(0.0f);
   AlphaObjectServiceLocator::Get()->Push(p_player_);
@@ -91,7 +94,7 @@ SceneTitle::SceneTitle()
   camera.AssignCameraSteering(new CameraSteeringControl());
 
   Camera& camera2 = CameraManager::Instance().Find("MAIN_2");
-  camera2.AssignCameraSteering(new CameraSteeringMoving(p_biggest_pin->GetPosition(), kGameStartPosition, kPinToStartTime));
+  camera2.AssignCameraSteering(new CameraSteeringMoving(p_standard_pin->GetPosition(), kGameStartPosition, kPinToStartTime));
   CameraManager::Instance().SetMainCameraUsingHandle(1);
 
   Camera& camera3 = CameraManager::Instance().Find("MAIN_3");

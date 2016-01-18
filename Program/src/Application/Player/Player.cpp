@@ -19,7 +19,8 @@
 // const
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 namespace {
-  const float kSize = 190.0f;
+  const float kScale = 1.00f;
+  const float kSize = 190.0f * kScale;
 
   const float kMovingSpeed = 60.0f;
   const float kMovingControlSpeed = 20.0f;
@@ -32,7 +33,7 @@ namespace {
   const float kSpeedMax = 5000.0f;
   const float kSpeedMaxX = 1000.0f;
 
-  const Vector3 kStartPosition(0.0f, 400.0f, -14000.0f);
+  const Vector3 kStartPosition(100.0f, 190.0f * kScale, -14000.0f);
 }
 
 //==============================================================================
@@ -56,20 +57,25 @@ Player::Player(CubeTextureForEnvironmentMapping::ObjectDrawer* p_object_drawer, 
     , h_fire_effect_(-1)
     , p_scene_game_(p_scene_game)
     , handle_(BulletManager::NullHandle) {
+  this->SetScale(D3DXVECTOR3(kScale, kScale, kScale));
   auto human = new ObjectFBXModel("humanG_07.fbx");
   human->SetPosition(D3DXVECTOR3(0.0f, -75.0f, -125.0f));
+  human->SetScale(D3DXVECTOR3(kScale, kScale, kScale));
   AttachChild(human);
   auto ball_obj = new ObjectModel("ballObj_03");
   ball_obj->SetRotation(D3DXVECTOR3(0.0f, D3DX_PI, 0.0f));
+  //ball_obj->SetScale(D3DXVECTOR3(0.5f, 0.5f, 0.5f));
   AttachChild(ball_obj);
   p_ball_ = new PlayerBall(p_object_drawer);
-  if (p_scene_game_) {
-    handle_ = p_scene_game_->GetBulletManager().Generate(new bullet::SphereFactory(this->GetSize()), kStartPosition, 0.17f, 0.8f, 0.7f);
-    p_ball_->OnSetRotationMatrix();
-  }
   AttachChild(p_ball_);
   Reset();
 
+  if (p_scene_game_) {
+    handle_ = p_scene_game_->GetBulletManager().Generate(new bullet::SphereFactory(this->GetSize()), kStartPosition,
+      0.17f, 0.8f, 0.7f);
+    p_scene_game_->GetBulletManager().SetAngularVelocity(handle_, D3DXVECTOR3(-.1f, 0, 0));
+    p_ball_->OnSetRotationMatrix();
+  }
 }
 
 //------------------------------------------------
@@ -148,7 +154,7 @@ void Player::Shoot(const float rotation) {
   shoot_rotation_ = rotation;
 
   if (handle_ != BulletManager::NullHandle) {
-    p_scene_game_->GetBulletManager().ApplyImpulse(handle_, D3DXVECTOR3(0.0f, 0.0f, 150.0f));
+    p_scene_game_->GetBulletManager().ApplyImpulse(handle_, D3DXVECTOR3(0.0f, 0.0f, 15.0f));
   }
 }
 
@@ -168,6 +174,7 @@ void Player::Reset(void) {
 
   if (handle_ != BulletManager::NullHandle) {
     p_scene_game_->GetBulletManager().SetPosition(handle_, kStartPosition);
+    p_scene_game_->GetBulletManager().SetAngularVelocity(handle_, D3DXVECTOR3(-.1f, 0, 0));
   }
 }
 
@@ -205,21 +212,21 @@ void Player::_Update(const float elapsed_time) {
 #endif
 
   if (handle_ == BulletManager::NullHandle) {
-  velocity_.x *= 0.99f;
-  speed_ += velocity_;
-  if (speed_.z > kSpeedMax) {
-    speed_.z = kSpeedMax;
-  }
+    velocity_.x *= 0.99f;
+    speed_ += velocity_;
+    if (speed_.z > kSpeedMax) {
+      speed_.z = kSpeedMax;
+    }
 
-  control_speed_ = liza::math::Clamp(control_speed_, kSpeedMaxX);
-  control_speed_ *= 0.7f;
-  position_.x += control_speed_;
+    control_speed_ = liza::math::Clamp(control_speed_, kSpeedMaxX);
+    control_speed_ *= 0.7f;
+    position_.x += control_speed_;
 
-  //speed_ *= 0.998f;
-  position_ += speed_ * elapsed_time;
+    //speed_ *= 0.998f;
+    position_ += speed_ * elapsed_time;
 
-  static const float kRotationFixedValue = 0.001f;
-  p_ball_->AddRotationPower(speed_.z * elapsed_time * kRotationFixedValue);
+    static const float kRotationFixedValue = 0.001f;
+    p_ball_->AddRotationPower(speed_.z * elapsed_time * kRotationFixedValue);
   }
   else {
     position_ = p_scene_game_->GetBulletManager().GetPosition(handle_);

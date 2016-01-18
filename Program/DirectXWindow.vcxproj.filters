@@ -878,6 +878,9 @@
     <ClInclude Include="src\Framework\Bullet\BulletFactory.h">
       <Filter>src\Framework\Bullet</Filter>
     </ClInclude>
+    <ClInclude Include="src\Application\Result\ResultListeners.h">
+      <Filter>src\Application\Result</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\liza\math\Vector2.inl">

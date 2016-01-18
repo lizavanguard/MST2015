@@ -15,7 +15,7 @@
 //------------------------------------------------
 // ctor
 //------------------------------------------------
-StandardPin::StandardPin(const D3DXVECTOR3& position) : Pin(position) {
+StandardPin::StandardPin(const D3DXVECTOR3& position, SceneGame* p_scene_game) : Pin(position, p_scene_game) {
 }
 
 //------------------------------------------------

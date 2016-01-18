@@ -41,4 +41,10 @@ namespace pin {
     static const D3DXVECTOR3 kPosition(0.0f, 0.0f, 40000.0f);
     static const D3DXVECTOR3 kTitlePosition(0.0f, 0.0f, 40000.0f);
   }
+
+  namespace standard_pin {
+    static const D3DXVECTOR3 kPosition(0.0f, 0.0f, 20000.0f);
+    static const D3DXVECTOR3 kTitlePosition(0.0f, 0.0f, 20000.0f);
+    static const float kDistance = 500.0f;
+  }
 }

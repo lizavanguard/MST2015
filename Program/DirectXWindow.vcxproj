@@ -133,6 +133,7 @@
     <ClInclude Include="src\Application\Pin\StandardPins.h" />
     <ClInclude Include="src\Application\Player\Player.h" />
     <ClInclude Include="src\Application\Player\PlayerBall.h" />
+    <ClInclude Include="src\Application\Result\ResultListeners.h" />
     <ClInclude Include="src\Application\Result\SceneResult.h" />
     <ClInclude Include="src\Application\Result\SceneResultFactory.h" />
     <ClInclude Include="src\Application\ScoreHolder\ScoreHolder.h" />

@@ -16,6 +16,7 @@
 // class declaration
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 class StandardPin;
+class SceneGame;
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
@@ -29,7 +30,7 @@ class StandardPins : public ObjectBase {
 
 public:
   // ctor
-  StandardPins(const D3DXVECTOR3& center_position, const D3DXVECTOR3& rotation);
+  StandardPins(const D3DXVECTOR3& center_position, const D3DXVECTOR3& rotation, SceneGame* p_scene_game = nullptr);
 
   // dtor
   ~StandardPins();

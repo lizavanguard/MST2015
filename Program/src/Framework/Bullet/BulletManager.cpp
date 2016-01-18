@@ -30,7 +30,7 @@ BulletManager::BulletManager()
   // Bullet‚Ìƒ[ƒ‹ƒhì¬
   p_world_ = new btDiscreteDynamicsWorld(p_dispatcher, p_broadphase, p_solver, p_config_);
   // d—Í‚ÌÝ’è
-  p_world_->setGravity(btVector3(0, -9.8f * 100, 0));
+  p_world_->setGravity(btVector3(0, -9.8f * 800, 0));
 
   //delete p_config;
 }
@@ -175,12 +175,25 @@ void BulletManager::SetPosition(Handle handle, const D3DXVECTOR3& position) {
   btTransform transform;
   transform.setIdentity();
   transform.setOrigin(bullet::ToBTVector(position));
-  p_object->clearForces();
-  btVector3 zero(0.0f, 0.0f, 0.0f);
-  p_object->setLinearVelocity(zero);
-  p_object->setAngularVelocity(zero);
   p_object->setWorldTransform(transform);
   p_object->getMotionState()->setWorldTransform(transform);
+  p_object->clearForces();
+  btVector3 zero(0.0f, 0.0f, 0.0f);
+  p_object->setCenterOfMassTransform(transform);
+  p_object->setLinearVelocity(zero);
+  p_object->setAngularVelocity(zero);
+  //p_object->translate(bullet::ToBTVector(position));
+  p_object->activate(true);
 
   p_world_->addRigidBody(p_object);
+}
+
+void BulletManager::SetAngularVelocity(Handle handle, const D3DXVECTOR3& velocity) {
+  auto p_object = container_[handle];
+  p_object->setAngularVelocity(bullet::ToBTVector(velocity));
+}
+
+void BulletManager::SetAngularFactor(Handle handle, const float factor) {
+  auto p_object = container_[handle];
+  p_object->setAngularFactor(factor);
 }

@@ -61,6 +61,10 @@ public:
 
   // AddPos
   void UpdatePos(const D3DXVECTOR2& pos);
+  void UpdateAlpha(float alpha);
+
+  void AddTime(float time) { time_ += time; }
+  void SetInterval(float time) { flash_interval_ = time; }
 
 private:
   virtual void _Update(float elapsed_time) override;
@@ -78,6 +82,10 @@ private:
   unsigned int placeMax_;	// ƒƒCƒ“‚ÌÅ‘åŒ…
   bool isFixed_;
   D3DXVECTOR2 size_;
+
+  float flash_interval_;
+  float temp_alpha_;
+  float time_;
 };
 
 

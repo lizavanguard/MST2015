@@ -89,7 +89,7 @@ SceneGame::SceneGame()
   p_3d_root_->AttachChild(p_pin_manager_);
   auto p_field = new Stage(this);
   p_3d_root_->AttachChild(p_field);
-  p_player_ = PlayerFactory::Create(new GameEnvirontMappingDrawer(*p_skybox, *p_field, p_pin_manager_->GetBiggestPin(), &p_pin_manager_->GetLanePins()), this);
+  p_player_ = PlayerFactory::Create(new GameEnvirontMappingDrawer(*p_skybox, *p_field, p_pin_manager_->GetStandardPins()), this);
   AlphaObjectServiceLocator::Get()->Push(p_player_);
 
   // UI

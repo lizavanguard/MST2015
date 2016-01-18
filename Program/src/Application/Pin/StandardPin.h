@@ -16,7 +16,7 @@
 class StandardPin : public Pin {
 public:
   // ctor
-  StandardPin(const D3DXVECTOR3& position);
+  StandardPin(const D3DXVECTOR3& position, SceneGame* p_scene_game);
 
   // dtor
   ~StandardPin();

@@ -16,6 +16,7 @@
 #include "Application/Stage/Stage.h"
 #include "Application/Pin/BiggestPin.h"
 #include "Application/Pin/LanePins.h"
+#include "Application/Pin/StandardPins.h"
 
 //--=----=----=----=----=----=----=----=----=----=----=----=----=----=----=----=
 // class definition
@@ -23,7 +24,8 @@
 class GameEnvirontMappingDrawer : public CubeTextureForEnvironmentMapping::ObjectDrawer {
 public:
   // ctor
-  GameEnvirontMappingDrawer(SkyBox& skybox, Stage& stage, BiggestPin& bigpin, LanePins* p_lanepins = nullptr) : skybox_(skybox), stage_(stage), bigpin_(bigpin), p_lanepins_(p_lanepins) {
+  GameEnvirontMappingDrawer(SkyBox& skybox, Stage& stage, StandardPins& stdpin)
+    : skybox_(skybox), stage_(stage), stdpin_(stdpin) {
   }
 
   // dtor
@@ -43,15 +45,16 @@ private:
     auto main_camera_handle = CameraManager::Instance().GetMainCameraHandle();
     CameraManager::Instance().SetMainCameraUsingHandle(cube_camera_handle);
     stage_.DrawAll();
-    bigpin_.DrawAll();
-    if( p_lanepins_ ) {
-      p_lanepins_->DrawAll();
-    }
+    stdpin_.DrawAll();
+    //bigpin_.DrawAll();
+    //if( p_lanepins_ ) {
+    //  p_lanepins_->DrawAll();
+    //}
     CameraManager::Instance().SetMainCameraUsingHandle(main_camera_handle);
   }
 
   SkyBox& skybox_;
   Stage& stage_;
-  BiggestPin& bigpin_;
-  LanePins* p_lanepins_;
+  StandardPins& stdpin_;
+  //LanePins* p_lanepins_;
 };

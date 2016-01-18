@@ -33,6 +33,7 @@ private:
   void PlayerXBiggestPin(void);
   void PlayerXGoalPins(void);
   void PlayerXLanePins(void);
+  void PlayerXStandardPins(void);
 
   Player& player_;
   PinManager& pin_manager_;

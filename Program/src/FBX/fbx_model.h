@@ -66,7 +66,7 @@ public:
   void SetPosition(const D3DXVECTOR3& position) { position_ = position; }
   void SetRotation(const D3DXVECTOR3& rotation) { rotation_ = rotation; }
   void SetRotationMatrix(const D3DXMATRIX& rotation_matrix) { rotation_matrix_ = rotation_matrix; }
-
+  void SetScale(const D3DXVECTOR3& scale) { scale_ = scale; }
 private:
   struct VERTEX_BLEND3D {
     D3DXVECTOR3 position;
@@ -156,6 +156,7 @@ private:
   int anim_playing_num_;  // 再生中のアニメーション番号
   D3DXVECTOR3 position_;
   D3DXVECTOR3 rotation_;
+  D3DXVECTOR3 scale_;
 
   LPDIRECT3DVERTEXDECLARATION9	p_declaration_;
   LPDIRECT3DPIXELSHADER9 p_pixel_shader;

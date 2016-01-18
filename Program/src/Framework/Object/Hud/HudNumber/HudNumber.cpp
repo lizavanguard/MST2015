@@ -28,7 +28,9 @@ HudNumber::HudNumber(const unsigned int placeMax, const Vector2& pos, const Vect
   , placeMax_(placeMax)
   , isFixed_(isFixed)
   , size_(size)
-{
+  , flash_interval_(0.0f)
+  , temp_alpha_(1.0f)
+  , time_(0.0f) {
   // if 桁数が0なら 何もしない
   if (placeMax_ == 0) {
     _ASSERT(placeMax_ != 0);
@@ -75,6 +77,11 @@ HudNumber::~HudNumber() {
 // _Update
 //------------------------------------------------
 void HudNumber::_Update(const float elapsed_time) {
+  if (flash_interval_ != 0.0f) {
+    temp_alpha_ = sin(time_) * 0.5f + 0.5f;
+  }
+  time_ += elapsed_time;
+  UpdateAlpha(1);
 }
 void HudNumber::UpdatePos(const D3DXVECTOR2& pos) {
   const float halfWidth = size_.x / 2.0f;
@@ -161,6 +168,21 @@ void HudNumber::ChangeSubPlaceMax(unsigned int subPlaceMax) {
 //------------------------------------------------
 unsigned int HudNumber::GetSubPlaceMax(void) const {
   return pCounter_->GetPlaceMax();
+}
+
+//------------------------------------------------
+// Alphaの変更
+//------------------------------------------------
+void HudNumber::UpdateAlpha(const float alpha) {
+  // 数値に応じてuv値を計算する
+  const unsigned int number = pCounter_->GetValue();
+  for (unsigned int placeCnt = 0; placeCnt < placeMax_; ++placeCnt) {
+    // 数値データの表示更新
+    // 桁の値を取り出す
+    const int value = (number / (int)(powf((float)10, (float)placeMax_ - placeCnt - 1))) % 10;
+    auto& child = GetChild(placeCnt);
+    static_cast<HudOverlay&>(child).ChangeAlpha(temp_alpha_);// ChangeUV(0.1f * value, 0.1f * value + 0.1f, 0.0f, 1.0f);
+  }
 }
 
 

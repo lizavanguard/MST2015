@@ -79,6 +79,8 @@ public:
 
   // set
   void SetPosition(Handle handle, const D3DXVECTOR3& position);
+  void SetAngularVelocity(Handle handle, const D3DXVECTOR3& velocity);
+  void SetAngularFactor(Handle handle, float factor);
 
 private:
   // property

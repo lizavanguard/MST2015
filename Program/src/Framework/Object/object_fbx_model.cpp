@@ -49,6 +49,7 @@ void ObjectFBXModel::_Update(const float elapsed_time) {
   p_fbx_model_->SetPosition(GetWorldPosition());
   p_fbx_model_->SetRotation(rotation_);
   p_fbx_model_->SetRotationMatrix(rotation_matrix_);
+  p_fbx_model_->SetScale(scale_);
   p_fbx_model_->Update();
 }
 

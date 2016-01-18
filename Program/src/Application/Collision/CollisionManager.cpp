@@ -47,8 +47,8 @@ CollisionManager::~CollisionManager() {
 void CollisionManager::Update(void) {
   num_killed_pins_at_current_loop_ = 0;
 
-  PlayerXBiggestPin();
-  PlayerXLanePins();
+  //PlayerXBiggestPin();
+  //PlayerXLanePins();
   //PlayerXGoalPins();
 }
 
@@ -138,4 +138,26 @@ void CollisionManager::PlayerXGoalPins(void) {
   }
 
   goal_pins.ReactCollision(player_position);
+}
+
+//------------------------------------------------
+// Player x StandardPins
+//------------------------------------------------
+void CollisionManager::PlayerXStandardPins(void) {
+  const D3DXVECTOR3& player_position = player_.GetPosition();
+  const float player_size = player_.GetSize();
+
+  for (auto p_lane_pin : pin_manager_.GetStandardPins()) {
+    if (p_lane_pin->IsCollided()) {
+      continue;
+    }
+    const D3DXVECTOR3& pin_position = p_lane_pin->GetPosition();
+    const float pin_size = p_lane_pin->GetSize();
+    const bool is_intersected = IsSphereHit2(player_position.x, player_position.z, player_size, pin_position.x, pin_position.z, pin_size);
+    if (!is_intersected) {
+      continue;
+    }
+    p_lane_pin->ReactCollision(pin_position - player_position);
+    ++num_killed_pins_at_current_loop_;
+  }
 }
